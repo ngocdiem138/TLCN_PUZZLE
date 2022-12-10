@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "gatsby";
 import { Collapse } from "react-bootstrap";
 import GlobalContext from "../../context/GlobalContext";
@@ -6,7 +6,12 @@ import imgL from "../../assets/image/logo-main-black.png";
 
 const Sidebar = () => {
   const gContext = useContext(GlobalContext);
-  const isEmployer = localStorage.getItem("userRole") == "EMPLOYER";
+  const [isEmployer, setIsEmployer] = useState(false);
+  useEffect(() => {
+    if (localStorage.getItem("userRole") == "EMPLOYER") {
+      setIsEmployer(true);
+    }
+  })
 
   return (
     <>
@@ -28,39 +33,39 @@ const Sidebar = () => {
               : null}
           </div>
           <ul className="list-unstyled dashboard-layout-sidebar">
-          {isEmployer ?<>
-            <li className="">
-              <Link
-                activeClassName="active"
-                to="/dashboard-main"
-                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
-              >
-                <i className="icon icon-layout-11 mr-7"></i>Dashboard
-              </Link>
-            </li>
-            
-            <li className="">
-              <Link
-                to="/dashboard-jobs"
-                activeClassName="active"
-                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
-              >
-                <i className="fas fa-briefcase mr-7"></i>Posted Jobs
-              </Link>
-            </li>
-            <li className="">
-              <Link
-                to="/dashboard-applicants"
-                activeClassName="active"
-                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
-              >
-                <i className="fas fa-user mr-7"></i>Applicants{" "}
-                <span className="ml-auto px-1 h-1 bg-dodger text-white font-size-3 rounded-5 max-height-px-18 flex-all-center">
-                  14
-                </span>
-              </Link>
-            </li></>
-            : null}
+            {isEmployer ? <>
+              <li className="">
+                <Link
+                  activeClassName="active"
+                  to="/dashboard-main"
+                  className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+                >
+                  <i className="icon icon-layout-11 mr-7"></i>Dashboard
+                </Link>
+              </li>
+
+              <li className="">
+                <Link
+                  to="/dashboard-jobs"
+                  activeClassName="active"
+                  className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+                >
+                  <i className="fas fa-briefcase mr-7"></i>Posted Jobs
+                </Link>
+              </li>
+              <li className="">
+                <Link
+                  to="/dashboard-applicants"
+                  activeClassName="active"
+                  className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+                >
+                  <i className="fas fa-user mr-7"></i>Applicants{" "}
+                  <span className="ml-auto px-1 h-1 bg-dodger text-white font-size-3 rounded-5 max-height-px-18 flex-all-center">
+                    14
+                  </span>
+                </Link>
+              </li></>
+              : null}
             <li className="">
               <Link
                 to="/dashboard-settings"

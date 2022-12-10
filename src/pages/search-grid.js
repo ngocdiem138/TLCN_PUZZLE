@@ -91,12 +91,19 @@ const SearchGrid = () => {
     JobPostServiceIml.getAllActiveJobPosts().then((response) => { setJobs(response.data.data) });
   }, [])
 
+  const [auth, setAuth] = useState(undefined);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    setAuth(localStorage.getItem("userRole"));
+    setIsAuthenticated(localStorage.getItem("isLoggedIn"));
+  })
+
   const [filter, setFilter] = useState({
     minBudget: rangeValues[0],
     maxBudget: rangeValues[1],
     experienceYear: [],
     employmentTypes: [],
-    numDayAgo: -1, 
+    numDayAgo: -1,
     titles: [],
     cities: [],
     positions: [],
@@ -109,9 +116,6 @@ const SearchGrid = () => {
   };
 
   const saveForJob = (id) => {
-    const auth = localStorage.getItem("userRole");
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
-
     if (!isAuthenticated) {
       setError("You must login to save for jobs");
     } else {
@@ -144,8 +148,6 @@ const SearchGrid = () => {
   };
 
   const applyForJob = (id) => {
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
-
     if (!isAuthenticated) {
       setError("You must login to apply for jobs")
     } else {
@@ -195,7 +197,7 @@ const SearchGrid = () => {
   const getProducts = (variables) => {
     JobPostServiceIml.getJobByFilterParams(variables).then((response) => { setJobs(response.data.data); });
   };
-  
+
 
   const jobGrid = jobs.map(job => {
     return <div className="col-12 col-lg-6">
@@ -544,7 +546,7 @@ const SearchGrid = () => {
                 <div className="widgets mb-11">
                   <h4 className="font-size-6 font-weight-semibold mb-6">Posted Time</h4>
                   <ul className="list-unstyled filter-check-list">
-                    <CheckboxRadio list={postTime} value={postTime} 
+                    <CheckboxRadio list={postTime} value={postTime}
                       handleFilters={(filters) => handleFilters(filters, "numDayAgo")} />
                   </ul>
                 </div>

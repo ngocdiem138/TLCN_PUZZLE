@@ -45,7 +45,7 @@ class Login extends Component {
 
     this.props.login(data, this.props.history);
     const { error, success } = this.props;
-    if(success){
+    if (success) {
       this.handleClose()
     }
   };
@@ -67,7 +67,7 @@ class Login extends Component {
     // if (localStorage.getItem("isLoggedIn")) {
     //   return <Redirect to="/account" />
     // }
-    if(success){
+    if (success) {
       this.handleClose()
     }
 
@@ -229,9 +229,9 @@ class Login extends Component {
                     </div>
                     {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
                     {success ? <div className="alert alert-success col-12" role="alert">{success}</div> : null}
-                      <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
-                        Log in{" "}
-                      </button>
+                    <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
+                      Log in{" "}
+                    </button>
                     <p className="font-size-4 text-center heading-default-color">
                       Don’t have an account?{" "}
                       <a href="/#" className="text-primary">

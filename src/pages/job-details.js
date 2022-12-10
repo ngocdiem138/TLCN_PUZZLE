@@ -54,10 +54,14 @@ const JobDetails = () => {
     </li>
   });
 
-  const saveForJob = () => {
-    const auth = localStorage.getItem("userRole");
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
 
+  const [auth, setAuth] = useState(undefined);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    setAuth(localStorage.getItem("userRole"));
+    setIsAuthenticated(localStorage.getItem("isLoggedIn"));
+  })
+  const saveForJob = () => {
     if (!isAuthenticated) {
       setError("You must login to save for jobs");
     } else {
@@ -91,12 +95,12 @@ const JobDetails = () => {
   };
 
   const applyForJob = () => {
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
+
 
     if (!isAuthenticated) {
       setError("You must login to apply for jobs")
     } else {
-       axios
+      axios
         .get(
           API_BASE_URL + "/candidate/apply-job-post/" + id,
           {
@@ -111,20 +115,20 @@ const JobDetails = () => {
             setSucces("Successfuly applied for job")
             setError("")
             const countTimer = setInterval(() => {
-    
-            // every 1000 milliseconds
+
+              // every 1000 milliseconds
             }, 1000);
             clearInterval(countTimer);
           } else if (response.data.status != 200) {
             console.log(response.data.status)
-            switch(response.data.status) {
+            switch (response.data.status) {
               case 403:
                 window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
                 break;
               default:
                 setSucces("");
                 setError(response.data.errMsg)
-                //return 'foo';
+              //return 'foo';
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
@@ -136,7 +140,7 @@ const JobDetails = () => {
         })
         .catch((error) => {
           console.log(error);
-          
+
         });
     }
   };

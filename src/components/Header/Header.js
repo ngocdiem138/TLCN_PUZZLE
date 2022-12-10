@@ -60,19 +60,26 @@ const Header = () => {
   const changeLang = (lang) => {
     i18n.changeLanguage(lang);
     setLang(lang)
-    localStorage.setItem("lang",lang)
+    localStorage.setItem("lang", lang)
   }
+
+  const [isEmployer, setIsEmployer] = useState(false);
+  const [isCandidate, setIsCandidate] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const lang = localStorage.getItem("lang");
     if (lang) { i18n.changeLanguage(lang) };
+    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+    setIsEmployer(localStorage.getItem("userRole") == "CANDIDATE");
+    setIsCandidate(localStorage.getItem("userRole") == "EMPLOYER");
   })
 
   const gContext = useContext(GlobalContext);
   const [showScrolling, setShowScrolling] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
   const [lang, setLang] = useState(undefined);
- 
+
   const size = useWindowSize();
 
   useScrollPosition(({ prevPos, currPos }) => {
@@ -88,9 +95,7 @@ const Header = () => {
     }
   });
 
-  const isLoggedIn = localStorage.getItem("isLoggedIn");
-  const isCandidate = localStorage.getItem("userRole") == "CANDIDATE";
-  const isEmployer = localStorage.getItem("userRole") == "EMPLOYER";
+
   const handleSignUp = () => {
     if (isLoggedIn) {
       logout();
@@ -400,9 +405,9 @@ const Header = () => {
                   className="btn btn-transparent text-uppercase font-size-4 heading-default-color"
                   // href="/#"
                   onClick={() => changeLang('en')}
-                  style={lang == 'en' ? { color: "green", minWidth: "30px"} : { color: "gray", minWidth: "10px" }}
+                  style={lang == 'en' ? { color: "green", minWidth: "30px" } : { color: "gray", minWidth: "10px" }}
                 >
-                  EN 
+                  EN
                 </a>
                 <a
                   className="btn btn-transparent text-uppercase font-size-4 heading-default-color"
@@ -410,7 +415,7 @@ const Header = () => {
                   onClick={() => changeLang('vi')}
                   style={lang == 'vi' ? { color: "green", minWidth: "30px" } : { color: "gray", minWidth: "10px" }}
                 >
-                   VI
+                  VI
                 </a>
               </div>
             )}

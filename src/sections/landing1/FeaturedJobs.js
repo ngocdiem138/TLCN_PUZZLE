@@ -33,11 +33,15 @@ const FeaturedJobs = () => {
 
   const [jobs, setJobs] = useState([]);
 
-  
+  const [auth, setAuth] = useState(undefined);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    setAuth(localStorage.getItem("userRole"));
+    setIsAuthenticated(localStorage.getItem("isLoggedIn"));
+  })
+
 
   const saveForJob = (id) => {
-    const auth = localStorage.getItem("userRole");
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
 
     if (!isAuthenticated) {
       setError("You must login to save for jobs");
@@ -71,8 +75,6 @@ const FeaturedJobs = () => {
   };
 
   const applyForJob = (id) => {
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
-
     if (!isAuthenticated) {
       setError("You must login to apply for jobs")
     } else {
