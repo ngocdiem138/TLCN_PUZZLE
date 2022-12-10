@@ -1,0 +1,6 @@
+{
+    "globals": {
+        "localStorage": true,
+        "fetch": true
+    }
+}
