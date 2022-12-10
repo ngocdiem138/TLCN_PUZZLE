@@ -52,7 +52,7 @@ const Hero = () => {
     event.preventDefault();
     handleFilters(event.target[0].value, event.target[0].name);
     handleFilters(city, "cities");
-    window.location.assign('http://localhost:8000/search-list-2?title=' + title + '&city=' + city);
+    window.location.assign('https://puzzle.herokuapp.com/search-list-2?title=' + title + '&city=' + city);
     setError("");
     setSucces("");
   }

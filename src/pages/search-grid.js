@@ -169,8 +169,8 @@ const SearchGrid = () => {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
-                setError(response.data.errMsg + " .You can register in: http://localhost:8000/registerOfUser")
-                // window.location.assign("http://localhost:8000/registerOfUser");
+                setError(response.data.errMsg + " .You can register in: https://puzzle.herokuapp.com/registerOfUser")
+                // window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
                 break;
               default:
                 setSucces("");
@@ -179,7 +179,7 @@ const SearchGrid = () => {
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
-            //window.location.assign("http://localhost:8000/registerOfUser");
+            //window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
           } else {
 
             setSucces("Request Failed")

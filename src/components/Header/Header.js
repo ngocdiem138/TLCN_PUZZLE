@@ -71,7 +71,7 @@ const Header = () => {
   const gContext = useContext(GlobalContext);
   const [showScrolling, setShowScrolling] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
-  const [lang, setLang] = useState(localStorage.getItem("lang"));
+  const [lang, setLang] = useState(undefined);
  
   const size = useWindowSize();
 

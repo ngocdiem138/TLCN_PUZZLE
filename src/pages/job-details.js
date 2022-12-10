@@ -119,7 +119,7 @@ const JobDetails = () => {
             console.log(response.data.status)
             switch(response.data.status) {
               case 403:
-                window.location.assign("http://localhost:8000/registerOfUser");
+                window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
                 break;
               default:
                 setSucces("");
@@ -128,7 +128,7 @@ const JobDetails = () => {
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
-            //window.location.assign("http://localhost:8000/registerOfUser");
+            //window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
           } else {
 
             setSucces("Request Failed")

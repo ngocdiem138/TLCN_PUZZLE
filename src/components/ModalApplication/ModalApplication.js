@@ -387,13 +387,13 @@ const ModalApplication = (props) => {
                 <div className="text-center mb-13 mb-lg-0 mt-12">
                   <button className="btn btn-primary btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign('http://localhost:8000/contact');
+                      window.location.assign('https://puzzle.herokuapp.com/contact');
                     }}>
                     Contact
                   </button>
                   <button className="btn btn-outline-gray btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign('http://localhost:8000/reject');
+                      window.location.assign('https://puzzle.herokuapp.com/reject');
                     }}>
                     Reject
                   </button>
