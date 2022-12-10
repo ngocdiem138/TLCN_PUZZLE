@@ -17,36 +17,6 @@ module.exports = {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/app/*`] },
     },
-    // {
-    //   resolve: `gatsby-source-filesystem`,
-    //   options: {
-    //     path: `${__dirname}/src/locales`,
-    //     name: `locale`
-    //   }
-    // },
-    // {
-    //   resolve: "gatsby-plugin-react-i18next",
-    //   options: {
-    //     langKeyDefault: "en",
-    //     localeJsonSourceName: "locale",
-    //     languages: ["en", "es", "de"],
-    //     useLangKeyLayout: false,
-    //     prefixDefault: true,
-    //     i18nextOptions: {
-    //       interpolation: {
-    //         escapeValue: false,
-    //       },
-    //       keySeparator: false,
-    //       nsSeparator: false,
-    //     },
-    //     pages: [
-    //       {
-    //         matchPath: "/:lang?/*",
-    //         getLanguageFromPath: true,
-    //       },
-    //     ],
-    //   },
-    // },
   ],
 };
 
