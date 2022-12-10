@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PageWrapper from "../components/PageWrapper";
 import Hero from "../sections/landing1/Hero";
 import Brands from "../sections/landing1/Brands";
@@ -10,8 +10,10 @@ import { Trans, useTranslation } from 'gatsby-plugin-react-i18next';
 import { graphql } from 'gatsby';
 
 const IndexPage = () => {
-  const isSSR = typeof window === "undefined"
-  localStorage.setItem("lang","en")
+  const isSSR = typeof window === "undefined";
+  useEffect(()=>{
+    localStorage.setItem("lang","en")
+  })
   return (
     <>
       <PageWrapper
