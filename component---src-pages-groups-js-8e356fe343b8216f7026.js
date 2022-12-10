@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkjustcamp_gatsby=self.webpackChunkjustcamp_gatsby||[]).push([[104],{45396:function(e,t,a){a.r(t);var l=a(29499),u=a(67294),c=a(112);a(7201);t.default=function(){return u.createElement("div",null,u.createElement(l.Router,null,u.createElement(c.default,{path:"/groups/job-details/:id"}),u.createElement(c.default,{path:"/groups/candidate-profiles-2"}),u.createElement(c.default,{path:"/groups/search-list-2?title='title'&city='city'"})))}}}]);
+//# sourceMappingURL=component---src-pages-groups-js-8e356fe343b8216f7026.js.map
