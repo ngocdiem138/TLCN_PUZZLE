@@ -28,7 +28,7 @@ const defaultJobs = [
 
 const DashboardApplicants = () => {
 
-
+  const [jobPostId, setJobPostId] = useState(0);
   var updated = []
   const [jobs, setJobs] = useState([]);
   const [listJob, setListJob] = useState([]);
@@ -44,7 +44,7 @@ const DashboardApplicants = () => {
   useEffect(() => {
     if(id!=0){
       JobPostServiceIml.getAllCandidateApplyJobPosts(id).then((response) => {
-        setApplicants(response.data.data)
+        setApplicants(response.data.data);
       });
     }
   }, []);
@@ -65,7 +65,8 @@ const DashboardApplicants = () => {
     setId(event.value);
     if(event.value!=0){
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
-        setApplicants(response.data.data)
+        setApplicants(response.data.data);
+        setJobPostId(event.value);
       });
     }
   };
@@ -102,7 +103,6 @@ const DashboardApplicants = () => {
           className="font-size-3 font-weight-bold text-black-2 text-uppercase"
           onClick={(e) => {
             e.preventDefault();
-            // <ModalApplication id={applicant.id}/>
             gContext.setToggleApplicantId(applicant.id)
             gContext.toggleApplicationModal();
           }}
@@ -114,7 +114,7 @@ const DashboardApplicants = () => {
     <td className="table-y-middle py-7 min-width-px-110 pr-0">
       <div className="">
         <Link
-          to="/contact"
+          to={"/contact?action=accept&candidateId="+applicant.id+"&jobPostId="+jobPostId}
           className="font-size-3 font-weight-bold text-green text-uppercase"
         >
           Contact
@@ -124,7 +124,7 @@ const DashboardApplicants = () => {
     <td className="table-y-middle py-7 min-width-px-100 pr-0">
       <div className="">
         <Link
-          to="/#"
+           to={"/contact?action=reject&candidateId="+applicant.id+"&jobPostId="+jobPostId}
           className="font-size-3 font-weight-bold text-red-2 text-uppercase"
         >
           Reject
