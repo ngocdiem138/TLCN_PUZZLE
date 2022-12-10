@@ -1,0 +1,3 @@
+{
+    "footer": "Heute ist {{date, date_huge}}"
+  }
