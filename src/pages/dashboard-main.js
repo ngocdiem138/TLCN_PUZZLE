@@ -29,6 +29,56 @@ const DashboardMain = () => {
   const [jobs, setJobs] = useState([]);
   const [postedJobs, setPostedJobs] = useState(0);
   const [totalApplicants, setTotalApplicants] = useState(0);
+
+  const [jobPostId, setJobPostId] = useState(0);
+  var updated = []
+  // const [jobs, setJobs] = useState([]);
+  const [listJob, setListJob] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [applicants, setApplicants] = useState([]);
+  const [id, setId] = useState(0);
+  // useEffect(() => {
+  //   JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
+  //     setJobs(response.data.data);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    if (id != 0) {
+      JobPostServiceIml.getAllCandidateApplyJobPosts(id).then((response) => {
+        setApplicants(response.data.data);
+      });
+    }
+  }, []);
+
+  let jobUpdate= {value:0, label:0};
+
+  function updateJobList(jobs) {
+    if (jobs) {
+      jobs.forEach((item) => {
+        let myfruit = {}
+        myfruit["value"] = item.job_post.id;
+        myfruit["label"] = item.job_post.title; // you modify it's properties
+        updated = [...updated, myfruit];
+      });
+    }
+    jobUpdate= updated[0];
+    console.log(jobUpdate);
+    return updated;
+    
+  }
+
+  const handleChange = (event) => {
+    setId(event.value);
+    if (event.value != 0) {
+      JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
+        setApplicants(response.data.data);
+        setJobPostId(event.value);
+      });
+    }
+  };
+
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       setJobs(response.data.data);
@@ -41,61 +91,125 @@ const DashboardMain = () => {
       setTotalApplicants(response.data.data);
     });
   }, []);
- 
-  
-  const listJob = jobs.map((job)=>{
+
+
+  const listJobPost = jobs.map((job) => {
     return <tr className="border border-color-2">
-    <th
-      scope="row"
-      className="pl-6 border-0 py-7 min-width-px-235"
-    >
-      <div className="">
-        <Link
-          to={"/groups/job-details/" + job.id}
-          className="font-size-4 mb-0 font-weight-semibold text-black-2"
+      <th
+        scope="row"
+        className="pl-6 border-0 py-7 min-width-px-235"
+      >
+        <div className="">
+          <Link
+            to={"/groups/job-details/" + job.job_post.id}
+            className="font-size-4 mb-0 font-weight-semibold text-black-2"
+          >
+            {job.job_post.title}
+          </Link>
+        </div>
+      </th>
+      <td className="table-y-middle py-7 min-width-px-135">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {job.job_post.employmentType}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-125">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {job.job_post.city}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-155">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {job.job_post.createTime}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-205">
+        <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
+          {job.application_amount}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-80">
+        <a
+          href="/#"
+          className="font-size-3 font-weight-bold text-green text-uppercase"
         >
-          {job.title}
+          Edit
+        </a>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-100">
+        <a
+          href="/#"
+          className="font-size-3 font-weight-bold text-red-2 text-uppercase"
+        >
+          Delete
+        </a>
+      </td>
+    </tr>
+  })
+
+  const listApplication = applicants.map(applicant => {
+    return <tr className="border border-color-2">
+      <th scope="row" className="pl-6 border-0 py-7 pr-0">
+        <Link
+          to="/candidate-profile"
+          className="media min-width-px-235 align-items-center"
+        >
+          <div className="circle-36 mr-6">
+            <img src={imgP1} alt="" className="w-100" />
+          </div>
+          <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
+            {applicant.lastName} {applicant.firstName}
+          </h4>
         </Link>
-      </div>
-    </th>
-    <td className="table-y-middle py-7 min-width-px-135">
-      <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-      {job.employmentType}
-      </h3>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-125">
-      <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-      {job.city}
-      </h3>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-155">
-      <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-        {job.createTime}
-      </h3>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-205">
-      <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-        07
-      </h3>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-80">
-      <a
-        href="/#"
-        className="font-size-3 font-weight-bold text-green text-uppercase"
-      >
-        Edit
-      </a>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-100">
-      <a
-        href="/#"
-        className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-      >
-        Delete
-      </a>
-    </td>
-  </tr>
-  })  
+      </th>
+      <td className="table-y-middle py-7 min-width-px-235 pr-0">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {applicant.educationLevel}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-170 pr-0">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {applicant.workStatus}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-170 pr-0">
+        <div className="">
+          <a
+            href="/#"
+            className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+            onClick={(e) => {
+              e.preventDefault();
+              gContext.setToggleApplicantId(applicant.id)
+              gContext.toggleApplicationModal();
+            }}
+          >
+            View Application
+          </a>
+        </div>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-110 pr-0">
+        <div className="">
+          <Link
+            to={"/contact?action=accept&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            className="font-size-3 font-weight-bold text-green text-uppercase"
+          >
+            Contact
+          </Link>
+        </div>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-100 pr-0">
+        <div className="">
+          <Link
+            to={"/contact?action=reject&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            className="font-size-3 font-weight-bold text-red-2 text-uppercase"
+          >
+            Reject
+          </Link>
+        </div>
+      </td>
+    </tr>
+  });
+
   return (
     <>
       <PageWrapper
@@ -225,14 +339,16 @@ const DashboardMain = () => {
             <div className="mb-14">
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6 mb-lg-0 mb-4">
-                  <h3 className="font-size-6 mb-0">Applicants List (12)</h3>
+                  <h3 className="font-size-6 mb-0">Applicants List ({applicants ? applicants.length : 0})</h3>
                 </div>
                 <div className="col-lg-6">
                   <div className="d-flex flex-wrap align-items-center justify-content-lg-end">
                     <p className="font-size-4 mb-0 mr-6 py-2">Filter by Job:</p>
                     <div className="h-px-48">
                       <Select
-                        options={defaultJobs}
+                        onChange={handleChange}
+                        options={updateJobList(jobs)}
+                        defaultValue={jobUpdate}
                         className="pl-0 h-100 arrow-3 arrow-3-black min-width-px-273  text-black-2 d-flex align-items-center w-100"
                         border={false}
                       />
@@ -278,301 +394,7 @@ const DashboardMain = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr className="border border-color-2">
-                        <th scope="row" className="pl-6 border-0 py-7 pr-0">
-                          <Link
-                            to="/candidate-profile"
-                            className="media min-width-px-235 align-items-center"
-                          >
-                            <div className="circle-36 mr-6">
-                              <img src={imgP1} alt="" className="w-100" />
-                            </div>
-                            <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-                              Nicolas Bradley
-                            </h4>
-                          </Link>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-235 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Senior Project Manager
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            12 July, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <div className="">
-                            <a
-                              href="/#"
-                              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                gContext.toggleApplicationModal();
-                              }}
-                            >
-                              View Application
-                            </a>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-110 pr-0">
-                          <div className="">
-                            <Link
-                              to="/contact"
-                              className="font-size-3 font-weight-bold text-green text-uppercase"
-                            >
-                              Contact
-                            </Link>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100 pr-0">
-                          <div className="">
-                            <Link
-                              to="/#"
-                              className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                            >
-                              Reject
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th scope="row" className="pl-6 border-0 py-7 pr-0">
-                          <Link
-                            to="/candidate-profile"
-                            className="media min-width-px-235 align-items-center"
-                          >
-                            <div className="circle-36 mr-6">
-                              <img src={imgP2} alt="" className="w-100" />
-                            </div>
-                            <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-                              Elizabeth Gomez
-                            </h4>
-                          </Link>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-235 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Senior Project Manager
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            14 July, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <div className="">
-                            <a
-                              href="/#"
-                              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                gContext.toggleApplicationModal();
-                              }}
-                            >
-                              View Application
-                            </a>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-110 pr-0">
-                          <div className="">
-                            <Link
-                              to="/contact"
-                              className="font-size-3 font-weight-bold text-green text-uppercase"
-                            >
-                              Contact
-                            </Link>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100 pr-0">
-                          <div className="">
-                            <Link
-                              to="/#"
-                              className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                            >
-                              Reject
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th scope="row" className="pl-6 border-0 py-7 pr-0">
-                          <Link
-                            to="/candidate-profile"
-                            className="media min-width-px-235 align-items-center"
-                          >
-                            <div className="circle-36 mr-6">
-                              <img src={imgP3} alt="" className="w-100" />
-                            </div>
-                            <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-                              Joe Wade
-                            </h4>
-                          </Link>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-235 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Head of Marketing
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            14 July, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <div className="">
-                            <a
-                              href="/#"
-                              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                gContext.toggleApplicationModal();
-                              }}
-                            >
-                              View Application
-                            </a>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-110 pr-0">
-                          <div className="">
-                            <Link
-                              to="/contact"
-                              className="font-size-3 font-weight-bold text-green text-uppercase"
-                            >
-                              Contact
-                            </Link>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100 pr-0">
-                          <div className="">
-                            <Link
-                              to="/#"
-                              className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                            >
-                              Reject
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th scope="row" className="pl-6 border-0 py-7 pr-0">
-                          <Link
-                            to="/candidate-profile"
-                            className="media min-width-px-235 align-items-center"
-                          >
-                            <div className="circle-36 mr-6">
-                              <img src={imgP4} alt="" className="w-100" />
-                            </div>
-                            <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-                              Roger Hawkins
-                            </h4>
-                          </Link>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-235 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            UI Designer
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            16 July, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <div className="">
-                            <a
-                              href="/#"
-                              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                gContext.toggleApplicationModal();
-                              }}
-                            >
-                              View Application
-                            </a>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-110 pr-0">
-                          <div className="">
-                            <Link
-                              to="/contact"
-                              className="font-size-3 font-weight-bold text-green text-uppercase"
-                            >
-                              Contact
-                            </Link>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100 pr-0">
-                          <div className="">
-                            <Link
-                              to="/#"
-                              className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                            >
-                              Reject
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th scope="row" className="pl-6 border-0 py-7 pr-0">
-                          <Link
-                            to="/candidate-profile"
-                            className="media min-width-px-235 align-items-center"
-                          >
-                            <div className="circle-36 mr-6">
-                              <img src={imgP5} alt="" className="w-100" />
-                            </div>
-                            <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-                              Marie Green
-                            </h4>
-                          </Link>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-235 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Senior Project Manager
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            21 July, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-170 pr-0">
-                          <div className="">
-                            <a
-                              href="/#"
-                              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                gContext.toggleApplicationModal();
-                              }}
-                            >
-                              View Application
-                            </a>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-110 pr-0">
-                          <div className="">
-                            <Link
-                              to={"/contact"}
-                              className="font-size-3 font-weight-bold text-green text-uppercase"
-                            >
-                              Contact
-                            </Link>
-                          </div>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100 pr-0">
-                          <div className="">
-                            <Link
-                              to="/#"
-                              className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                            >
-                              Reject
-                            </Link>
-                          </div>
-                        </td>
-                      </tr>
+                      {listApplication}
                     </tbody>
                   </table>
                 </div>
@@ -647,18 +469,6 @@ const DashboardMain = () => {
                 <div className="col-lg-6 mb-lg-0 mb-4">
                   <h3 className="font-size-6 mb-0">Posted Jobs ({jobs.length})</h3>
                 </div>
-                {/* <div className="col-lg-6">
-                  <div className="d-flex flex-wrap align-items-center justify-content-lg-end">
-                    <p className="font-size-4 mb-0 mr-6 py-2">Filter by Job:</p>
-                    <div className="h-px-48">
-                      <Select
-                        options={defaultJobs}
-                        className="pl-0 h-100 arrow-3 arrow-3-black min-width-px-273  text-black-2 d-flex align-items-center w-100"
-                        border={false}
-                      />
-                    </div>
-                  </div>
-                </div> */}
               </div>
               <div className="bg-white shadow-8 pt-7 rounded pb-9 px-11">
                 <div className="table-responsive ">
@@ -706,211 +516,7 @@ const DashboardMain = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {listJob}
-                      {/* <tr className="border border-color-2">
-                        <th
-                          scope="row"
-                          className="pl-6 border-0 py-7 min-width-px-235"
-                        >
-                          <div className="">
-                            <Link
-                              to="/job-details"
-                              className="font-size-4 mb-0 font-weight-semibold text-black-2"
-                            >
-                              Senior Project Manager
-                            </Link>
-                          </div>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-135">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Full-Time
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-125">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            New York
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-155">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            12 July, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-205">
-                          <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-                            47
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-80">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-green text-uppercase"
-                          >
-                            Edit
-                          </a>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                          >
-                            Delete
-                          </a>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th
-                          scope="row"
-                          className="pl-6 border-0 py-7 min-width-px-235"
-                        >
-                          <div className="">
-                            <Link
-                              to="/job-details"
-                              className="font-size-4 mb-0 font-weight-semibold text-black-2"
-                            >
-                              UI Designer
-                            </Link>
-                          </div>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-135">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Full-Time
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-125">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Remote
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-155">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            24 June, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-205">
-                          <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-                            145
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-80">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-green text-uppercase"
-                          >
-                            Edit
-                          </a>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                          >
-                            Delete
-                          </a>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th
-                          scope="row"
-                          className="pl-6 border-0 py-7 min-width-px-235"
-                        >
-                          <div className="">
-                            <Link
-                              to="/job-details"
-                              className="font-size-4 mb-0 font-weight-semibold text-black-2"
-                            >
-                              Head of Marketing
-                            </Link>
-                          </div>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-135">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Full-Time
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-125">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            London
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-155">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            15 June, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-205">
-                          <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-                            62
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-80">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-green text-uppercase"
-                          >
-                            Edit
-                          </a>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                          >
-                            Delete
-                          </a>
-                        </td>
-                      </tr>
-                      <tr className="border border-color-2">
-                        <th
-                          scope="row"
-                          className="pl-6 border-0 py-7 min-width-px-235"
-                        >
-                          <div className="">
-                            <Link
-                              to="/job-details"
-                              className="font-size-4 mb-0 font-weight-semibold text-black-2"
-                            >
-                              Full-Stack Developer
-                            </Link>
-                          </div>
-                        </th>
-                        <td className="table-y-middle py-7 min-width-px-135">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            Part-Time
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-125">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            California
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-155">
-                          <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-                            29 May, 2020
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-205">
-                          <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-                            184
-                          </h3>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-80">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-green text-uppercase"
-                          >
-                            Edit
-                          </a>
-                        </td>
-                        <td className="table-y-middle py-7 min-width-px-100">
-                          <a
-                            href="/#"
-                            className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-                          >
-                            Delete
-                          </a>
-                        </td>
-                      </tr> */}
+                      {listJobPost}
                     </tbody>
                   </table>
                 </div>
