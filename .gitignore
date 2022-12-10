@@ -7,3 +7,5 @@ node_modules
 yarn-error.log
 .history/
 package-lock.log
+package-lock.json
+yarn.lock
