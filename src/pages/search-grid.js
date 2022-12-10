@@ -6,18 +6,6 @@ import { useEffect } from "react";
 import CheckBox from "../components/CheckBox/Checkbox";
 
 import imgB1 from "../assets/image/l1/png/feature-brand-1.png";
-import imgB2 from "../assets/image/l1/png/feature-brand-2.png";
-import imgB3 from "../assets/image/l1/png/feature-brand-3.png";
-import imgB4 from "../assets/image/l1/png/feature-brand-4.png";
-import imgB5 from "../assets/image/l1/png/feature-brand-5.png";
-import imgB6 from "../assets/image/l1/png/feature-brand-6.png";
-
-
-import imgF1 from "../assets/image/l2/png/featured-job-logo-1.png";
-import imgF2 from "../assets/image/l2/png/featured-job-logo-2.png";
-import imgF3 from "../assets/image/l2/png/featured-job-logo-3.png";
-import imgF4 from "../assets/image/l2/png/featured-job-logo-4.png";
-import imgF5 from "../assets/image/l2/png/featured-job-logo-5.png";
 
 import imgF from "../assets/image/svg/icon-fire-rounded.svg";
 import iconL from "../assets/image/svg/icon-loaction-pin-black.svg";
@@ -29,11 +17,9 @@ import styled from "styled-components";
 import { Range, getTrackBackground } from "react-range";
 import { employmentType, experienceYear, postTime } from "../components/Sidebar/MenuData";
 import { JobPostServiceIml } from "../actions/user-actions";
-import { fetchJobByFilterParams } from "../actions/perfume-actions";
 import CheckboxRadio from "../components/CheckboxRadio/CheckboxRadio";
 import axios from "axios";
 import { API_BASE_URL } from "../utils/constants/url";
-import { set } from "lodash";
 
 const STEP = 50;
 const MIN = 0;

@@ -6,6 +6,7 @@ import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
 import GlobalContext from "../context/GlobalContext";
 import { JobPostServiceIml } from "../actions/user-actions";
+import { EmployerServiceIml } from "../actions/admin-actions";
 import { useState } from "react";
 import { useEffect } from "react";
 
@@ -26,11 +27,22 @@ const defaultJobs = [
 const DashboardMain = () => {
   const gContext = useContext(GlobalContext);
   const [jobs, setJobs] = useState([]);
+  const [postedJobs, setPostedJobs] = useState(0);
+  const [totalApplicants, setTotalApplicants] = useState(0);
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       setJobs(response.data.data);
+      setPostedJobs(response.data.data.length);
     });
   }, []);
+
+  useEffect(() => {
+    EmployerServiceIml.getAllAmountApplicationApplied().then((response) => {
+      setTotalApplicants(response.data.data);
+    });
+  }, []);
+ 
+  
   const listJob = jobs.map((job)=>{
     return <tr className="border border-color-2">
     <th
@@ -111,7 +123,7 @@ const DashboardMain = () => {
                     <h5 className="font-size-8 font-weight-semibold text-black-2 line-height-reset font-weight-bold mb-1">
                       <LazyLoad>
                         <span className="counter">
-                          <CountUp duration={6} end={5} />
+                          <CountUp duration={2} end={postedJobs} />
                         </span>
                       </LazyLoad>
                     </h5>
@@ -136,7 +148,7 @@ const DashboardMain = () => {
                     <h5 className="font-size-8 font-weight-semibold text-black-2 line-height-reset font-weight-bold mb-1">
                       <LazyLoad>
                         <span className="counter">
-                          <CountUp duration={4} end={256} />
+                          <CountUp duration={4} end={totalApplicants} />
                         </span>
                       </LazyLoad>
                     </h5>

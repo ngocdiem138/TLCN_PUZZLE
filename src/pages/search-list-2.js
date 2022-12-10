@@ -11,6 +11,7 @@ import { JobPostServiceIml } from "../actions/user-actions";
 import { navigate } from '@reach/router';
 import { useState } from "react";
 import { employmentType, experienceYear } from "../components/Sidebar/MenuData";
+import { postTime } from "../components/Sidebar/MenuData";
 
 const defaultCountries = [
   { value: "", label: "Chọn thành phố" },
@@ -33,19 +34,6 @@ const defaultSalaryRange = [
   { value: [2000, 5000], label: "2000 - 1000$" },
   { value: [5000, 10000], label: "5000 - 10000$" },
   { value: [1000, 10000], label: "5000 - 10000$" },
-];
-const defaultExpLevels = [
-  { value: "entry", label: "Entry" },
-  { value: "jn", label: "Junior" },
-  { value: "mid", label: "Mid Level" },
-  { value: "sr", label: "Sinior" },
-];
-
-const defaultPostedTimes = [
-  { value: "jan", label: "January" },
-  { value: "May", label: "May" },
-  { value: "Jul", label: "July" },
-  { value: "Oct", label: "October" },
 ];
 
 const SearchGrid = () => {
@@ -73,13 +61,14 @@ const SearchGrid = () => {
     others: []
   });
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
     handleFilters(event.target[0].value, event.target[0].name);
     handleFilters(city, "cities");
     setError("");
     setSucces("");
-    window.location.assign('http://localhost:8000/search-list-2?title='+title+'&city='+city);
+    window.location.assign('http://localhost:8000/search-list-2?title=' + title + '&city=' + city);
   }
 
   const handleFilters = (filters, category) => {
@@ -126,7 +115,7 @@ const SearchGrid = () => {
                       <div className="form-group position-relative w-lg-50">
                         <Select
                           options={defaultCountries}
-                          defaultValue={city!=""?{ value: city, label: city }:defaultCountries[0]}
+                          defaultValue={city != "" ? { value: city, label: city } : defaultCountries[0]}
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
                           border={false}
                         />
@@ -153,12 +142,13 @@ const SearchGrid = () => {
             <div className="row justify-content-center">
               <div className="col-12 col-lg-10 col-xl-12">
                 <h2 className="font-size-8 mb-6">
-                  {"You’re searching \""}{title}{"\" in \""}{city}{"\""}
+                  {"You’re searching \""}{title != "" ? title : "All"}{"\" title in \""}{city != "" ? city : "All"}{"\" city"}
                 </h2>
                 <form className="mb-8">
                   <div className="search-filter from-group d-flex align-items-center flex-wrap">
                     <div className="mr-5 mb-5">
                       <Select
+                        onChange={handleChange}
                         options={employmentType}
                         className="font-size-4"
                         // border={false}
@@ -191,7 +181,7 @@ const SearchGrid = () => {
                     </div>
                     <div className="mr-5 mb-5">
                       <Select
-                        options={defaultPostedTimes}
+                        options={postTime}
                         className="font-size-4"
                         // border={false}
                         css={`

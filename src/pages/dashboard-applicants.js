@@ -53,8 +53,8 @@ const DashboardApplicants = () => {
     if(jobs){
       jobs.forEach((item) => {
         let myfruit = {}
-        myfruit["value"] = item.id;
-        myfruit["label"] = item.title; // you modify it's properties
+        myfruit["value"] = item.job_post.id;
+        myfruit["label"] = item.job_post.title; // you modify it's properties
         updated = [...updated, myfruit];
       });
     }

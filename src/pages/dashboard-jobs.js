@@ -16,6 +16,7 @@ const defaultJobs = [
 
 const DashboardJobs = () => {
   const [jobs, setJobs] = useState([]);
+  // const [applicationAmount, setApplicationAmount] = useState(0);
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       setJobs(response.data.data);
@@ -29,31 +30,31 @@ const DashboardJobs = () => {
     >
       <div className="">
         <Link
-          to={"/groups/job-details/" + job.id}
+          to={"/groups/job-details/" + job.job_post.id}
           className="font-size-4 mb-0 font-weight-semibold text-black-2"
         >
-          {job.title}
+          {job.job_post.title}
         </Link>
       </div>
     </th>
     <td className="table-y-middle py-7 min-width-px-135">
       <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-      {job.employmentType}
+      {job.job_post.employmentType}
       </h3>
     </td>
     <td className="table-y-middle py-7 min-width-px-125">
       <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-      {job.city}
+      {job.job_post.city}
       </h3>
     </td>
     <td className="table-y-middle py-7 min-width-px-155">
       <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-        {job.createTime}
+        {job.job_post.createTime}
       </h3>
     </td>
     <td className="table-y-middle py-7 min-width-px-205">
       <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-        07
+        {job.application_amount}
       </h3>
     </td>
     <td className="table-y-middle py-7 min-width-px-80">
