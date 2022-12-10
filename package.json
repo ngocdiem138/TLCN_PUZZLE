@@ -3,6 +3,9 @@
   "description": "Justcamp Gatsby with Bootstrap 4, Styled Components, Slick Carousel, React Headroom, etc",
   "version": "2.0.0",
   "author": "grayic",
+  "engines": {
+    "node": "16.16.0"
+  },
   "dependencies": {
     "@formatjs/intl-relativetimeformat": "^11.1.8",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
