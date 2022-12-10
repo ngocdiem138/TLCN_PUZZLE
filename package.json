@@ -4,7 +4,8 @@
   "version": "2.0.0",
   "author": "grayic",
   "engines": {
-    "node": "16.16.0"
+    "node": "16.16.0",
+    "npm": "8.11.0"
   },
   "dependencies": {
     "@formatjs/intl-relativetimeformat": "^11.1.8",
