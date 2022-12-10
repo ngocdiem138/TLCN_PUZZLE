@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import styled from "styled-components";
 import { Container, Dropdown } from "react-bootstrap";
 import { useScrollPosition } from "@n8tb1t/use-scroll-position";
@@ -63,14 +63,19 @@ const Header = () => {
   const changeLang = (lang) => {
     i18n.changeLanguage(lang);
     setLang(lang)
-
+    localStorage.setItem("lang",lang)
   }
+
+  useEffect(() => {
+    const lang = localStorage.getItem("lang");
+    if (lang) { i18n.changeLanguage(lang) };
+  })
 
   const gContext = useContext(GlobalContext);
   const [showScrolling, setShowScrolling] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
-  const [lang, setLang] = useState('en');
-
+  const [lang, setLang] = useState(localStorage.getItem("lang"));
+ 
   const size = useWindowSize();
 
   useScrollPosition(({ prevPos, currPos }) => {

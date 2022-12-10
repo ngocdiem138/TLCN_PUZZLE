@@ -6,28 +6,35 @@ import imgP from "../../assets/image/patterns/hero-pattern.png";
 import { useEffect } from "react";
 import { useState } from "react";
 import { JobPostServiceIml } from "../../actions/user-actions";
+import { useTranslation } from 'react-i18next';
 import { navigate } from '@reach/router';
 
-const defaultCountries = [
-  { value: "a", label: "Chọn thành phố" },
-  { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Cần Thơ", label: "Cần Thơ" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-];
+
 
 
 const Hero = () => {
+  const { t, i18n } = useTranslation()
 
   const [city, setCity] = useState([]);
   const [title, setTitle] = useState([]);
   const [jobs, setJobs] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(1);
   const handleChange = (event) => {
-    setCity(event.value)
+    setCity(event.value);
+    setSelectedOptions(event.id);
+    console.log(event.id);
   };
 
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
+
+  const defaultCountries = [
+    { id: 0, value: "", label: t('defaultCountries.selectCity') },
+    { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
+    { id: 2, value: "Hà Nội", label: t('defaultCountries.HaNoi') },
+    { id: 3, value: "Cần Thơ", label: t('defaultCountries.CanTho') },
+    { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
+  ];
 
   const [filter, setFilter] = useState({
     minBudget: null,
@@ -45,7 +52,7 @@ const Hero = () => {
     event.preventDefault();
     handleFilters(event.target[0].value, event.target[0].name);
     handleFilters(city, "cities");
-    window.location.assign('http://localhost:8000/search-list-2?title='+title+'&city='+city);
+    window.location.assign('http://localhost:8000/search-list-2?title=' + title + '&city=' + city);
     setError("");
     setSucces("");
   }
@@ -54,7 +61,7 @@ const Hero = () => {
     const newFilters = filter
     newFilters[category] = filters
     if (category === "experienceYear" || category === "titles" || category === "cities") {
-      if(city){
+      if (city) {
         newFilters[category] = [filters]
       }
       newFilters[category] = [filters]
@@ -85,7 +92,7 @@ const Hero = () => {
               data-aos-delay="500"
             >
               <h1 className="font-size-11 mb-12 pr-md-30 pr-lg-0">
-                Find the perfect job that you deserve.
+                {t('topPage.greeting')}
               </h1>
               <div className="">
                 {/* <!-- .search-form --> */}
@@ -100,7 +107,7 @@ const Hero = () => {
                           value={title}
                           name="titles"
                           onChange={(e) => setTitle(e.target.value)}
-                          placeholder="Job title"
+                          placeholder={t('job.title')}
                         />
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
                           <i className="icon icon-zoom-2 text-primary font-weight-bold"></i>
@@ -111,10 +118,14 @@ const Hero = () => {
                         <Select
                           name="cities"
                           onChange={handleChange}
+                          placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
                           border={false}
+                          isSearchable={true}
+                          value={defaultCountries[selectedOptions]}
                         />
+
 
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
                           <i className="icon icon-pin-3 text-primary font-weight-bold"></i>
@@ -125,7 +136,7 @@ const Hero = () => {
                     {/* <!-- .Hero Button --> */}
                     <div className="button-block">
                       <button className="btn btn-primary line-height-reset h-100 btn-submit w-100 text-uppercase">
-                        Search
+                        {t('search.button')}
                       </button>
                     </div>
                     {/* <!-- ./Hero Button --> */}
@@ -133,8 +144,8 @@ const Hero = () => {
                 </form>
                 {/* <!-- ./search-form --> */}
                 <p className="heading-default-color font-size-3 pt-7">
-                  <span className="text-smoke">Search keywords e.g.</span>{" "}
-                  Product Designer
+                  <span className="text-smoke">{t('search.searchByKeyword')}</span>{" "}
+                  {t('search.exampleKeyword')}
                 </p>
               </div>
             </div>

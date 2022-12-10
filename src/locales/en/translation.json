@@ -1,5 +1,23 @@
 {
-    "topPage": {
-      "greeting": "Have a nice day"
-    }
+  "topPage": {
+    "greeting": "Find the perfect job that you deserve."
+  },
+  "defaultCountries": {
+    "selectCity": "Select city",
+    "HCM": "Ho Chi Minh",
+    "HaNoi": "Ha Noi",
+    "CanTho": "Can Tho",
+    "DaNang": "Da Nang"
+  },
+  "job": {
+    "title": "Job title"
+  },
+  "search": {
+    "button": "Search",
+    "searchByKeyword": "Search keywords e.g.",
+    "exampleKeyword": "Product Designer"
+  },
+  "company":{
+    "top": "Get hired in top companies"
   }
+}

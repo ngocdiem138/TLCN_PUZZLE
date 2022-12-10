@@ -12,31 +12,35 @@ import { navigate } from '@reach/router';
 import { useState } from "react";
 import { employmentType, experienceYear } from "../components/Sidebar/MenuData";
 import { postTime } from "../components/Sidebar/MenuData";
+import { useTranslation } from 'react-i18next';
 
-const defaultCountries = [
-  { value: "", label: "Chọn thành phố" },
-  { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Cần Thơ", label: "Cần Thơ" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-];
-
-const defaultJobTypes = [
-  { value: "ft", label: "Full Time" },
-  { value: "pt", label: "Part Time" },
-  { value: "remote", label: "Remote" },
-  { value: "contract", label: "Contract" },
-];
-const defaultSalaryRange = [
-  { value: [0, 500], label: "< 500$" },
-  { value: [500, 1000], label: "500 - 1000$" },
-  { value: [1000, 2000], label: "1000 - 2000$" },
-  { value: [2000, 5000], label: "2000 - 1000$" },
-  { value: [5000, 10000], label: "5000 - 10000$" },
-  { value: [1000, 10000], label: "5000 - 10000$" },
-];
 
 const SearchGrid = () => {
+  const { t, i18n } = useTranslation()
+
+  const defaultCountries = [
+    { value: "", label: t('topPage.greeting') },
+    { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
+    { value: "Hà Nội", label: "Hà Nội" },
+    { value: "Cần Thơ", label: "Cần Thơ" },
+    { value: "Đà Nẵng", label: "Đà Nẵng" },
+  ];
+
+  const defaultJobTypes = [
+    { value: "ft", label: "Full Time" },
+    { value: "pt", label: "Part Time" },
+    { value: "remote", label: "Remote" },
+    { value: "contract", label: "Contract" },
+  ];
+  const defaultSalaryRange = [
+    { value: [0, 500], label: "< 500$" },
+    { value: [500, 1000], label: "500 - 1000$" },
+    { value: [1000, 2000], label: "1000 - 2000$" },
+    { value: [2000, 5000], label: "2000 - 1000$" },
+    { value: [5000, 10000], label: "5000 - 10000$" },
+    { value: [1000, 10000], label: "5000 - 10000$" },
+  ];
+
   const location = useLocation();
   const searchParams = parse(location.search);
   const [city, setCity] = useState([searchParams.city]);
