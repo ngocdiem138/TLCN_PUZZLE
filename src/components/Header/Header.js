@@ -15,10 +15,7 @@ import { logout } from "../../actions/auth-actions";
 
 import imgP from "../../assets/image/header-profile.png";
 
-import { useTranslation } from 'react-i18next'
-
-import { useI18next } from 'gatsby-plugin-react-i18next';
-import { minWidth } from "styled-system";
+import { useTranslation } from 'react-i18next';
 
 const SiteHeader = styled.header`
   .dropdown-toggle::after {
