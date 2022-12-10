@@ -13,11 +13,6 @@ import {
 } from "../utils/constants/actions-types";
 import { API_BASE_URL } from "../utils/constants/url";
 
-const config = {
-  headers: {
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  },
-};
 class CompanyService {
   getNumberPostedJob() {
 
@@ -76,8 +71,11 @@ class SkillService {
   getAllSkills(type) {
     return axios.get(
       API_BASE_URL + "/common/get-all-extra-info-by-type?type=" + type,
-      config
-    );
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        }
+      });
   }
 
   createCompany(company) {
@@ -223,11 +221,19 @@ export const EmployerServiceIml = new EmployerService();
 
 export class AccountService {
   getAllAccounts() {
-    return axios.get(API_BASE_URL + "/admin/get-all-account", config);
+    return axios.get(API_BASE_URL + "/admin/get-all-account", {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }
+    });
   }
 
   createAccount(employer) {
-    return axios.post(API_BASE_URL + "/admin/add-account", employer, config);
+    return axios.post(API_BASE_URL + "/admin/add-account", employer, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      }
+    });
   }
 
   getAccountById(employerId) {
