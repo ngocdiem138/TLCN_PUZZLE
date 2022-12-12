@@ -72,7 +72,7 @@ const SearchGrid = () => {
     handleFilters(city, "cities");
     setError("");
     setSucces("");
-    window.location.assign('https://puzzle.herokuapp.com/search-list-2?title=' + title + '&city=' + city);
+    window.location.assign('https://keen-semifreddo-66d931.netlify.app/search-list-2?title=' + title + '&city=' + city);
   }
 
   const handleFilters = (filters, category) => {

@@ -42,7 +42,7 @@ const Contact = () => {
       "note": note,
   }).then((response)=>{
     if(response.data.status==200){
-      window.location.assign('https://puzzle.herokuapp.com/dashboard-applicants');
+      window.location.assign('https://keen-semifreddo-66d931.netlify.app/dashboard-applicants');
     } 
   })
     // 

@@ -123,7 +123,7 @@ const JobDetails = () => {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
-                window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
+                window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
                 break;
               default:
                 setSucces("");
@@ -132,7 +132,7 @@ const JobDetails = () => {
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
-            //window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
+            //window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
           } else {
 
             setSucces("Request Failed")

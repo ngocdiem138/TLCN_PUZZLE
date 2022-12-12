@@ -98,8 +98,8 @@ const FeaturedJobs = () => {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
-                setError(response.data.errMsg + ` .You can register in: https://puzzle.herokuapp.com/registerOfUser`)
-                // window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
+                setError(response.data.errMsg + ` .You can register in: https://keen-semifreddo-66d931.netlify.app/registerOfUser`)
+                // window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
                 break;
               default:
                 setSucces("");
@@ -108,7 +108,7 @@ const FeaturedJobs = () => {
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
-            //window.location.assign("https://puzzle.herokuapp.com/registerOfUser");
+            //window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
           } else {
 
             setSucces("Request Failed")

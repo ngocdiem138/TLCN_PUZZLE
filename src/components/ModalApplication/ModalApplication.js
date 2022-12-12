@@ -387,13 +387,13 @@ const ModalApplication = (props) => {
                 <div className="text-center mb-13 mb-lg-0 mt-12">
                   <button className="btn btn-primary btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign('https://puzzle.herokuapp.com/contact');
+                      window.location.assign('https://keen-semifreddo-66d931.netlify.app/contact');
                     }}>
                     Contact
                   </button>
                   <button className="btn btn-outline-gray btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign('https://puzzle.herokuapp.com/reject');
+                      window.location.assign('https://keen-semifreddo-66d931.netlify.app/reject');
                     }}>
                     Reject
                   </button>
