@@ -18,8 +18,8 @@ const FeaturedJobs = () => {
   const [success, setSucces] = useState("");
 
   const [filter, setFilter] = useState({
-    minBudget: null,
-    maxBudget: null,
+    minBudget: 0,
+    maxBudget: 9999999,
     experienceYear: [],
     employmentTypes: [],
     titles: [],

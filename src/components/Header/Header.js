@@ -71,8 +71,8 @@ const Header = () => {
     const lang = localStorage.getItem("lang");
     if (lang) { i18n.changeLanguage(lang) };
     setIsLoggedIn(localStorage.getItem("isLoggedIn"));
-    setIsEmployer(localStorage.getItem("userRole") == "CANDIDATE");
-    setIsCandidate(localStorage.getItem("userRole") == "EMPLOYER");
+    setIsCandidate(localStorage.getItem("userRole") == "CANDIDATE");
+    setIsEmployer(localStorage.getItem("userRole") == "EMPLOYER");
   })
 
   const gContext = useContext(GlobalContext);

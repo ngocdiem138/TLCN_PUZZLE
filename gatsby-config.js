@@ -1,5 +1,6 @@
 const { languages, defaultLanguage } = require('./src/languages');
 module.exports = {
+  pathPrefix: "/TLCN_PUZZLE",
   flags: {
     DEV_SSR: false,
   },
