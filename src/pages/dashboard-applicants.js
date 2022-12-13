@@ -166,7 +166,7 @@ const DashboardApplicants = () => {
                         options={updateJobList(jobs)}
                         className="pl-0 h-100 arrow-3 arrow-3-black min-width-px-273  text-black-2 d-flex align-items-center w-100"
                         border={false}
-                        maxMenuHeight={25}
+                        maxMenuHeight={250}
                       />
                     </div>
                   </div>
