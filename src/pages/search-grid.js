@@ -19,7 +19,10 @@ import { employmentType, experienceYear, postTime } from "../components/Sidebar/
 import { JobPostServiceIml } from "../actions/user-actions";
 import CheckboxRadio from "../components/CheckboxRadio/CheckboxRadio";
 import axios from "axios";
-import { API_BASE_URL } from "../utils/constants/url";
+import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
+
+import { useTranslation } from 'react-i18next';
+
 
 const STEP = 50;
 const MIN = 0;
@@ -69,15 +72,16 @@ const Check = ({ children }) => {
 };
 
 
-const defaultCountries = [
-  { value: "", label: "Chọn thành phố" },
-  { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Nha Trang", label: "Nha Trang" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-];
 
 const SearchGrid = () => {
+  const { t, i18n } = useTranslation()
+  const defaultCountries = [
+    { id: 0, value: "", label: t('defaultCountries.selectCity') },
+    { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
+    { id: 2, value: "Hà Nội", label: t('defaultCountries.HaNoi') },
+    { id: 3, value: "Cần Thơ", label: t('defaultCountries.CanTho') },
+    { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
+  ];
   const id = 1;
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
@@ -111,8 +115,11 @@ const SearchGrid = () => {
     others: []
   });
 
+  const [selectedOptions, setSelectedOptions] = useState(0);
   const handleChange = (event) => {
-    setCity(event.value)
+    setCity(event.value);
+    setSelectedOptions(event.id);
+    console.log(event.id);
   };
 
   const saveForJob = (id) => {
@@ -171,8 +178,8 @@ const SearchGrid = () => {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
-                setError(response.data.errMsg + " .You can register in: https://keen-semifreddo-66d931.netlify.app/registerOfUser")
-                // window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
+                setError(response.data.errMsg + " .You can register in" + REDIRECT_BASE_URL + "/registerOfUser")
+                // window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
                 break;
               default:
                 setSucces("");
@@ -181,7 +188,7 @@ const SearchGrid = () => {
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
-            //window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
+            //window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
           } else {
 
             setSucces("Request Failed")
@@ -576,10 +583,12 @@ const SearchGrid = () => {
                         <Select
                           name="cities"
                           onChange={handleChange}
+                          placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
-
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
                           border={false}
+                          isSearchable={true}
+                          value={defaultCountries[selectedOptions]}
                         />
 
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">

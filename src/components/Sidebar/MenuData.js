@@ -12,8 +12,6 @@ const experienceYear = [
     {"id": "experienceYear", "name": "experienceYear", value: 2, "label":"Junior (2 years)"},
     {"id": "experienceYear", "name": "experienceYear", value: 3, "label":"Mid (3 years)"},
     {"id": "experienceYear", "name": "experienceYear", value: 5, "label":"Senior (5 years)"},
-   
-    
 ]
 
 const postTime = [

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { JobPostServiceIml } from "../../actions/user-actions";
 import { useTranslation } from 'react-i18next';
 import { navigate } from '@reach/router';
+import { REDIRECT_BASE_URL } from "../../utils/constants/url";
 
 
 
@@ -18,7 +19,7 @@ const Hero = () => {
   const [city, setCity] = useState([]);
   const [title, setTitle] = useState([]);
   const [jobs, setJobs] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState(1);
+  const [selectedOptions, setSelectedOptions] = useState(0);
   const handleChange = (event) => {
     setCity(event.value);
     setSelectedOptions(event.id);
@@ -37,8 +38,8 @@ const Hero = () => {
   ];
 
   const [filter, setFilter] = useState({
-    minBudget: 0,
-    maxBudget: 9999999,
+    minBudget: null,
+    maxBudget: null,
     experienceYear: [],
     employmentTypes: [],
     titles: [],
@@ -52,7 +53,7 @@ const Hero = () => {
     event.preventDefault();
     handleFilters(event.target[0].value, event.target[0].name);
     handleFilters(city, "cities");
-    window.location.assign('https://keen-semifreddo-66d931.netlify.app/search-list-2?title=' + title + '&city=' + city);
+    window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city);
     setError("");
     setSucces("");
   }

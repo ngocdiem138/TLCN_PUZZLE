@@ -9,6 +9,14 @@
     "CanTho": "Can Tho",
     "DaNang": "Da Nang"
   },
+  "employmentTypeData": {
+    "FullTime": "Full Time",
+    "PartTime": "Part Time",
+    "Internship": "Internship",
+    "Freelance": "Freelance",
+    "Contract": "Contract",
+    "Temporary": "Temporary"
+  },
   "job": {
     "title": "Job title"
   },
@@ -17,7 +25,7 @@
     "searchByKeyword": "Search keywords e.g.",
     "exampleKeyword": "Product Designer"
   },
-  "company":{
+  "company": {
     "top": "Get hired in top companies"
   }
 }

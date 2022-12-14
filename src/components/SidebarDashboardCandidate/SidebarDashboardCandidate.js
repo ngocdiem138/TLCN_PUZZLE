@@ -16,14 +16,14 @@ const Sidebar = () => {
               <img src={imgL} alt="" />
             </Link>
           </div>
-          {/* <div className="my-15 px-11">
+          <div className="my-15 px-11">
             <Link
-              to="/#"
+              to="/dashboard-jobPost?id=new"
               className="btn btn-primary btn-xl w-100 text-uppercase"
             >
               <span className="mr-5 d-inline-block">+</span>Post a new job
             </Link>
-          </div> */}
+          </div>
           <ul className="list-unstyled dashboard-layout-sidebar">
             <li className="">
               <Link

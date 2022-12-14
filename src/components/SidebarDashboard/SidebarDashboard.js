@@ -26,7 +26,7 @@ const Sidebar = () => {
           <div className="my-15 px-11">
             {isEmployer ?
               <Link
-                to="/#"
+                to="/dashboard-jobPost?id=new"
                 className="btn btn-primary btn-xl w-100 text-uppercase"
               >
                 <span className="mr-5 d-inline-block">+</span>Post a new job

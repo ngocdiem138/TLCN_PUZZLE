@@ -143,7 +143,7 @@ const Content = () => {
                 {/* <!-- content-2 section title end --> */}
                 {/* <!-- content-2 btn start --> */}
                 <Link
-                  to="/#"
+                  to="/dashboard-jobPost?id=new"
                   className="btn btn-white btn-h-60 text-black-2 w-180 rounded-5 text-uppercase mx-auto mx-lg-0"
                 >
                   Post a Job

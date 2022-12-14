@@ -13,7 +13,7 @@ const IndexPage = () => {
   const isSSR = typeof window === "undefined";
   useEffect(()=>{
     localStorage.setItem("lang","en")
-  })
+  },[])
   return (
     <>
       <PageWrapper

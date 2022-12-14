@@ -93,7 +93,7 @@ const DashboardSettings = () => {
                               </label>
                               <Select
                                 options={defaultTypes}
-                                className="form-control"
+                                className="form-control pl-0 arrow-3 w-100 font-size-4 d-flex align-items-center w-100"
                                 border={false}
                               />
                             </div>

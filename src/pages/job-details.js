@@ -15,7 +15,7 @@ import { EmployerServiceIml } from "../actions/admin-actions";
 import { JobPostServiceIml } from "../actions/user-actions";
 
 import axios from "axios";
-import { API_BASE_URL } from "../utils/constants/url";
+import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
 
 const JobDetails = () => {
 
@@ -123,7 +123,7 @@ const JobDetails = () => {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
-                window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
+                window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
                 break;
               default:
                 setSucces("");
@@ -132,7 +132,7 @@ const JobDetails = () => {
             }
             //setError(response.data.errMsg)
             //console.error(response.data.errMsg);
-            //window.location.assign("https://keen-semifreddo-66d931.netlify.app/registerOfUser");
+            //window.location.assign(REDIRECT_BASE_URL+ "/registerOfUser");
           } else {
 
             setSucces("Request Failed")

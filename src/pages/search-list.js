@@ -14,15 +14,26 @@ import imgF from "../assets/image/svg/icon-fire-rounded.svg";
 import iconL from "../assets/image/svg/icon-loaction-pin-black.svg";
 import iconS from "../assets/image/svg/icon-suitecase.svg";
 import iconC from "../assets/image/svg/icon-clock.svg";
+import { useTranslation } from 'react-i18next';
 
-const defaultCountries = [
-  { value: "", label: "Chọn thành phố" },
-  { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Cần Thơ", label: "Cần Thơ" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-];
 const SearchGrid = () => {
+  const { t, i18n } = useTranslation();
+  const [city, setCity] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(0);
+  const handleChange = (event) => {
+    setCity(event.value);
+    setSelectedOptions(event.id);
+    console.log(event.id);
+  };
+  const defaultCountries = [
+    { id: 0, value: "", label: t('defaultCountries.selectCity') },
+    { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
+    { id: 2, value: "Hà Nội", label: t('defaultCountries.HaNoi') },
+    { id: 3, value: "Cần Thơ", label: t('defaultCountries.CanTho') },
+    { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
+  ];
   return (
     <>
       <PageWrapper>
@@ -52,9 +63,14 @@ const SearchGrid = () => {
                       {/* <!-- .select-city starts --> */}
                       <div className="form-group position-relative w-lg-55 w-xl-60 w-xxl-55">
                         <Select
+                          name="cities"
+                          onChange={handleChange}
+                          placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
                           border={false}
+                          isSearchable={true}
+                          value={defaultCountries[selectedOptions]}
                         />
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
                           <i className="icon icon-pin-3 text-primary font-weight-bold"></i>

@@ -66,10 +66,13 @@ const Header = () => {
   const [isEmployer, setIsEmployer] = useState(false);
   const [isCandidate, setIsCandidate] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  let langDefault = undefined;
 
   useEffect(() => {
-    const lang = localStorage.getItem("lang");
-    if (lang) { i18n.changeLanguage(lang) };
+    langDefault = localStorage.getItem("lang");
+    if (langDefault) { i18n.changeLanguage(langDefault) };
+  }, [])
+  useEffect(() => {
     setIsLoggedIn(localStorage.getItem("isLoggedIn"));
     setIsCandidate(localStorage.getItem("userRole") == "CANDIDATE");
     setIsEmployer(localStorage.getItem("userRole") == "EMPLOYER");
@@ -78,7 +81,7 @@ const Header = () => {
   const gContext = useContext(GlobalContext);
   const [showScrolling, setShowScrolling] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
-  const [lang, setLang] = useState(undefined);
+  const [lang, setLang] = useState(langDefault);
 
   const size = useWindowSize();
 
@@ -405,7 +408,7 @@ const Header = () => {
                   className="btn btn-transparent text-uppercase font-size-4 heading-default-color"
                   // href="/#"
                   onClick={() => changeLang('en')}
-                  style={lang == 'en' ? { color: "green", minWidth: "30px" } : { color: "gray", minWidth: "10px" }}
+                  style={lang == 'en' || lang == undefined ? { color: "green", minWidth: "30px" } : { color: "gray", minWidth: "10px" }}
                 >
                   EN
                 </a>

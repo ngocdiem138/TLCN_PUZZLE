@@ -13,17 +13,19 @@ import { useState } from "react";
 import { employmentType, experienceYear } from "../components/Sidebar/MenuData";
 import { postTime } from "../components/Sidebar/MenuData";
 import { useTranslation } from 'react-i18next';
+import { REDIRECT_BASE_URL } from "../utils/constants/url";
 
 
 const SearchGrid = () => {
   const { t, i18n } = useTranslation()
 
+
   const defaultCountries = [
-    { value: "", label: t('topPage.greeting') },
-    { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
-    { value: "Hà Nội", label: "Hà Nội" },
-    { value: "Cần Thơ", label: "Cần Thơ" },
-    { value: "Đà Nẵng", label: "Đà Nẵng" },
+    { id: 0, value: "", label: t('defaultCountries.selectCity') },
+    { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
+    { id: 2, value: "Hà Nội", label: t('defaultCountries.HaNoi') },
+    { id: 3, value: "Cần Thơ", label: t('defaultCountries.CanTho') },
+    { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
   ];
 
   const defaultJobTypes = [
@@ -46,16 +48,18 @@ const SearchGrid = () => {
   const [city, setCity] = useState([searchParams.city]);
   const [title, setTitle] = useState([searchParams.title]);
   const [jobs, setJobs] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState(0);
   const handleChange = (event) => {
-    setCity(event.value)
+    setCity(event.value);
+    setSelectedOptions(event.id);
+    console.log(event.id);
   };
-
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
 
   const [filter, setFilter] = useState({
-    minBudget: 0,
-    maxBudget: 9999999,
+    minBudget: null,
+    maxBudget: null,
     experienceYear: [],
     employmentTypes: [],
     titles: [],
@@ -72,7 +76,7 @@ const SearchGrid = () => {
     handleFilters(city, "cities");
     setError("");
     setSucces("");
-    window.location.assign('https://keen-semifreddo-66d931.netlify.app/search-list-2?title=' + title + '&city=' + city);
+    window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city);
   }
 
   const handleFilters = (filters, category) => {
@@ -118,10 +122,14 @@ const SearchGrid = () => {
                       {/* <!-- .select-city starts --> */}
                       <div className="form-group position-relative w-lg-50">
                         <Select
+                          name="cities"
+                          onChange={handleChange}
+                          placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
-                          defaultValue={city != "" ? { value: city, label: city } : defaultCountries[0]}
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
                           border={false}
+                          isSearchable={true}
+                          value={defaultCountries[selectedOptions]}
                         />
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
                           <i className="icon icon-pin-3 text-primary font-weight-bold"></i>

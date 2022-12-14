@@ -4,15 +4,26 @@ import { Button } from "react-bootstrap";
 import { Select } from "../../components/Core";
 import imgC1 from "../../assets/image/l3/png/hero-image-1.png";
 import imgC2 from "../../assets/image/l3/png/hero-image-2.png";
+import { useTranslation } from 'react-i18next';
 
-const defaultCountries = [
-  { value: "", label: "Chọn thành phố" },
-  { value: "Tp Hồ Chí Minh", label: "Tp Hồ Chí Minh" },
-  { value: "Hà Nội", label: "Hà Nội" },
-  { value: "Cần Thơ", label: "Cần Thơ" },
-  { value: "Đà Nẵng", label: "Đà Nẵng" },
-];
 const Hero = () => {
+  const { t, i18n } = useTranslation()
+  const defaultCountries = [
+    { id: 0, value: "", label: t('defaultCountries.selectCity') },
+    { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
+    { id: 2, value: "Hà Nội", label: t('defaultCountries.HaNoi') },
+    { id: 3, value: "Cần Thơ", label: t('defaultCountries.CanTho') },
+    { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
+  ];
+  const [selectedOptions, setSelectedOptions] = useState(0);
+  const [city, setCity] = useState([]);
+  const [title, setTitle] = useState([]);
+  const [jobs, setJobs] = useState([]);
+  const handleChange = (event) => {
+    setCity(event.value);
+    setSelectedOptions(event.id);
+    console.log(event.id);
+  };
   return (
     <>
       {/* <!-- Hero Area --> */}
@@ -60,9 +71,14 @@ const Hero = () => {
                       {/* <!-- .select-city starts --> */}
                       <div className="form-group position-relative">
                         <Select
+                          name="cities"
+                          onChange={handleChange}
+                          placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
                           border={false}
+                          isSearchable={true}
+                          value={defaultCountries[selectedOptions]}
                         />
 
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">

@@ -9,6 +9,14 @@
     "CanTho": "Cần Thơ",
     "DaNang": "Đà Nẵng"
   },
+  "employmentTypeData": {
+    "FullTime": "Toàn thời gian",
+    "PartTime": "Bán Thời Gian",
+    "Internship": "Thực tập",
+    "Freelance": "Lao động tự do",
+    "Contract": "Hợp đồng",
+    "Temporary": "Tạm thời"
+  },
   "job": {
     "title": "Tên công việc"
   },

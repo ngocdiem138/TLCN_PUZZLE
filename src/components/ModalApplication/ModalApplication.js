@@ -15,6 +15,7 @@ import { ExperienceServiceIml } from "../../actions/user-actions";
 import { useEffect } from "react";
 import { useState } from "react";
 import { API_BASE_URL } from "../../utils/constants/url";
+import { REDIRECT_BASE_URL } from "../../utils/constants/url";
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -387,13 +388,13 @@ const ModalApplication = (props) => {
                 <div className="text-center mb-13 mb-lg-0 mt-12">
                   <button className="btn btn-primary btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign('https://keen-semifreddo-66d931.netlify.app/contact');
+                      window.location.assign(REDIRECT_BASE_URL + "/contact");
                     }}>
                     Contact
                   </button>
                   <button className="btn btn-outline-gray btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign('https://keen-semifreddo-66d931.netlify.app/reject');
+                      window.location.assign(REDIRECT_BASE_URL + "/reject");
                     }}>
                     Reject
                   </button>
