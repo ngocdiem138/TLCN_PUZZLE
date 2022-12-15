@@ -8,7 +8,7 @@ const Groups = () => (
     <div>
         <Router>
             <JobDetails path="/groups/job-details/:id" />
-            <DashboardJobPost path="/dashboard-jobPost?id='id'" />
+            <DashboardJobPost path="/groups/dashboard-jobPost?id='id'" />
             <JobDetails path="/groups/candidate-profiles-2" />
             <JobDetails path="/groups/search-list-2?title='title'&city='city'"/>
         </Router>

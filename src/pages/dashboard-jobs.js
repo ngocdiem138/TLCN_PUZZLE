@@ -34,6 +34,11 @@ const DashboardJobs = () => {
   const redirect = () => {
     logout();
   }
+  function remove(number) {
+    console.log('delete', number);
+    JobPostServiceIml.deleteJob(number)
+      .then(() => JobPostServiceIml.getJobPostCreateByEmployer().then((response) => { setJobs(response.data.data) }))
+  }
   const listJob = jobs.map((job) => {
     return <tr className="border border-color-2">
       {/* {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null} */}
@@ -74,12 +79,19 @@ const DashboardJobs = () => {
         <Link to={"/dashboard-jobPost?id=" + job.job_post.id} className="font-size-3 font-weight-bold text-green text-uppercase"> Edit </Link>
       </td>
       <td className="table-y-middle py-7 min-width-px-100">
-        <a
-          href="/#"
+
+        <button
           className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-        >
+          onClick={() => {
+            const confirmBox = window.confirm(
+              "Do you really want to delete this Job Post?"
+            )
+            if (confirmBox === true) {
+              remove(job.job_post.id);
+            }
+          }}>
           Delete
-        </a>
+        </button >
       </td>
     </tr>
   })
