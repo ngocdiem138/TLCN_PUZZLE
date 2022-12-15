@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import { Select } from "../../components/Core";
 import imgP from "../../assets/image/patterns/globe-pattern.png";
 import { useTranslation } from 'react-i18next';
+import { useState } from "react";
 
 
 const Hero = () => {

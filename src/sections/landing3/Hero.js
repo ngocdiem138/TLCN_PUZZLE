@@ -5,6 +5,7 @@ import { Select } from "../../components/Core";
 import imgC1 from "../../assets/image/l3/png/hero-image-1.png";
 import imgC2 from "../../assets/image/l3/png/hero-image-2.png";
 import { useTranslation } from 'react-i18next';
+import { useState } from "react";
 
 const Hero = () => {
   const { t, i18n } = useTranslation()
