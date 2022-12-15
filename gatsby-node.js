@@ -37,10 +37,12 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   }
 }
 
-exports.modifyBabelrc = ({ babelrc }) => {
-  babelrc.plugins.push('transform-regenerator');
-  return babelrc;
-};
+exports.modifyBabelrc = ({ babelrc }) => ({
+  ...babelrc,
+  ...process.env.NODE_ENV !== 'development' && {
+    plugins: babelrc.plugins.concat(['transform-regenerator', 'transform-runtime']),
+  },
+});
 
 exports.modifyWebpackConfig = ({ config, stage }) => {
   if (stage === 'build-javascript') {
