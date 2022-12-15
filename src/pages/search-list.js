@@ -15,6 +15,8 @@ import iconL from "../assets/image/svg/icon-loaction-pin-black.svg";
 import iconS from "../assets/image/svg/icon-suitecase.svg";
 import iconC from "../assets/image/svg/icon-clock.svg";
 import { useTranslation } from 'react-i18next';
+import { useState } from "react";
+
 
 const SearchGrid = () => {
   const { t, i18n } = useTranslation();

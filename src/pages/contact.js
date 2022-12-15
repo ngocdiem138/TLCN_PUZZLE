@@ -6,6 +6,7 @@ import { parse } from "query-string";
 import { useState } from "react";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import { EmployerServiceIml } from "../actions/admin-actions";
+import { REDIRECT_BASE_URL } from "../utils/constants/url";
 
 const resultTypes = [
   { value: true, label: "Accept" },
@@ -42,7 +43,7 @@ const Contact = () => {
       "note": note,
   }).then((response)=>{
     if(response.data.status==200){
-      window.location.assign('https://keen-semifreddo-66d931.netlify.app/dashboard-applicants');
+      window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants");
     } 
   })
     // 
