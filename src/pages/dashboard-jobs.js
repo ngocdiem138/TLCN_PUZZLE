@@ -37,7 +37,7 @@ const DashboardJobs = () => {
   function remove(number) {
     console.log('delete', number);
     JobPostServiceIml.deleteJobPost(number)
-      .then(() => JobPostServiceIml.getJobPostCreateByEmployer().then((response) => { setJobs(response.data.data) }))
+      // .then(() => JobPostServiceIml.getJobPostCreateByEmployer().then((response) => { setJobs(response.data.data) }))
   }
   const listJob = jobs.map((job) => {
     return <tr className="border border-color-2">
@@ -82,6 +82,7 @@ const DashboardJobs = () => {
 
         <button
           className="font-size-3 font-weight-bold text-red-2 text-uppercase"
+          style={{ outline: "none", border: "none", background: "none" }}
           onClick={() => {
             const confirmBox = window.confirm(
               "Do you really want to delete this Job Post?"

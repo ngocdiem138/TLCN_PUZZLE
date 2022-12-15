@@ -13,14 +13,13 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
+    // `transform-runtime`,
     `gatsby-transformer-remark`,
     {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/app/*`] },
     },
-    ["transform-runtime", {
-      "regenerator": true
-    }],
+    
   ],
 };
 
