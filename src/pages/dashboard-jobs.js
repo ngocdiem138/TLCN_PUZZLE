@@ -20,12 +20,12 @@ const defaultJobs = [
 const DashboardJobs = () => {
   const gContext = useContext(GlobalContext);
   const [jobs, setJobs] = useState([]);
-  let showError = false;
+  const [showError, setShowError] = useState(false);
   // const [applicationAmount, setApplicationAmount] = useState(0);
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       if (response.data.errCode == "403") {
-        showError = true
+        setShowError(true);
       } else {
         setJobs(response.data.data);
       }
