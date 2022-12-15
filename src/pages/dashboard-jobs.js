@@ -37,7 +37,7 @@ const DashboardJobs = () => {
   function remove(number) {
     console.log('delete', number);
     JobPostServiceIml.deleteJobPost(number)
-      // .then(() => JobPostServiceIml.getJobPostCreateByEmployer().then((response) => { setJobs(response.data.data) }))
+      .then(() => JobPostServiceIml.getJobPostCreateByEmployer().then((response) => { setJobs(response.data.data) }))
   }
   const listJob = jobs.map((job) => {
     return <tr className="border border-color-2">
