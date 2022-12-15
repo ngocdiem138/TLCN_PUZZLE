@@ -169,7 +169,7 @@ const DashboardSettings = () => {
             setDeaf('')
             setHandDis('')
             setLabor('')
-            setCity('')
+            setCity(defaultCountries[0].value)
             setAddress('')
             setWorkplaceType('')
             setWorkStatus('')
@@ -184,6 +184,7 @@ const DashboardSettings = () => {
             setMinBudget('')
             setMaxBudget('')
             setDueTime('')
+            setEmploymentType(employmentTypeData[0].value)
         })
     }, [id])
 
