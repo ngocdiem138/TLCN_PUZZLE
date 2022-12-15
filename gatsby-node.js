@@ -37,14 +37,14 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   }
 }
 
-exports.onCreateBabelConfig = ({ actions }) => {
-  actions.setBabelPlugin({
-    name: '@babel/plugin-transform-regenerator',
-    options: {},
-  });
-  actions.setBabelPlugin({
-    name: '@babel/plugin-transform-runtime',
-    options: {},
-  });
+exports.modifyBabelrc = ({ babelrc }) => {
+  babelrc.plugins.push('transform-regenerator');
+  return babelrc;
+};
 
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  if (stage === 'build-javascript') {
+    config._config.entry.app = ['babel-polyfill', config._config.entry.app];
+  }
+  return config;
 };
