@@ -3,6 +3,7 @@ import React from 'react';
 import JobDetails from "./job-details";
 import SearchGrid from "./search-list-2";
 import DashboardJobPost from "./dashboard-jobPost";
+import 'babel-polyfill';
 
 const Groups = () => (
     <div>
