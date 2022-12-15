@@ -34,7 +34,7 @@ const defaultLocations = [
 ];
 
 const DashboardSettings = () => {
-    
+
     const { t, i18n } = useTranslation()
     const defaultCountries = [
         { id: 0, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
@@ -201,11 +201,15 @@ const DashboardSettings = () => {
     const handleDropdown = (cityGetFromDB, employmentTypeGetFromDB) => {
         if (cityGetFromDB != null) {
             const cityEl = defaultCountries.find(element => element.value == cityGetFromDB);
-            setSelectedOptions(cityEl.id);
+            if (cityEl) {
+                setSelectedOptions(cityEl.id);
+            }
         }
         if (employmentTypeGetFromDB != null) {
             const employmentTypeEl = employmentTypeData.find(element => element.value == employmentTypeGetFromDB);
-            setSelectedOEmploymentTypeOptions(employmentTypeEl.id);
+            if (employmentTypeEl) {
+                setSelectedOEmploymentTypeOptions(employmentTypeEl.id);
+            }
         }
     }
 
