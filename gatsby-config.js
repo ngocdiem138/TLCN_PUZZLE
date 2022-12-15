@@ -8,11 +8,11 @@ module.exports = {
     title: `Justcamp Gatsby`,
   },
   plugins: [
-    ["@babel/plugin-transform-runtime",
-      {
-        "regenerator": true
-      }
-    ],
+    // ["@babel/plugin-transform-runtime",
+    //   {
+    //     "regenerator": true
+    //   }
+    // ],
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-styled-components`,
