@@ -9,6 +9,8 @@ import { JobPostServiceIml } from "../actions/user-actions";
 import { EmployerServiceIml } from "../actions/admin-actions";
 import { useState } from "react";
 import { useEffect } from "react";
+import { logout } from "../actions/auth-actions";
+import ReactJsAlert from "reactjs-alert";
 
 import imgP1 from "../assets/image/table-one-profile-image-1.png";
 import imgP2 from "../assets/image/table-one-profile-image-2.png";
@@ -37,6 +39,10 @@ const DashboardMain = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
   const [id, setId] = useState(0);
+  const [showError, setShowError] = useState(false)
+  const redirect = () => {
+    logout();
+  };
   // useEffect(() => {
   //   JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
   //     setJobs(response.data.data);
@@ -52,7 +58,7 @@ const DashboardMain = () => {
     }
   }, []);
 
-  let jobUpdate= {value:0, label:0};
+  let jobUpdate = { value: 0, label: 0 };
 
   function updateJobList(jobs) {
     if (jobs) {
@@ -63,10 +69,10 @@ const DashboardMain = () => {
         updated = [...updated, myfruit];
       });
     }
-    jobUpdate= updated[0];
+    jobUpdate = updated[0];
     console.log(jobUpdate);
     return updated;
-    
+
   }
 
   const handleChange = (event) => {
@@ -81,14 +87,22 @@ const DashboardMain = () => {
 
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
-      setJobs(response.data.data);
-      setPostedJobs(response.data.data.length);
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setJobs(response.data.data);
+        setPostedJobs(response.data.data.length);
+      }
     });
   }, []);
 
   useEffect(() => {
     EmployerServiceIml.getAllAmountApplicationApplied().then((response) => {
-      setTotalApplicants(response.data.data);
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setTotalApplicants(response.data.data);
+      }
     });
   }, []);
 
@@ -222,6 +236,16 @@ const DashboardMain = () => {
       >
         <div className="dashboard-main-container mt-25 mt-lg-31">
           <div className="container">
+            <ReactJsAlert
+              type="info"   // success, warning, error, info
+              title="Session has expired"   // title you want to display
+              status={showError}  // true or false
+              button="OK"
+              color="#1d36ad"
+              quotes={true}
+              quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+              Close={redirect}   // callback method for hide
+            />
             <div className="row mb-7">
               <div className="col-xxl-3 col-xl-4 col-lg-6 col-sm-6">
                 {/* <!-- Single Category --> */}

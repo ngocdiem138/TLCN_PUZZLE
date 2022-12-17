@@ -12,6 +12,8 @@ import img6 from "../assets/image/l3/png/asios.png";
 import { useEffect } from "react";
 import { useState } from "react";
 import { JobPostServiceIml } from "../actions/user-actions";
+import ReactJsAlert from "reactjs-alert";
+import { logout } from "../actions/auth-actions";
 
 
 const CandidateProfile = () => {
@@ -19,12 +21,28 @@ const CandidateProfile = () => {
   const [joApplied, setJobApplied] = useState([]);
 
   useEffect(() => {
-    JobPostServiceIml.getJobPostAppliedByCandidate().then((response) => { setJobApplied(response.data.data) });
+    JobPostServiceIml.getJobPostAppliedByCandidate().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setJobApplied(response.data.data)
+      }
+    });
   }, [])
 
   useEffect(() => {
-    JobPostServiceIml.getJobPostSavedByCandidate().then((response) => { setJobSaves(response.data.data) });
+    JobPostServiceIml.getJobPostSavedByCandidate().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setJobSaves(response.data.data)
+      }
+    });
   }, [])
+
+  const redirect = () => {
+    logout();
+  }
 
   const listSaveJobs = jobSaves.map(job => {
     return <div className="col-lg-6 col-md-6 col-sm-11 mb-9">
@@ -156,6 +174,16 @@ const CandidateProfile = () => {
       <PageWrapper headerConfig={{ button: "profile" }}>
         <div className="bg-default-2 pt-19 pt-lg-22 pb-7 pb-lg-23">
           <div className="container">
+            <ReactJsAlert
+              type="info"   // success, warning, error, info
+              title="Session has expired"   // title you want to display
+              status={showError}  // true or false
+              button="OK"
+              color="#1d36ad"
+              quotes={true}
+              quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+              Close={redirect}   // callback method for hide
+            />
             {/* <!-- back Button --> */}
             <div className="row">
               <div className="col-12 mt-13 dark-mode-texts">
@@ -180,7 +208,7 @@ const CandidateProfile = () => {
                 <div className="mb-5">
                   <h4 className="font-size-7 mb-9">Applied Jobs</h4>
                   <div className="row justify-content-center">
-                    {listApplyJobs} {joApplied.length %2 ? <div className="col-lg-6 col-md-6 col-sm-11 mb-9"></div>:null}
+                    {listApplyJobs} {joApplied.length % 2 ? <div className="col-lg-6 col-md-6 col-sm-11 mb-9"></div> : null}
                   </div>
                 </div>
                 {/* <!-- Top End --> */}
@@ -188,7 +216,7 @@ const CandidateProfile = () => {
                 <div className="">
                   <h4 className="font-size-7 mb-9">Saved Jobs</h4>
                   <div className="row justify-content-center">
-                    {listSaveJobs} {jobSaves.length %2 ? <div className="col-lg-6 col-md-6 col-sm-11 mb-9"></div>:null}
+                    {listSaveJobs} {jobSaves.length % 2 ? <div className="col-lg-6 col-md-6 col-sm-11 mb-9"></div> : null}
                   </div>
                 </div>
                 {/* <!-- Bottom End --> */}

@@ -15,6 +15,8 @@ import { EmployerServiceIml } from "../actions/admin-actions";
 import { JobPostServiceIml } from "../actions/user-actions";
 import CandidateProfile from "./candidate-profile-2";
 import ModalApplication from "../components/ModalApplication";
+import ReactJsAlert from "reactjs-alert";
+import { logout } from "../actions/auth-actions";
 
 const defaultJobs = [
   { value: 1, label: "Product Designer" },
@@ -36,21 +38,33 @@ const DashboardApplicants = () => {
   const [applicants, setApplicants] = useState([]);
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
-      setJobs(response.data.data);
-      setIsLoading(false);
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setJobs(response.data.data);
+        setIsLoading(false);
+      }
     });
   }, []);
 
   useEffect(() => {
-    if(id!=0){
+    if (id != 0) {
       JobPostServiceIml.getAllCandidateApplyJobPosts(id).then((response) => {
-        setApplicants(response.data.data);
+        if (response.data.errCode == "403") {
+          setShowError(true);
+        } else {
+          setApplicants(response.data.data);
+        }
       });
     }
   }, []);
 
+  const redirect = () => {
+    logout();
+  }
+
   function updateJobList(jobs) {
-    if(jobs){
+    if (jobs) {
       jobs.forEach((item) => {
         let myfruit = {}
         myfruit["value"] = item.job_post.id;
@@ -63,7 +77,7 @@ const DashboardApplicants = () => {
 
   const handleChange = (event) => {
     setId(event.value);
-    if(event.value!=0){
+    if (event.value != 0) {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         setApplicants(response.data.data);
         setJobPostId(event.value);
@@ -73,68 +87,68 @@ const DashboardApplicants = () => {
 
   const listApplication = applicants.map(applicant => {
     return <tr className="border border-color-2">
-    <th scope="row" className="pl-6 border-0 py-7 pr-0">
-      <Link
-        to="/candidate-profile"
-        className="media min-width-px-235 align-items-center"
-      >
-        <div className="circle-36 mr-6">
-          <img src={imgP1} alt="" className="w-100" />
+      <th scope="row" className="pl-6 border-0 py-7 pr-0">
+        <Link
+          to="/candidate-profile"
+          className="media min-width-px-235 align-items-center"
+        >
+          <div className="circle-36 mr-6">
+            <img src={imgP1} alt="" className="w-100" />
+          </div>
+          <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
+            {applicant.lastName} {applicant.firstName}
+          </h4>
+        </Link>
+      </th>
+      <td className="table-y-middle py-7 min-width-px-235 pr-0">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {applicant.educationLevel}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-170 pr-0">
+        <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+          {applicant.workStatus}
+        </h3>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-170 pr-0">
+        <div className="">
+          <a
+            href="/#"
+            className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+            onClick={(e) => {
+              e.preventDefault();
+              gContext.setToggleApplicantId(applicant.id)
+              gContext.toggleApplicationModal();
+            }}
+          >
+            View Application
+          </a>
         </div>
-        <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-          {applicant.lastName} {applicant.firstName}
-        </h4>
-      </Link>
-    </th>
-    <td className="table-y-middle py-7 min-width-px-235 pr-0">
-      <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-        {applicant.educationLevel}
-      </h3>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-170 pr-0">
-      <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-        {applicant.workStatus}
-      </h3>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-170 pr-0">
-      <div className="">
-        <a
-          href="/#"
-          className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-          onClick={(e) => {
-            e.preventDefault();
-            gContext.setToggleApplicantId(applicant.id)
-            gContext.toggleApplicationModal();
-          }}
-        >
-          View Application
-        </a>
-      </div>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-110 pr-0">
-      <div className="">
-        <Link
-          to={"/contact?action=accept&candidateId="+applicant.id+"&jobPostId="+jobPostId}
-          className="font-size-3 font-weight-bold text-green text-uppercase"
-        >
-          Contact
-        </Link>
-      </div>
-    </td>
-    <td className="table-y-middle py-7 min-width-px-100 pr-0">
-      <div className="">
-        <Link
-           to={"/contact?action=reject&candidateId="+applicant.id+"&jobPostId="+jobPostId}
-          className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-        >
-          Reject
-        </Link>
-      </div>
-    </td>
-  </tr>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-110 pr-0">
+        <div className="">
+          <Link
+            to={"/contact?action=accept&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            className="font-size-3 font-weight-bold text-green text-uppercase"
+          >
+            Contact
+          </Link>
+        </div>
+      </td>
+      <td className="table-y-middle py-7 min-width-px-100 pr-0">
+        <div className="">
+          <Link
+            to={"/contact?action=reject&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            className="font-size-3 font-weight-bold text-red-2 text-uppercase"
+          >
+            Reject
+          </Link>
+        </div>
+      </td>
+    </tr>
   });
 
-  
+
 
   const [id, setId] = useState(0);
 
@@ -152,6 +166,16 @@ const DashboardApplicants = () => {
       >
         <div className="dashboard-main-container mt-25 mt-lg-31">
           <div className="container">
+            <ReactJsAlert
+              type="info"   // success, warning, error, info
+              title="Session has expired"   // title you want to display
+              status={showError}  // true or false
+              button="OK"
+              color="#1d36ad"
+              quotes={true}
+              quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+              Close={redirect}   // callback method for hide
+            />
             <div className="mb-14">
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6 mb-lg-0 mb-4">

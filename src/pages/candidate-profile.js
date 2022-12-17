@@ -22,6 +22,9 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "@reach/router";
 
+import ReactJsAlert from "reactjs-alert";
+import { logout } from "../actions/auth-actions";
+
 const CandidateProfile = () => {
   const location = useLocation();
   // const [job, setJob] = useState({});
@@ -43,23 +46,35 @@ const CandidateProfile = () => {
     //     }
     //   }
 
-      CandidateServiceIml.getCandidateSettingProfile().then((response) => {
+    CandidateServiceIml.getCandidateSettingProfile().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
         setProfile(response.data.data);
         if (response.data.data.skills != null) {
           setSkill(response.data.data.skills.split('#'))
         }
       }
+    }
     );
   }, []);
 
   useEffect(() => {
     ExperienceServiceIml.getExperienceByCandidate().then((response) => {
-      setExperience(response.data.data);
-      if (response.data.data.experience != null) {
-        setExperience(response.data.data.experience.split("#"));
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setExperience(response.data.data);
+        if (response.data.data.experience != null) {
+          setExperience(response.data.data.experience.split("#"));
+        }
       }
     });
   }, []);
+
+  const redirect = () => {
+    logout();
+  }
 
   const listExperience = experience.map((experience) => {
     return (
@@ -118,6 +133,16 @@ const CandidateProfile = () => {
       <PageWrapper headerConfig={{ button: "profile" }}>
         <div className="bg-default-2 pt-22 pt-lg-25 pb-13 pb-xxl-32">
           <div className="container">
+            <ReactJsAlert
+              type="info"   // success, warning, error, info
+              title="Session has expired"   // title you want to display
+              status={showError}  // true or false
+              button="OK"
+              color="#1d36ad"
+              quotes={true}
+              quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+              Close={redirect}   // callback method for hide
+            />
             {/* <!-- back Button --> */}
             <div className="row justify-content-center">
               <div className="col-12 dark-mode-texts">
