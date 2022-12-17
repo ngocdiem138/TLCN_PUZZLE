@@ -19,6 +19,7 @@ import { logout } from "../actions/auth-actions";
 const CandidateProfile = () => {
   const [jobSaves, setJobSaves] = useState([]);
   const [joApplied, setJobApplied] = useState([]);
+  const [showError, setShowError] = useState(false)
 
   useEffect(() => {
     JobPostServiceIml.getJobPostAppliedByCandidate().then((response) => {

@@ -36,6 +36,7 @@ const DashboardApplicants = () => {
   const [listJob, setListJob] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
+  const [showError, setShowError] = useState(false)
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       if (response.data.errCode == "403") {

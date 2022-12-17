@@ -36,6 +36,7 @@ const CandidateProfile = () => {
   const [skill, setSkill] = useState(["No require"]);
 
   const [experience, setExperience] = useState(["No require"]);
+  const [showError, setShowError] = useState(false)
 
   useEffect(() => {
     // CandidateServiceIml.getCandidateProfile(id).then(
