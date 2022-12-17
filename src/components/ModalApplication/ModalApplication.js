@@ -31,7 +31,6 @@ const ModalStyled = styled(Modal)`
 `;
 
 const ModalApplication = (props) => {
-  console.log("props" + props.id)
   const gContext = useContext(GlobalContext);
 
   const handleClose = () => {
@@ -95,7 +94,7 @@ const ModalApplication = (props) => {
     </div>
   })
   useEffect(() => {
-    ExperienceServiceIml.getExperienceByCandidateId(props.id).then((response) => {
+    ExperienceServiceIml.getExperienceByCandidateId(props.applicantId).then((response) => {
       setExperience(response.data.data);
       if (response.data.data.experience != null) {
         setExperience(response.data.data.experience.split('#'))
@@ -104,8 +103,8 @@ const ModalApplication = (props) => {
   }, []);
 
   useEffect(() => {
-    if (props.id != 0) {
-      CandidateServiceIml.getCandidateProfile(props.id).then((response) => {
+    if (props.applicantId != 0) {
+      CandidateServiceIml.getCandidateProfile(props.applicantId).then((response) => {
         setProfile(response.data.data);
         if (response.data.data.skills != null) {
           setSkill(response.data.data.skills.split('#'))
@@ -192,7 +191,7 @@ const ModalApplication = (props) => {
             <div className="row no-gutters">
               {/* <!-- Left Sidebar Start --> */}
               <div className="col-12 col-xl-3 col-lg-4 col-md-5 mb-13 mb-lg-0 border-right border-mercury">
-                <ProfileSidebarCandidate id={props.id} />
+                <ProfileSidebarCandidate id={props.applicantId} />
               </div>
               {/* <!-- Left Sidebar End --> */}
               {/* <!-- Middle Content --> */}
@@ -388,13 +387,13 @@ const ModalApplication = (props) => {
                 <div className="text-center mb-13 mb-lg-0 mt-12">
                   <button className="btn btn-primary btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign(REDIRECT_BASE_URL + "/contact");
+                      window.location.assign(REDIRECT_BASE_URL + "/contact?action=accept&candidateId=" + props.applicantId + "&jobPostId=" + props.jobPostId);
                     }}>
                     Contact
                   </button>
                   <button className="btn btn-outline-gray btn-xl mb-7 d-block mx-auto text-uppercase"
                     onClick={() => {
-                      window.location.assign(REDIRECT_BASE_URL + "/reject");
+                      window.location.assign(REDIRECT_BASE_URL + "/contact?action=reject&candidateId=" + props.applicantId + "&jobPostId=" + props.jobPostId);
                     }}>
                     Reject
                   </button>

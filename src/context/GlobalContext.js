@@ -11,6 +11,7 @@ const GlobalProvider = ({ children }) => {
   const [videoModalVisible, setVideoModalVisible] = useState(false);
   const [visibleOffCanvas, setVisibleOffCanvas] = useState(false);
   const [applicantId, setApplicantId] = useState(0);
+  const [jobPostId, setJobPostId] = useState(0);
   const [header, setHeader] = useState({
     theme: "light",
     bgClass: "default",
@@ -46,6 +47,10 @@ const GlobalProvider = ({ children }) => {
     setApplicantId(id);
   };
 
+  const setToggleJobPostId = (id) => {
+    setJobPostId (id);
+  };
+
   const toggleSignInModal = () => {
     setSignInModalVisible(!signInModalVisible);
   };
@@ -78,6 +83,7 @@ const GlobalProvider = ({ children }) => {
         applicationModalVisible,
         toggleApplicationModal,
         setToggleApplicantId,
+        setToggleJobPostId,
         signInModalVisible,
         toggleSignInModal,
         toggleSignInModalClose,
@@ -91,7 +97,9 @@ const GlobalProvider = ({ children }) => {
         footer,
         setFooter,
         applicantId,
-        setApplicantId
+        setApplicantId,
+        jobPostId,
+        setJobPostId
       }}
     >
       {children}

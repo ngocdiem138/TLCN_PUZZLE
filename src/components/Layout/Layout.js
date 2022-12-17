@@ -146,7 +146,7 @@ const Layout = ({ children, pageContext }) => {
           </div>
 
           <ModalVideo />
-          <ModalApplication id={gContext.applicantId} />
+          <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId}/>
           <ModalSignIn />
           <ModalSignCandidate />
           <ModalSignEmployer />
@@ -186,7 +186,7 @@ const Layout = ({ children, pageContext }) => {
           </div>
 
           <ModalVideo />
-          <ModalApplication id={gContext.applicantId} />
+          <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
           <ModalSignCandidate />
           <ModalSignEmployer />
@@ -220,7 +220,7 @@ const Layout = ({ children, pageContext }) => {
           </div>
 
           <ModalVideo />
-          <ModalApplication id={gContext.applicantId} />
+          <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
           <ModalSignCandidate />
           <ModalSignEmployer />

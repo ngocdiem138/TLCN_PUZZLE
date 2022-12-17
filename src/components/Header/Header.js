@@ -110,9 +110,12 @@ const Header = () => {
 
   const handleSignIn = () => {
     if (isLoggedIn) {
-      if (isCandidate || isEmployer) {
+      if (isCandidate) {
         window.location.href = "/dashboard-settings";
-      } else {
+      } else if (isEmployer) {
+        window.location.href = "/dashboard-main";
+      }
+      else {
         window.location.href = "/";
       }
     } else {

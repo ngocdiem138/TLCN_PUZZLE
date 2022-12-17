@@ -79,6 +79,7 @@ const DashboardMain = () => {
     setId(event.value);
     if (event.value != 0) {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
+        gContext.setToggleJobPostId(event.value);
         setApplicants(response.data.data);
         setJobPostId(event.value);
       });
