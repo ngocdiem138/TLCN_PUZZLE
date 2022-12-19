@@ -128,7 +128,7 @@ class ExperienceService {
         })
     }
     getExperienceByCandidateId(candidateId) {
-        return axios.get(API_BASE_URL + "/common/get-experience-by-candidate-id/"+candidateId)
+        return axios.get(API_BASE_URL + "/common/get-experience-by-candidate-id/" + candidateId)
     }
 
     getJobPostCreateByEmployer() {
@@ -186,6 +186,15 @@ class ExperienceService {
 export const ExperienceServiceIml = new ExperienceService();
 
 class UserService {
+    payPricing(pricing) {
+        return axios.get(
+            API_BASE_URL + "/pay?packageCode=" + pricing,
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+    }
 
     getUserProfile() {
         return axios.get(API_BASE_URL + "/user/profile", {

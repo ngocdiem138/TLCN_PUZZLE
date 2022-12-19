@@ -396,7 +396,12 @@ const Header = () => {
                 >
                   MY JOBLIST
                 </Link> : null}
-
+                {isEmployer ? <Link
+                  className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
+                  to={'/pricing'}
+                >
+                  UPGRADE ACCOUNT
+                </Link> : null}
                 <a
                   className={`btn btn-${gContext.header.variant} text-uppercase font-size-3`}
                   href="/#"

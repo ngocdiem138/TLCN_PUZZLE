@@ -1,8 +1,27 @@
 import React from "react";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
+import { UserServiceIml } from "../actions/user-actions";
+import { useState } from "react";
+import { logout } from "../actions/auth-actions";
+import ReactJsAlert from "reactjs-alert";
 
 const Pricing = () => {
+
+  const [showError, setShowError] = useState(false);
+
+  const redirect = () => {
+    logout();
+  }
+
+  function payment(pricing) {
+    UserServiceIml.payPricing(pricing).then((response) => {
+      // if (response.data.errCode == "403") {
+      //   setShowError(true);
+      // }
+    });
+  }
+
   return (
     <>
       <PageWrapper>
@@ -11,6 +30,16 @@ const Pricing = () => {
           {/* <!-- pricing section --> */}
           <div className="pricing-area">
             <div className="container pt-12 pt-lg-24 pb-13 pb-lg-25">
+              <ReactJsAlert
+                type="info"   // success, warning, error, info
+                title="Session has expired"   // title you want to display
+                status={showError}  // true or false
+                button="OK"
+                color="#1d36ad"
+                quotes={true}
+                quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+                Close={redirect}   // callback method for hide
+              />
               <div className="row justify-content-center">
                 <div
                   className="col-xxl-6 col-lg-7 col-md-9"
@@ -53,7 +82,7 @@ const Pricing = () => {
                             </h6>
                           </div>
                           <h2 className="mt-11 text-dodger">
-                            $199
+                            $25
                             <span className="font-size-4 text-smoke font-weight-normal">
                               /month
                             </span>{" "}
@@ -61,31 +90,25 @@ const Pricing = () => {
                         </div>
                         {/* <!-- card-header end --> */}
                         {/* <!-- card-body start --> */}
-                        <div className="card-body px-0 pt-11 pb-15">
+                        <div className="card-body px-0 pt-11 pb-6">
                           <ul className="list-unstyled">
                             <li className="mb-6 text-black-2 d-flex font-size-4">
                               <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              5 Job Postings
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              90 Days Duration Each
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              Job Alert Emails
+                              10 Job Postings
                             </li>
                           </ul>
                         </div>
                         {/* <!-- card-body end --> */}
                         {/* <!-- card-footer end --> */}
                         <div className="card-footer bg-transparent border-0 px-0 py-0">
-                          <Link
-                            to="/#"
+                          <button
                             className="btn btn-green btn-h-60 text-white rounded-5 btn-block text-uppercase"
-                          >
-                            Start with Basic
-                          </Link>
+                            style={{ outline: "none", border: "none" }}
+                            onClick={() => {
+                              payment('lite');
+                            }}>
+                            Start with Premium{" "}
+                          </button >
                         </div>
                         {/* <!-- card-footer end --> */}
                       </div>
@@ -113,7 +136,7 @@ const Pricing = () => {
                             </h6>
                           </div>
                           <h2 className="mt-11 text-dodger">
-                            $499
+                            $50
                             <span className="font-size-4 text-smoke font-weight-normal">
                               /month
                             </span>{" "}
@@ -125,31 +148,21 @@ const Pricing = () => {
                           <ul className="list-unstyled">
                             <li className="mb-6 text-black-2 d-flex font-size-4">
                               <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              5 Job Postings
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              90 Days Duration Each
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              Job Alert Emails
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              Candidates Database
+                              25 Job Postings
                             </li>
                           </ul>
                         </div>
                         {/* <!-- card-body end --> */}
                         {/* <!-- card-footer end --> */}
                         <div className="card-footer bg-transparent border-0 px-0 py-0">
-                          <Link
-                            to="/#"
+                          <button
                             className="btn btn-green btn-h-60 text-white rounded-5 btn-block text-uppercase"
-                          >
-                            Start with Business
-                          </Link>
+                            style={{ outline: "none", border: "none" }}
+                            onClick={() => {
+                              payment('pro');
+                            }}>
+                            Start with Premium{" "}
+                          </button >
                         </div>
                         {/* <!-- card-footer end --> */}
                       </div>
@@ -174,7 +187,7 @@ const Pricing = () => {
                             </h6>
                           </div>
                           <h2 className="mt-11 text-dodger">
-                            $999{" "}
+                            $70{" "}
                             <span className="font-size-4 text-smoke font-weight-normal">
                               /month
                             </span>{" "}
@@ -186,31 +199,21 @@ const Pricing = () => {
                           <ul className="list-unstyled">
                             <li className="mb-6 text-black-2 d-flex font-size-4">
                               <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              5 Job Postings
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              90 Days Duration Each
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              Job Alert Emails
-                            </li>
-                            <li className="mb-6 text-black-2 d-flex font-size-4">
-                              <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              Candidates Database
+                              50 Job Postings
                             </li>
                           </ul>
                         </div>
                         {/* <!-- card-body end --> */}
                         {/* <!-- card-footer end --> */}
                         <div className="card-footer bg-transparent border-0 px-0 py-0">
-                          <Link
-                            to="/#"
+                          <button
                             className="btn btn-green btn-h-60 text-white rounded-5 btn-block text-uppercase"
-                          >
+                            style={{ outline: "none", border: "none" }}
+                            onClick={() => {
+                              payment('vip');
+                            }}>
                             Start with Premium{" "}
-                          </Link>
+                          </button >
                         </div>
                         {/* <!-- card-footer end --> */}
                       </div>
