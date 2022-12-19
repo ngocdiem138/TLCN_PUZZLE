@@ -49,7 +49,20 @@ const DashboardApplicants = () => {
   }, []);
 
   useEffect(() => {
-    if (id != 0) {
+    if (id == 0) {
+      JobPostServiceIml.getAllCandidateApply().then((response) => {
+        if (response.data.errCode == "403") {
+          setShowError(true);
+        } else {
+          let applicant = []
+          response.data.data.forEach(element => {
+              applicant = [...applicant, element.candidate]
+          });
+          setApplicants(applicant);
+        }
+      })
+    }
+    else {
       JobPostServiceIml.getAllCandidateApplyJobPosts(id).then((response) => {
         if (response.data.errCode == "403") {
           setShowError(true);

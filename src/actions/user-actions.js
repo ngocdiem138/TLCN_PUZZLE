@@ -13,6 +13,15 @@ class JobPostService {
         return axios.get(API_BASE_URL + "/common/get-active-job-post")
     }
 
+    getAllCandidateApply() {
+        return axios.get(API_BASE_URL + "/employer/get-all-candidate-and-result-to-employer",
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
+    }
+
     getAllCandidateApplyJobPosts(jobPostId) {
         return axios.get(API_BASE_URL + "/employer/candidate-apply-jobpost/" + jobPostId,
             {
