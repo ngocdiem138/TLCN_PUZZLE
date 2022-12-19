@@ -9,16 +9,24 @@ import ReactJsAlert from "reactjs-alert";
 const Pricing = () => {
 
   const [showError, setShowError] = useState(false);
-
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [url, setUrl] = useState('');
   const redirect = () => {
-    logout();
+    if(url!=''){
+      window.location.href=url;
+    } else {
+      logout();
+    }
   }
 
   function payment(pricing) {
     UserServiceIml.payPricing(pricing).then((response) => {
-      // if (response.data.errCode == "403") {
-      //   setShowError(true);
-      // }
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setShowSuccess(true);
+        setUrl(response.data.data)
+      }
     });
   }
 
@@ -38,6 +46,16 @@ const Pricing = () => {
                 color="#1d36ad"
                 quotes={true}
                 quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+                Close={redirect}   // callback method for hide
+              />
+              <ReactJsAlert
+                type="info"   // success, warning, error, info
+                title="Update"   // title you want to display
+                status={showSuccess}  // true or false
+                button="OK"
+                color="#1d36ad"
+                quotes={true}
+                quote="Update accout"
                 Close={redirect}   // callback method for hide
               />
               <div className="row justify-content-center">
