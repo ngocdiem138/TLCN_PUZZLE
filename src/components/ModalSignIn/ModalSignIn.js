@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
 import GoogleLogin from 'react-google-login';
-// import { gapi } from 'gapi-cjs';
+import { gapi } from 'gapi-cjs';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -39,7 +39,7 @@ class Login extends Component {
   componentDidMount() {
     this.props.formReset();
     if (typeof window !== "undefined") {
-      window.gapi.load('client:auth2', () => {
+      gapi.load('client:auth2', () => {
         gapi.client.init({
           clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
           scope: ''

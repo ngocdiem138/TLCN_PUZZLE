@@ -4,7 +4,7 @@ import PageWrapper from "../components/PageWrapper";
 import { UserServiceIml } from "../actions/user-actions";
 import { useState } from "react";
 import { logout } from "../actions/auth-actions";
-// import ReactJsAlert from "reactjs-alert";
+import ReactJsAlert from "reactjs-alert";
 
 const Pricing = () => {
 
@@ -48,16 +48,16 @@ const Pricing = () => {
                 quote="Unfortunately your session has expired and you have been logged out. Please log in again"
                 Close={redirect}   // callback method for hide
               />
-              <ReactJsAlert
-                type="info"   // success, warning, error, info
-                title="Update"   // title you want to display
-                status={showSuccess}  // true or false
-                button="OK"
-                color="#1d36ad"
-                quotes={true}
-                quote="Update accout"
-                Close={redirect}   // callback method for hide
-              /> */}
+              // <ReactJsAlert
+              //   type="info"   // success, warning, error, info
+              //   title="Update"   // title you want to display
+              //   status={showSuccess}  // true or false
+              //   button="OK"
+              //   color="#1d36ad"
+              //   quotes={true}
+              //   quote="Update accout"
+              //   Close={redirect}   // callback method for hide
+              // /> */}
               <div className="row justify-content-center">
                 <div
                   className="col-xxl-6 col-lg-7 col-md-9"
