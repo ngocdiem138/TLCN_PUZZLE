@@ -4,7 +4,7 @@ import PageWrapper from "../components/PageWrapper";
 import { UserServiceIml } from "../actions/user-actions";
 import { useState } from "react";
 import { logout } from "../actions/auth-actions";
-import ReactJsAlert from "reactjs-alert";
+// import ReactJsAlert from "reactjs-alert";
 
 const Pricing = () => {
 

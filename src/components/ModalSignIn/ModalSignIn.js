@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
 import GoogleLogin from 'react-google-login';
-import { gapi } from 'gapi-cjs';
+// import { gapi } from 'gapi-cjs';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
