@@ -4,7 +4,7 @@ import PageWrapper from "../components/PageWrapper";
 import { UserServiceIml } from "../actions/user-actions";
 import { useState } from "react";
 import { logout } from "../actions/auth-actions";
-import ReactJsAlert from "reactjs-alert";
+// import ReactJsAlert from "reactjs-alert";
 
 const Pricing = () => {
 
@@ -38,7 +38,7 @@ const Pricing = () => {
           {/* <!-- pricing section --> */}
           <div className="pricing-area">
             <div className="container pt-12 pt-lg-24 pb-13 pb-lg-25">
-              <ReactJsAlert
+              {/* <ReactJsAlert
                 type="info"   // success, warning, error, info
                 title="Session has expired"   // title you want to display
                 status={showError}  // true or false
@@ -57,7 +57,7 @@ const Pricing = () => {
                 quotes={true}
                 quote="Update accout"
                 Close={redirect}   // callback method for hide
-              />
+              /> */}
               <div className="row justify-content-center">
                 <div
                   className="col-xxl-6 col-lg-7 col-md-9"
