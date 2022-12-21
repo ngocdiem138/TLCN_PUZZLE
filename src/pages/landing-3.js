@@ -11,7 +11,7 @@ import Pricing from "../sections/landing3/Pricing";
 const IndexPage = () => {
   return (
     <>
-      <PageWrapper
+      {/* <PageWrapper
         headerConfig={{
           bgClass: "dynamic-sticky-bg",
         }}
@@ -23,7 +23,7 @@ const IndexPage = () => {
         <Content2 />
         <Slider />
         <Pricing />
-      </PageWrapper>
+      </PageWrapper> */}
     </>
   );
 };
