@@ -67,31 +67,34 @@ class Login extends Component {
       [name]: value
     });
   };
-  responseGoogle = (response) => {
-    var res = response.profileObj;
-    this.signup(response);
-  }
 
-  signup(res) {
-    const googleresponse = {
-      Name: res.name,
-      email: res.email,
-      token: res.googleId,
-      Image: res.imageUrl,
-      ProviderId: 'Google'
-    };
+  // signup(res) {
+    // const googleresponse = {
+    //   Name: res.name,
+    //   email: res.email,
+    //   token: res.googleId,
+    //   Image: res.imageUrl,
+    //   ProviderId: 'Google'
+    // };
     // axios.post(API_REST_URL, googleresponse)
     //   .then((result) => {
     //     let responseJson = result;
     //     this.props.history.push('/Dashboard')
     //   });
-  };
+  // };
+
+  
 
   render() {
     const { email, password, showPass } = this.state;
     const { error, success } = this.props;
     const gContext = this.context;
-    
+    // const responseGoogle = (response) => {
+    //   console.log(response);
+    //   var res = response.profileObj;
+    //   console.log(res);
+    //   this.signup(response);
+    // }
 
     if (success) {
       this.handleClose()
@@ -157,15 +160,15 @@ class Login extends Component {
                       </a>
                     </div>
                     <div className="col-4 col-xs-12">
-                      <GoogleLogin
+                      {/* <GoogleLogin
                         className="font-size-4 font-weight-semibold position-relative text-white bg-poppy h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4"
                         clientId="79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com"
                         buttonText="Sign in with Google"
-                        onSuccess={this.responseGoogle}
-                        onFailure={this.responseGoogle}
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                         isSignedIn={true}
-                      />
+                      /> */}
                     </div>
                     <div className="col-4 col-xs-12">
                       <a
