@@ -72,7 +72,7 @@ class Login extends Component {
       <ModalStyled
         size="lg"
         centered
-        show={gContext.signInModalVisible}
+        show={false}
         onHide={gContext.toggleSignInModal}
       >
         <Modal.Body className="p-0">

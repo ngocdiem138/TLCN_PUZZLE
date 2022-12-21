@@ -9,6 +9,8 @@ import { formReset } from "../../actions/auth-actions";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
+import { GoogleLogin } from 'react-google-login';
+import { gapi } from 'gapi-script';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -33,8 +35,16 @@ class Login extends Component {
     showPass: "",
   };
 
+
   componentDidMount() {
     this.props.formReset();
+    const initClient = () => {
+      gapi.client.init({
+        clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
+        scope: ''
+      });
+    };
+    gapi.load('client:auth2', initClient);
   }
 
   onClickSignIn = (event) => {
@@ -45,7 +55,7 @@ class Login extends Component {
 
     this.props.login(data, this.props.history);
     const { error, success } = this.props;
-    if(success){
+    if (success) {
       this.handleClose()
     }
   };
@@ -58,12 +68,65 @@ class Login extends Component {
     });
   };
 
+  signup(res) {
+
+
+    const googleresponse = {
+      Name: res.name,
+      email: res.email,
+      token: res.googleId,
+      Image: res.imageUrl,
+      ProviderId: 'Google'
+    };
+
+
+
+    debugger;
+
+
+    // axios.post(API_REST_URL, googleresponse)
+
+
+    //   .then((result) => {
+
+
+    //     let responseJson = result;
+
+    //     this.props.history.push('/Dashboard')
+
+
+    //   });
+
+
+  };
+
+  
+
   render() {
     const { email, password, showPass } = this.state;
     const { error, success } = this.props;
     const gContext = this.context;
+    const responseGoogle = (response) => {
 
-    if(success){
+
+      console.log(response);
+
+
+      var res = response.profileObj;
+
+
+      console.log(res);
+
+
+      debugger;
+
+
+      this.signup(response);
+
+
+    }
+
+    if (success) {
       this.handleClose()
     }
 
@@ -127,15 +190,15 @@ class Login extends Component {
                       </a>
                     </div>
                     <div className="col-4 col-xs-12">
-                      <a
-                        href="/#"
+                      <GoogleLogin
                         className="font-size-4 font-weight-semibold position-relative text-white bg-poppy h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4"
-                      >
-                        <i className="fab fa-google pos-xs-abs-cl font-size-7 ml-xs-4"></i>{" "}
-                        <span className="d-none d-xs-block">
-                          Log in with Google
-                        </span>
-                      </a>
+                        clientId="79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com"
+                        buttonText="Sign in with Google"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                        isSignedIn={true}
+                      />
                     </div>
                     <div className="col-4 col-xs-12">
                       <a
@@ -225,9 +288,9 @@ class Login extends Component {
                     </div>
                     {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
                     {success ? <div className="alert alert-success col-12" role="alert">{success}</div> : null}
-                      <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
-                        Log in{" "}
-                      </button>
+                    <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
+                      Log in{" "}
+                    </button>
                     <p className="font-size-4 text-center heading-default-color">
                       Don’t have an account?{" "}
                       <a href="/#" className="text-primary">
