@@ -20,7 +20,7 @@ class Login extends Component {
   static contextType = GlobalContext
   handleClose = () => {
     const gContext = this.context;
-    gContext.toggleSignInModalClose();
+    gContext.to();
   };
   togglePassword = () => {
     this.setState({
@@ -72,7 +72,8 @@ class Login extends Component {
       <ModalStyled
         size="lg"
         centered
-        show={gContext.signInModalVisible}
+        // show={gContext.signInModalVisible}
+        show={false}
         onHide={gContext.toggleSignInModal}
       >
         <Modal.Body className="p-0">
@@ -128,7 +129,7 @@ class Login extends Component {
                       </a>
                     </div>
                     <div className="col-4 col-xs-12">
-                      <a
+                      {/* <a
                         href="/#"
                         className="font-size-4 font-weight-semibold position-relative text-white bg-poppy h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4"
                       >
@@ -136,7 +137,7 @@ class Login extends Component {
                         <span className="d-none d-xs-block">
                           Log in with Google
                         </span>
-                      </a>
+                      </a> */}
                     </div>
                     <div className="col-4 col-xs-12">
                       <a
