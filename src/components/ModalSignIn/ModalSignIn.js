@@ -38,14 +38,14 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.formReset();
-    if (typeof window !== "undefined") {
-      gapi.load('client:auth2', () => {
-        gapi.client.init({
-          clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
-          scope: ''
-        })
-      });
-    }
+    // if (typeof window !== "undefined") {
+    //   gapi.load('client:auth2', () => {
+    //     gapi.client.init({
+    //       clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
+    //       scope: ''
+    //     })
+    //   });
+    // }
   }
 
   onClickSignIn = (event) => {
