@@ -9,8 +9,8 @@ import { formReset } from "../../actions/auth-actions";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
-// import { GoogleLogin } from 'react-google-login';
-// import { gapi } from 'gapi-script';
+import  GoogleLogin  from 'react-google-login';
+import { gapi } from 'gapi-cjs'
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -38,13 +38,13 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.formReset();
-    // const initClient = () => {
-    //   gapi.client.init({
-    //     clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
-    //     scope: ''
-    //   });
-    // };
-    // gapi.load('client:auth2', initClient);
+    const initClient = () => {
+      gapi.client.init({
+        clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
+        scope: ''
+      });
+    };
+    gapi.load('client:auth2', initClient);
   }
 
   onClickSignIn = (event) => {
@@ -68,20 +68,20 @@ class Login extends Component {
     });
   };
 
-  // signup(res) {
-    // const googleresponse = {
-    //   Name: res.name,
-    //   email: res.email,
-    //   token: res.googleId,
-    //   Image: res.imageUrl,
-    //   ProviderId: 'Google'
-    // };
-    // axios.post(API_REST_URL, googleresponse)
-    //   .then((result) => {
-    //     let responseJson = result;
-    //     this.props.history.push('/Dashboard')
-    //   });
-  // };
+  signup(res) {
+    const googleresponse = {
+      Name: res.name,
+      email: res.email,
+      token: res.googleId,
+      Image: res.imageUrl,
+      ProviderId: 'Google'
+    };
+    axios.post(API_REST_URL, googleresponse)
+      .then((result) => {
+        let responseJson = result;
+        this.props.history.push('/Dashboard')
+      });
+  };
 
   
 
@@ -89,12 +89,12 @@ class Login extends Component {
     const { email, password, showPass } = this.state;
     const { error, success } = this.props;
     const gContext = this.context;
-    // const responseGoogle = (response) => {
-    //   console.log(response);
-    //   var res = response.profileObj;
-    //   console.log(res);
-    //   this.signup(response);
-    // }
+    const responseGoogle = (response) => {
+      console.log(response);
+      var res = response.profileObj;
+      console.log(res);
+      this.signup(response);
+    }
 
     if (success) {
       this.handleClose()
@@ -160,7 +160,7 @@ class Login extends Component {
                       </a>
                     </div>
                     <div className="col-4 col-xs-12">
-                      {/* <GoogleLogin
+                      <GoogleLogin
                         className="font-size-4 font-weight-semibold position-relative text-white bg-poppy h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4"
                         clientId="79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com"
                         buttonText="Sign in with Google"
@@ -168,7 +168,7 @@ class Login extends Component {
                         onFailure={responseGoogle}
                         cookiePolicy={'single_host_origin'}
                         isSignedIn={true}
-                      /> */}
+                      />
                     </div>
                     <div className="col-4 col-xs-12">
                       <a
