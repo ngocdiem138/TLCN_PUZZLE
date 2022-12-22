@@ -245,12 +245,6 @@ class Registration extends Component {
                           </a>
                         </span>
                       </label>
-                      <a
-                        href="/#"
-                        className="font-size-3 text-dodger line-height-reset"
-                      >
-                        Forget Password
-                      </a>
                     </div>
                     <div className="form-group mb-8">
                       <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
@@ -260,9 +254,9 @@ class Registration extends Component {
                       {isRegistered ? <div className="alert alert-success col-12" role="alert">{isRegistered}</div> : null}
                     </div>
                     <p className="font-size-4 text-center heading-default-color">
-                      Don’t have an account?{" "}
+                      Have an account?{" "}
                       <a href="/#" className="text-primary">
-                        Create a free account
+                        Sign in here
                       </a>
                     </p>
                   </form>
