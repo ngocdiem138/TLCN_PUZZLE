@@ -34,7 +34,7 @@ const CandidateSettings = () => {
           reveal: false,
         }}
       >
-        <div
+        {/* <div
           className="dashboard-main-container mt-24 mt-lg-31"
           id="dashboard-body"
         >
@@ -180,7 +180,7 @@ const CandidateSettings = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </PageWrapper>
     </>
   );

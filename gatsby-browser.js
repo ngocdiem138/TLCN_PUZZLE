@@ -6,7 +6,10 @@ import { Store } from "gatsby";
 import store from "./store";
 import { Provider } from "react-redux";
 import { I18nextProvider } from 'react-i18next'
-import i18n from './src/i18n'
+import i18n from './src/i18n';
+import './src/styles/global.css';
+import { ChakraProvider } from '@chakra-ui/react';
+import { theme } from './src/helpers'
 
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get
@@ -16,13 +19,14 @@ export const wrapPageElement = ({ element, props }) => {
 
 export const wrapRootElement = ({ element }) => (
   <I18nextProvider i18n={i18n}>
-    <GlobalProvider>
-      <Provider store={store}>
-        <CartProvider>{element}</CartProvider>
-        {/* <BrowserRouter>
+    <ChakraProvider theme={theme}>
+      <GlobalProvider>
+        <Provider store={store}>
+          <CartProvider>{element}</CartProvider>
+          {/* <BrowserRouter>
         <App />
       </BrowserRouter> */}
-      </Provider>
-    </GlobalProvider>
+        </Provider>
+      </GlobalProvider></ChakraProvider>
   </I18nextProvider>
 );

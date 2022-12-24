@@ -125,7 +125,7 @@ const Pricing = () => {
                             onClick={() => {
                               payment('lite');
                             }}>
-                            Start with Premium{" "}
+                            Start with Lite{" "}
                           </button >
                         </div>
                         {/* <!-- card-footer end --> */}
@@ -179,7 +179,7 @@ const Pricing = () => {
                             onClick={() => {
                               payment('pro');
                             }}>
-                            Start with Premium{" "}
+                            Start with Pro{" "}
                           </button >
                         </div>
                         {/* <!-- card-footer end --> */}
@@ -230,7 +230,7 @@ const Pricing = () => {
                             onClick={() => {
                               payment('vip');
                             }}>
-                            Start with Premium{" "}
+                            Start with VIP{" "}
                           </button >
                         </div>
                         {/* <!-- card-footer end --> */}

@@ -8,6 +8,9 @@ import FeaturedJobs from "../sections/landing1/FeaturedJobs";
 import Content2 from "../sections/landing1/Content2";
 import { Trans, useTranslation } from 'gatsby-plugin-react-i18next';
 import { graphql } from 'gatsby';
+// import 'simplebar/dist/simplebar.min.css'
+// import '../styles/index.css'
+// import '../index.css'
 
 const IndexPage = () => {
   const isSSR = typeof window === "undefined";
