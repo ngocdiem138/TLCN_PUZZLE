@@ -7,8 +7,6 @@ import CandidateSettings from './CandidateSettings'
 
 class Content extends React.Component {
   render() {
-    console.log("isCandidate",this.props.isCandidate);
-    console.log("isEmployer",this.props.isEmployer);
 
     return (
       <Box

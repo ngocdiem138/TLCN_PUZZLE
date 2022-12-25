@@ -75,9 +75,6 @@ const CandidateSettings = () => {
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [quill, setQuill] = useState(false);
-  if (typeof document !== `undefined`) {
-    setQuill(true);
-  }
   useEffect(() => {
     CandidateServiceIml.getCandidateSettingProfile().then((response) => {
       setFirstName(response.data.data.firstName);
