@@ -26,6 +26,15 @@ class CandidateService {
     })
   }
 
+  updateCandidateSettingProfile(candidateProfile) {
+    return axios.put(API_BASE_URL + "/candidate/update", candidateProfile, {
+        headers: {
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: "Bearer " + localStorage.getItem("token")
+        }
+    })
+}
+
   getCandidateProfile(candidateId) {
     return axios.get(API_BASE_URL + "/common/get-profile-candidate/" + candidateId, {
       headers: {
