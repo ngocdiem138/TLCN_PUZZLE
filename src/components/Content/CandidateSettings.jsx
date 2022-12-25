@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -18,11 +18,10 @@ import {
 import { Alert } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
 import { CandidateServiceIml } from '../../actions/candidate-action';
-// import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
 const CandidateSettings = () => {
-  const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }),[]);
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
