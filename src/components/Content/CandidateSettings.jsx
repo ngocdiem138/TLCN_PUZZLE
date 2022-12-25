@@ -17,7 +17,6 @@ import {
 } from '@chakra-ui/react';
 import { Alert } from 'react-bootstrap';
 import { CandidateServiceIml } from '../../actions/candidate-action';
-import Editor from '../widgets/Editor';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
@@ -246,8 +245,8 @@ const CandidateSettings = () => {
             theme="snow"
             onChange={(e) => setIntroduction(e)}
             value={introduction}
-            modules={Editor.modules}
-            formats={Editor.formats}
+            modules={modules}
+            formats={formats}
             placeholder="Write about yourself ....."
           /> : null
         }
