@@ -17,11 +17,48 @@ import {
 } from '@chakra-ui/react';
 import { Alert } from 'react-bootstrap';
 import { CandidateServiceIml } from '../../actions/candidate-action';
-import Editor from '../widgets/Editor';
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 
-function CandidateSettings() {
+const CandidateSettings = () => {
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
+  };
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
+
+
+
+
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [introduction, setIntroduction] = useState("");
@@ -197,15 +234,15 @@ function CandidateSettings() {
       </Grid>
       <FormControl id="introduction" style={{ "marginTop": "2vh" }}>
         <FormLabel>Introduction</FormLabel>
-          <ReactQuill
-            style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
-            theme="snow"
-            onChange={(e) => setIntroduction(e)}
-            value={introduction}
-            modules={Editor.modules}
-            formats={Editor.formats}
-            placeholder="Write about yourself ....."
-          />
+        <ReactQuill
+          style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
+          theme="snow"
+          onChange={(e) => setIntroduction(e)}
+          value={introduction}
+          modules={modules}
+          formats={formats}
+          placeholder="Write about yourself ....."
+        />
       </FormControl>
       <Box mt={5} py={5} px={8} borderTopWidth={1} borderColor="brand.light">
         <Button onClick={handleSubmit}>Update</Button>
