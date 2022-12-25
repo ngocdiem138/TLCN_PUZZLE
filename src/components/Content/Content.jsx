@@ -48,14 +48,14 @@ class Content extends React.Component {
               <AccountSettings />
             </TabPanel>
             {
-              this.props.isEmployer==true ?
+              this.props.isEmployer?
                 <TabPanel>
                   <EmployerSettings />
                 </TabPanel> : null
             }
 
             {
-              this.props.isCandidate==true ?
+              this.props.isCandidate?
                 <TabPanel>
                   <CandidateSettings />
                 </TabPanel> : null

@@ -1,4 +1,4 @@
-import React,{ useEffect, useState }  from "react";
+import React, { useEffect, useState } from "react";
 
 import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
@@ -28,11 +28,15 @@ const defaultLocations = [
 
 const DashboardSettings = () => {
   const [tabs, setTabs] = useState(['Account Settings']);
+  const [isEmployer, setIsEmployer] = useState(false);
+  const [isCandidate, setIsCandidate] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("userRole") == "EMPLOYER") {
-      setTabs(['Account Settings', 'Employer Settings'])
+      setIsEmployer(true);
+      setTabs(['Account Settings', 'Employer Settings']);
     } else if (localStorage.getItem("userRole") == "CANDIDATE") {
       setTabs(['Account Settings', 'Candidate Settings'])
+      setIsCandidate(true);
     }
   }, [])
   return (
@@ -57,8 +61,8 @@ const DashboardSettings = () => {
                     {/* Update Company Profile */}
                   </h5>
                   <div className="contact-form bg-white shadow-8 rounded-4 pl-sm-10 pl-4 pr-sm-11 pr-4 pt-15 pb-13">
-                    <Container display={{ base: 'block', md: 'flex' }} maxW="container.xl" style={{"margin-top":"10%"}}>
-                      <Content tabs={tabs}  isEmployer = {localStorage.getItem("userRole") == "EMPLOYER"} isCandidate ={localStorage.getItem("userRole") == "CANDIDATE"}/>
+                    <Container display={{ base: 'block', md: 'flex' }} maxW="container.xl" style={{ "margin-top": "10%" }}>
+                      <Content tabs={tabs} isEmployer={isEmployer} isCandidate={isCandidate} />
                     </Container>
                   </div>
                 </div>

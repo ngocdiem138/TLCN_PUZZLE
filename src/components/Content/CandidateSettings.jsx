@@ -197,7 +197,7 @@ function CandidateSettings() {
       </Grid>
       <FormControl id="introduction" style={{ "marginTop": "2vh" }}>
         <FormLabel>Introduction</FormLabel>
-        <div style={{ width: "100%", margin: "0px", overflowY: "scroll", maxWidth: "40vw" }}>
+        <div style={{ width: "100%", margin: "0px",  maxWidth:"100%"}}>
           <ReactQuill
             theme="snow"
             onChange={(e) => setIntroduction(e)}
