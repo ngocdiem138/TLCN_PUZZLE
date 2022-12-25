@@ -197,8 +197,8 @@ function CandidateSettings() {
       </Grid>
       <FormControl id="introduction" style={{ "marginTop": "2vh" }}>
         <FormLabel>Introduction</FormLabel>
-        <div style={{ width: "100%", margin: "0px",  maxWidth:"100%"}}>
           <ReactQuill
+            style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
             theme="snow"
             onChange={(e) => setIntroduction(e)}
             value={introduction}
@@ -206,7 +206,6 @@ function CandidateSettings() {
             formats={Editor.formats}
             placeholder="Write about yourself ....."
           />
-        </div>
       </FormControl>
       <Box mt={5} py={5} px={8} borderTopWidth={1} borderColor="brand.light">
         <Button onClick={handleSubmit}>Update</Button>
