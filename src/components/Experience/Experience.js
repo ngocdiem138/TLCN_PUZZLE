@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useToast } from '@chakra-ui/react';
 import { Tag, TagCloseButton, TagLabel, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, FormControl, FormLabel, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, VStack, Textarea, Select, Text, Col } from '@chakra-ui/react';
@@ -11,6 +11,7 @@ import { ExperienceServiceIml } from '../../actions/user-actions';
 import './Experience.css'
 
 const Experience = () => {
+    const inputRef = useRef(null);
     const [experienceList, setExperienceList] = useState([]);
     useEffect(() => {
         ExperienceServiceIml.getExperienceByCandidate().then((response) => { setExperienceList(response.data.data) });
@@ -26,9 +27,9 @@ const Experience = () => {
             description: "",
             skills: "",
         }]);
-        const skill = document.getElementById("skills")
+        const skill = inputRef.current;
         skill.value = ""
-        
+
     }
     const saveOrUpdate = () => {
         experienceList.map((work) => (
@@ -45,11 +46,11 @@ const Experience = () => {
         setExperienceList(updatedExperienceList);
     }
 
-    const handleSkill= (e, id) => {
+    const handleSkill = (e, id) => {
         e.preventDefault();
         const { name, value } = e.target[0];
         const updatedExperienceList = experienceList.map((work) => (
-            work.id === id ? Object.assign(work, { [name]: work.skills+value+',' }) : work
+            work.id === id ? Object.assign(work, { [name]: work.skills + value + ',' }) : work
         ));
 
         setExperienceList(updatedExperienceList);
@@ -62,9 +63,9 @@ const Experience = () => {
 
     const [skill, setSkill] = useState("");
 
-    const deleteSkill = (skill,id) => {
+    const deleteSkill = (skill, id) => {
         const updatedExperienceList = experienceList.map((work) => (
-            work.id === id ? Object.assign(work, { ["skills"]: work.skills.replace(skill+',','') }) : work
+            work.id === id ? Object.assign(work, { ["skills"]: work.skills.replace(skill + ',', '') }) : work
         ));
 
         setExperienceList(updatedExperienceList);
@@ -77,7 +78,7 @@ const Experience = () => {
                     experienceList.map((work, index) => (
                         <AccordionItem key={index}>
                             <h2>
-                                <AccordionButton  className='main-color'>
+                                <AccordionButton className='main-color'>
                                     <Box flex='1' textAlign='left'>
                                         <h3 fontWeight={'medium'}>{work.title ? work.title : "Title"}</h3>
                                     </Box>
@@ -117,15 +118,15 @@ const Experience = () => {
                                 </FormControl>
 
                                 <FormControl mt={3}>
-                                    <HStack spacing={4} alignItems={'flex-end'} as='form' onSubmit={(e) =>handleSkill(e, work.id)}>
+                                    <HStack spacing={4} alignItems={'flex-end'} as='form' onSubmit={(e) => handleSkill(e, work.id)}>
                                         <FormControl>
                                             <FormLabel htmlFor='skill'>Kỹ năng</FormLabel>
-                                            <Input className='input-field' onChange={(e) => setSkill(e.target.value)} value={skill} name='skills' id='skills' type='text' variant='filled' placeholder='Skill' />
+                                            <Input className='input-field' onChange={(e) => setSkill(e.target.value)} ref={inputRef} value={skill} name='skills' id='skills' type='text' variant='filled' placeholder='Skill' />
                                         </FormControl>
                                         <Button id="add-skill-button" type='submit' colorScheme={'purple'}>Add</Button>
                                     </HStack>
 
-                                    <Box  borderWidth={'1px'} rounded={'sm'} my={4} p={2} marginLeft={20}>
+                                    <Box borderWidth={'1px'} rounded={'sm'} my={4} p={2} marginLeft={20}>
                                         {work.skills ? work.skills.split(',').map((skill) => (
                                             <Tag
                                                 className='show-tag'
@@ -138,8 +139,8 @@ const Experience = () => {
                                                 marginRight={2}
                                             >
                                                 <TagLabel>{skill}</TagLabel>
-                                                {skill ? <TagCloseButton className='delete-tag' onClick={() => deleteSkill(skill,work.id)}/>:""}
-                                                
+                                                {skill ? <TagCloseButton className='delete-tag' onClick={() => deleteSkill(skill, work.id)} /> : ""}
+
                                             </Tag>
                                         )) : (
                                             "No Skills Added"
