@@ -1,9 +1,10 @@
-import React from "react";
+import React,{ useEffect, useState }  from "react";
 
 import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
-import { Container } from '@chakra-ui/layout'
-import Content from '../components/Content/Content'
+import { Container } from '@chakra-ui/layout';
+import Content from '../components/Content/Content';
+
 
 const defaultTypes = [
   { value: "b2b", label: "B2B" },
@@ -26,6 +27,14 @@ const defaultLocations = [
 ];
 
 const DashboardSettings = () => {
+  const [tabs, setTabs] = useState(['Account Settings']);
+  useEffect(() => {
+    if (localStorage.getItem("userRole") == "EMPLOYER") {
+      setTabs(['Account Settings', 'Employer Settings'])
+    } else if (localStorage.getItem("userRole") == "CANDIDATE") {
+      setTabs(['Account Settings', 'Candidate Settings'])
+    }
+  }, [])
   return (
     <>
       <PageWrapper
@@ -49,7 +58,7 @@ const DashboardSettings = () => {
                   </h5>
                   <div className="contact-form bg-white shadow-8 rounded-4 pl-sm-10 pl-4 pr-sm-11 pr-4 pt-15 pb-13">
                     <Container display={{ base: 'block', md: 'flex' }} maxW="container.xl" style={{"margin-top":"10%"}}>
-                      <Content />
+                      <Content tabs={tabs}  isEmployer = {localStorage.getItem("userRole") == "EMPLOYER"} isCandidate ={localStorage.getItem("userRole") == "CANDIDATE"}/>
                     </Container>
                   </div>
                 </div>

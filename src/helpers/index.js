@@ -19,7 +19,7 @@ export const theme = extendTheme({
     Button: {
       variants: {
         solid: {
-          p: '6',
+          // p: '6',
           color: 'white',
           bg: 'brand.blue',
           _hover: { bg: 'brand.blue' },

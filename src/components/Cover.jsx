@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import React,{ useEffect, useRef, useState } from 'react'
 import {
   Badge,
   Box,
@@ -14,10 +14,18 @@ import {
   ModalOverlay,
   Text,
   useDisclosure,
-} from '@chakra-ui/react'
+} from '@chakra-ui/react';
+import  AvatarImg  from '../assets/image/header-profile.png';
+import { UserServiceIml } from '../actions/user-actions';
 
-export default function Cover() {
-  const [coverImage, setCoverImage] = useState(null)
+export default function Avatar(url) {
+  console.log("url", url)
+  const [avatarImage, setAvatarImage] = useState(null)
+  useEffect(()=>{
+    if(url.url && !avatarImage){
+      setAvatarImage(url.url)
+    }
+  })
   const inputRef = useRef(null)
   const { isOpen, onOpen, onClose } = useDisclosure()
 
@@ -25,13 +33,16 @@ export default function Cover() {
     inputRef.current.click()
   }
 
-  const handleChangeCover = event => {
+  const handleChangeAvatar = event => {
     const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/jpg']
     const selected = event.target.files[0]
 
     if (selected && ALLOWED_TYPES.includes(selected.type)) {
       let reader = new FileReader()
-      reader.onloadend = () => setCoverImage(reader.result)
+      reader.onloadend = () => setAvatarImage(reader.result)
+      const formData = new FormData();
+      formData.append("file", selected);
+      UserServiceIml.uploadUserAvatar(formData);
       return reader.readAsDataURL(selected)
     }
 
@@ -39,19 +50,20 @@ export default function Cover() {
   }
 
   return (
-    <Box h={60} overflow="hidden">
+    <Box h={60} w={60} margin='30px auto' padding={3} overflow="hidden">
       <Image
         w="full"
         h="full"
-        objectFit="cover"
-        src={coverImage ? coverImage : '/img/cover.jpg'}
-        alt="Cover"
+        objectFit="avatar"
+        src={avatarImage ? avatarImage : AvatarImg}
+        alt="Avatar"
+        style={{"border-radius":"50%", "border": "6px solid white", "box-shadow": "0px 0px 0px 6px gray"}}
       />
       <Button
         onClick={openChooseFile}
         position="absolute"
-        top={4}
-        right={4}
+        top={60}
+        left={380}
         variant="ghost"
       >
         <svg width="1.2em" fill="currentColor" viewBox="0 0 20 20">
@@ -61,8 +73,8 @@ export default function Cover() {
             d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
           />
         </svg>
-        <Text ml={2}>Change Cover</Text>
-        <input ref={inputRef} type="file" onChange={handleChangeCover} hidden />
+        {/* <Text ml={2}>Change</Text> */}
+        <input ref={inputRef} type="file" onChange={handleChangeAvatar} hidden />
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

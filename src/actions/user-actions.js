@@ -203,6 +203,29 @@ class UserService {
             }
         })
     }
+    uploadUserAvatar(file) {
+        return axios.post(API_BASE_URL + "/upload-avatar", file, {
+            headers: {
+                "Content-Type": `multipart/form-data;`,
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
+    deleteUserAvatar() {
+        return axios.get(API_BASE_URL + "/delete-avatar", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
+    updateUserSettingProfile(userProfile) {
+        return axios.put(API_BASE_URL + "/user", userProfile, {
+            headers: {
+                "Content-Type": "application/json;charset=UTF-8",
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
 }
 
 export const UserServiceIml = new UserService();
