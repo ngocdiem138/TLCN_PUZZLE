@@ -41,11 +41,11 @@ const Contact = () => {
       "subject": subject,
       "result": result,
       "note": note,
-  }).then((response)=>{
-    if(response.data.status==200){
-      window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants");
-    } 
-  })
+    }).then((response) => {
+      if (response.data.status == 200) {
+        if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants"); }
+      }
+    })
     // 
   }
 

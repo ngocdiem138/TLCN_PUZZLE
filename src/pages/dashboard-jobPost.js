@@ -16,7 +16,7 @@ import { REDIRECT_BASE_URL } from "../utils/constants/url";
 
 function DashboardJobPost() {
     // const Editor = useMemo(() => dynamic(() => import('../components/widgets/Editor'), { ssr: false }), []);
-    const ReactQuill =  typeof window === 'object' ? require('react-quill') : () => false
+    const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
     const modules = {
         toolbar: [
             [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -249,7 +249,7 @@ function DashboardJobPost() {
     };
 
     const redirect = () => {
-        window.location.assign(REDIRECT_BASE_URL + "/dashboard-jobs")
+        if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + "/dashboard-jobs") }
     }
 
 

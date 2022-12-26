@@ -71,7 +71,7 @@ const CandidateProfile = () => {
       "note": note,
     }).then((response) => {
       if (response.data.status == 200) {
-        window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants");
+        if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants"); }
       }
     })
     // 
