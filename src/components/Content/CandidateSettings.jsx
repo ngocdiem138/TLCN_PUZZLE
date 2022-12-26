@@ -16,7 +16,7 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { Alert } from 'react-bootstrap';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 import { CandidateServiceIml } from '../../actions/candidate-action';
 import "react-quill/dist/quill.snow.css";
 // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
