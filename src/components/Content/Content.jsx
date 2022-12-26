@@ -42,23 +42,26 @@ class Content extends React.Component {
           </TabList>
 
           <TabPanels px={3} mt={5}>
-            <TabPanel>
-              <AccountSettings />
-            </TabPanel>
             {
-              this.props.isCandidate?
+              this.props.isUser ?
+                <TabPanel>
+                  <AccountSettings />
+                </TabPanel> : null
+            }
+            {
+              this.props.isCandidate ?
                 <TabPanel>
                   <CandidateSettings />
                 </TabPanel> : null
             }
             {
-              this.props.isEmployer?
+              this.props.isEmployer ?
                 <TabPanel>
                   <EmployerSettings />
                 </TabPanel> : null
             }
 
-            
+
           </TabPanels>
         </Tabs>
 

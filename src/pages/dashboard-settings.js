@@ -29,6 +29,7 @@ const DashboardSettings = () => {
   const [tabs, setTabs] = useState(['Account Settings']);
   const [isEmployer, setIsEmployer] = useState(false);
   const [isCandidate, setIsCandidate] = useState(false);
+  const [isUser, setIsUser] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("userRole") == "EMPLOYER") {
       setIsEmployer(true);
@@ -36,7 +37,9 @@ const DashboardSettings = () => {
     } else if (localStorage.getItem("userRole") == "CANDIDATE") {
       setTabs(['Account Settings', 'Candidate Settings'])
       setIsCandidate(true);
-    }
+    } else if (localStorage.getItem("userRole") == "USER") {
+      setIsUser(true);
+    } 
   }, [])
   return (
     <>
@@ -61,7 +64,7 @@ const DashboardSettings = () => {
                   </h5>
                   <div className="contact-form bg-white shadow-8 rounded-4 pl-sm-10 pl-4 pr-sm-11 pr-4 pt-15 pb-13">
                     <Container display={{ base: 'block', md: 'flex' }} maxW="container.xl" style={{ "margin-top": "10%" }}>
-                      <Content tabs={tabs} isEmployer={isEmployer} isCandidate={isCandidate} />
+                      <Content tabs={tabs} isEmployer={isEmployer} isCandidate={isCandidate} isUser = {isUser} />
                     </Container>
                   </div>
                 </div>
