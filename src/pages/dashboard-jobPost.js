@@ -1,9 +1,7 @@
-import React from "react";
+import React, { useState, useEffect, useMemo } from 'react';
 
 import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
-import { useEffect } from "react";
-import { useState, useMemo } from "react";
 import { useLocation } from "@reach/router";
 import { parse } from "query-string";
 import { JobPostServiceIml } from "../actions/user-actions";
@@ -15,63 +13,42 @@ import { REDIRECT_BASE_URL } from "../utils/constants/url";
 import dynamic from 'next/dynamic';
 import "react-quill/dist/quill.snow.css";
 
-const defaultTypes = [
-    { value: "b2b", label: "B2B" },
-    { value: "saas", label: "SAAS" },
-    { value: "b2b", label: "b2b" },
-];
-
-const defaultEmployees = [
-    { value: "10-50", label: "10-50" },
-    { value: "50-100", label: "50-100" },
-    { value: "100-500", label: "100-500" },
-    { value: "500-2000", label: "500-2000" },
-];
-
-const defaultLocations = [
-    { value: "bd", label: "Bangladesh" },
-    { value: "sp", label: "Singapore" },
-    { value: "tl", label: "Thailand" },
-    { value: "de", label: "Germany" },
-];
-
-const modules = {
-    toolbar: [
-        [{ header: "1" }, { header: "2" }, { font: [] }],
-        [{ size: [] }],
-        ["bold", "italic", "underline", "strike", "blockquote"],
-        [
-            { list: "ordered" },
-            { list: "bullet" },
-            { indent: "-1" },
-            { indent: "+1" },
-        ],
-        ["link", "image"],
-        ["clean"],
-    ],
-    clipboard: {
-        matchVisual: false,
-    },
-};
-
-const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-];
-
 const DashboardSettings = () => {
     const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
+    const modules = {
+        toolbar: [
+            [{ header: "1" }, { header: "2" }, { font: [] }],
+            [{ size: [] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+                { list: "ordered" },
+                { list: "bullet" },
+                { indent: "-1" },
+                { indent: "+1" },
+            ],
+            ["link", "image"],
+            ["clean"],
+        ],
+        clipboard: {
+            matchVisual: false,
+        },
+    };
+
+    const formats = [
+        "header",
+        "font",
+        "size",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "link",
+        "image",
+    ];
 
     const { t, i18n } = useTranslation()
     const defaultCountries = [
@@ -589,9 +566,8 @@ const DashboardSettings = () => {
                                                                 Description
                                                             </label>
                                                             <ReactQuill
-                                                                style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
                                                                 theme="snow"
-                                                                onChange={(e) => setDescription(e)} required
+                                                                onChange={(e) => setDescription(e)}
                                                                 value={description}
                                                                 modules={modules}
                                                                 formats={formats}
