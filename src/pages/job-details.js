@@ -124,7 +124,7 @@ const JobDetails = () => {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
-                window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
+                // window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
                 break;
               default:
                 setSucces("");
