@@ -4,18 +4,6 @@ import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
 import { Container } from '@chakra-ui/layout';
 import Content from '../components/Content/Content';
-import "../../assets/fonts/icon-font/css/style.css";
-
-import "../../../node_modules/slick-carousel/slick/slick.css";
-import "../../../node_modules/slick-carousel/slick/slick-theme.css";
-import "../../../node_modules/aos/dist/aos.css";
-
-import "../../assets/fonts/icon-font/css/style.css";
-import "../../assets/fonts/fontawesome-5/css/all.css";
-
-import "../../scss/bootstrap.scss";
-import "../../scss/main.scss";
-
 
 const defaultTypes = [
   { value: "b2b", label: "B2B" },
