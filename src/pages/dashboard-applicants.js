@@ -17,8 +17,6 @@ import CandidateProfile from "./candidate-profile-2";
 import ModalApplication from "../components/ModalApplication";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
-import Paginate from "../helpers/Paginate";
-import ReactPaginate from 'react-paginate';
 
 const defaultJobs = [
   { value: 1, label: "Product Designer" },
@@ -38,30 +36,7 @@ const DashboardApplicants = () => {
   const [listJob, setListJob] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
-  const [showError, setShowError] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(5);
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = applicants.slice(indexOfFirstPost, indexOfLastPost);
-
-  const paginate = (pageNumber) => {
-    console.log("pageNumber",pageNumber)
-    setCurrentPage(pageNumber);
-  };
-
-  const previousPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
-  };
-
-  const nextPage = () => {
-    if (currentPage !== Math.ceil(applicants.length / postsPerPage)) {
-      setCurrentPage(currentPage + 1);
-    }
-  };
-
+  const [showError, setShowError] = useState(false)
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       if (response.data.errCode == "403") {
@@ -81,7 +56,7 @@ const DashboardApplicants = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-            applicant = [...applicant, element.candidate]
+              applicant = [...applicant, element.candidate]
           });
           setApplicants(applicant);
         }
@@ -125,15 +100,15 @@ const DashboardApplicants = () => {
     }
   };
 
-  const listApplication = currentPosts.map(applicant => {
+  const listApplication = applicants.map(applicant => {
     return <tr className="border border-color-2">
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
-          to={"/candidate-profile?candidateId=" + applicant.id + "&jobPostId=" + id}
+          to="/candidate-profile"
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
-            <img src={applicant.avatar ? applicant.avatar : imgP1} alt="" className="w-100" />
+            <img src={applicant.ave?applicant.lastName:imgP1} alt="" className="w-100" />
           </div>
           <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
             {applicant.lastName} {applicant.firstName}
@@ -193,7 +168,7 @@ const DashboardApplicants = () => {
   const [id, setId] = useState(0);
 
   const gContext = useContext(GlobalContext);
-
+  console.log("HAA", listJob)
   return (
     <>
       <PageWrapper
@@ -278,14 +253,70 @@ const DashboardApplicants = () => {
                     </tbody>
                   </table>
                 </div>
-                <Paginate
-                  postsPerPage={postsPerPage}
-                  totalPosts={applicants.length}
-                  paginate={paginate}
-                  previousPage={previousPage}
-                  nextPage={nextPage}
-                  selectedPage={currentPage}
-                />
+                <div className="pt-2">
+                  <nav aria-label="Page navigation example">
+                    <ul className="pagination pagination-hover-primary rounded-0 ml-n2">
+                      <li className="page-item rounded-0 flex-all-center">
+                        <a
+                          href="/#"
+                          className="page-link rounded-0 border-0 px-3active"
+                          aria-label="Previous"
+                        >
+                          <i className="fas fa-chevron-left"></i>
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a
+                          href="/#"
+                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
+                        >
+                          1
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a
+                          href="/#"
+                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
+                        >
+                          2
+                        </a>
+                      </li>
+                      <li className="page-item">
+                        <a
+                          href="/#"
+                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
+                        >
+                          3
+                        </a>
+                      </li>
+                      <li className="page-item disabled">
+                        <a
+                          href="/#"
+                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
+                        >
+                          ...
+                        </a>
+                      </li>
+                      <li className="page-item ">
+                        <a
+                          href="/#"
+                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
+                        >
+                          7
+                        </a>
+                      </li>
+                      <li className="page-item rounded-0 flex-all-center">
+                        <a
+                          href="/#"
+                          className="page-link rounded-0 border-0 px-3"
+                          aria-label="Next"
+                        >
+                          <i className="fas fa-chevron-right"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
