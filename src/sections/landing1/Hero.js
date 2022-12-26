@@ -53,7 +53,7 @@ const Hero = () => {
     event.preventDefault();
     handleFilters(event.target[0].value, event.target[0].name);
     handleFilters(city, "cities");
-    if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city); }
+    window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city);
     setError("");
     setSucces("");
   }
