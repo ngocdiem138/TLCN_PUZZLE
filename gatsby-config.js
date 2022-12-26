@@ -9,6 +9,7 @@ module.exports = {
   },
   plugins: [
     // 'gatsby-plugin-postcss',
+    // `gatsby-plugin-emotion`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-sass`,
     `gatsby-plugin-styled-components`,

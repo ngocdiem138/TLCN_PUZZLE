@@ -10,11 +10,13 @@ import { Link } from "gatsby";
 import { Form } from 'react-bootstrap';
 import ReactJsAlert from "reactjs-alert";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
-import dynamic from 'next/dynamic';
-import "react-quill/dist/quill.snow.css";
+// import dynamic from 'next/dynamic';
+// import "react-quill/dist/quill.snow.css";
+// import Editor from '../components/widgets/Editor';
 
-const DashboardSettings = () => {
-    const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
+function DashboardJobPost() {
+    // const Editor = useMemo(() => dynamic(() => import('../components/widgets/Editor'), { ssr: false }), []);
+    const ReactQuill =  typeof window === 'object' ? require('react-quill') : () => false
     const modules = {
         toolbar: [
             [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -97,6 +99,9 @@ const DashboardSettings = () => {
     const [selectedOptions, setSelectedOptions] = useState(0);
     const [selectedEmploymentTypeOptions, setSelectedOEmploymentTypeOptions] = useState(0);
     const [showAlert, setShowAlert] = useState(false)
+    const updateDescription = (value) => {
+        setDescription(value);
+    };
 
 
     // const navigate = useHistory();
@@ -573,6 +578,11 @@ const DashboardSettings = () => {
                                                                 formats={formats}
                                                                 placeholder="Describe about the job what make it unique"
                                                             />
+                                                            {/* <Editor
+                                                                placeholder="Describe about the job what make it unique..."
+                                                                handleChange={updateDescription}
+                                                                editorHtml={description}
+                                                            /> */}
                                                         </div>
                                                     </div>
                                                     <div className="col-md-12">
@@ -615,4 +625,4 @@ const DashboardSettings = () => {
         </>
     );
 };
-export default DashboardSettings;
+export default DashboardJobPost;
