@@ -15,7 +15,6 @@ import ReactJsAlert from "reactjs-alert";
 import imgP1 from "../assets/image/table-one-profile-image-1.png";
 
 import Paginate from "../helpers/Paginate";
-import ReactPaginate from 'react-paginate';
 
 
 const defaultJobs = [

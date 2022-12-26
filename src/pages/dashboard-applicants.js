@@ -18,7 +18,6 @@ import ModalApplication from "../components/ModalApplication";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 import Paginate from "../helpers/Paginate";
-import ReactPaginate from 'react-paginate';
 
 const defaultJobs = [
   { value: 1, label: "Product Designer" },
