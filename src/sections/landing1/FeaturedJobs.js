@@ -175,8 +175,8 @@ const FeaturedJobs = () => {
             </Link>
           </li>
         </ul>
-        <p className="mb-7 font-size-4 text-gray">
-          {job.description}
+        <p className="mb-7 font-size-5 text-gray">
+          {job.quantity}
         </p>
         <div className="card-btn-group">
           {(

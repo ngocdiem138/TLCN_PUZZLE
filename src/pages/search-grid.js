@@ -229,7 +229,7 @@ const SearchGrid = () => {
           </Link>
         </h2>
         <ul className="list-unstyled mb-1 card-tag-list">
-          <li>
+          <li style={{ width: "50%" }}>
             <Link
               to="/#"
               className="bg-regent-opacity-15 text-denim font-size-3 rounded-3"
@@ -238,7 +238,7 @@ const SearchGrid = () => {
               {job.city}
             </Link>
           </li>
-          <li>
+          <li style={{ width: "50%" }}>
             <Link
               to="/#"
               className="bg-regent-opacity-15 text-orange font-size-3 rounded-3"
@@ -247,19 +247,25 @@ const SearchGrid = () => {
               {job.employmentType}
             </Link>
           </li>
-          <li>
+          <li style={{ width: "50%" }}>
             <Link
               to="/#"
               className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
             >
               <i className="fa fa-dollar-sign mr-2 font-weight-bold"></i>{" "}
               {job.minBudget} - {job.maxBudget}K $
-            </Link>ob-details
+            </Link>
+          </li>
+          <li style={{ width: "50%" }}>
+            <Link
+              to="/#"
+              className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
+            >
+              <i className="fa fa-address-card mr-2 font-weight-bold"></i>{" "}
+              NUM:{" "}{job.quantity}
+            </Link>
           </li>
         </ul>
-        <p className="mb-7 font-size-4 text-gray">
-          {job.description}
-        </p>
         <div className="card-btn-group">
           {(
             <button
@@ -326,13 +332,18 @@ const SearchGrid = () => {
         </div>
         <div className="row pt-8">
           <div className="col-md-7">
-            <ul className="d-flex list-unstyled mr-n3 flex-wrap">
-              {job.description}
+            <ul className="d-flex list-unstyled  text-gray-2 mr-n3 flex-wrap">
+              <i className="fa fa-address-card mr-2 font-weight-bold"></i>
+              Quantity: {job.quantity}
+            </ul>
+            <ul className="d-flex list-unstyled  text-gray-2 mr-n3 flex-wrap">
+              <i className="fa fa-calendar-times mr-2 font-weight-bold"></i>
+              Deadline: {job.dueTime}
             </ul>
           </div>
           <div className="col-md-5">
             <ul className="d-flex list-unstyled mr-n3 flex-wrap mr-n8 justify-content-md-end">
-              <li className="mt-2 mr-8 font-size-small text-black-2 d-flex">
+              <li className="mt-2 mr-8 font-size-small text-black-2 d-flex" style={{ width: "50%" }}>
                 <span
                   className="mr-4"
                   css={`
@@ -356,19 +367,6 @@ const SearchGrid = () => {
                 </span>
                 <span className="font-weight-semibold">
                   {job.employmentType}
-                </span>
-              </li>
-              <li className="mt-2 mr-8 font-size-small text-black-2 d-flex">
-                <span
-                  className="mr-4"
-                  css={`
-                  margin-top: -2px;
-                `}
-                >
-                  <img src={iconC} alt="" />
-                </span>
-                <span className="font-weight-semibold">
-                  {job.createTime}
                 </span>
               </li>
             </ul>
