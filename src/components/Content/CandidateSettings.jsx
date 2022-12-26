@@ -19,7 +19,7 @@ import { Alert } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
 import { CandidateServiceIml } from '../../actions/candidate-action';
 import "react-quill/dist/quill.snow.css";
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 function CandidateSettings() {
   // const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
@@ -231,7 +231,7 @@ function CandidateSettings() {
       </Grid>
       <FormControl id="introduction" style={{ "marginTop": "2vh" }}>
         <FormLabel>Introduction</FormLabel>
-        <ReactQuill
+        {/* <ReactQuill
           style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
           theme="snow"
           onChange={(e) => setIntroduction(e)}
@@ -239,7 +239,7 @@ function CandidateSettings() {
           modules={modules}
           formats={formats}
           placeholder="Write about yourself ....."
-        />
+        /> */}
       </FormControl>
       <Box mt={5} py={5} px={8} borderTopWidth={1} borderColor="brand.light">
         <Button onClick={handleSubmit}>Update</Button>

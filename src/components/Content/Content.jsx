@@ -3,7 +3,19 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import AccountSettings from './AccountSettings'
 import EmployerSettings from './EmployerSettings'
-// import CandidateSettings from './CandidateSettings'
+import CandidateSettings from './CandidateSettings'
+
+import "../../assets/fonts/icon-font/fonts/avasta.ttf";
+import "../../assets/fonts/icon-font/css/style.css";
+
+import "../../../node_modules/slick-carousel/slick/slick.css";
+import "../../../node_modules/slick-carousel/slick/slick-theme.css";
+import "../../../node_modules/aos/dist/aos.css";
+
+import "../../assets/fonts/fontawesome-5/css/all.css";
+
+import "../../scss/bootstrap.scss";
+import "../../scss/main.scss";
 
 class Content extends React.Component {
   render() {
@@ -45,7 +57,7 @@ class Content extends React.Component {
             {
               this.props.isCandidate ?
                 <TabPanel>
-                  {/* <CandidateSettings /> */}
+                  <CandidateSettings />
                 </TabPanel> : null
             }
             <TabPanel>
