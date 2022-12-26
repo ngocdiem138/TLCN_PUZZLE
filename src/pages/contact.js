@@ -68,7 +68,7 @@ const Contact = () => {
                     {/* You still need to add the hidden input with the form name to your JSX form */}
                     <input type="hidden" name="form-name" value="contact" />
                     <div className="row">
-                      <div className="col-12 mb-7">
+                      <div className="col-6 mb-7">
                         <label
                           htmlFor="name"
                           className="font-size-4 font-weight-semibold text-black-2 mb-5 line-height-reset"

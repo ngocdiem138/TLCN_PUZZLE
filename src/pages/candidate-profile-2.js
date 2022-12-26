@@ -189,7 +189,7 @@ const CandidateProfile = () => {
             <div className="row">
               <div className="col-12 mt-13 dark-mode-texts">
                 <div className="mb-9">
-                  <Link to="/#" className="d-flex align-items-center ml-4">
+                  <Link to="/dashboard-applicants" className="d-flex align-items-center ml-4">
                     {" "}
                     <i className="icon icon-small-left bg-white circle-40 mr-5 font-size-7 text-black font-weight-bold shadow-8"></i>
                     <span className="text-uppercase font-size-3 font-weight-bold text-gray">

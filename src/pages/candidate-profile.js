@@ -2,7 +2,7 @@ import React from "react";
 import { Nav, Tab } from "react-bootstrap";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
-import ProfileSidebar from "../components/ProfileSidebar";
+import ProfileSidebarCandidate from "../components/ProfileSidebarCandidate";
 
 import imgB1 from "../assets/image/l2/png/featured-job-logo-1.png";
 import imgB2 from "../assets/image/l1/png/feature-brand-1.png";
@@ -18,137 +18,149 @@ import imgT5 from "../assets/image/l3/png/team-member-5.png";
 import imgL from "../assets/image/svg/icon-loaction-pin-black.svg";
 import { CandidateServiceIml } from "../actions/candidate-action";
 import { ExperienceServiceIml } from "../actions/user-actions";
+import imgF2 from "../assets/image/l1/png/feature-brand-1.png";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "@reach/router";
+import { Select } from "../components/Core";
 
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 
+import { parse } from "query-string";
+const resultTypes = [
+  { value: true, label: "Accept" },
+  { value: false, label: "Reject" },
+];
+
 const CandidateProfile = () => {
   const location = useLocation();
-  // const [job, setJob] = useState({});
-  // const [employer, setEmployer] = useState({});
-  let arr = location.pathname.split("/");
-  const id = arr[arr.length - 1];
+  const searchParams = parse(location.search);
+  const [candidateId, setCandidateId] = useState(searchParams.candidateId);
+  const [jobPostId, setJobPostId] = useState(searchParams.jobPostId);
 
-  const [profile, setProfile] = useState([]);
-  const [skill, setSkill] = useState(["No require"]);
 
-  const [experience, setExperience] = useState(["No require"]);
   const [showError, setShowError] = useState(false)
+  const [experience, setExperience] = useState(["No data"]);
+
+  const [skill, setSkill] = useState(["No data"]);
+  const [profile, setProfile] = useState({});
+
+
+  const [action, setAction] = useState("accept");
+  let defaultResult = true;
+  if (action == "reject") {
+    defaultResult = false;
+  }
+  const [result, setResult] = useState(defaultResult);
+  const [note, setNote] = useState("");
+  const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
+  const handleChange = (event) => {
+    setResult(event.value)
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    EmployerServiceIml.responseCandidateApplication({
+      "candidateId": candidateId,
+      "jobPostId": jobPostId,
+      "email": email,
+      "subject": subject,
+      "result": result,
+      "note": note,
+    }).then((response) => {
+      if (response.data.status == 200) {
+        window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants");
+      }
+    })
+    // 
+  }
+  const listSkill = skill.map(skill => {
+    return <li className="bg-polar text-black-2  mr-6 px-7 mt-2 mb-2 font-size-3 rounded-3 min-height-32 d-flex align-items-center">
+      {skill}
+    </li>
+  });
+
 
   useEffect(() => {
-    // CandidateServiceIml.getCandidateProfile(id).then(
-    //   (response) => {
-    //     setProfile(response.data.data);
-    //     if (response.data.data.skills != null) {
-    //       setSkill(response.data.data.skills.split("#"));
-    //     }
-    //   }
+    ExperienceServiceIml.getExperienceByCandidateId(candidateId).then((response) => {
+      setExperience(response.data.data);
+      if (response.data.data.experience != null) {
+        setExperience(response.data.data.experience.split('#'))
+      }
+    });
+  }, [candidateId]);
 
-    CandidateServiceIml.getCandidateSettingProfile().then((response) => {
-      if (response.data.errCode == "403") {
-        setShowError(true);
-      } else {
+  useEffect(() => {
+    if (candidateId != 0) {
+      CandidateServiceIml.getCandidateProfile(candidateId).then((response) => {
         setProfile(response.data.data);
         if (response.data.data.skills != null) {
           setSkill(response.data.data.skills.split('#'))
         }
-      }
+      });
     }
-    );
-  }, []);
+  }, [candidateId]);
 
-  useEffect(() => {
-    ExperienceServiceIml.getExperienceByCandidate().then((response) => {
-      if (response.data.errCode == "403") {
-        setShowError(true);
-      } else {
-        setExperience(response.data.data);
-        if (response.data.data.experience != null) {
-          setExperience(response.data.data.experience.split("#"));
-        }
-      }
-    });
-  }, []);
-
-  const redirect = () => {
-    logout();
-  }
-
-  const listExperience = experience.map((experience) => {
-    return (
-      <div className="w-100">
-        <div className="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
-          <div className="square-72 d-block mr-8 mb-7 mb-sm-0">
-            <img src={imgB2} alt="" />
-          </div>
-          <div className="w-100 mt-n2">
-            <h3 className="mb-0">
-              <Link
-                to="/#"
-                className="font-size-6 text-black-2 font-weight-semibold"
-              >
-                {experience.title}
-              </Link>
-            </h3>
+  const listExperience = experience.map(experience => {
+    return <div className="w-100">
+      <div className="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
+        <div className="square-72 d-block mr-8 mb-7 mb-sm-0">
+          <img src={imgF2} alt="" />
+        </div>
+        <div className="w-100 mt-n2">
+          <h3 className="mb-0">
             <Link
               to="/#"
-              className="font-size-4 text-default-color line-height-2"
+              className="font-size-6 text-black-2 font-weight-semibold"
             >
-              {experience.company}
+              {experience.title}
             </Link>
-            <div className="d-flex align-items-center justify-content-md-between flex-wrap">
-              <Link to="/#" className="font-size-3 text-gray mr-5">
-                {experience.startDate} - {experience.endDate}
-              </Link>
-              <Link to="/#" className="font-size-3 text-gray">
-                <span
-                  className="mr-4"
-                  css={`
-                    margin-top: -2px;
-                  `}
-                >
-                  <img src={imgL} alt="" />
-                </span>
-                {experience.description}
-              </Link>
-            </div>
+          </h3>
+          <Link
+            to="/#"
+            className="font-size-4 text-default-color line-height-2"
+          >
+            {experience.company}
+          </Link>
+          <div className="d-flex align-items-center justify-content-md-between flex-wrap">
+            <Link
+              to="/#"
+              className="font-size-3 text-gray mr-5"
+            >
+              {experience.startDate} - {experience.endDate}
+            </Link>
+            <Link
+              to="/#"
+              className="font-size-3 text-gray"
+            >
+              <span
+                className="mr-4"
+                css={`
+                margin-top: -2px;
+              `}
+              >
+                <img src={imgL} alt="" />
+              </span>
+              {experience.description}
+            </Link>
           </div>
         </div>
       </div>
-    );
-  });
-
-  const listSkill = skill.map((skill) => {
-    return (
-      <li className="bg-polar text-black-2  mr-6 px-7 mt-2 mb-2 font-size-3 rounded-3 min-height-32 d-flex align-items-center">
-        {skill}
-      </li>
-    );
-  });
+    </div>
+  })
 
   return (
     <>
       <PageWrapper headerConfig={{ button: "profile" }}>
         <div className="bg-default-2 pt-22 pt-lg-25 pb-13 pb-xxl-32">
           <div className="container">
-            <ReactJsAlert
-              type="info"   // success, warning, error, info
-              title="Session has expired"   // title you want to display
-              status={showError}  // true or false
-              button="OK"
-              color="#1d36ad"
-              quotes={true}
-              quote="Unfortunately your session has expired and you have been logged out. Please log in again"
-              Close={redirect}   // callback method for hide
-            />
             {/* <!-- back Button --> */}
             <div className="row justify-content-center">
               <div className="col-12 dark-mode-texts">
                 <div className="mb-9">
-                  <Link to="/#" className="d-flex align-items-center ml-4">
+                  <Link to="/dashboard-applicants" className="d-flex align-items-center ml-4">
                     {" "}
                     <i className="icon icon-small-left bg-white circle-40 mr-5 font-size-7 text-black font-weight-bold shadow-8"></i>
                     <span className="text-uppercase font-size-3 font-weight-bold text-gray">
@@ -162,7 +174,7 @@ const CandidateProfile = () => {
             <div className="row">
               {/* <!-- Left Sidebar Start --> */}
               <div className="col-12 col-xxl-3 col-lg-4 col-md-5 mb-11 mb-lg-0">
-                <ProfileSidebar />
+                <ProfileSidebarCandidate candidateId={candidateId} />
               </div>
               {/* <!-- Left Sidebar End --> */}
               {/* <!-- Middle Content --> */}
@@ -200,9 +212,7 @@ const CandidateProfile = () => {
                             About
                           </h4>
                           <p className="font-size-4 mb-8">
-                            {profile.introduction
-                              ? profile.introduction
-                              : "No introduction"}
+                            <div dangerouslySetInnerHTML={{ __html: profile.introduction ? profile.introduction : "No introduction" }} />
                           </p>
                         </div>
                         {/* <!-- Excerpt End --> */}
@@ -225,167 +235,109 @@ const CandidateProfile = () => {
                           {/* <!-- Single Card End --> */}
                         </div>
                         {/* <!-- Card Section End --> */}
-                        {/* <!-- Card Section Start --> */}
-                        {/* <div className="border-top p-5 pl-xs-12 pt-7 pb-5">
-                          <h4 className="font-size-6 mb-7 mt-5 text-black-2 font-weight-semibold">
-                            Education
-                          </h4>
-                          <div className="w-100">
-                            <div className="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
-                              <div className="square-72 d-block mr-8 mb-7 mb-sm-0">
-                                <img src={imgB3} alt="" />
-                              </div>
-                              <div className="w-100 mt-n2">
-                                <h3 className="mb-0">
-                                  <Link
-                                    to="/#"
-                                    className="font-size-6 text-black-2"
-                                  >
-                                    Masters in Art Design
-                                  </Link>
-                                </h3>
-                                <Link
-                                  to="/#"
-                                  className="font-size-4 text-default-color line-height-2"
-                                >
-                                  Harvard University
-                                </Link>
-                                <div className="d-flex align-items-center justify-content-md-between flex-wrap">
-                                  <Link
-                                    to="/#"
-                                    className="font-size-3 text-gray mr-5"
-                                  >
-                                    Jun 2017 - April 2020- 3 years
-                                  </Link>
-                                  <Link
-                                    to="/#"
-                                    className="font-size-3 text-gray"
-                                  >
-                                    <span
-                                      className="mr-4"
-                                      css={`
-                                        margin-top: -2px;
-                                      `}
-                                    >
-                                      <img src={imgL} alt="" />
-                                    </span>
-                                    Brylin, USA
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="w-100">
-                            <div className="d-flex align-items-center pr-11 mb-9 flex-wrap flex-sm-nowrap">
-                              <div className="square-72 d-block mr-8 mb-7 mb-sm-0">
-                                <img src={imgB4} alt="" />
-                              </div>
-                              <div className="w-100 mt-n2">
-                                <h3 className="mb-0">
-                                  <Link
-                                    to="/#"
-                                    className="font-size-6 text-black-2"
-                                  >
-                                    Bachelor in Software Engineering{" "}
-                                  </Link>
-                                </h3>
-                                <Link
-                                  to="/#"
-                                  className="font-size-4 text-default-color line-height-2"
-                                >
-                                  Manipal Institute of Technology
-                                </Link>
-                                <div className="d-flex align-items-center justify-content-md-between flex-wrap">
-                                  <Link
-                                    to="/#"
-                                    className="font-size-3 text-gray mr-5"
-                                  >
-                                    Fed 2012 - April 2016 - 4 years
-                                  </Link>
-                                  <Link
-                                    to="/#"
-                                    className="font-size-3 text-gray"
-                                  >
-                                    <span
-                                      className="mr-4"
-                                      css={`
-                                        margin-top: -2px;
-                                      `}
-                                    >
-                                      <img src={imgL} alt="" />
-                                    </span>
-                                    New York, USA
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div> */}
-                        {/* <!-- Card Section End --> */}
                       </Tab.Pane>
                       <Tab.Pane eventKey="two">
                         {/* <!-- Excerpt Start --> */}
                         <div className="pr-xl-11 p-5 pl-xs-12 pt-9 pb-11">
-                          <form action="/">
+                          <form
+                            onSubmit={handleSubmit}
+                            name="contact"
+                            method="post"
+                            data-netlify="true"
+                            data-netlify-honeypot="bot-field"
+                          >
+                            {/* You still need to add the hidden input with the form name to your JSX form */}
+                            <input type="hidden" name="form-name" value="contact" />
                             <div className="row">
-                              <div className="col-12 mb-7">
+                              <div className="col-6 mb-7">
                                 <label
-                                  htmlFor="name3"
+                                  htmlFor="name"
                                   className="font-size-4 font-weight-semibold text-black-2 mb-5 line-height-reset"
                                 >
                                   Your Name
                                 </label>
                                 <input
-                                  id="name3"
                                   type="text"
                                   className="form-control"
                                   placeholder="Jhon Doe"
+                                  id="name"
+                                  name="name"
+                                  required
                                 />
                               </div>
                               <div className="col-lg-6 mb-7">
                                 <label
-                                  htmlFor="email3"
+                                  htmlFor="email"
                                   className="font-size-4 font-weight-semibold text-black-2 mb-5 line-height-reset"
                                 >
                                   E-mail
                                 </label>
                                 <input
-                                  id="email3"
-                                  type="email"
+                                  type="text"
                                   className="form-control"
                                   placeholder="example@gmail.com"
+                                  id="email"
+                                  value={email}
+                                  onChange={(e) => setEmail(e.target.value)}
+                                  name="email"
+                                  required
                                 />
                               </div>
                               <div className="col-lg-6 mb-7">
                                 <label
-                                  htmlFor="subject3"
+                                  htmlFor="subject"
                                   className="font-size-4 font-weight-semibold text-black-2 mb-5 line-height-reset"
                                 >
                                   Subject
                                 </label>
                                 <input
-                                  id="subject3"
                                   type="text"
                                   className="form-control"
                                   placeholder="Special contract"
+                                  id="subject"
+                                  name="subject"
+                                  value={subject}
+                                  onChange={(e) => setSubject(e.target.value)}
+                                  required
+                                />
+                              </div>
+                              <div className="col-lg-6 mb-7">
+                                <label
+                                  htmlFor="result"
+                                  className="font-size-4 font-weight-semibold text-black-2 mb-5 line-height-reset"
+                                >
+                                  Result
+                                </label>
+                                <Select
+                                  options={resultTypes}
+                                  className="form-control pl-0 arrow-3 w-100 font-size-4 d-flex align-items-center w-100 "
+                                  border={false}
+                                  onChange={handleChange}
+                                  defaultValue={action == "accept" ? resultTypes[0] : resultTypes[1]}
                                 />
                               </div>
                               <div className="col-lg-12 mb-7">
                                 <label
-                                  htmlFor="message3"
+                                  htmlFor="message"
                                   className="font-size-4 font-weight-semibold text-black-2 mb-5 line-height-reset"
                                 >
                                   Message
                                 </label>
                                 <textarea
-                                  name="message"
-                                  id="message3"
+                                  id="message"
+                                  value={note}
+                                  onChange={(e) => setNote(e.target.value)}
                                   placeholder="Type your message"
                                   className="form-control h-px-144"
+                                  name="message"
+                                  required
                                 ></textarea>
                               </div>
                               <div className="col-lg-12 pt-4">
-                                <button className="btn btn-primary text-uppercase w-100 h-px-48">
+                                <button
+                                  type="submit"
+                                  className="btn btn-primary text-uppercase w-100 h-px-48"
+                                >
                                   Send Now
                                 </button>
                               </div>
