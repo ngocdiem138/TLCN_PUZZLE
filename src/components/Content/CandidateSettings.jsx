@@ -18,45 +18,45 @@ import {
 import { Alert } from 'react-bootstrap';
 // import dynamic from 'next/dynamic';
 import { CandidateServiceIml } from '../../actions/candidate-action';
-import "react-quill/dist/quill.snow.css";
+// import "react-quill/dist/quill.snow.css";
 // const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
-function CandidateSettings() {
+const CandidateSettings = () => {
   // const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
-  const modules = {
-    toolbar: [
-      [{ header: "1" }, { header: "2" }, { font: [] }],
-      [{ size: [] }],
-      ["bold", "italic", "underline", "strike", "blockquote"],
-      [
-        { list: "ordered" },
-        { list: "bullet" },
-        { indent: "-1" },
-        { indent: "+1" },
-      ],
-      ["link", "image"],
-      ["clean"],
-    ],
-    clipboard: {
-      matchVisual: false,
-    },
-  };
+  // const modules = {
+  //   toolbar: [
+  //     [{ header: "1" }, { header: "2" }, { font: [] }],
+  //     [{ size: [] }],
+  //     ["bold", "italic", "underline", "strike", "blockquote"],
+  //     [
+  //       { list: "ordered" },
+  //       { list: "bullet" },
+  //       { indent: "-1" },
+  //       { indent: "+1" },
+  //     ],
+  //     ["link", "image"],
+  //     ["clean"],
+  //   ],
+  //   clipboard: {
+  //     matchVisual: false,
+  //   },
+  // };
 
-  const formats = [
-    "header",
-    "font",
-    "size",
-    "bold",
-    "italic",
-    "underline",
-    "strike",
-    "blockquote",
-    "list",
-    "bullet",
-    "indent",
-    "link",
-    "image",
-  ];
+  // const formats = [
+  //   "header",
+  //   "font",
+  //   "size",
+  //   "bold",
+  //   "italic",
+  //   "underline",
+  //   "strike",
+  //   "blockquote",
+  //   "list",
+  //   "bullet",
+  //   "indent",
+  //   "link",
+  //   "image",
+  // ];
 
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
@@ -71,7 +71,7 @@ function CandidateSettings() {
   const [detailDis, setDetailDis] = useState("");
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
-  const [quill, setQuill] = useState(false);
+
   useEffect(() => {
     CandidateServiceIml.getCandidateSettingProfile().then((response) => {
       setFirstName(response.data.data.firstName);
