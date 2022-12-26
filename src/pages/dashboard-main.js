@@ -6,7 +6,7 @@ import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
 import GlobalContext from "../context/GlobalContext";
 import { JobPostServiceIml } from "../actions/user-actions";
-import { EmployerServiceIml } from "../actions/admin-actions";
+import { EmployerServiceIml } from "../actions/employer-action";
 import { useState } from "react";
 import { useEffect } from "react";
 import { logout } from "../actions/auth-actions";
@@ -31,6 +31,8 @@ const DashboardMain = () => {
   const [jobs, setJobs] = useState([]);
   const [postedJobs, setPostedJobs] = useState(0);
   const [totalApplicants, setTotalApplicants] = useState(0);
+  const [totalJobsInactive, setTotalJobsInactive] = useState(0);
+  const [appliedRate, setAppliedRate] = useState(0);
 
   const [jobPostId, setJobPostId] = useState(0);
   var updated = []
@@ -50,6 +52,7 @@ const DashboardMain = () => {
   //   });
   // }, []);
 
+  
   useEffect(() => {
     if (id == 0) {
       JobPostServiceIml.getAllCandidateApply().then((response) => {
@@ -115,6 +118,17 @@ const DashboardMain = () => {
   }, []);
 
   useEffect(() => {
+    EmployerServiceIml.getRateApplicationApplied().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        setAppliedRate(response.data.data);
+      }
+    });
+  }, []);
+
+
+  useEffect(() => {
     EmployerServiceIml.getAllAmountApplicationApplied().then((response) => {
       if (response.data.errCode == "403") {
         setShowError(true);
@@ -123,6 +137,21 @@ const DashboardMain = () => {
       }
     });
   }, []);
+
+  useEffect(() => {
+    EmployerServiceIml.getAllJobPostInactive().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        if(response.data.data){
+          setTotalJobsInactive(response.data.data.length);
+        }
+        console.log(totalJobsInactive)
+      }
+    });
+  }, []);
+
+  
 
 
   const listJobPost = jobs.map((job) => {
@@ -330,17 +359,14 @@ const DashboardMain = () => {
                       <LazyLoad>
                         <span className="counter">
                           <CountUp
-                            duration={4}
-                            decimal="."
-                            decimals={1}
-                            end={16.5}
+                            duration={2}
+                            end={Number(totalJobsInactive)}
                           />
                         </span>
-                        K
                       </LazyLoad>
                     </h5>
                     <p className="font-size-4 font-weight-normal text-gray mb-0">
-                      Jobs View
+                      Total Job Inactive
                     </p>
                   </div>
                 </a>
@@ -361,10 +387,10 @@ const DashboardMain = () => {
                       <LazyLoad>
                         <span className="counter">
                           <CountUp
-                            duration={4}
+                            duration={1}
                             decimal="."
                             decimals={1}
-                            end={18.6}
+                            end={appliedRate}
                           />
                         </span>
                         %

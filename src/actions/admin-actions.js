@@ -126,21 +126,6 @@ export const SkillServiceIml = new SkillService();
 
 export class EmployerService {
 
-  getAllAmountApplicationApplied() {
-    return axios.get(API_BASE_URL + "/employer/get-amount-application-to-employer", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-  }
-
-  responseCandidateApplication(response) {
-    return axios.post(API_BASE_URL + "/employer/response-application-by-candidate-and-job-post", response, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-  }
 
   createEmployer(response) {
     return axios.post(API_BASE_URL + "/employer/response-application", response, {

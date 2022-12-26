@@ -21,7 +21,7 @@ const Sidebar = (props) => {
           <div className="bg-white shadow-9 rounded-4">
             <div className="px-5 py-11 text-center border-bottom border-mercury">
               <Link to="/#" className="mb-4">
-                <img className="circle-54" src={imgP} alt="" />
+                <img className="circle-54" src={profile.avatar ? profile.avatar : imgP} alt="" />
               </Link>
               <h4 className="mb-0">
                 <Link
@@ -89,7 +89,7 @@ const Sidebar = (props) => {
                     className="text-black-2 text-break"
                     href="mailto:name_ac@gmail.com"
                   >
-                    {profile.educationLevel?profile.educationLevel:"Not update"}
+                    {profile.educationLevel ? profile.educationLevel : "Not update"}
                   </a>
                 </h5>
               </div>
@@ -99,7 +99,7 @@ const Sidebar = (props) => {
                 <p className="font-size-4 mb-0">Phone</p>
                 <h5 className="font-size-4 font-weight-semibold mb-0">
                   <a className="text-black-2 text-break" href="tel:+999565562">
-                    +{profile.phoneNum?profile.phoneNum:"Not update"}
+                    +{profile.phoneNum ? profile.phoneNum : "Not update"}
                   </a>
                 </h5>
               </div>

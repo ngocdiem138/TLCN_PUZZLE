@@ -108,7 +108,7 @@ const DashboardApplicants = () => {
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
-            <img src={imgP1} alt="" className="w-100" />
+            <img src={applicant.ave?applicant.lastName:imgP1} alt="" className="w-100" />
           </div>
           <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
             {applicant.lastName} {applicant.firstName}

@@ -3,6 +3,47 @@ import axios from 'axios';
 
 class EmployerService {
 
+
+    getAllAmountApplicationApplied() {
+        return axios.get(API_BASE_URL + "/employer/get-amount-application-to-employer", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+    }
+
+    getRateApplicationApplied() {
+        return axios.get(API_BASE_URL + "/employer/get-application-rate-of-employer", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+    }
+    
+    getAllJobPostInactive() {
+        return axios.get(API_BASE_URL + "/employer/get-all-job-post-created-inactive", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+    }
+
+    responseCandidateApplication(response) {
+        return axios.post(API_BASE_URL + "/employer/response-application-by-candidate-and-job-post", response, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+    }
+
+    getAllAmountApplicationApplied() {
+        return axios.get(API_BASE_URL + "/employer/get-amount-application-to-employer", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+    }
+
     getEmployerSettingProfile() {
         return axios.get(API_BASE_URL + "/employer/profile", {
             headers: {
