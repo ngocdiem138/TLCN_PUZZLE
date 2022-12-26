@@ -19,6 +19,7 @@ import imgL from "../assets/image/svg/icon-loaction-pin-black.svg";
 import { CandidateServiceIml } from "../actions/candidate-action";
 import { ExperienceServiceIml } from "../actions/user-actions";
 import imgF2 from "../assets/image/l1/png/feature-brand-1.png";
+import { EmployerServiceIml } from "../actions/employer-action";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useLocation } from "@reach/router";

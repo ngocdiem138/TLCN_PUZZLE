@@ -40,7 +40,7 @@ const DashboardMain = () => {
   const [listJob, setListJob] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
-  const [results, setResults]= useState([]);
+  const [results, setResults] = useState([]);
   const [id, setId] = useState(0);
   const [showError, setShowError] = useState(false)
   const redirect = () => {
@@ -51,18 +51,18 @@ const DashboardMain = () => {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = applicants.slice(indexOfFirstPost, indexOfLastPost);
-  
+
   const paginate = (pageNumber) => {
-    console.log("pageNumber",pageNumber)
+    console.log("pageNumber", pageNumber)
     setCurrentPage(pageNumber);
   };
-  
+
   const previousPage = () => {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
     }
   };
-  
+
   const nextPage = () => {
     if (currentPage !== Math.ceil(applicants.length / postsPerPage)) {
       setCurrentPage(currentPage + 1);
@@ -220,11 +220,13 @@ const DashboardMain = () => {
           className="font-size-3 font-weight-bold text-red-2 text-uppercase"
           style={{ outline: "none", border: "none", background: "none" }}
           onClick={() => {
-            const confirmBox = window.confirm(
-              "Do you really want to delete this Job Post?"
-            )
-            if (confirmBox === true) {
-              remove(job.job_post.id);
+            if (typeof window !== "undefined") {
+              const confirmBox = window.confirm(
+                "Do you really want to delete this Job Post?"
+              )
+              if (confirmBox === true) {
+                remove(job.job_post.id);
+              }
             }
           }}>
           Delete
