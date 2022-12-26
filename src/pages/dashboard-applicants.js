@@ -46,7 +46,7 @@ const DashboardApplicants = () => {
   const currentPosts = applicants.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => {
-    console.log("pageNumber",pageNumber)
+    console.log("pageNumber", pageNumber)
     setCurrentPage(pageNumber);
   };
 
@@ -81,7 +81,7 @@ const DashboardApplicants = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-            applicant = [...applicant, {candidate:element.candidate, result: element.application.result}]
+            applicant = [...applicant, { candidate: element.candidate, result: element.application.result }]
           });
           setApplicants(applicant);
         }
@@ -92,7 +92,11 @@ const DashboardApplicants = () => {
         if (response.data.errCode == "403") {
           setShowError(true);
         } else {
-          setApplicants(response.data.data);
+          let applicant = []
+          response.data.data.forEach(element => {
+            applicant = [...applicant, { candidate: element.candidate, result: element.application.result }]
+          });
+          setApplicants(applicant);
         }
       });
     }
