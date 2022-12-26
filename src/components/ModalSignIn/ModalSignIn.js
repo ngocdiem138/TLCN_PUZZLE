@@ -12,7 +12,6 @@ import GlobalContext from '../../context/GlobalContext';
 import GoogleLogin from 'react-google-login';
 import axios from "axios";
 import { API_BASE_URL } from '../../utils/constants/url';
-import { gapi } from 'gapi-cjs';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -40,7 +39,8 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.formReset();
-    if (typeof window !== "undefined") {
+    const gapi =  typeof window === 'object' ? require('gapi-cjs') : () => false
+    if (gapi) {
       gapi.load('client:auth2', () => {
         gapi.client.init({
           clientId: '84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com',
