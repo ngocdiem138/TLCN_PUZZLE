@@ -3,7 +3,7 @@ import React from "react";
 import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useLocation } from "@reach/router";
 import { parse } from "query-string";
 import { JobPostServiceIml } from "../actions/user-actions";
@@ -12,6 +12,8 @@ import { Link } from "gatsby";
 import { Form } from 'react-bootstrap';
 import ReactJsAlert from "reactjs-alert";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
+import dynamic from 'next/dynamic';
+import "react-quill/dist/quill.snow.css";
 
 const defaultTypes = [
     { value: "b2b", label: "B2B" },
@@ -33,7 +35,43 @@ const defaultLocations = [
     { value: "de", label: "Germany" },
 ];
 
+const modules = {
+    toolbar: [
+        [{ header: "1" }, { header: "2" }, { font: [] }],
+        [{ size: [] }],
+        ["bold", "italic", "underline", "strike", "blockquote"],
+        [
+            { list: "ordered" },
+            { list: "bullet" },
+            { indent: "-1" },
+            { indent: "+1" },
+        ],
+        ["link", "image"],
+        ["clean"],
+    ],
+    clipboard: {
+        matchVisual: false,
+    },
+};
+
+const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+];
+
 const DashboardSettings = () => {
+    const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
 
     const { t, i18n } = useTranslation()
     const defaultCountries = [
@@ -113,7 +151,9 @@ const DashboardSettings = () => {
         if (id != 'new') {
             jobPost.id = id;
             JobPostServiceIml.updateJobPost(jobPost).then((response) => {
-                setShowAlert(true);
+                if (!response.data.errCode) {
+                    setShowAlert(true);
+                }
                 // navigate.push('/employer/jobs')
             }).catch(error => {
                 console.log(error)
@@ -124,7 +164,9 @@ const DashboardSettings = () => {
             jobPost.number = parseInt(jobPost.number);
             const { id, ...data } = jobPost
             JobPostServiceIml.createJobPost(data).then((response) => {
-                setShowAlert(true);
+                if (!response.data.errCode) {
+                    setShowAlert(true);
+                }
 
                 console.log(response.data)
 
@@ -138,53 +180,56 @@ const DashboardSettings = () => {
 
     useEffect(() => {
         JobPostServiceIml.getJobPostById(id).then((response) => {
-            setNumber(response.data.data.id)
-            setTitle(response.data.data.title)
-            setBlind(response.data.data.blind)
-            setDeaf(response.data.data.deaf)
-            setHandDis(response.data.data.handDis)
-            setLabor(response.data.data.labor)
-            setCity(response.data.data.city)
-            setAddress(response.data.data.address)
-            setDescription(response.data.data.description)
-            setWorkplaceType(response.data.data.workplaceType)
-            setWorkStatus(response.data.data.workStatus)
-            setSkills(response.data.data.skills)
-            setCommunicationDis(response.data.data.communicationDis)
-            setLevel(response.data.data.level)
-            setType(response.data.data.type)
-            setQuantity(response.data.data.quantity)
-            setExperienceYear(response.data.data.experienceYear)
-            setEducationLevel(response.data.data.educationLevel)
-            setType(response.data.data.type)
-            setMinBudget(response.data.data.minBudget)
-            setMaxBudget(response.data.data.maxBudget)
-            setDueTime(response.data.data.dueTime)
-            setEmploymentType(response.data.data.employmentType)
-            handleDropdown(response.data.data.city, response.data.data.employmentType);
-        }).catch(error => {
-            setNumber('-1')
-            setTitle('')
-            setBlind('')
-            setDeaf('')
-            setHandDis('')
-            setLabor('')
-            setCity(defaultCountries[0].value)
-            setAddress('')
-            setWorkplaceType('')
-            setWorkStatus('')
-            setSkills('')
-            setCommunicationDis('')
-            setLevel('')
-            setType('')
-            setQuantity('')
-            setExperienceYear('')
-            setEducationLevel('')
-            setType('')
-            setMinBudget('')
-            setMaxBudget('')
-            setDueTime('')
-            setEmploymentType(employmentTypeData[0].value)
+            if (!response.data.errCode) {
+                setNumber(response.data.data.id)
+                setTitle(response.data.data.title)
+                setBlind(response.data.data.blind)
+                setDeaf(response.data.data.deaf)
+                setHandDis(response.data.data.handDis)
+                setLabor(response.data.data.labor)
+                setCity(response.data.data.city)
+                setAddress(response.data.data.address)
+                setDescription(response.data.data.description)
+                setWorkplaceType(response.data.data.workplaceType)
+                setWorkStatus(response.data.data.workStatus)
+                setSkills(response.data.data.skills)
+                setCommunicationDis(response.data.data.communicationDis)
+                setLevel(response.data.data.level)
+                setType(response.data.data.type)
+                setQuantity(response.data.data.quantity)
+                setExperienceYear(response.data.data.experienceYear)
+                setEducationLevel(response.data.data.educationLevel)
+                setType(response.data.data.type)
+                setMinBudget(response.data.data.minBudget)
+                setMaxBudget(response.data.data.maxBudget)
+                setDueTime(response.data.data.dueTime)
+                setEmploymentType(response.data.data.employmentType)
+                handleDropdown(response.data.data.city, response.data.data.employmentType);
+            }
+            else {
+                setNumber('-1')
+                setTitle('')
+                setBlind('')
+                setDeaf('')
+                setHandDis('')
+                setLabor('')
+                setCity(defaultCountries[0].value)
+                setAddress('')
+                setWorkplaceType('')
+                setWorkStatus('')
+                setSkills('')
+                setCommunicationDis('')
+                setLevel('')
+                setType('')
+                setQuantity('')
+                setExperienceYear('')
+                setEducationLevel('')
+                setType('')
+                setMinBudget('')
+                setMaxBudget('')
+                setDueTime('')
+                setEmploymentType(employmentTypeData[0].value)
+            }
         })
     }, [id])
 
@@ -463,8 +508,8 @@ const DashboardSettings = () => {
                                                                 className="form-control h-px-48"
                                                                 style={{ "line-height": "inherit" }}
                                                                 id="dueTime"
-                                                                value={dueTime ? dueTime.split('T')[0] : dueTime}
-                                                                onChange={(e) => setDueTime(e.target.value)} required
+                                                                value={dueTime ? dueTime.split(' ')[0] : dueTime}
+                                                                onChange={(e) => setDueTime(e.target.value + " 00:00:00")} required
                                                             />
                                                             <div class="valid-feedback">Valid.</div>
                                                             <div class="invalid-feedback">Please fill out this field.</div>
@@ -543,16 +588,17 @@ const DashboardSettings = () => {
                                                             >
                                                                 Description
                                                             </label>
-                                                            <textarea
+                                                            <ReactQuill
+                                                                style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
+                                                                theme="snow"
+                                                                onChange={(e) => setDescription(e)} required
                                                                 value={description}
-                                                                onChange={(e) => setDescription(e.target.value)} required
+                                                                modules={modules}
+                                                                formats={formats}
+                                                                placeholder="Describe about the job what make it unique"
                                                                 name="textarea"
                                                                 id="aboutTextarea"
-                                                                cols="30"
-                                                                rows="7"
-                                                                className="border border-mercury text-gray w-100 pt-4 pl-6"
-                                                                placeholder="Describe about the job what make it unique"
-                                                            ></textarea>
+                                                            />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-12">
