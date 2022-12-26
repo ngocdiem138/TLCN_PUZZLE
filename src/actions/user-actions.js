@@ -23,7 +23,7 @@ class JobPostService {
     }
 
     getAllCandidateApplyJobPosts(jobPostId) {
-        return axios.get(API_BASE_URL + "/employer/get-candidate-and-result-by-job-post/" + jobPostId,
+        return axios.get(API_BASE_URL + "/employer/candidate-apply-jobpost/" + jobPostId,
             {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
@@ -290,7 +290,7 @@ export const addReviewToPerfume = (data) => async (dispatch) => {
             type: USER_ADDED_REVIEW_SUCCESS
         })
 
-        if (typeof window !== "undefined") { window.location.reload(); }
+        window.location.reload();
     } catch (error) {
         dispatch({
             type: USER_ADDED_REVIEW_FAILURE,

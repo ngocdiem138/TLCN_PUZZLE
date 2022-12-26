@@ -89,7 +89,7 @@ export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('userRole');
     localStorage.removeItem('isLoggedIn');
-    if (typeof window !== "undefined") { window.location.assign('/'); }
+    window.location.assign('/');
 };
 
 export const activateAccount = (code) => async (dispatch) => {
