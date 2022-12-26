@@ -596,8 +596,6 @@ const DashboardSettings = () => {
                                                                 modules={modules}
                                                                 formats={formats}
                                                                 placeholder="Describe about the job what make it unique"
-                                                                name="textarea"
-                                                                id="aboutTextarea"
                                                             />
                                                         </div>
                                                     </div>

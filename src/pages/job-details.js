@@ -24,12 +24,13 @@ const JobDetails = () => {
   const [employer, setEmployer] = useState({});
   let arr = location.pathname.split('/');
   const id = arr[arr.length - 1];
+  const [skill, setSkill] = useState(["No require"]);
 
   useEffect(() => {
     let employerId;
     JobPostServiceIml.getJobPostById(id).then((response) => {
       setJob(response.data.data);
-      if (response.data.data.skills != null) {
+      if (response.data.data.skills != null && response.data.data.skills != "") {
         setSkill(response.data.data.skills.split(','))
       }
       employerId = response.data.data.createdEmployerId;
@@ -46,7 +47,7 @@ const JobDetails = () => {
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
 
-  const [skill, setSkill] = useState(["No require"]);
+  
 
   const listSkill = skill.map(skill => {
     return <li className="bg-regent-opacity-15 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
@@ -393,9 +394,10 @@ const JobDetails = () => {
                           <p className="mb-4 font-size-6 text-black-2 font-weight-semibold">
                             Job Description.{" "}
                           </p>
-                          <p className="font-size-4 text-black-2 mb-7">
+                          <div dangerouslySetInnerHTML={{ __html: job.description }} />
+                          {/* <p className="font-size-4 text-black-2 mb-7">
                             {job.description}{" "}
-                          </p>
+                          </p> */}
                         </div>
                         <div className="">
                           {(
