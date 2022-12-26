@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import {
   FormControl,
   FormLabel,
@@ -6,49 +6,100 @@ import {
   Input,
   InputGroup,
   InputLeftAddon,
+  Select,
+  NumberDecrementStepper,
+  NumberIncrementStepper,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
   Box,
   Button,
 } from '@chakra-ui/react';
-import { EmployerServiceIml } from '../../actions/employer-action';
-import ReactJsAlert from "reactjs-alert";
-import { Container, Alert } from 'react-bootstrap';
+import { Alert } from 'react-bootstrap';
+import dynamic from 'next/dynamic';
+import { CandidateServiceIml } from '../../actions/candidate-action';
+import "react-quill/dist/quill.snow.css";
 
-const EmployerSettings = () => {
-  const [profile, setProfile] = useState({
-    firstname: "",
-    lastname: "",
-    recruitmentEmail: "",
-    recruitmentPhone: "",
-  });
-  const [firstname, setFirstname] = useState("")
-  const [lastname, setLastname] = useState("")
-  const [recruitmentEmail, setRecruitmentEmail] = useState("")
-  const [recruitmentPhone, setRecruitmentPhone] = useState("")
+function CandidateSettings() {
+  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image"],
+      ["clean"],
+    ],
+    clipboard: {
+      matchVisual: false,
+    },
+  };
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+  ];
+
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [introduction, setIntroduction] = useState("");
+  const [educationLevel, setEducationLevel] = useState("");
+  const [workStatus, setWorkStatus] = useState("");
+  const [blind, setBlind] = useState(false);
+  const [deaf, setDeaf] = useState(false);
+  const [communicationDis, setCommunicationDis] = useState(false);
+  const [handDis, setHandDis] = useState(false);
+  const [labor, setLabor] = useState(false);
+  const [detailDis, setDetailDis] = useState("");
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
+  const [quill, setQuill] = useState(false);
   useEffect(() => {
-    EmployerServiceIml.getEmployerSettingProfile().then((response) => {
-      // setProfile(response.data.data);
-      setFirstname(response.data.data.firstname)
-      setLastname(response.data.data.lastname)
-      setRecruitmentEmail(response.data.data.recruitmentEmail)
-      setRecruitmentPhone(response.data.data.recruitmentPhone)
+    CandidateServiceIml.getCandidateSettingProfile().then((response) => {
+      setFirstName(response.data.data.firstName);
+      setLastName(response.data.data.lastName);
+      setIntroduction(response.data.data.introduction);
+      setEducationLevel(response.data.data.educationLevel);
+      setWorkStatus(response.data.data.workStatus);
+      setBlind(response.data.data.blind);
+      setDeaf(response.data.data.deaf);
+      setCommunicationDis(response.data.data.communicationDis);
+      setHandDis(response.data.data.handDis);
+      setLabor(response.data.data.labor);
+      setDetailDis(response.data.data.detailDis);
     });
   }, [])
-
-  const handleChange = (event) => {
-    setProfile[event.target.name] = event.target.value;
-    const newProfile = profile
-    newProfile[event.target.name] = event.target.value
-    setProfile(newProfile);
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
-    EmployerServiceIml.updateEmployerSettingProfile({
-      firstname: firstname,
-      lastname: lastname,
-      recruitmentEmail: recruitmentEmail,
-      recruitmentPhone: recruitmentPhone,
+    CandidateServiceIml.updateCandidateSettingProfile({
+      firstName: firstName,
+      lastName: lastName,
+      introduction: introduction,
+      educationLevel: educationLevel,
+      workStatus: workStatus,
+      blind: blind,
+      deaf: deaf,
+      communicationDis: communicationDis,
+      handDis: handDis,
+      labor: labor,
+      detailDis: detailDis,
     }).then((response) => {
       if (response.data.errCode != "200" && response.data.errCode) {
         setShowError(true);
@@ -59,10 +110,6 @@ const EmployerSettings = () => {
       }
     })
     // 
-  }
-
-  const redirect = () => {
-    // logout();
   }
 
   return (
@@ -84,82 +131,120 @@ const EmployerSettings = () => {
         </Alert>
         : null
       }
-      {/* <ReactJsAlert
-        type={showError ? 'error' : showSuccess ? 'success' : 'info'}  // success, warning, error, info
-        title="Save"   // title you want to display
-        status={showError || showSuccess}  // true or false
-        button="OK"
-        color="#1d36ad"
-        quotes={true}
-        quote={showError ? 'Save fail' : showSuccess ? 'Save success' : 'info'}
-        Close={redirect}
-      /> */}
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
         gap={6}
       >
-        <FormControl id="firstname">
+        <FormControl id="firstName">
           <FormLabel>First Name</FormLabel>
           <Input
-            name="firstname"
+            name="firstName"
             // onChange={(e) => handleChange(e)}
-            onChange={(e) => setFirstname(e.target.value)}
-            value={firstname}
+            onChange={(e) => setFirstName(e.target.value)}
+            value={firstName}
             focusBorderColor="brand.blue"
             type="text"
             placeholder="apple"
           />
         </FormControl>
-        <FormControl id="lastname">
+        <FormControl id="lastName">
           <FormLabel>Last Name</FormLabel>
           <Input
-            name="lastname"
-            onChange={(e) => setLastname(e.target.value)}
-            value={lastname}
+            name="lastName"
+            onChange={(e) => setLastName(e.target.value)}
+            value={lastName}
             focusBorderColor="brand.blue"
             type="text"
             placeholder="Apple" />
         </FormControl>
-        <FormControl id="email">
-          <FormLabel>Recruitment Email Address</FormLabel>
-          <InputGroup>
-            <InputLeftAddon color="gray.500">
-              <svg width="1em" fill="currentColor" viewBox="0 0 20 20">
-                <path
-                  fillRule="evenodd"
-                  d="M14.243 5.757a6 6 0 10-.986 9.284 1 1 0 111.087 1.678A8 8 0 1118 10a3 3 0 01-4.8 2.401A4 4 0 1114 10a1 1 0 102 0c0-1.537-.586-3.07-1.757-4.243zM12 10a2 2 0 10-4 0 2 2 0 004 0z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </InputLeftAddon>
-            <Input
-              name="recruitmentEmail"
-              onChange={(e) => setRecruitmentEmail(e.target.value)}
-              value={recruitmentEmail}
-              focusBorderColor="brand.blue"
-              type="email"
-              placeholder="info@apple.com"
-            />
-          </InputGroup>
-        </FormControl>
-        <FormControl id="phone">
-          <FormLabel>Recruitment Phone Number</FormLabel>
+        <FormControl id="educationLevel">
+          <FormLabel>Education Level</FormLabel>
           <Input
-            name="recruitmentPhone"
-            onChange={(e) => setRecruitmentPhone(e.target.value)}
-            value={recruitmentPhone}
+            name="educationLevel"
+            onChange={(e) => setEducationLevel(e.target.value)}
+            value={educationLevel}
             focusBorderColor="brand.blue"
-            type="tel"
-            placeholder="(408) 996–1010"
-          />
+            type="text"
+            placeholder="Master" />
+        </FormControl>
+        <FormControl id="workStatus">
+          <FormLabel>Work Status</FormLabel>
+          <Input
+            name="workStatus"
+            onChange={(e) => setWorkStatus(e.target.value)}
+            value={workStatus}
+            focusBorderColor="brand.blue"
+            type="text"
+            placeholder="unemployment" />
+        </FormControl>
+        <FormControl>
+          <FormLabel>Blind</FormLabel>
+          <select name="blind" id="blind" class="chakra-input css-1hsm0tt" value={blind}
+            onChange={(e) => setBlind(e.target.value)} >
+            <option value="false">Not Allow</option>
+            <option value="true">Allow</option>
+          </select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Deaf</FormLabel>
+          <select name="deaf" id="deaf" class="chakra-input css-1hsm0tt" value={deaf}
+            onChange={(e) => setDeaf(e.target.value)} >
+            <option value="false">Not Allow</option>
+            <option value="true">Allow</option>
+          </select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Communication Dis</FormLabel>
+          <select name="communicationDis" id="communicationDis" class="chakra-input css-1hsm0tt" value={communicationDis}
+            onChange={(e) => setCommunicationDis(e.target.value)} >
+            <option value="false">Not Allow</option>
+            <option value="true">Allow</option>
+          </select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Labor</FormLabel>
+          <select name="labor" id="labor" class="chakra-input css-1hsm0tt" value={labor}
+            onChange={(e) => setLabor(e.target.value)} >
+            <option value="false">Not Allow</option>
+            <option value="true">Allow</option>
+          </select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Hand Dis</FormLabel>
+          <select name="handDis" id="handDis" class="chakra-input css-1hsm0tt" value={handDis}
+            onChange={(e) => setHandDis(e.target.value)} >
+            <option value="false">Not Allow</option>
+            <option value="true">Allow</option>
+          </select>
+        </FormControl>
+        <FormControl id="detailDis">
+          <FormLabel>Detail Dis</FormLabel>
+          <Input
+            name="detailDis"
+            onChange={(e) => setDetailDis(e.target.value)}
+            value={detailDis}
+            focusBorderColor="brand.blue"
+            type="text"
+            placeholder="small" />
         </FormControl>
       </Grid>
+      <FormControl id="introduction" style={{ "marginTop": "2vh" }}>
+        <FormLabel>Introduction</FormLabel>
+        <ReactQuill
+          style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
+          theme="snow"
+          onChange={(e) => setIntroduction(e)}
+          value={introduction}
+          modules={modules}
+          formats={formats}
+          placeholder="Write about yourself ....."
+        />
+      </FormControl>
       <Box mt={5} py={5} px={8} borderTopWidth={1} borderColor="brand.light">
         <Button onClick={handleSubmit}>Update</Button>
       </Box>
     </>
-
   )
 }
 
-export default EmployerSettings
+export default CandidateSettings
