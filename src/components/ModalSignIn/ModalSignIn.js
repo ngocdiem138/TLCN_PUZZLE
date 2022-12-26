@@ -40,9 +40,9 @@ class Login extends Component {
   componentDidMount() {
     this.props.formReset();
     const gapi =  typeof window === 'object' ? require('gapi-cjs') : () => false
-    if (gapi) {
-      gapi.load('client:auth2', () => {
-        gapi.client.init({
+    if (gapi.gapi) {
+      gapi.gapi.load('client:auth2', () => {
+        gapi.gapi.client.init({
           clientId: '84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com',
           scope: 'email'
         })
