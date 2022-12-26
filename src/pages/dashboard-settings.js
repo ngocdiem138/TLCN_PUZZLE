@@ -33,9 +33,9 @@ const DashboardSettings = () => {
   useEffect(() => {
     if (localStorage.getItem("userRole") == "EMPLOYER") {
       setIsEmployer(true);
-      setTabs(['Account Settings', 'Employer Settings']);
+      setTabs(['Employer Settings','Account Settings']);
     } else if (localStorage.getItem("userRole") == "CANDIDATE") {
-      setTabs(['Account Settings', 'Candidate Settings'])
+      setTabs(['Candidate Settings','Account Settings'])
       setIsCandidate(true);
     }
   }, [])
