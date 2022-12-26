@@ -110,13 +110,15 @@ const Header = () => {
 
   const handleSignIn = () => {
     if (isLoggedIn) {
-      if (isCandidate) {
-        window.location.href = "/dashboard-settings";
-      } else if (isEmployer) {
-        window.location.href = "/dashboard-main";
-      }
-      else {
-        window.location.href = "/";
+      if (typeof window !== "undefined") {
+        if (isCandidate) {
+          window.location.href = "/dashboard-settings";
+        } else if (isEmployer) {
+          window.location.href = "/dashboard-main";
+        }
+        else {
+          window.location.href = "/";
+        }
       }
     } else {
       gContext.toggleSignInModal();

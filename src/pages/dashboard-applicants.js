@@ -81,7 +81,7 @@ const DashboardApplicants = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-            applicant = [...applicant, element.candidate]
+            applicant = [...applicant, {candidate:element.candidate, result: element.application.result}]
           });
           setApplicants(applicant);
         }
@@ -133,21 +133,21 @@ const DashboardApplicants = () => {
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
-            <img src={applicant.avatar ? applicant.avatar : imgP1} alt="" className="w-100" />
+            <img src={applicant.candidate.avatar ? applicant.candidate.avatar : imgP1} alt="" className="w-100" />
           </div>
           <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-            {applicant.lastName} {applicant.firstName}
+            {applicant.candidate.lastName} {applicant.candidate.firstName}
           </h4>
         </Link>
       </th>
       <td className="table-y-middle py-7 min-width-px-235 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.educationLevel}
+          {applicant.candidate.educationLevel}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.workStatus}
+          {applicant.candidate.workStatus}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
@@ -157,7 +157,7 @@ const DashboardApplicants = () => {
             className="font-size-3 font-weight-bold text-black-2 text-uppercase"
             onClick={(e) => {
               e.preventDefault();
-              gContext.setToggleApplicantId(applicant.id)
+              gContext.setToggleApplicantId(applicant.candidate.id)
               gContext.toggleApplicationModal();
             }}
           >
@@ -168,7 +168,7 @@ const DashboardApplicants = () => {
       <td className="table-y-middle py-7 min-width-px-110 pr-0">
         <div className="">
           <Link
-            to={"/contact?action=accept&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            to={"/contact?action=accept&candidateId=" + applicant.candidate.id + "&jobPostId=" + jobPostId}
             className="font-size-3 font-weight-bold text-green text-uppercase"
           >
             Contact
@@ -178,7 +178,7 @@ const DashboardApplicants = () => {
       <td className="table-y-middle py-7 min-width-px-100 pr-0">
         <div className="">
           <Link
-            to={"/contact?action=reject&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            to={"/contact?action=reject&candidateId=" + applicant.candidate.id + "&jobPostId=" + jobPostId}
             className="font-size-3 font-weight-bold text-red-2 text-uppercase"
           >
             Reject
