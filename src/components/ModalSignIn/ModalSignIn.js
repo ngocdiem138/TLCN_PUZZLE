@@ -10,7 +10,9 @@ import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
 import GoogleLogin from 'react-google-login';
-// import { gapi } from 'gapi-cjs';
+import axios from "axios";
+import { API_BASE_URL } from '../../utils/constants/url';
+import { gapi } from 'gapi-cjs';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -38,14 +40,14 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.formReset();
-    // if (typeof window !== "undefined") {
-    //   gapi.load('client:auth2', () => {
-    //     gapi.client.init({
-    //       clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
-    //       scope: ''
-    //     })
-    //   });
-    // }
+    if (typeof window !== "undefined") {
+      gapi.load('client:auth2', () => {
+        gapi.client.init({
+          clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
+          scope: 'email'
+        })
+      });
+    }
   }
 
   onClickSignIn = (event) => {
@@ -78,15 +80,14 @@ class Login extends Component {
     const googleresponse = {
       Name: res.name,
       email: res.email,
-      token: res.googleId,
+      token: res.tokenId,
       Image: res.imageUrl,
-      ProviderId: 'Google'
+      ProviderId: 'Google',
     };
-    // axios.post(API_REST_URL, googleresponse)
-    //   .then((result) => {
-    //     let responseJson = result;
-    //     this.props.history.push('/Dashboard')
-    //   });
+    axios.post(API_BASE_URL + "/login-google", googleresponse)
+      .then((result) => {
+        // window.location.href = "/";
+      });
   };
 
 
@@ -168,7 +169,6 @@ class Login extends Component {
                         onSuccess={this.responseGoogle}
                         onFailure={this.responseGoogle}
                         cookiePolicy={'single_host_origin'}
-                        isSignedIn={true}
                       />
                     </div>
                     <div className="col-4 col-xs-12">
