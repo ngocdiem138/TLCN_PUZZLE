@@ -76,7 +76,7 @@ const SearchGrid = () => {
     handleFilters(city, "cities");
     setError("");
     setSucces("");
-    window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city);
+    if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city); }
   }
 
   const handleFilters = (filters, category) => {

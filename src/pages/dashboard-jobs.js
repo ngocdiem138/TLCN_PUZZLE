@@ -84,11 +84,13 @@ const DashboardJobs = () => {
           className="font-size-3 font-weight-bold text-red-2 text-uppercase"
           style={{ outline: "none", border: "none", background: "none" }}
           onClick={() => {
-            const confirmBox = window.confirm(
-              "Do you really want to delete this Job Post?"
-            )
-            if (confirmBox === true) {
-              remove(job.job_post.id);
+            if (typeof window !== "undefined") {
+              const confirmBox = window.confirm(
+                "Do you really want to delete this Job Post?"
+              )
+              if (confirmBox === true) {
+                remove(job.job_post.id);
+              }
             }
           }}>
           Delete
