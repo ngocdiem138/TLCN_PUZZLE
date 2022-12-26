@@ -43,7 +43,7 @@ class Content extends React.Component {
 
           <TabPanels px={3} mt={5}>
             {
-              this.props.isUser ?
+              this.props.isUser || this.props.isCandidate || this.props.isEmployer ?
                 <TabPanel>
                   <AccountSettings />
                 </TabPanel> : null
