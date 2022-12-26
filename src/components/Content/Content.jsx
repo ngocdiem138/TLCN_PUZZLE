@@ -45,7 +45,7 @@ class Content extends React.Component {
             {
               this.props.isCandidate ?
                 <TabPanel>
-                  <CandidateSettings />
+                  {/* <CandidateSettings /> */}
                 </TabPanel> : null
             }
             <TabPanel>
