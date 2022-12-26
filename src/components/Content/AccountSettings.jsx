@@ -5,6 +5,7 @@ import { UserServiceIml } from '../../actions/user-actions';
 import Cover from '../Cover';
 import ReactJsAlert from "reactjs-alert";
 import { Container, Alert } from 'react-bootstrap';
+import { logout } from '../../actions/auth-actions';
 
 const AccountSettings = () => {
   const [profile, setProfile] = useState({
@@ -21,14 +22,19 @@ const AccountSettings = () => {
   const [phone, setPhone] = useState("")
   const [avatar, setAvatar] = useState("")
   const [showError, setShowError] = useState(false)
+  const [showError403, setShowError403] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   useEffect(() => {
     UserServiceIml.getUserProfile().then((response) => {
-      setFullName(response.data.data.fullName);
-      setUsername(response.data.data.username);
-      setEmail(response.data.data.email);
-      setPhone(response.data.data.phone);
-      setAvatar(response.data.data.avatar)
+      if (response.data.errCode == "403") {
+        setShowError403(true);
+      } else {
+        setFullName(response.data.data.fullName);
+        setUsername(response.data.data.username);
+        setEmail(response.data.data.email);
+        setPhone(response.data.data.phone);
+        setAvatar(response.data.data.avatar);
+      }
     });
   }, [])
 
@@ -45,7 +51,7 @@ const AccountSettings = () => {
       username: username,
       phone: phone,
     }).then((response) => {
-      if (response.data.errCode!="200") {
+      if (response.data.errCode != "200") {
         setShowError(true);
         setShowSuccess(false);
       } else {
@@ -56,11 +62,21 @@ const AccountSettings = () => {
     // 
   }
   const redirect = () => {
-    // logout();
+    logout();
   }
 
   return (
     <>
+      <ReactJsAlert
+        type="info"   // success, warning, error, info
+        title="Session has expired"   // title you want to display
+        status={showError403}  // true or false
+        button="OK"
+        color="#1d36ad"
+        quotes={true}
+        quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+        Close={redirect}   // callback method for hide
+      />
       {showError || showSuccess ?
         <Alert
           variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
