@@ -337,12 +337,16 @@ const Header = () => {
                         >
                           Edit Profile
                         </Link>
-                        <Link
-                          to="/#"
-                          className=" dropdown-item py-2 text-red font-size-3 font-weight-semibold line-height-1p2 text-uppercase"
+                        <a
+                          className={`dropdown-item py-2 text-red font-size-3 font-weight-semibold line-height-1p2 text-uppercase`}
+                          href="/#"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            logout();
+                          }}
                         >
                           Log Out
-                        </Link>
+                        </a>
                       </Dropdown.Menu>
                     ) : (
                       <div
