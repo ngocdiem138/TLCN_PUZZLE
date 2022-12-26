@@ -6,6 +6,18 @@ import Cover from '../Cover';
 import ReactJsAlert from "reactjs-alert";
 import { Container, Alert } from 'react-bootstrap';
 
+import "../../assets/fonts/icon-font/fonts/avasta.ttf";
+import "../../assets/fonts/icon-font/css/style.css";
+
+import "../../../node_modules/slick-carousel/slick/slick.css";
+import "../../../node_modules/slick-carousel/slick/slick-theme.css";
+import "../../../node_modules/aos/dist/aos.css";
+
+import "../../assets/fonts/fontawesome-5/css/all.css";
+
+import "../../scss/bootstrap.scss";
+import "../../scss/main.scss";
+
 const AccountSettings = () => {
   const [profile, setProfile] = useState({
     phone: "",
