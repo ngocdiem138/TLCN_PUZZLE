@@ -3,7 +3,7 @@ import { Box, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 
 import AccountSettings from './AccountSettings'
 import EmployerSettings from './EmployerSettings'
-import CandidateSettings from './CandidateSettings'
+// import CandidateSettings from './CandidateSettings'
 
 class Content extends React.Component {
   render() {
