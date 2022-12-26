@@ -5,7 +5,7 @@ import { Select } from "../components/Core";
 import { parse } from "query-string";
 import { useState } from "react";
 import { faL } from "@fortawesome/free-solid-svg-icons";
-import { EmployerServiceIml } from "../actions/employer-action";
+import { EmployerServiceIml } from "../actions/admin-actions";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
 
 const resultTypes = [

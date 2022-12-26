@@ -12,8 +12,8 @@ const Pricing = () => {
   const [showSuccess, setShowSuccess] = useState(false);
   const [url, setUrl] = useState('');
   const redirect = () => {
-    if (url != '') {
-      if (typeof window !== "undefined") { window.location.href = url; }
+    if(url!=''){
+      window.location.href=url;
     } else {
       logout();
     }

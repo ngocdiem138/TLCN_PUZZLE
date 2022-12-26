@@ -81,7 +81,7 @@ const DashboardApplicants = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-            applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
+            applicant = [...applicant, { candidate: element.candidate, result: element.application.result }]
           });
           setApplicants(applicant);
         }
@@ -94,7 +94,7 @@ const DashboardApplicants = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-            applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
+            applicant = [...applicant, { candidate: element.candidate, result: element.application.result }]
           });
           setApplicants(applicant);
         }
@@ -123,24 +123,17 @@ const DashboardApplicants = () => {
     if (event.value != 0) {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         gContext.setToggleJobPostId(event.value);
-        let applicant = []
-        response.data.data.forEach(element => {
-          applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
-        });
-        setApplicants(applicant);
+        setApplicants(response.data.data);
         setJobPostId(event.value);
       });
     }
   };
 
   const listApplication = currentPosts.map(applicant => {
-    return <tr
-      className="border border-color-2"
-      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {}}
-    >
+    return <tr className="border border-color-2">
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
-          to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
+          to={"/candidate-profile?candidateId=" + applicant.id + "&jobPostId=" + id}
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
@@ -179,7 +172,7 @@ const DashboardApplicants = () => {
       <td className="table-y-middle py-7 min-width-px-110 pr-0">
         <div className="">
           <Link
-            to={"/contact?action=accept&candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
+            to={"/contact?action=accept&candidateId=" + applicant.candidate.id + "&jobPostId=" + jobPostId}
             className="font-size-3 font-weight-bold text-green text-uppercase"
           >
             Contact
@@ -189,7 +182,7 @@ const DashboardApplicants = () => {
       <td className="table-y-middle py-7 min-width-px-100 pr-0">
         <div className="">
           <Link
-            to={"/contact?action=reject&candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
+            to={"/contact?action=reject&candidateId=" + applicant.candidate.id + "&jobPostId=" + jobPostId}
             className="font-size-3 font-weight-bold text-red-2 text-uppercase"
           >
             Reject
