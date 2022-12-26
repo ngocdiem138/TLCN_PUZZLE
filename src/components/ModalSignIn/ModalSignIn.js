@@ -43,7 +43,7 @@ class Login extends Component {
     if (typeof window !== "undefined") {
       gapi.load('client:auth2', () => {
         gapi.client.init({
-          clientId: '79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com',
+          clientId: '84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com',
           scope: 'email'
         })
       });
@@ -164,7 +164,7 @@ class Login extends Component {
                     <div className="col-4 col-xs-12">
                       <GoogleLogin
                         className="font-size-4 font-weight-semibold position-relative text-white bg-poppy h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4"
-                        clientId="79738345802-r10d4rcntc96lkss7k75jp55vnj5pgvb.apps.googleusercontent.com"
+                        clientId="84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com"
                         buttonText="Sign in with Google"
                         onSuccess={this.responseGoogle}
                         onFailure={this.responseGoogle}

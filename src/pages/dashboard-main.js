@@ -13,10 +13,10 @@ import { logout } from "../actions/auth-actions";
 import ReactJsAlert from "reactjs-alert";
 
 import imgP1 from "../assets/image/table-one-profile-image-1.png";
-import imgP2 from "../assets/image/table-one-profile-image-2.png";
-import imgP3 from "../assets/image/table-one-profile-image-3.png";
-import imgP4 from "../assets/image/table-one-profile-image-4.png";
-import imgP5 from "../assets/image/table-one-profile-image-5.png";
+
+import Paginate from "../helpers/Paginate";
+import ReactPaginate from 'react-paginate';
+
 
 const defaultJobs = [
   { value: "pd", label: "Product Designer" },
@@ -40,10 +40,33 @@ const DashboardMain = () => {
   const [listJob, setListJob] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
+  const [results, setResults]= useState([]);
   const [id, setId] = useState(0);
   const [showError, setShowError] = useState(false)
   const redirect = () => {
     logout();
+  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = applicants.slice(indexOfFirstPost, indexOfLastPost);
+  
+  const paginate = (pageNumber) => {
+    console.log("pageNumber",pageNumber)
+    setCurrentPage(pageNumber);
+  };
+  
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(applicants.length / postsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
   };
   // useEffect(() => {
   //   JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
@@ -52,7 +75,7 @@ const DashboardMain = () => {
   //   });
   // }, []);
 
-  
+
   useEffect(() => {
     if (id == 0) {
       JobPostServiceIml.getAllCandidateApply().then((response) => {
@@ -61,7 +84,7 @@ const DashboardMain = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-              applicant = [...applicant, element.candidate]
+            applicant = [...applicant, element.candidate]
           });
           setApplicants(applicant);
         }
@@ -143,7 +166,7 @@ const DashboardMain = () => {
       if (response.data.errCode == "403") {
         setShowError(true);
       } else {
-        if(response.data.data){
+        if (response.data.data) {
           setTotalJobsInactive(response.data.data.length);
         }
         console.log(totalJobsInactive)
@@ -151,7 +174,7 @@ const DashboardMain = () => {
     });
   }, []);
 
-  
+
 
 
   const listJobPost = jobs.map((job) => {
@@ -190,29 +213,31 @@ const DashboardMain = () => {
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-80">
-        <a
-          href="/#"
-          className="font-size-3 font-weight-bold text-green text-uppercase"
-        >
-          Edit
-        </a>
+        <Link to={"/dashboard-jobPost?id=" + job.job_post.id} className="font-size-3 font-weight-bold text-green text-uppercase"> Edit </Link>
       </td>
       <td className="table-y-middle py-7 min-width-px-100">
-        <a
-          href="/#"
+        <button
           className="font-size-3 font-weight-bold text-red-2 text-uppercase"
-        >
+          style={{ outline: "none", border: "none", background: "none" }}
+          onClick={() => {
+            const confirmBox = window.confirm(
+              "Do you really want to delete this Job Post?"
+            )
+            if (confirmBox === true) {
+              remove(job.job_post.id);
+            }
+          }}>
           Delete
-        </a>
+        </button >
       </td>
     </tr>
   })
 
-  const listApplication = applicants.map(applicant => {
+  const listApplication = currentPosts.map(applicant => {
     return <tr className="border border-color-2">
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
-          to="/candidate-profile"
+          to={"/candidate-profile?candidateId=" + applicant.id + "&jobPostId=" + id}
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
@@ -467,70 +492,14 @@ const DashboardMain = () => {
                     </tbody>
                   </table>
                 </div>
-                <div className="pt-2">
-                  <nav aria-label="Page navigation example">
-                    <ul className="pagination pagination-hover-primary rounded-0 ml-n2">
-                      <li className="page-item rounded-0 flex-all-center">
-                        <a
-                          href="/#"
-                          className="page-link rounded-0 border-0 px-3active"
-                          aria-label="Previous"
-                        >
-                          <i className="fas fa-chevron-left"></i>
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a
-                          href="/#"
-                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
-                        >
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a
-                          href="/#"
-                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
-                        >
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a
-                          href="/#"
-                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
-                        >
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item disabled">
-                        <a
-                          href="/#"
-                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
-                        >
-                          ...
-                        </a>
-                      </li>
-                      <li className="page-item ">
-                        <a
-                          href="/#"
-                          className="page-link border-0 font-size-4 font-weight-semibold px-3"
-                        >
-                          7
-                        </a>
-                      </li>
-                      <li className="page-item rounded-0 flex-all-center">
-                        <a
-                          href="/#"
-                          className="page-link rounded-0 border-0 px-3"
-                          aria-label="Next"
-                        >
-                          <i className="fas fa-chevron-right"></i>
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
-                </div>
+                <Paginate
+                  postsPerPage={postsPerPage}
+                  totalPosts={applicants.length}
+                  paginate={paginate}
+                  previousPage={previousPage}
+                  nextPage={nextPage}
+                  selectedPage={currentPage}
+                />
               </div>
             </div>
             <div className="mb-18">

@@ -10,7 +10,7 @@ const Sidebar = (props) => {
 
 
   useEffect(() => {
-    CandidateServiceIml.getCandidateProfile(props.id).then((response) => { setProfile(response.data.data) });
+    CandidateServiceIml.getCandidateProfile(props.candidateId).then((response) => { setProfile(response.data.data) });
   }, []);
   return (
     <>
