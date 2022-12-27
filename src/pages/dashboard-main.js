@@ -94,7 +94,11 @@ const DashboardMain = () => {
         if (response.data.errCode == "403") {
           setShowError(true);
         } else {
-          setApplicants(response.data.data);
+          let applicant = []
+          response.data.data.forEach(element => {
+            applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
+          });
+          setApplicants(applicant);
         }
       });
     }
@@ -122,7 +126,11 @@ const DashboardMain = () => {
     if (event.value != 0) {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         gContext.setToggleJobPostId(event.value);
-        setApplicants(response.data.data);
+        let applicant = []
+        response.data.data.forEach(element => {
+          applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
+        });
+        setApplicants(applicant);
         setJobPostId(event.value);
       });
     }
@@ -238,25 +246,25 @@ const DashboardMain = () => {
     return <tr className="border border-color-2">
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
-          to={"/candidate-profile?candidateId=" + applicant.id + "&jobPostId=" + id}
+          to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
             <img src={imgP1} alt="" className="w-100" />
           </div>
           <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
-            {applicant.lastName} {applicant.firstName}
+            {applicant.candidate.lastName} {applicant.candidate.firstName}
           </h4>
         </Link>
       </th>
       <td className="table-y-middle py-7 min-width-px-235 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.educationLevel}
+          {applicant.candidate.educationLevel}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.workStatus}
+          {applicant.candidate.workStatus}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
@@ -266,7 +274,7 @@ const DashboardMain = () => {
             className="font-size-3 font-weight-bold text-black-2 text-uppercase"
             onClick={(e) => {
               e.preventDefault();
-              gContext.setToggleApplicantId(applicant.id)
+              gContext.setToggleApplicantId(applicant.candidate.id)
               gContext.toggleApplicationModal();
             }}
           >
@@ -277,7 +285,7 @@ const DashboardMain = () => {
       <td className="table-y-middle py-7 min-width-px-110 pr-0">
         <div className="">
           <Link
-            to={"/contact?action=accept&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
             className="font-size-3 font-weight-bold text-green text-uppercase"
           >
             Contact
@@ -287,7 +295,7 @@ const DashboardMain = () => {
       <td className="table-y-middle py-7 min-width-px-100 pr-0">
         <div className="">
           <Link
-            to={"/contact?action=reject&candidateId=" + applicant.id + "&jobPostId=" + jobPostId}
+            to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
             className="font-size-3 font-weight-bold text-red-2 text-uppercase"
           >
             Reject

@@ -176,7 +176,7 @@ const FeaturedJobs = () => {
           </li>
         </ul>
         <p className="mb-7 font-size-5 text-gray">
-          {job.quantity}
+          Quantity: {job.quantity}
         </p>
         <div className="card-btn-group">
           {(
