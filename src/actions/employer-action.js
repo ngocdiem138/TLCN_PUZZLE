@@ -70,7 +70,7 @@ class EmployerService {
     }
 
     createCompany(company) {
-        return axios.post(API_BASE_URL + "/admin/add-company", company, {
+        return axios.post(API_BASE_URL + "/employer/create-info-company", company, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

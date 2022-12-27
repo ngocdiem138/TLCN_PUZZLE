@@ -39,7 +39,7 @@ class Login extends Component {
 
   componentDidMount() {
     this.props.formReset();
-    const gapi =  typeof window === 'object' ? require('gapi-cjs') : () => false
+    const gapi = typeof window === 'object' ? require('gapi-cjs') : () => false
     if (gapi.gapi) {
       gapi.gapi.load('client:auth2', () => {
         gapi.gapi.client.init({
@@ -85,8 +85,12 @@ class Login extends Component {
       ProviderId: 'Google',
     };
     axios.post(API_BASE_URL + "/login-google", googleresponse)
-      .then((result) => {
-        // window.location.href = "/";
+      .then((response) => {
+        if (!response.data.errorCode) {
+          localStorage.setItem("token", response.data.data.jwt);
+          localStorage.setItem("userRole", setRole(response.data.data.roles));
+          localStorage.setItem("isLoggedIn", true);
+        }
       });
   };
 

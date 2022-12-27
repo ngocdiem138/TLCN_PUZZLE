@@ -49,7 +49,7 @@ const DashboardMain = () => {
   const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = applicants.slice(indexOfFirstPost, indexOfLastPost);
+  const currentPosts = applicants ? applicants.slice(indexOfFirstPost, indexOfLastPost) : applicants;
 
   const paginate = (pageNumber) => {
     console.log("pageNumber", pageNumber)
@@ -243,6 +243,7 @@ const DashboardMain = () => {
   })
 
   const listApplication = currentPosts.map(applicant => {
+    if (!applicant.candidate) return null;
     return <tr className="border border-color-2">
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
