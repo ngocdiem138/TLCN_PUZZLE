@@ -40,7 +40,8 @@ const DashboardJobs = () => {
       .then(() => JobPostServiceIml.getJobPostCreateByEmployer().then((response) => { setJobs(response.data.data) }))
   }
   const listJob = jobs.map((job) => {
-    return <tr className="border border-color-2">
+    return <tr className="border border-color-2"
+      style={job.job_post.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
       {/* {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null} */}
       <th
         scope="row"

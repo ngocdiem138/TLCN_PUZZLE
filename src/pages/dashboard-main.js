@@ -185,7 +185,8 @@ const DashboardMain = () => {
 
 
   const listJobPost = jobs.map((job) => {
-    return <tr className="border border-color-2">
+    return <tr className="border border-color-2"
+    style={job.job_post.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
       <th
         scope="row"
         className="pl-6 border-0 py-7 min-width-px-235"
@@ -244,7 +245,8 @@ const DashboardMain = () => {
 
   const listApplication = currentPosts.map(applicant => {
     if (!applicant.candidate) return null;
-    return <tr className="border border-color-2">
+    return <tr className="border border-color-2"
+      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {}}>
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
           to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}

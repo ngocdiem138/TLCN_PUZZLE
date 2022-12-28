@@ -8,9 +8,13 @@ import { useEffect } from "react";
 const Sidebar = () => {
   const gContext = useContext(GlobalContext);
   const [isEmployer, setIsEmployer] = useState(false);
+  const [isCandidate, setIsCandidate] = useState(false);
   useEffect(() => {
     if (localStorage.getItem("userRole") == "EMPLOYER") {
       setIsEmployer(true);
+    }
+    if (localStorage.getItem("userRole") == "CANDIDATE") {
+      setIsCandidate(true);
     }
   })
 
@@ -34,6 +38,7 @@ const Sidebar = () => {
               : null}
           </div>
           <ul className="list-unstyled dashboard-layout-sidebar">
+
             {isEmployer ? <>
               <li className="">
                 <Link
@@ -67,6 +72,7 @@ const Sidebar = () => {
                 </Link>
               </li></>
               : null}
+
             <li className="">
               <Link
                 to="/dashboard-settings"
@@ -76,6 +82,15 @@ const Sidebar = () => {
                 <i className="fas fa-cog mr-7"></i>Settings
               </Link>
             </li>
+            {isCandidate ? <li className="">
+              <Link
+                activeClassName="active"
+                to="/dashboard-experience"
+                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+              >
+                <i className="icon icon-layout-11 mr-7"></i>Experience
+              </Link>
+            </li> : null}
           </ul>
         </div>
       </Collapse>

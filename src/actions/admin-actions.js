@@ -68,7 +68,7 @@ class CompanyService {
 export const CompanyServiceIml = new CompanyService();
 
 class SkillService {
-  getAllSkills(type) {
+  getAllExtraInfoByType(type) {
     return axios.get(
       API_BASE_URL + "/common/get-all-extra-info-by-type?type=" + type,
       {
