@@ -266,7 +266,7 @@ class Login extends Component {
                         </span>
                       </label>
                       <a
-                        href="/#"
+                        href="/forgot-password"
                         className="font-size-3 text-dodger line-height-reset"
                       >
                         Forget Password

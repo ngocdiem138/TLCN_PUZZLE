@@ -13,6 +13,7 @@ class JobPostService {
         return axios.get(API_BASE_URL + "/common/get-active-job-post")
     }
 
+
     getAllCandidateApply() {
         return axios.get(API_BASE_URL + "/employer/get-all-candidate-and-result-to-employer",
             {
@@ -82,7 +83,7 @@ class JobPostService {
         return axios.get(API_BASE_URL + '/common/company/');
     }
 
-    
+
 
     getJobPostByKeyWordAndStatus(keyword, status) {
         return axios.get(API_BASE_URL + '/search?' + 'keyword=' + keyword + '&status=' + status);
@@ -192,6 +193,12 @@ class ExperienceService {
 export const ExperienceServiceIml = new ExperienceService();
 
 class UserService {
+    getForgotPass(email) {
+        return axios.get(API_BASE_URL + "/forgot-password?email=" + email)
+    }
+    getResetPass(token, newPass) {
+        return axios.get(API_BASE_URL + "/reset-password?token=" + token + "&newPassword=" + newPass)
+    }
     payPricing(pricing) {
         return axios.get(
             API_BASE_URL + "/pay?packageCode=" + pricing,

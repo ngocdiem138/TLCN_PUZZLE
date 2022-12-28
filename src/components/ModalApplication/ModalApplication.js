@@ -31,6 +31,7 @@ const ModalStyled = styled(Modal)`
 `;
 
 const ModalApplication = (props) => {
+  console.log(props)
   const gContext = useContext(GlobalContext);
 
   const handleClose = () => {
