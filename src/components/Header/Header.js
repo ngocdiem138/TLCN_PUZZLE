@@ -400,6 +400,12 @@ const Header = () => {
                 >
                   {isLoggedIn ? "My Account" : "Log In"}
                 </a>
+                {isUser ? <Link
+                  className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
+                  to={'/register'}
+                >
+                  UPDATE ACCOUNT
+                </Link> : null}
                 {isCandidate ? <Link
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
                   to={'/candidate-profile-2'}

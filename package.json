@@ -76,7 +76,9 @@
     "simplebar-react": "^2.4.3",
     "slick-carousel": "^1.8.1",
     "styled-components": "5.3.3",
-    "styled-system": "^5.1.5"
+    "styled-system": "^5.1.5",
+    "validator": "^13.7.0",
+    "varlidator": "^2.0.5"
   },
   "keywords": [
     "gatsby"
