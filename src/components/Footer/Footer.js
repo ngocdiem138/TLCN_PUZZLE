@@ -77,9 +77,9 @@ const Footer = () => {
                   <Link
                     to="/#"
                     className="mb-0 font-size-4 font-weight-bold"
-                    href="mailto:support@uxtheme.net"
+                    href="mailto:lethingocdiemxt2001@gmail.com"
                   >
-                    support@uxtheme.net
+                    lethingocdiemxt2001@gmail.com
                   </Link>
                 </div>
               </div>

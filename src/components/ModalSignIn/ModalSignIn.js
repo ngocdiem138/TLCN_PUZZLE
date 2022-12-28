@@ -70,6 +70,18 @@ class Login extends Component {
       [name]: value
     });
   };
+
+  setRole(roles) {
+    if (roles.find(role => role === 'ADMIN'))
+      return 'ADMIN';
+    else if (roles.find(role => role === 'EMPLOYER'))
+      return 'EMPLOYER';
+    else if (roles.find(role => role === 'CANDIDATE'))
+      return 'CANDIDATE';
+    else
+      return 'USER';
+  };
+
   responseGoogle = (response) => {
     console.log(response);
     var res = response.profileObj;
@@ -88,8 +100,9 @@ class Login extends Component {
       .then((response) => {
         if (!response.data.errorCode) {
           localStorage.setItem("token", response.data.data.jwt);
-          localStorage.setItem("userRole", setRole(response.data.data.roles));
+          localStorage.setItem("userRole", this.setRole(response.data.data.roles));
           localStorage.setItem("isLoggedIn", true);
+          window.location.href = '/'
         }
       });
   };

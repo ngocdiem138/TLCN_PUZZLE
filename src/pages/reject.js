@@ -114,7 +114,7 @@ const Reject = () => {
                       <div className="mr-6">
                         <i className="fas fa-envelope mt-2"></i>
                       </div>
-                      <p className="font-size-4 mb-0">support@uxtheme.net</p>
+                      <p className="font-size-4 mb-0">lethingocdiemxt2001@gmail.com</p>
                     </div>
                   </div>
                 </div>

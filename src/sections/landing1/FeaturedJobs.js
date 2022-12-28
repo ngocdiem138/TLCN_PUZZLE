@@ -140,7 +140,7 @@ const FeaturedJobs = () => {
         </Link>
         <h2 className="mt-n4">
           <Link
-            to="/#"
+            to={"/groups/job-details/" + job.id}
             className="font-size-7 text-black-2 font-weight-bold mb-4"
           >
             {job.title}
@@ -149,7 +149,7 @@ const FeaturedJobs = () => {
         <ul className="list-unstyled mb-1 card-tag-list">
           <li>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-denim font-size-3 rounded-3"
             >
               <i className="icon icon-pin-3 mr-2 font-weight-bold"></i>{" "}
@@ -158,7 +158,7 @@ const FeaturedJobs = () => {
           </li>
           <li>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-orange font-size-3 rounded-3"
             >
               <i className="fa fa-briefcase mr-2 font-weight-bold"></i>{" "}
@@ -167,17 +167,23 @@ const FeaturedJobs = () => {
           </li>
           <li>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
             >
               <i className="fa fa-dollar-sign mr-2 font-weight-bold"></i>{" "}
               {job.minBudget} - {job.maxBudget}K $
             </Link>
           </li>
+          <li>
+            <Link
+              to={"/groups/job-details/" + job.id}
+              className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
+            >
+              <i className="fa fa-address-card mr-2 font-weight-bold"></i>{" "}
+              Quantity: {job.quantity}
+            </Link>
+          </li>
         </ul>
-        <p className="mb-7 font-size-5 text-gray">
-          Quantity: {job.quantity}
-        </p>
         <div className="card-btn-group">
           {(
             <button
