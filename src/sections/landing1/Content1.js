@@ -5,8 +5,10 @@ import imgL2 from "../../assets/image/l1/png/smal-logo2.png";
 import imgL3 from "../../assets/image/l1/png/smal-logo3.png";
 import imgL4 from "../../assets/image/l1/png/smal-logo4.png";
 import imgL5 from "../../assets/image/l1/png/smal-logo5.png";
+import { useTranslation } from 'react-i18next';
 
 const Content = () => {
+  const { t, i18n } = useTranslation()
   return (
     <>
       {/* <!-- Content Area -->  */}
@@ -83,26 +85,25 @@ const Content = () => {
               <div className="pl-lg-10 pl-0 d-flex flex-column justify-content-center h-100 pt-lg-0 pt-15 pr-md-13 pr-xl-15 pr-xxl-25 pr-0 ">
                 {/* <!-- content-1 section-title start --> */}
                 <h2 className="font-size-9 mb-8 pr-xxl-15">
-                  Help you to get the best job that fits you
+                  {t('explore.help')}
                 </h2>
                 <p className="text-gray font-size-5 mb-10 mb-lg-16">
-                  Leverage agile frameworks to provide a robust synopsis for
-                  high level overviews. Iterative approach
+                  {t('explore.benifit')}
                 </p>
                 {/* <!-- content-1 section-title end --> */}
                 {/* <!-- content-1 list-group start --> */}
                 <ul className="list-unstyled pl-0">
                   <li className="font-weight-semibold border-0 d-flex mb-7 heading-default-color">
                     <i className="fas fa-check font-size-4 text-green mr-6"></i>
-                    Bring to the table win-win survival
+                    {t('explore.benifit1')}
                   </li>
                   <li className="font-weight-semibold border-0 d-flex mb-7 heading-default-color">
                     <i className="fas fa-check font-size-4 text-green mr-6"></i>
-                    Capitalize on low hanging fruit to identify
+                    {t('explore.benifit2')}
                   </li>
                   <li className="font-weight-semibold border-0 d-flex mb-7 heading-default-color">
                     <i className="fas fa-check font-size-4 text-green mr-6"></i>
-                    But I must explain to you how all this
+                    {t('explore.benifit3')}
                   </li>
                 </ul>
                 {/* <!-- content-1 list-group end --> */}

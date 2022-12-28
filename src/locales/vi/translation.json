@@ -27,5 +27,14 @@
   },
   "company":{
     "top": "Được thuê trong các công ty hàng đầu"
+  },
+  "explore":{
+    "exploreByCategory":"Khám phá theo danh mục",
+    "exploreAll": "Xem tất cả",
+    "help":"Giúp bạn có được công việc tốt nhất phù hợp với bạn",
+    "benifit":"Tận dụng các khuôn khổ linh hoạt để cung cấp một bản tóm tắt mạnh mẽ cho các tổng quan cấp cao. cách tiếp cận lặp đi lặp lại",
+    "benifit1":"Mang đến sự sống còn đôi bên cùng có lợi",
+    "benifit2":"Tận dụng lợi thế treo thấp để xác định",
+    "benifit3":"Nhưng tôi phải giải thích cho bạn tất cả những điều này như thế nào"
   }
 }

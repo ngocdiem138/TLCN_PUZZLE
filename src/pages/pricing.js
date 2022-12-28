@@ -4,12 +4,15 @@ import PageWrapper from "../components/PageWrapper";
 import { UserServiceIml } from "../actions/user-actions";
 import { useState } from "react";
 import { logout } from "../actions/auth-actions";
-// import ReactJsAlert from "reactjs-alert";
+import ReactJsAlert from "reactjs-alert";
+import { Container, Alert, Button } from 'react-bootstrap';
+
 
 const Pricing = () => {
 
-  const [showError, setShowError] = useState(false);
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [showError403, setShowError403] = useState(false);
+  const [showError, setShowError] = useState(false)
+  const [showSuccess, setShowSuccess] = useState(false)
   const [url, setUrl] = useState('');
   const redirect = () => {
     if (url != '') {
@@ -22,8 +25,11 @@ const Pricing = () => {
   function payment(pricing) {
     UserServiceIml.payPricing(pricing).then((response) => {
       if (response.data.errCode == "403") {
+        setShowError403(true);
+      } else if (response.data.errCode == "401") {
         setShowError(true);
-      } else {
+      }
+      else {
         setShowSuccess(true);
         setUrl(response.data.data)
       }
@@ -38,26 +44,35 @@ const Pricing = () => {
           {/* <!-- pricing section --> */}
           <div className="pricing-area">
             <div className="container pt-12 pt-lg-24 pb-13 pb-lg-25">
-              {/* <ReactJsAlert
+              <ReactJsAlert
                 type="info"   // success, warning, error, info
                 title="Session has expired"   // title you want to display
-                status={showError}  // true or false
+                status={showError403}  // true or false
                 button="OK"
                 color="#1d36ad"
                 quotes={true}
                 quote="Unfortunately your session has expired and you have been logged out. Please log in again"
                 Close={redirect}   // callback method for hide
               />
-              // <ReactJsAlert
-              //   type="info"   // success, warning, error, info
-              //   title="Update"   // title you want to display
-              //   status={showSuccess}  // true or false
-              //   button="OK"
-              //   color="#1d36ad"
-              //   quotes={true}
-              //   quote="Update accout"
-              //   Close={redirect}   // callback method for hide
-              // /> */}
+                {showError || showSuccess ?
+                  <Alert
+                    variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
+                    {showError ? 'you have already subscribed to this package' : showSuccess ? 'Save success' : 'info'}
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        onClick={() => {
+                          setShowError(false);
+                          setShowSuccess(false);
+                          redirect()
+                        }}
+                        variant={showError ? 'outline-danger' : showSuccess ? 'outline-success' : 'outline-info'}>
+                        Close!
+                      </Button>
+                    </div>
+                  </Alert>
+                  : null
+                }
+
               <div className="row justify-content-center">
                 <div
                   className="col-xxl-6 col-lg-7 col-md-9"

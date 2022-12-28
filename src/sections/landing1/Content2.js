@@ -5,8 +5,10 @@ import imgC from "../../assets/image/l1/jpg/content-1-img2.jpg";
 import imgM1 from "../../assets/image/l1/png/media-img-1.png";
 import imgM2 from "../../assets/image/l1/png/media-img-2.png";
 import imgM3 from "../../assets/image/l1/png/media-img-3.png";
+import { useTranslation } from 'react-i18next';
 
 const Content = () => {
+  const { t, i18n } = useTranslation()
   return (
     <>
       {/* <!-- Content Area -->  */}

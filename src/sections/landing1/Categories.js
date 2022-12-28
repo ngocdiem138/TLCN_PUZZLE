@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "gatsby";
+import { useTranslation } from 'react-i18next';
 
 const Categories = () => {
+  const { t, i18n } = useTranslation()
   return (
     <>
       {/* <!-- Categories Area -->  */}
@@ -18,7 +20,7 @@ const Categories = () => {
             <div className="col-12 col-lg-6">
               <div className="text-center text-lg-left mb-13 mb-lg-0">
                 <h2 className="font-size-9 font-weight-bold">
-                  Explore by category
+                  {t('explore.exploreByCategory')}
                 </h2>
               </div>
             </div>
@@ -26,7 +28,7 @@ const Categories = () => {
             <div className="col-12 col-lg-6">
               <div className="text-center text-lg-right">
                 <Link to="/#" className="btn btn-outline-green text-uppercase">
-                  Explore All
+                  {t('explore.exploreAll')}
                 </Link>
               </div>
             </div>

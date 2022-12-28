@@ -27,5 +27,15 @@
   },
   "company": {
     "top": "Get hired in top companies"
+  },
+  "explore": {
+    "exploreByCategory": "Explore by category",
+    "exploreAll": "Explore All",
+    "help":"Help you to get the best job that fits you",
+    "benifit":"Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approach",
+    "benifit1":"Bring to the table win-win survival",
+    "benifit2":"Capitalize on low hanging fruit to identify",
+    "benifit3":"But I must explain to you how all this",
+    "company": "Looking for an expert for your company?"
   }
 }

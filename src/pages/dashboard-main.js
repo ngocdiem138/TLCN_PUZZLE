@@ -49,7 +49,7 @@ const DashboardMain = () => {
   const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = applicants ? applicants.slice(indexOfFirstPost, indexOfLastPost) : applicants;
+  const currentPosts = applicants.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (pageNumber) => {
     console.log("pageNumber", pageNumber)
@@ -83,7 +83,7 @@ const DashboardMain = () => {
         } else {
           let applicant = []
           response.data.data.forEach(element => {
-            applicant = [...applicant, element.candidate]
+            applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
           });
           setApplicants(applicant);
         }
