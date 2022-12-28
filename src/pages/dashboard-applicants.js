@@ -19,6 +19,7 @@ import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 import Paginate from "../helpers/Paginate";
 
+
 const defaultJobs = [
   { value: 1, label: "Product Designer" },
   { value: 2, label: "Graphics Designer" },

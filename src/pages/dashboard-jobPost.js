@@ -11,6 +11,7 @@ import { Form } from 'react-bootstrap';
 import ReactJsAlert from "reactjs-alert";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
+import { SkillServiceIml } from '../actions/admin-actions';
 // import dynamic from 'next/dynamic';
 // import "react-quill/dist/quill.snow.css";
 // import Editor from '../components/widgets/Editor';
@@ -52,6 +53,23 @@ function DashboardJobPost() {
         "link",
         "image",
     ];
+    const [skillList, setSkillList] = useState([])
+    const getSkill = (skills) => {
+        let arr = skills ? skills.split(',') : [];
+        let skillOjectList = []
+        arr.forEach((element) => {
+            skillOjectList = [...skillOjectList, { value: element, label: element }]
+        })
+        return skillOjectList;
+    }
+
+    const stringSkills = (skills) => {
+        let skillNameList = []
+        skills.forEach((element) => {
+            skillNameList = [...skillNameList, element.label]
+        })
+        return skillNameList.join(',');
+    }
 
     const { t, i18n } = useTranslation()
     const defaultCountries = [
@@ -83,7 +101,18 @@ function DashboardJobPost() {
             else {
 
             }
-        })
+        });
+        SkillServiceIml.getAllExtraInfoByType("skill").then((response) => {
+            if (response.data.data) {
+                let skillList1 = []
+                response.data.data.forEach(element => {
+                    skillList1 = [...skillList1, { value: element.id, label: element.name }]
+                });
+                setSkillList(skillList1);
+            }
+            else {
+            }
+        });
     }, [id])
 
 
@@ -670,6 +699,23 @@ function DashboardJobPost() {
                                                                 onChange={(e) => { setCompanyId(e.value); setSelectedCompany(e); e.__isNew__ == true ? redirectNewCompany() : console.log(companyId, e) }}
                                                                 value={selectedCompany ? selectedCompany : findCompany(companyId)}
                                                                 options={companyList} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-11">
+                                                            <label
+                                                                htmlFor="formGroupExampleInput"
+                                                                className="d-block text-black-2 font-size-4 font-weight-semibold mb-4"
+                                                            >
+                                                                Skills
+                                                            </label>
+                                                            <CreatableSelect
+                                                                isMulti
+                                                                isClearable={true}
+                                                                isSearchable
+                                                                onChange={(e) => {setSkills(stringSkills(e)) }}
+                                                                value={getSkill(skills)}
+                                                                options={skillList} />
                                                         </div>
                                                     </div>
                                                 </div>
