@@ -82,6 +82,15 @@ const Sidebar = () => {
                 <i className="fas fa-cog mr-7"></i>Settings
               </Link>
             </li>
+            <li className="">
+              <Link
+                to="/dashboard-invoice"
+                activeClassName="active"
+                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+              >
+                <i className="fas fa-money-bill mr-7"></i>Invoices
+              </Link>
+            </li>
             {isCandidate ? <li className="">
               <Link
                 activeClassName="active"

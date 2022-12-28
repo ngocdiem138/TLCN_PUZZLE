@@ -193,6 +193,14 @@ class ExperienceService {
 export const ExperienceServiceIml = new ExperienceService();
 
 class UserService {
+    getInvoices() {
+        return axios.get(API_BASE_URL + "/user/get-invoice",
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
     getForgotPass(email) {
         return axios.get(API_BASE_URL + "/forgot-password?email=" + email)
     }

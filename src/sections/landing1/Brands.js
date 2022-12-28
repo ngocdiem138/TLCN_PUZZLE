@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useTranslation } from 'react-i18next';
 
-import imgB1 from "../../assets/image/l1/png/brand-logo-1.png";
+import imgB1 from "../../assets/image/l1/png/smal-logo1.png";
 
 
 const Brands = () => {
@@ -21,7 +21,7 @@ const Brands = () => {
       data-aos-duration="800"
       style={{"font-size":"20px"}}
     >
-      <img width={"100vh"} height={"100vh"} src={company.image} alt="" /> {company.name}
+      <img width={"100vh"} height={"100vh"} style={{"borderRadius":"50%"}} src={company.image ? company.image : imgB1} alt="" /> {company.name}
     </div>
   });
   return (

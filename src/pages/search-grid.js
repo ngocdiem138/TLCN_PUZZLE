@@ -74,6 +74,9 @@ const Check = ({ children }) => {
 
 
 const SearchGrid = () => {
+
+
+
   const { t, i18n } = useTranslation()
   const defaultCountries = [
     { id: 0, value: "", label: t('defaultCountries.selectCity') },
@@ -205,8 +208,14 @@ const SearchGrid = () => {
     JobPostServiceIml.getJobByFilterParams(variables).then((response) => { setJobs(response.data.data); });
   };
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(5);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = jobs.slice(0, indexOfLastPost);
 
-  const jobGrid = jobs.map(job => {
+
+  const jobGrid = currentPosts.map(job => {
     return <div className="col-12 col-lg-6">
       <div className="bg-white px-8 pt-9 pb-7 rounded-4 mb-9 feature-cardOne-adjustments">
         <div className="d-block mb-7">
@@ -291,7 +300,7 @@ const SearchGrid = () => {
     </div>
   });
 
-  const jobList = jobs.map(job => {
+  const jobList = currentPosts.map(job => {
     return <div className="mb-10 col-12">
       {/* <!-- Single Featured Job --> */}
       <div className="pt-9 px-xl-9 px-lg-7 px-7 pb-7 light-mode-texts bg-white rounded hover-shadow-3 ">
@@ -641,7 +650,8 @@ const SearchGrid = () => {
                   </div>
                   <div className="text-center pt-5 pt-lg-13">
                     <Link
-                      to="/#"
+                      // to="/#"
+                      onClick={() => { setCurrentPage(currentPage + 1) }}
                       className="text-green font-weight-bold text-uppercase font-size-3 d-flex align-items-center justify-content-center"
                     >
                       Load More{" "}

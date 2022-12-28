@@ -224,7 +224,7 @@ const FeaturedJobs = () => {
             {/* <!-- Section Button --> */}
             <div className="col-12 col-xl-6 col-lg-6">
               <div className="text-center text-lg-right">
-                <Link to="/#" className="btn btn-outline-white text-uppercase">
+                <Link to="/search-grid" className="btn btn-outline-white text-uppercase">
                   Explore All
                 </Link>
               </div>

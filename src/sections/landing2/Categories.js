@@ -202,7 +202,7 @@ const Categories = () => {
             <div className="col-12">
               <div className="text-center pt-5 pt-lg-13">
                 <Link
-                  to="/#"
+                  to="/search-grid"
                   className="btn btn-outline-black-2 btn-lg text-uppercase"
                 >
                   Explore All
