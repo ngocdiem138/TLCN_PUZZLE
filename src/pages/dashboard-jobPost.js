@@ -10,6 +10,7 @@ import { Link } from "gatsby";
 import { Form } from 'react-bootstrap';
 import ReactJsAlert from "reactjs-alert";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
+import CreatableSelect, { useCreatable } from 'react-select/creatable';
 // import dynamic from 'next/dynamic';
 // import "react-quill/dist/quill.snow.css";
 // import Editor from '../components/widgets/Editor';
@@ -69,9 +70,30 @@ function DashboardJobPost() {
         { id: 5, "name": "TEMPORARY", "label": t('employmentTypeData.Temporary'), value: "TEMPORARY" },
     ]
 
+    const [companyList, setCompanyList] = useState([])
+    useEffect(() => {
+        JobPostServiceIml.getAllCompany().then((response) => {
+            if (response.data.data) {
+                let companyList1 = []
+                response.data.data.forEach(element => {
+                    companyList1 = [...companyList1, { value: element.id, label: element.name }]
+                });
+                setCompanyList(companyList1);
+            }
+            else {
+
+            }
+        })
+    }, [id])
+
+
     const location = useLocation();
     const searchParams = parse(location.search);
     const id = searchParams.id;
+
+    const redirectNewCompany = () => {
+        if (typeof window !== "undefined") { window.location.href = "/dashboard-company" }
+    }
 
     const [number, setNumber] = useState('')
     const [title, setTitle] = useState('')
@@ -81,6 +103,7 @@ function DashboardJobPost() {
     const [labor, setLabor] = useState('')
     const [city, setCity] = useState(defaultCountries[0].value)
     const [address, setAddress] = useState('')
+    const [companyId, setCompanyId] = useState()
     const [workplaceType, setWorkplaceType] = useState('')
     const [workStatus, setWorkStatus] = useState('')
     const [communicationDis, setCommunicationDis] = useState('')
@@ -97,6 +120,7 @@ function DashboardJobPost() {
     const [dueTime, setDueTime] = useState('')
     const [description, setDescription] = useState('')
     const [selectedOptions, setSelectedOptions] = useState(0);
+    const [selectedCompany, setSelectedCompany] = useState();
     const [selectedEmploymentTypeOptions, setSelectedOEmploymentTypeOptions] = useState(0);
     const [showAlert, setShowAlert] = useState(false)
     const updateDescription = (value) => {
@@ -124,7 +148,7 @@ function DashboardJobPost() {
         e.preventDefault();
 
         const jobPost = {
-            id, title, blind, deaf, handDis, description, labor, city, address, workplaceType, workStatus, communicationDis
+            id, title, blind, deaf, handDis, description, labor, city, address, companyId, workplaceType, workStatus, communicationDis
             , communicationDis, skills, level, type, quantity, experienceYear, educationLevel, employmentType, minBudget, maxBudget, dueTime
         }
 
@@ -159,8 +183,30 @@ function DashboardJobPost() {
             })
         }
     }
+    const findCompany = (id) => {
+        companyList.forEach((element) => {
+            if (element.value == id) {
+                // console.log("el", element)
+                setSelectedCompany(element)
+                return element;
+
+            }
+        })
+    }
 
     useEffect(() => {
+        JobPostServiceIml.getAllCompany().then((response) => {
+            if (response.data.data) {
+                let companyList1 = []
+                response.data.data.forEach(element => {
+                    companyList1 = [...companyList1, { value: element.id, label: element.name }]
+                });
+                setCompanyList(companyList1);
+            }
+            else {
+
+            }
+        })
         JobPostServiceIml.getJobPostById(id).then((response) => {
             if (!response.data.errCode) {
                 setNumber(response.data.data.id)
@@ -171,6 +217,7 @@ function DashboardJobPost() {
                 setLabor(response.data.data.labor)
                 setCity(response.data.data.city)
                 setAddress(response.data.data.address)
+                setCompanyId(response.data.data.companyId);
                 setDescription(response.data.data.description)
                 setWorkplaceType(response.data.data.workplaceType)
                 setWorkStatus(response.data.data.workStatus)
@@ -187,6 +234,7 @@ function DashboardJobPost() {
                 setDueTime(response.data.data.dueTime)
                 setEmploymentType(response.data.data.employmentType)
                 handleDropdown(response.data.data.city, response.data.data.employmentType);
+                findCompany(response.data.data.companyId);
             }
             else {
                 setNumber('-1')
@@ -197,6 +245,7 @@ function DashboardJobPost() {
                 setLabor('')
                 setCity(defaultCountries[0].value)
                 setAddress('')
+                setCompanyId()
                 setWorkplaceType('')
                 setWorkStatus('')
                 setSkills('')
@@ -211,6 +260,7 @@ function DashboardJobPost() {
                 setMaxBudget('')
                 setDueTime('')
                 setEmploymentType(employmentTypeData[0].value)
+                // findCompany(18)
             }
         })
     }, [id])
@@ -585,7 +635,7 @@ function DashboardJobPost() {
                                                             /> */}
                                                         </div>
                                                     </div>
-                                                    <div className="col-md-12">
+                                                    <div className="col-md-6">
                                                         <div className="form-group mb-11">
                                                             <label
                                                                 htmlFor="formGroupExampleInput"
@@ -602,15 +652,34 @@ function DashboardJobPost() {
                                                                 placeholder="1, Vo Van Ngan"
                                                             />
                                                         </div>
-                                                        <div class="row">
-                                                            <div className="col-md-7"></div>
-                                                            <div class="col-md-2">
-                                                                <Link to={"/dashboard-jobPost?id=" + id} className="btn btn-dark"> Cancel </Link>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <button type="button submit" class="btn btn-primary" >{action}</button>
-                                                            </div>
+
+                                                    </div>
+                                                    <div className="col-md-6">
+                                                        <div className="form-group mb-11">
+                                                            <label
+                                                                htmlFor="formGroupExampleInput"
+                                                                className="d-block text-black-2 font-size-4 font-weight-semibold mb-4"
+                                                            >
+                                                                Company
+                                                            </label>
+                                                            <CreatableSelect
+                                                                // isValidNewOption={() => redirectNewCompany()}
+                                                                // isValidNewOption={redirectNewCompany()}
+                                                                isClearable
+                                                                isSearchable
+                                                                onChange={(e) => { setCompanyId(e.value); setSelectedCompany(e); e.__isNew__ == true ? redirectNewCompany() : console.log(companyId, e) }}
+                                                                value={selectedCompany ? selectedCompany : findCompany(companyId)}
+                                                                options={companyList} />
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div className="col-md-7"></div>
+                                                    <div class="col-md-2">
+                                                        <Link to={"/dashboard-jobPost?id=" + id} className="btn btn-dark"> Cancel </Link>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button type="button submit" class="btn btn-primary" >{action}</button>
                                                     </div>
                                                 </div>
                                             </fieldset>

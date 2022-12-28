@@ -78,6 +78,12 @@ class JobPostService {
         return axios.get(API_BASE_URL + '/common/job-post/get-one/' + jobPostId);
     }
 
+    getAllCompany() {
+        return axios.get(API_BASE_URL + '/common/company/');
+    }
+
+    
+
     getJobPostByKeyWordAndStatus(keyword, status) {
         return axios.get(API_BASE_URL + '/search?' + 'keyword=' + keyword + '&status=' + status);
     }

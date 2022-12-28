@@ -129,8 +129,12 @@ const CompanySettings = () => {
         formData.append("image", image);
         EmployerServiceIml.createCompany(formData).then((response) => {
             if (response.data.errCode != "200" && response.data.errCode) {
-                setShowError(true);
-                setShowSuccess(false);
+                if(response.data.errCode == "403"){
+                    setShowError403(true);
+                } else{
+                    setShowError(true);
+                    setShowSuccess(false);
+                }
             } else {
                 setShowSuccess(true);
                 setShowError(false);
