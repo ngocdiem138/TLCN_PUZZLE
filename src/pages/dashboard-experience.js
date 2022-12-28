@@ -92,7 +92,13 @@ const Experience = () => {
 
     }
     const saveOrUpdate = () => {
-        experienceList.map((work) => (
+        experienceList.map((work) => {
+
+            work.startDate != null && work.startDate.split(' ').length == 1 ? work.startDate += " 00:00:00" : work.startDate
+
+
+            work.endDate != null && work.endDate.split(' ').length == 1 ? work.endDate += " 00:00:00" : work.endDate
+
             work.id == '-1' && work.title != "" ? ExperienceServiceIml.createExperience(work).then((response) => {
                 if (response.data.errCode == "200" || response.data.errCode == null) {
                     setShowError(false);
@@ -110,7 +116,7 @@ const Experience = () => {
                     setShowError(true);
                 }
             })
-        ));
+        });
     }
 
     const handleChange = (e, id) => {
@@ -140,15 +146,6 @@ const Experience = () => {
         const updatedExperienceList = experienceList.map((work) => (
             work.id === id ? Object.assign(work, { [name]: value }) : work
         ));
-
-        const updatedExperienceList2 = experienceList.map((work) => (
-            work.id === id && startDate != -1 ? Object.assign(work, { ["startDate"]: work.endDate + " 00:00:00" }) : work
-        ));
-        setExperienceList(updatedExperienceList2);
-        const updatedExperienceList1 = experienceList.map((work) => (
-            work.id === id && endDate != -1 ? Object.assign(work, { ["endDate"]: work.endDate + " 00:00:00" }) : work
-        ));
-        setExperienceList(updatedExperienceList1);
         setExperienceList(updatedExperienceList);
     }
 
@@ -243,11 +240,11 @@ const Experience = () => {
                                     <Accordion allowToggle defaultIndex={[0]}>
                                         {
                                             experienceList.map((work, index) => (
-                                                <AccordionItem key={index} background={"#a3e0e0"}>
+                                                <AccordionItem key={index} background={"white"} margin={"10px 0px"} >
                                                     <h2>
                                                         <AccordionButton className='main-color'>
                                                             <Box flex='1' textAlign='left'>
-                                                                <h3 fontWeight={'medium'}>{work.title ? work.title : "Title"}</h3>
+                                                                <p fontSize={25} style={{"font-weight":"600"}} >{work.title ? work.title : "Title"}</p>
                                                             </Box>
                                                             <AccordionIcon />
                                                         </AccordionButton>
@@ -259,7 +256,7 @@ const Experience = () => {
                                                                     isClearable={true}
                                                                     isSearchable
                                                                     onChange={(e) => { handleSelectChange("title", e.label, work.id); setSelectedPosition(e); }}
-                                                                    value={selectedPosition ? selectedPosition : { value: work.title, label: work.title }}
+                                                                    value={{ value: work.title, label: work.title }}
                                                                     options={positionList} />
                                                             </FormControl>
                                                             <FormControl width="30%">
@@ -267,7 +264,7 @@ const Experience = () => {
                                                                     isClearable={true}
                                                                     isSearchable
                                                                     onChange={(e) => { handleSelectChange("company", e.label, work.id); setSelectedCompany(e); }}
-                                                                    value={selectedCompany ? selectedCompany : { value: work.company, label: work.company }}
+                                                                    value={ { value: work.company, label: work.company }}
                                                                     options={companyList} />
                                                             </FormControl>
                                                             <Select width="30%" value={work.employmentType} onChange={(e) => handleChange(e, work.id)} name='employmentType' variant='filled' placeholder='Employment Type'>
@@ -289,6 +286,7 @@ const Experience = () => {
                                                                     name='startDate'
                                                                     id='startDate'
                                                                     type='date'
+                                                                    variant='filled'
                                                                     placeholder='Start Date' />
                                                             </FormControl>
 
@@ -317,13 +315,13 @@ const Experience = () => {
                                                         {/* <FormControl mt={6}> */}
                                                         <HStack spacing={30}>
                                                             <FormControl width="95%">
-                                                                <FormLabel  htmlFor='skill'>Skill</FormLabel>
+                                                                <FormLabel htmlFor='skill'>Skill</FormLabel>
                                                                 <CreatableSelect
                                                                     isMulti
                                                                     isClearable={true}
                                                                     isSearchable
                                                                     onChange={(e) => { handleSelectChange("skills", stringSkills(e), work.id); setSelectedSkill(e); }}
-                                                                    value={selectedSkill ? selectedSkill : getSkill(work.skills)}
+                                                                    value={getSkill(work.skills)}
                                                                     options={skillList} />
                                                                 {/* <Input className='input-field' width="95%" onChange={(e) => setSkill(e.target.value)} value={skill} name='skills' id='skills' type='text' variant='filled' placeholder='Skill' /> */}
                                                             </FormControl>
