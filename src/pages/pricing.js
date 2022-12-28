@@ -57,7 +57,7 @@ const Pricing = () => {
                 {showError || showSuccess ?
                   <Alert
                     variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
-                    {showError ? 'you have already subscribed to this package' : showSuccess ? 'Save success' : 'info'}
+                    {showError ? 'you have already subscribed to this package' : showSuccess ? 'Click button Send to redirect Paypal link' : 'info'}
                     <div className="d-flex justify-content-end">
                       <Button
                         onClick={() => {
@@ -66,7 +66,7 @@ const Pricing = () => {
                           redirect()
                         }}
                         variant={showError ? 'outline-danger' : showSuccess ? 'outline-success' : 'outline-info'}>
-                        Close!
+                        {showError ? 'Close!' : showSuccess ? 'Send' : 'Close!'}
                       </Button>
                     </div>
                   </Alert>
