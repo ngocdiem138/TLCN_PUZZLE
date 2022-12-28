@@ -19,8 +19,9 @@ const Brands = () => {
       className="single-brand-logo mx-5 my-6"
       data-aos="fade-in"
       data-aos-duration="800"
+      style={{"font-size":"20px"}}
     >
-      <img src={imgB1} alt="" /> {company.name}
+      <img width={"100vh"} height={"100vh"} src={company.image} alt="" /> {company.name}
     </div>
   });
   return (

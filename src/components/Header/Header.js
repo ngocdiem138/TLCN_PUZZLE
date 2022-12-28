@@ -66,6 +66,7 @@ const Header = () => {
   const [isEmployer, setIsEmployer] = useState(false);
   const [isCandidate, setIsCandidate] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isUser, setIsUser] = useState(false);
   let langDefault = undefined;
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const Header = () => {
     setIsLoggedIn(localStorage.getItem("isLoggedIn"));
     setIsCandidate(localStorage.getItem("userRole") == "CANDIDATE");
     setIsEmployer(localStorage.getItem("userRole") == "EMPLOYER");
+    setIsUser(localStorage.getItem("userRole") == "USER");
   })
 
   const gContext = useContext(GlobalContext);
@@ -115,6 +117,8 @@ const Header = () => {
           window.location.href = "/dashboard-settings";
         } else if (isEmployer) {
           window.location.href = "/dashboard-main";
+        } else if (isUser) {
+          window.location.href = "/dashboard-settings";
         }
         else {
           window.location.href = "/";
