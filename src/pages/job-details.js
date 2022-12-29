@@ -98,8 +98,8 @@ const JobDetails = () => {
   const applyForJob = () => {
 
 
-    if (!isAuthenticated) {
-      setError("You must login to apply for jobs")
+    if (!isAuthenticated || localStorage.getItem("userRole") != "CANDIDATE") {
+      setError("You must is a CANDIDATE to apply for jobs.")
     } else {
       axios
         .get(
@@ -115,25 +115,17 @@ const JobDetails = () => {
           if (response.data.status == 200) {
             setSucces("Successfuly applied for job")
             setError("")
-            const countTimer = setInterval(() => {
-
-              // every 1000 milliseconds
-            }, 1000);
-            clearInterval(countTimer);
           } else if (response.data.status != 200) {
             console.log(response.data.status)
             switch (response.data.status) {
               case 403:
+                setError(response.data.message)
                 // window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
                 break;
               default:
                 setSucces("");
-                setError(response.data.errMsg)
-              //return 'foo';
+                setError(response.data.message)
             }
-            //setError(response.data.errMsg)
-            //console.error(response.data.errMsg);
-            //window.location.assign(REDIRECT_BASE_URL+ "/registerOfUser");
           } else {
 
             setSucces("Request Failed")
@@ -196,7 +188,7 @@ const JobDetails = () => {
                       <div className="col-md-6 text-right pt-7 pt-md-0 mt-md-n1">
                         {/* <!-- media date start --> */}
                         <div className="media justify-content-md-end">
-                          <p className="font-size-4 text-gray mb-0">
+                          <p className="font-size-4 text-green mb-0">
                             {job.dueTime}
                           </p>
                         </div>
@@ -262,10 +254,6 @@ const JobDetails = () => {
                           <p className="font-size-5 text-gray mb-0">
                             {job.address},{" "}
                             <br className="d-md-none d-lg-block d-block" />
-                            {job.city}
-                            {/* <div > */}
-                            <img className="image mr-5 col-md-3" src={iconC} alt="" />
-                            {/* </div> */}
                           </p>
                         </div>
                       </div>
@@ -339,7 +327,7 @@ const JobDetails = () => {
                             Workplace Type
                           </span>
                           <h6 className="font-size-5 text-black-2 font-weight-semibold mb-0">
-                            {job.workplaceType}
+                            {job.workplaceType ? job.workplaceType : "___"}
                           </h6>
                         </div>
                       </div>
