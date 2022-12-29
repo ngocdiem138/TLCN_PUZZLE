@@ -649,14 +649,14 @@ const SearchGrid = () => {
                     </div>
                   </div>
                   <div className="text-center pt-5 pt-lg-13">
-                    <Link
+                    <button style={{"margin-left":"auto", "margin-right":"auto", "border":"none", "minHeight":"1vh"}}
                       // to="/#"
                       onClick={() => { setCurrentPage(currentPage + 1) }}
                       className="text-green font-weight-bold text-uppercase font-size-3 d-flex align-items-center justify-content-center"
                     >
                       Load More{" "}
                       <i className="fas fa-sort-down ml-3 mt-n2 font-size-4"></i>
-                    </Link>
+                    </button>
                   </div>
                 </div>
                 {/* <!-- form end --> */}

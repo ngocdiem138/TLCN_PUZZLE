@@ -136,7 +136,7 @@ const FeaturedJobs = () => {
           to={"/groups/job-details/" + job.id}
           className="font-size-3 d-block mb-0 text-gray"
         >
-          {job.workplaceType ? job.workplaceType : ""}
+          {job.workplaceType ? job.workplaceType : "  "}
         </Link>
         <h2 className="mt-n4">
           <Link
