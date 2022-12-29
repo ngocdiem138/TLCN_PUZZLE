@@ -29,6 +29,7 @@ class Registration extends Component {
   handleClose = () => {
     const gContext = this.context;
     gContext.toggleSignUpModal();
+    this.setState({ errorCf: '' });
   };
 
   togglePasswordFirst = () => {
@@ -259,7 +260,14 @@ class Registration extends Component {
                       </button>
                       {this.state.errorCf ? <div className="alert alert-danger col-12" style={{ "margin": "10px" }} role="alert">{this.state.errorCf}</div> : null}
                       {error ? <div className="alert alert-danger col-12" style={{ "margin": "10px" }} role="alert">{error}</div> : null}
-                      {isRegistered == true ? <div className="alert alert-success col-12" style={{ "margin": "10px" }} role="alert">Success</div> : null}
+                      {isRegistered == true ? <div className="alert alert-success col-12" style={{ "margin": "10px" }} role="alert">Success <a href="/#" className="text-primary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          gContext.toggleSignUpModal();
+                          gContext.toggleSignInModal();
+                        }}>
+                        Sign in here
+                      </a></div> : null}
                     </div>
                     <p className="font-size-4 text-center heading-default-color">
                       Have an account?{" "}

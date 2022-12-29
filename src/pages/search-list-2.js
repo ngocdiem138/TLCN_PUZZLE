@@ -9,7 +9,7 @@ import { parse } from "query-string";
 
 import { JobPostServiceIml } from "../actions/user-actions";
 import { navigate } from '@reach/router';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { employmentType, experienceYear } from "../components/Sidebar/MenuData";
 import { postTime } from "../components/Sidebar/MenuData";
 import { useTranslation } from 'react-i18next';
@@ -42,13 +42,36 @@ const SearchGrid = () => {
     { value: [5000, 10000], label: "5000 - 10000$" },
     { value: [1000, 10000], label: "5000 - 10000$" },
   ];
-
+  let selectCityDefault = 0;
+  let setSelectCityDefault =0;
+  function indexCity (value) {
+    defaultCountries.forEach((city) => {
+      if (city.value == value) {
+        setSelectCityDefault = city.id;
+        return city.id
+      }
+    })
+  }
   const location = useLocation();
   const searchParams = parse(location.search);
   const [city, setCity] = useState([searchParams.city]);
   const [title, setTitle] = useState([searchParams.title]);
+  useEffect(() => {
+    console.log(filter);
+    defaultCountries.map((city) => {
+      if (city.value == searchParams.city) {
+        selectCityDefault = city.id;
+        console.log("selectCityDefault1",selectCityDefault)
+      }
+    })
+    JobPostServiceIml.getJobByFilterParams({
+      titles: [searchParams.title],
+      cities: [searchParams.city],
+    }).then((response) => { setJobs(response.data.data); });
+  }, [])
+  console.log("selectCityDefault",indexCity(searchParams.city))
   const [jobs, setJobs] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState(0);
+  const [selectedOptions, setSelectedOptions] = useState(selectCityDefault);
   const handleChange = (event) => {
     setCity(event.value);
     setSelectedOptions(event.id);
@@ -76,7 +99,7 @@ const SearchGrid = () => {
     handleFilters(city, "cities");
     setError("");
     setSucces("");
-    if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + '/search-list-2?title=' + title + '&city=' + city); }
+    if (typeof window !== "undefined") { window.location.href = '/search-list-2?title=' + title + '&city=' + city }
   }
 
   const handleFilters = (filters, category) => {
@@ -93,6 +116,8 @@ const SearchGrid = () => {
   const getProducts = (variables) => {
     JobPostServiceIml.getJobByFilterParams(variables).then((response) => { setJobs(response.data.data); });
   };
+
+
 
   return (
     <>
