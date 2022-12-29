@@ -36,5 +36,19 @@
     "benifit1":"Mang đến sự sống còn đôi bên cùng có lợi",
     "benifit2":"Tận dụng lợi thế treo thấp để xác định",
     "benifit3":"Nhưng tôi phải giải thích cho bạn tất cả những điều này như thế nào"
+  },
+  "header":{
+    "setting":"Cài đặt",
+    "edit":"Thông tin",
+    "logout":"Đăng xuất",
+    "login": "Đăng nhập",
+    "updateAccount":"CẬP NHẬT TÀI KHOẢN",
+    "upgradeAccount":"NÂNG CẤP TÀI KHOẢN",
+    "myJob":"VIỆC LÀM",
+    "myAccount":"TÀI KHOẢN",
+    "home":"Trang Chủ",
+    "jobGrid":"Tìm Kiếm",
+    "support":"Hỗ trợ",
+    "featureJob":"Việc làm tốt"
   }
 }

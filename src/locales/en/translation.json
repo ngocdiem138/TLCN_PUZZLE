@@ -37,5 +37,19 @@
     "benifit2":"Capitalize on low hanging fruit to identify",
     "benifit3":"But I must explain to you how all this",
     "company": "Looking for an expert for your company?"
+  },
+  "header":{
+    "setting":"Settings",
+    "edit":"Edit Profile",
+    "logout":"Log Out",
+    "login": "Log In",
+    "updateAccount":" UPDATE ACCOUNT",
+    "upgradeAccount":"UPGRADE ACCOUNT",
+    "myJob":"MY JOBLIST",
+    "myAccount":"MY JOBLIST",
+    "home":"Home",
+    "jobGrid":"Search",
+    "support":"Support",
+    "featureJob":"Featured Jobs"
   }
 }

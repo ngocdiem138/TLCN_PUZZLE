@@ -10,7 +10,7 @@ import Offcanvas from "../Offcanvas";
 import NestedMenu from "../NestedMenu";
 import { device } from "../../utils";
 import Logo from "../Logo";
-import { menuItems } from "./menuItems";
+// import { menuItems } from "./menuItems";
 import { logout } from "../../actions/auth-actions";
 
 import imgP from "../../assets/image/header-profile.png";
@@ -57,22 +57,27 @@ const Header = () => {
 
   const { t, i18n } = useTranslation()
 
+  
+
+  const [isEmployer, setIsEmployer] = useState(false);
+  const [isCandidate, setIsCandidate] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isUser, setIsUser] = useState(false);
+  const [lang, setLang] = useState("en");
+  let langDefault = undefined;
+
   const changeLang = (lang) => {
     i18n.changeLanguage(lang);
     setLang(lang)
     localStorage.setItem("lang", lang)
   }
 
-  const [isEmployer, setIsEmployer] = useState(false);
-  const [isCandidate, setIsCandidate] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isUser, setIsUser] = useState(false);
-  let langDefault = undefined;
-
   useEffect(() => {
     langDefault = localStorage.getItem("lang");
     if (langDefault) { i18n.changeLanguage(langDefault) };
-  }, [])
+    setLang(langDefault)
+  },[])
+
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem("isLoggedIn"));
     setIsCandidate(localStorage.getItem("userRole") == "CANDIDATE");
@@ -83,7 +88,7 @@ const Header = () => {
   const gContext = useContext(GlobalContext);
   const [showScrolling, setShowScrolling] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
-  const [lang, setLang] = useState(langDefault);
+
 
   const size = useWindowSize();
 
@@ -128,6 +133,19 @@ const Header = () => {
       gContext.toggleSignInModal();
     }
   }
+
+  const menuItems = [
+
+    { name: "", label: t("header.home") },
+
+    { name: "search-grid", label: t("header.jobGrid") },
+
+    {
+      name: "Support",
+      label: t("header.support"),
+      isExternal: true,
+    },
+  ];
 
   return (
     <>
@@ -335,13 +353,14 @@ const Header = () => {
                           to="/#"
                           className="dropdown-item py-2 font-size-3 font-weight-semibold line-height-1p2 text-uppercase"
                         >
-                          Settings
+                          {t('header.setting')}
                         </Link>
                         <Link
                           to="/#"
                           className="dropdown-item py-2 font-size-3 font-weight-semibold line-height-1p2 text-uppercase"
                         >
-                          Edit Profile
+                          {t('header.edit')}
+                          
                         </Link>
                         <a
                           className={`dropdown-item py-2 text-red font-size-3 font-weight-semibold line-height-1p2 text-uppercase`}
@@ -351,7 +370,7 @@ const Header = () => {
                             logout();
                           }}
                         >
-                          Log Out
+                          {t('header.logout')}
                         </a>
                       </Dropdown.Menu>
                     ) : (
@@ -363,13 +382,13 @@ const Header = () => {
                           to="/#"
                           className="dropdown-item py-2 font-size-3 font-weight-semibold line-height-1p2 text-uppercase"
                         >
-                          Settings
+                          {t('header.setting')}
                         </Link>
                         <Link
                           to="/#"
                           className="dropdown-item py-2 font-size-3 font-weight-semibold line-height-1p2 text-uppercase"
                         >
-                          Edit Profile
+                          {t('header.edit')}
                         </Link>
                         <a
                           className={`dropdown-item py-2 text-red font-size-3 font-weight-semibold line-height-1p2 text-uppercase`}
@@ -379,7 +398,7 @@ const Header = () => {
                             logout();
                           }}
                         >
-                          Log Out
+                          {t('header.logout')}
                         </a>
                       </div>
                     )}
@@ -398,25 +417,25 @@ const Header = () => {
                     handleSignIn();
                   }}
                 >
-                  {isLoggedIn ? "My Account" : "Log In"}
+                  {isLoggedIn ? t('header.myAccount') : t('header.login')}
                 </a>
                 {isUser ? <Link
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
                   to={'/register'}
                 >
-                  UPDATE ACCOUNT
+                 {t('header.updateAccount')}
                 </Link> : null}
                 {isCandidate ? <Link
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
                   to={'/candidate-profile-2'}
                 >
-                  MY JOBLIST
+                  {t('header.myJob')}
                 </Link> : null}
                 {isEmployer ? <Link
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
                   to={'/pricing'}
                 >
-                  UPGRADE ACCOUNT
+                  {t('header.upgradeAccount')}
                 </Link> : null}
                 <a
                   className={`btn btn-${gContext.header.variant} text-uppercase font-size-3`}

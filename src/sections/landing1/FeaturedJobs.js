@@ -11,9 +11,11 @@ import { useState } from "react";
 import { JobPostServiceIml } from "../../actions/user-actions";
 import axios from "axios";
 import { API_BASE_URL } from "../../utils/constants/url";
+import { useTranslation } from 'react-i18next';
 
 const FeaturedJobs = () => {
 
+  const { t, i18n } = useTranslation();
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
 
@@ -136,7 +138,7 @@ const FeaturedJobs = () => {
           to={"/groups/job-details/" + job.id}
           className="font-size-3 d-block mb-0 text-gray"
         >
-          {job.workplaceType ? job.workplaceType : "  "}
+          {job.workplaceType ? job.workplaceType : "___"}
         </Link>
         <h2 className="mt-n4">
           <Link
@@ -162,7 +164,7 @@ const FeaturedJobs = () => {
               className="bg-regent-opacity-15 text-orange font-size-3 rounded-3"
             >
               <i className="fa fa-briefcase mr-2 font-weight-bold"></i>{" "}
-              {job.employmentType}
+              {job.employmentType ? job.employmentType : "  "}
             </Link>
           </li>
           <li>
@@ -218,14 +220,14 @@ const FeaturedJobs = () => {
             {/* <!-- Section Title --> */}
             <div className="col-12 col-xl-6 col-lg-6">
               <div className="text-center text-lg-left mb-13 mb-lg-0">
-                <h2 className="font-size-9 font-weight-bold">Featured Jobs</h2>
+                <h2 className="font-size-9 font-weight-bold">{t('header.featureJob')}</h2>
               </div>
             </div>
             {/* <!-- Section Button --> */}
             <div className="col-12 col-xl-6 col-lg-6">
               <div className="text-center text-lg-right">
                 <Link to="/search-grid" className="btn btn-outline-white text-uppercase">
-                  Explore All
+                  {t('explore.exploreAll')}
                 </Link>
               </div>
             </div>
