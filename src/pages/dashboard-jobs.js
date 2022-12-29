@@ -21,6 +21,7 @@ const DashboardJobs = () => {
   const gContext = useContext(GlobalContext);
   const [jobs, setJobs] = useState([]);
   const [showError, setShowError] = useState(false);
+  const [limitJob, setLimitJob] = useState(0);
   // const [applicationAmount, setApplicationAmount] = useState(0);
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
@@ -28,6 +29,14 @@ const DashboardJobs = () => {
         setShowError(true);
       } else {
         setJobs(response.data.data);
+      }
+    });
+    JobPostServiceIml.getLimitJobPostCreateByEmployer().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError(true);
+      } else {
+        // console.log(response.data);
+        setLimitJob(response.data.data);
       }
     });
   }, []);
@@ -124,7 +133,7 @@ const DashboardJobs = () => {
             <div className="mb-18">
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6 mb-lg-0 mb-4">
-                  <h3 className="font-size-6 mb-0">Posted Jobs ({jobs.length})</h3>
+                  <h3 className="font-size-6 mb-0">Posted Jobs ({jobs.length}) --- Limit Job ({limitJob})</h3>
                 </div>
                 <div className="col-lg-6">
                   {/* <div className="d-flex flex-wrap align-items-center justify-content-lg-end">

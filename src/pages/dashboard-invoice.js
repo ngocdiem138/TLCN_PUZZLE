@@ -109,6 +109,11 @@ const DashboardInvoices = () => {
                 </h3>
             </td>
             <td className="table-y-middle py-7 min-width-px-170 pr-0">
+                <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
+                    {invoce.transactionCode}
+                </h3>
+            </td>
+            <td className="table-y-middle py-7 min-width-px-170 pr-0">
                 <h3 className="font-size-4 font-weight-semibold text-green mb-0">
                     {invoce.status}
                 </h3>
@@ -190,6 +195,12 @@ const DashboardInvoices = () => {
                                                     className="border-0 font-size-4 font-weight-normal"
                                                 >
                                                     Payment Method
+                                                </th>
+                                                <th
+                                                    scope="col"
+                                                    className="border-0 font-size-4 font-weight-normal"
+                                                >
+                                                    Transaction Code
                                                 </th>
                                                 <th
                                                     scope="col"

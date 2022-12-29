@@ -126,6 +126,7 @@ const Register = (props) => {
           } else {
             setIsShowErrorMessage(true);
             showError(response.data.errMsg);
+            setErrorMessage(response.data.errMsg);
             setFirstName("");
             setLastName("");
             setRecruitmentEmail("");
@@ -307,7 +308,7 @@ const Register = (props) => {
                   </div>
 
                   <div className="here text-center">
-                    Already have an account? Login{" "}
+                    {/* Already have an account? Login{" "} */}
                     <Link to="/login">
                       <u>here</u>
                     </Link>

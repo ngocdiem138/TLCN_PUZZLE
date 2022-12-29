@@ -63,6 +63,14 @@ class JobPostService {
         })
     }
 
+    getLimitJobPostCreateByEmployer() {
+        return axios.get(API_BASE_URL + "/employer/get-limit-num-of-job-post-created", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
+
     getJobByFilterParams(filter) {
         return axios.post(API_BASE_URL + "/common/job-post-filter", filter);
     }

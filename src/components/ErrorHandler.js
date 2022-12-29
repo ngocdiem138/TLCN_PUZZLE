@@ -5,7 +5,7 @@ const useErrorHandler = (initialState) => {
     setError(errorMessage);
     window.setTimeout(() => {
       setError(null);
-    }, 3000);
+    }, 10000);
   };
   return { error, showError };
 };
