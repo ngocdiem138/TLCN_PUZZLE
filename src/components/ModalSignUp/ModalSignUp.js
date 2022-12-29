@@ -58,7 +58,7 @@ class Registration extends Component {
     if (password !== password2) {
       this.setState({errorCf:'Password and confirm password does not match'});
     } else {
-      this.setState({errorCf:'Password and confirm password does not match'});
+      this.setState({errorCf:''});
       const data = { email, password, password2 };
 
       this.props.registration(data, this.props.history);

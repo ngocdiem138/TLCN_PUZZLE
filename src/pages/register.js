@@ -100,6 +100,8 @@ const Register = (props) => {
         data: {
           firstname: userFirstName,
           lastname: userLastName,
+          firstName: userFirstName,
+          lastName: userLastName,
           recruitmentEmail: recruitmentEmail,
           educationLevel: educationLevel,
           introduction: introduction,
