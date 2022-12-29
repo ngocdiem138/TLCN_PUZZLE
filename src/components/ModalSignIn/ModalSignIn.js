@@ -281,7 +281,12 @@ class Login extends Component {
                     </button>
                     <p className="font-size-4 text-center heading-default-color">
                       Don’t have an account?{" "}
-                      <a href="/#" className="text-primary">
+                      <a href="/#" className="text-primary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          gContext.toggleSignUpModal();
+                          gContext.toggleSignInModal();
+                        }}>
                         Create a free account
                       </a>
                     </p>

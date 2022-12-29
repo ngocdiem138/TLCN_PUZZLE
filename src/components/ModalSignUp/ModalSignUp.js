@@ -23,7 +23,7 @@ class Registration extends Component {
     showPassFirst: true,
     showPassSecond: true,
     allow: false,
-    errorCf:""
+    errorCf: ""
   };
 
   handleClose = () => {
@@ -56,9 +56,9 @@ class Registration extends Component {
 
     const { email, password, password2, showPassFirst, showPassSecond } = this.state;
     if (password !== password2) {
-      this.setState({errorCf:'Password and confirm password does not match'});
+      this.setState({ errorCf: 'Password and confirm password does not match' });
     } else {
-      this.setState({errorCf:''});
+      this.setState({ errorCf: '' });
       const data = { email, password, password2 };
 
       this.props.registration(data, this.props.history);
@@ -263,7 +263,12 @@ class Registration extends Component {
                     </div>
                     <p className="font-size-4 text-center heading-default-color">
                       Have an account?{" "}
-                      <a href="/#" className="text-primary">
+                      <a href="/#" className="text-primary"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          gContext.toggleSignUpModal();
+                          gContext.toggleSignInModal();
+                        }}>
                         Sign in here
                       </a>
                     </p>
