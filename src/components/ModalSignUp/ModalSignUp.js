@@ -22,6 +22,8 @@ class Registration extends Component {
     password2: "",
     showPassFirst: true,
     showPassSecond: true,
+    allow: false,
+    errorCf:""
   };
 
   handleClose = () => {
@@ -53,12 +55,17 @@ class Registration extends Component {
     event.preventDefault();
 
     const { email, password, password2, showPassFirst, showPassSecond } = this.state;
-    const data = { email, password, password2 };
+    if (password !== password2) {
+      this.setState({errorCf:'Password and confirm password does not match'});
+    } else {
+      this.setState({errorCf:'Password and confirm password does not match'});
+      const data = { email, password, password2 };
 
-    this.props.registration(data, this.props.history);
-    const { error, isRegistered } = this.props;
-    if(isRegistered){
-      this.handleClose()
+      this.props.registration(data, this.props.history);
+      const { error, isRegistered } = this.props;
+      if (isRegistered) {
+        this.handleClose()
+      }
     }
   };
 
@@ -240,7 +247,7 @@ class Registration extends Component {
                         <span className="checkbox mr-5"></span>
                         <span className="font-size-3 mb-0 line-height-reset d-block">
                           Agree to the{" "}
-                          <a href="/#" className="text-primary">
+                          <a href="/#" className="text-primary" >
                             Terms &amp; Conditions
                           </a>
                         </span>
@@ -250,8 +257,9 @@ class Registration extends Component {
                       <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
                         Sign Up{" "}
                       </button>
-                      {error ? <div className="alert alert-danger col-12" style={{"margin":"10px"}} role="alert">{error}</div> : null}
-                      {isRegistered ==true ? <div className="alert alert-success col-12" style={{"margin":"10px"}} role="alert">Success</div> : null}
+                      {this.state.errorCf ? <div className="alert alert-danger col-12" style={{ "margin": "10px" }} role="alert">{this.state.errorCf}</div> : null}
+                      {error ? <div className="alert alert-danger col-12" style={{ "margin": "10px" }} role="alert">{error}</div> : null}
+                      {isRegistered == true ? <div className="alert alert-success col-12" style={{ "margin": "10px" }} role="alert">Success</div> : null}
                     </div>
                     <p className="font-size-4 text-center heading-default-color">
                       Have an account?{" "}

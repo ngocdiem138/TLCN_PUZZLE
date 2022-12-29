@@ -161,7 +161,7 @@ const JobDetails = () => {
                     {" "}
                     <i className="icon icon-small-left bg-white circle-40 mr-5 font-size-7 text-black font-weight-bold shadow-8"></i>
                     <span className="text-uppercase font-size-3 font-weight-bold text-gray">
-                      Back to job board
+                      Back to home
                     </span>
                   </Link>
                 </div>

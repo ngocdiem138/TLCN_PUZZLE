@@ -7,6 +7,7 @@ import { useState } from "react";
 import { faL } from "@fortawesome/free-solid-svg-icons";
 import { EmployerServiceIml } from "../actions/employer-action";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
+import { Link } from "gatsby";
 
 const resultTypes = [
   { value: true, label: "Accept" },
@@ -56,7 +57,16 @@ const Contact = () => {
           <div className="container">
             <div className="row justify-content-center mt-14">
               <div className="col-xxl-6 col-xl-7 col-lg-8">
-                <h2 className="font-size-9 text-center mb-11">Contact Us</h2>
+                <div className="mb-9">
+                  <Link to="/dashboard-applicants" className="d-flex align-items-center ml-4">
+                    {" "}
+                    <i className="icon icon-small-left bg-white circle-40 mr-5 font-size-7 text-black font-weight-bold shadow-8"></i>
+                    <span className="text-uppercase font-size-3 font-weight-bold text-gray">
+                      Back to applicants list
+                    </span>
+                  </Link>
+                </div>
+                <h2 className="font-size-9 text-center mb-11">Contact to applicant</h2>
                 <div className="bg-white px-9 pt-9 pb-7 shadow-8 rounded-4">
                   <form
                     onSubmit={handleSubmit}
