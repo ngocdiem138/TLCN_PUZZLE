@@ -47,7 +47,7 @@ const JobDetails = () => {
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
 
-  
+
 
   const listSkill = skill.map(skill => {
     return <li className="bg-regent-opacity-15 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
@@ -177,7 +177,7 @@ const JobDetails = () => {
                         <div className="media align-items-center">
                           {/* <!-- media logo start --> */}
                           <div className="square-72 d-block mr-8">
-                            <img src={imgF1} alt="" />
+                            <img src={job.logo ? job.logo : imgF1} alt="" />
                           </div>
                           {/* <!-- media logo end --> */}
                           {/* <!-- media texts start --> */}
@@ -379,6 +379,69 @@ const JobDetails = () => {
                               </span>
                               <h6 className="font-size-5 text-black-2 font-weight-semibold mb-0">
                                 {employer.recruitmentPhone ? employer.recruitmentPhone : "Phone don't update"}
+                              </h6>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr></hr>
+                  <div className="job-details-content pt-8 pl-sm-9 pl-6 pr-sm-9 pr-6 pb-10 light-mode-texts" style={{ "background": "#FFFACD" }}>
+                    <div className="row">
+                      <div className="col-xl-11 col-md-12 pr-xxl-9 pr-xl-10 pr-lg-20">
+                        <p className="mb-4 font-size-6 text-black-2 font-weight-semibold">
+                          Giving Hiring Preference to People with Disabilities{" "}
+                        </p>
+                        <hr></hr>
+                        <div className="row">
+                          <div className="col-md-2 mb-lg-0 mb-10">
+                            <div className="">
+                              <span className="font-size-4 d-block mb-4 text-gray">
+                                Blind
+                              </span>
+                              <h6 className="font-size-5 text-black-2 font-weight-semibold mb-9">
+                                {job.blind ? "Yes" : "No"}
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="col-md-2 mb-lg-0 mb-10">
+                            <div className="">
+                              <span className="font-size-4 d-block mb-4 text-gray">
+                                Deaf
+                              </span>
+                              <h6 className="font-size-5 text-black-2 font-weight-semibold mb-9">
+                                {job.deaf ? "Yes" : "No"}
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="col-md-3 mb-lg-0 mb-10">
+                            <div className="">
+                              <span className="font-size-4 d-block mb-4 text-gray">
+                                CommunicationDis
+                              </span>
+                              <h6 className="font-size-5 text-black-2 font-weight-semibold mb-9">
+                                {job.communicationDis ? "Yes" : "No"}
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="col-md-3 pr-lg-0 pl-lg-10 mb-lg-0 mb-8">
+                            <div className="">
+                              <span className="font-size-4 d-block mb-4 text-gray">
+                                HandDis
+                              </span>
+                              <h6 className="font-size-5 text-black-2 font-weight-semibold mb-9">
+                                {job.handDis ? "Yes" : "No"}
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="col-md-2 pl-lg-0">
+                            <div className="">
+                              <span className="font-size-4 d-block mb-4 text-gray">
+                                Labor
+                              </span>
+                              <h6 className="font-size-5 text-black-2 font-weight-semibold mb-0">
+                                {job.labor ? "Yes" : "No"}
                               </h6>
                             </div>
                           </div>

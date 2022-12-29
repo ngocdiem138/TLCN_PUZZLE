@@ -445,7 +445,7 @@ const Header = () => {
                     handleSignUp();
                   }}
                 >
-                  {isLoggedIn ? "Log Out" : "Sign Up"}
+                  {isLoggedIn ? t('header.logout'): t('header.signup')}
                 </a>
                 <a
                   className="btn btn-transparent text-uppercase font-size-4 heading-default-color"
