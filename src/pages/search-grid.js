@@ -308,7 +308,7 @@ const SearchGrid = () => {
           <div className="col-md-6">
             <div className="media align-items-center">
               <div className="square-72 d-block mr-8">
-                <img src={imgB1} alt="" />
+                <img src={job.logo ? job.logo : imgB1} alt="" />
               </div>
               <div>
                 <h3 className="mb-0">
@@ -649,7 +649,7 @@ const SearchGrid = () => {
                     </div>
                   </div>
                   <div className="text-center pt-5 pt-lg-13">
-                    <button style={{"margin-left":"auto", "margin-right":"auto", "border":"none", "minHeight":"1vh"}}
+                    <button style={{ "margin-left": "auto", "margin-right": "auto", "border": "none", "minHeight": "1vh" }}
                       // to="/#"
                       onClick={() => { setCurrentPage(currentPage + 1) }}
                       className="text-green font-weight-bold text-uppercase font-size-3 d-flex align-items-center justify-content-center"

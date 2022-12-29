@@ -21,7 +21,7 @@ const Brands = () => {
       data-aos-duration="800"
       style={{"font-size":"20px"}}
     >
-      <img width={"100vh"} height={"100vh"} style={{"borderRadius":"50%"}} src={company.image ? company.image : imgB1} alt="" /> {company.name}
+      <img width={"100vh"} style={{"borderRadius":"50%", "border":"6px solid white"}} src={company.image ? company.image : imgB1} alt="" /> {company.name}
     </div>
   });
   return (

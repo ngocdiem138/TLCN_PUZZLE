@@ -38,30 +38,20 @@ const SearchGrid = () => {
     { value: [0, 500], label: "< 500$" },
     { value: [500, 1000], label: "500 - 1000$" },
     { value: [1000, 2000], label: "1000 - 2000$" },
-    { value: [2000, 5000], label: "2000 - 1000$" },
+    { value: [2000, 5000], label: "2000 - 5000$" },
     { value: [5000, 10000], label: "5000 - 10000$" },
-    { value: [1000, 10000], label: "5000 - 10000$" },
+    { value: [10000, 15000], label: "10000 - 15000$" },
   ];
-  let selectCityDefault = 0;
-  let setSelectCityDefault =0;
-  function indexCity (value) {
-    defaultCountries.forEach((city) => {
-      if (city.value == value) {
-        setSelectCityDefault = city.id;
-        return city.id
-      }
-    })
-  }
   const location = useLocation();
   const searchParams = parse(location.search);
   const [city, setCity] = useState([searchParams.city]);
   const [title, setTitle] = useState([searchParams.title]);
+  const [selectedOptions, setSelectedOptions] = useState(0);
   useEffect(() => {
     console.log(filter);
-    defaultCountries.map((city) => {
+    defaultCountries.forEach((city) => {
       if (city.value == searchParams.city) {
-        selectCityDefault = city.id;
-        console.log("selectCityDefault1",selectCityDefault)
+        setSelectedOptions(city.id)
       }
     })
     JobPostServiceIml.getJobByFilterParams({
@@ -69,9 +59,7 @@ const SearchGrid = () => {
       cities: [searchParams.city],
     }).then((response) => { setJobs(response.data.data); });
   }, [])
-  console.log("selectCityDefault",indexCity(searchParams.city))
   const [jobs, setJobs] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState(selectCityDefault);
   const handleChange = (event) => {
     setCity(event.value);
     setSelectedOptions(event.id);
@@ -85,29 +73,24 @@ const SearchGrid = () => {
     maxBudget: null,
     experienceYear: [],
     employmentTypes: [],
-    titles: [],
-    cities: [],
+    titles: [searchParams.title],
+    cities: [searchParams.city],
     positions: [],
     skills: [],
-    others: []
+    others: [],
+    numDayAgo: -1
   });
-
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    handleFilters(event.target[0].value, event.target[0].name);
-    handleFilters(city, "cities");
-    setError("");
-    setSucces("");
-    if (typeof window !== "undefined") { window.location.href = '/search-list-2?title=' + title + '&city=' + city }
-  }
 
   const handleFilters = (filters, category) => {
     const newFilters = filter
-    newFilters[category] = filters
-    if (category === "experienceYear" || category === "titles" || category === "cities") {
+    if (category === "experienceYear" || category === "titles" || category === "cities" || category === "employmentTypes" ) {
       newFilters[category] = [filters]
-    }
+    } else if (category === "salary") {
+      let minBudget = filters[0]
+      let maxBudget = filters[1]
+      newFilters["minBudget"] = minBudget
+      newFilters["maxBudget"] = maxBudget
+    } else { newFilters[category] = filters }
     setFilter(newFilters);
     getProducts(newFilters);
     setError("");
@@ -127,7 +110,7 @@ const SearchGrid = () => {
             <div className="row">
               <div className="col-12">
                 {/* <!-- form --> */}
-                <form className="search-form">
+                <form className="search-form" >
                   <div className="filter-search-form-2 bg-white rounded-sm shadow-7 pr-6 py-7 pl-6  search-1-adjustment">
                     <div className="filter-inputs">
                       <div className="form-group position-relative w-xl-50">
@@ -137,7 +120,9 @@ const SearchGrid = () => {
                           id="keyword"
                           value={title}
                           name="titles"
-                          onChange={(e) => setTitle(e.target.value)}
+                          onChange={(e) => {
+                            handleFilters(e.target.value, "titles"); setTitle(e.target.value)
+                          }}
                           placeholder="Type Job title, keywords"
                         />
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
@@ -148,7 +133,9 @@ const SearchGrid = () => {
                       <div className="form-group position-relative w-lg-50">
                         <Select
                           name="cities"
-                          onChange={handleChange}
+                          onChange={(e) => {
+                            handleFilters(e.value, "cities"); setSelectedOptions(e.id);
+                          }}
                           placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
                           className="pl-8 h-100 arrow-3 font-size-4 d-flex align-items-center w-100"
@@ -161,11 +148,6 @@ const SearchGrid = () => {
                         </span>
                       </div>
                       {/* <!-- ./select-city ends --> */}
-                    </div>
-                    <div className="button-block">
-                      <button className="btn btn-primary btn-medium line-height-reset h-100 btn-submit w-100 text-uppercase">
-                        Search
-                      </button>
                     </div>
                   </div>
                 </form>
@@ -185,10 +167,11 @@ const SearchGrid = () => {
                   <div className="search-filter from-group d-flex align-items-center flex-wrap">
                     <div className="mr-5 mb-5">
                       <Select
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          handleFilters(e.name, "employmentTypes")
+                        }}
                         options={employmentType}
                         className="font-size-4"
-                        // border={false}
                         css={`
                           min-width: 175px;
                           min-width: 175px;
@@ -198,6 +181,9 @@ const SearchGrid = () => {
                     </div>
                     <div className="mr-5 mb-5">
                       <Select
+                        onChange={(e) => {
+                          handleFilters(e.value, "salary")
+                        }}
                         options={defaultSalaryRange}
                         className="font-size-4"
                         // border={false}
@@ -208,6 +194,9 @@ const SearchGrid = () => {
                     </div>
                     <div className="mr-5 mb-5">
                       <Select
+                        onChange={(e) => {
+                          handleFilters(e.value, "experienceYear")
+                        }}
                         options={experienceYear}
                         className="font-size-4"
                         // border={false}
@@ -218,6 +207,9 @@ const SearchGrid = () => {
                     </div>
                     <div className="mr-5 mb-5">
                       <Select
+                        onChange={(e) => {
+                          handleFilters(e.value, "numDayAgo")
+                        }}
                         options={postTime}
                         className="font-size-4"
                         // border={false}
@@ -230,13 +222,13 @@ const SearchGrid = () => {
                 </form>
                 <div className="d-flex align-items-center justify-content-between mb-6">
                   <h5 className="font-size-4 font-weight-normal text-gray">
-                    Showing
-                    <span className="text-black-2">120</span> matched jobs
+                    Showing{" "}
+                    <span className="text-black-2">{jobs.length}</span> matched jobs
                   </h5>
                 </div>
               </div>
             </div>
-            <SearchTab />
+            <SearchTab listJob={jobs} />
           </div>
         </div>
       </PageWrapper>
