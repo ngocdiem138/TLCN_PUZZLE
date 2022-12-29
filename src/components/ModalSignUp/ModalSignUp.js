@@ -250,8 +250,8 @@ class Registration extends Component {
                       <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
                         Sign Up{" "}
                       </button>
-                      {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
-                      {isRegistered ? <div className="alert alert-success col-12" role="alert">{isRegistered}</div> : null}
+                      {error ? <div className="alert alert-danger col-12" style={{"margin":"10px"}} role="alert">{error}</div> : null}
+                      {isRegistered ==true ? <div className="alert alert-success col-12" style={{"margin":"10px"}} role="alert">Success</div> : null}
                     </div>
                     <p className="font-size-4 text-center heading-default-color">
                       Have an account?{" "}
@@ -274,11 +274,13 @@ Registration.propTypes = {
   registration: PropTypes.func.isRequired,
   formReset: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  isRegistered: PropTypes.bool.isRequired
+  isRegistered: PropTypes.bool.isRequired,
+  error: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   errors: state.auth.errors,
+  error: state.auth.error,
   isRegistered: state.auth.isRegistered
 });
 

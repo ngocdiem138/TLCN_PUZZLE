@@ -82,6 +82,8 @@ const Register = (props) => {
         method: "POST",
         url: `${API_BASE_URL}/user/${url}`,
         data: {
+          firstName: userFirstName,
+          lastName: userLastName,
           firstname: userFirstName,
           lastname: userLastName,
           recruitmentEmail: recruitmentEmail,

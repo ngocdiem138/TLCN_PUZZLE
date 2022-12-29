@@ -35,10 +35,10 @@ const reducer = (state = initialState, action) => {
             return {...state, error: payload};
 
         case REGISTER_SUCCESS:
-            return {...state, isRegistered: true};
+            return {...state, isRegistered: true, errors: payload, error: payload};
 
         case REGISTER_FAILURE:
-            return {...state, errors: payload};
+            return {...state, isRegistered: false, errors: payload, error: payload};
 
         case ACTIVATE_ACCOUNT_SUCCESS:
             return {...state, success: payload};

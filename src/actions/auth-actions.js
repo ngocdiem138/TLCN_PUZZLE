@@ -65,15 +65,15 @@ export const login = (data, history) => async (dispatch) => {
 export const registration = (data) => async (dispatch) => {
     try {
         const response = await axios.post(API_BASE_URL + "/common/register", data);
-        if (!response.data.errorCode) {
+        if (response.data.errCode==null) {
             dispatch({
                 type: REGISTER_SUCCESS,
-                payload: response.data.message
+                payload: response.data.errMsg
             });
         } else {
             dispatch({
                 type: REGISTER_FAILURE,
-                payload: response.data.message
+                payload: response.data.errMsg
             })
         }
     } catch (error) {
