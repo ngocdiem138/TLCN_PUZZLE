@@ -84,7 +84,20 @@ class JobPostService {
     }
 
     getJobPostById(jobPostId) {
-        return axios.get(API_BASE_URL + '/common/job-post/get-one/' + jobPostId);
+        if(localStorage.getItem("token")) 
+        {
+            return axios.get(API_BASE_URL + '/common/job-post/get-one/' + jobPostId, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        } else {
+            return axios.get(API_BASE_URL + '/common/job-post/get-one/' + jobPostId, {
+                headers: {
+                    Authorization: ""
+                }
+            });
+        }
     }
 
     getAllCompany() {
@@ -203,11 +216,11 @@ export const ExperienceServiceIml = new ExperienceService();
 class UserService {
     getInvoices() {
         return axios.get(API_BASE_URL + "/user/get-invoice",
-        {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("token")
-            }
-        })
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            })
     }
     getForgotPass(email) {
         return axios.get(API_BASE_URL + "/forgot-password?email=" + email)

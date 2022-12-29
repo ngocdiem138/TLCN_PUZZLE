@@ -68,6 +68,7 @@ function CandidateSettings() {
   const [handDis, setHandDis] = useState(false);
   const [labor, setLabor] = useState(false);
   const [detailDis, setDetailDis] = useState("");
+  const [emailContact, setEmailContact] = useState("");
   const [showError, setShowError] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [quill, setQuill] = useState(false);
@@ -84,6 +85,7 @@ function CandidateSettings() {
       setHandDis(response.data.data.handDis);
       setLabor(response.data.data.labor);
       setDetailDis(response.data.data.detailDis);
+      setEmailContact(response.data.data.emailContact);
     });
   }, [])
   const handleSubmit = (event) => {
@@ -100,6 +102,7 @@ function CandidateSettings() {
       handDis: handDis,
       labor: labor,
       detailDis: detailDis,
+      emailContact: emailContact,
     }).then((response) => {
       if (response.data.errCode != "200" && response.data.errCode) {
         setShowError(true);
@@ -228,6 +231,17 @@ function CandidateSettings() {
             placeholder="small" />
         </FormControl>
       </Grid>
+      <FormControl id="emailContact" style={{ "marginTop": "2vh" }}>
+        <FormLabel>Email Contact</FormLabel>
+        <Input
+          required = {true}
+          name="emailContact"
+          onChange={(e) => setEmailContact(e.target.value)}
+          value={emailContact}
+          focusBorderColor="brand.blue"
+          type="text"
+          placeholder="small" />
+      </FormControl>
       <FormControl id="introduction" style={{ "marginTop": "2vh" }}>
         <FormLabel>Introduction</FormLabel>
         <ReactQuill

@@ -60,6 +60,7 @@ const Register = (props) => {
   const [educationLevel, setEducationLevel] = React.useState("");
   const [introduction, setIntroduction] = React.useState("");
   const [recruitmentPhone, setRecruitmentPhone] = React.useState("");
+  const [emailContact, setEmailContact]= React.useState("");
   const [userEntity, setUserEntity] = React.useState("Candidate");
   const [loading, setLoading] = React.useState(false);
   const { error, showError } = useErrorHandler(null);
@@ -90,6 +91,7 @@ const Register = (props) => {
           educationLevel: educationLevel,
           introduction: introduction,
           recruitmentPhone: recruitmentPhone,
+          emailContact: emailContact,
           entity: userEntity,
         },
       };
@@ -106,6 +108,7 @@ const Register = (props) => {
           educationLevel: educationLevel,
           introduction: introduction,
           recruitmentPhone: recruitmentPhone,
+          emailContact: emailContact,
           entity: userEntity,
         },
         headers: {
@@ -129,6 +132,7 @@ const Register = (props) => {
             setErrorMessage(response.data.errMsg);
             setFirstName("");
             setLastName("");
+            setEmailContact("");
             setRecruitmentEmail("");
             setEducationLevel("");
             setIntroduction("");
@@ -168,10 +172,10 @@ const Register = (props) => {
       <div className="pricing-area">
         <div className="container pt-12 pt-lg-24 pb-13 pb-lg-25">
           <div className="login-container">
-            {/* {isShowErrorMessage || success ?
+            {success ?
               <Alert
                 variant={isShowErrorMessage ? 'danger' : success ? 'success' : 'info'}>
-                {errorMessage}
+                {errorMessage ?errorMessage: "Success, Click Home and back to home page" }
                 <div className="d-flex justify-content-end">
                   <Button
                     onClick={() => {
@@ -184,7 +188,7 @@ const Register = (props) => {
                 </div>
               </Alert>
               : null
-            } */}
+            }
             <div className="content-wrapper border mt-5">
               {error && <ErrorMessage errorMessage={error} />}
               <SignupHeader
@@ -202,6 +206,7 @@ const Register = (props) => {
                         validateRegisterForm(
                           userFirstName,
                           userLastName,
+                          emailContact,
                           "candidate",
                           "candidate",
                           showError
@@ -253,15 +258,28 @@ const Register = (props) => {
                   {isUserEntityCandidate ?
                     (
                       <>
-                        <div className="form-group my-10">
-                          <input
-                            type="text"
-                            name="educationLevel"
-                            placeholder="Education Level"
-                            className="form-control p-4"
-                            onChange={(e) => setEducationLevel(e.target.value)}
-                            value={educationLevel}
-                          />
+                        <div className="row my-10">
+                          <div className="form-group  col-lg-6">
+                            <input
+                              type="text"
+                              name="educationLevel"
+                              placeholder="Education Level"
+                              className="form-control p-4"
+                              onChange={(e) => setEducationLevel(e.target.value)}
+                              value={educationLevel}
+                            />
+                          </div>
+
+                          <div className="form-group col-lg-6">
+                            <input
+                              type="text"
+                              name="emailContact"
+                              placeholder="Email Contact"
+                              className="form-control p-4"
+                              onChange={(e) => setEmailContact(e.target.value)}
+                              value={emailContact}
+                            />
+                          </div>
                         </div>
 
                         <div className="form-group my-10">
@@ -310,7 +328,7 @@ const Register = (props) => {
                   <div className="here text-center">
                     {/* Already have an account? Login{" "} */}
                     <Link to="/login">
-                      <u>here</u>
+                      {/* <u>here</u> */}
                     </Link>
                   </div>
                 </form>

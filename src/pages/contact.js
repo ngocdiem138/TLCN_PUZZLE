@@ -8,6 +8,8 @@ import { faL } from "@fortawesome/free-solid-svg-icons";
 import { EmployerServiceIml } from "../actions/employer-action";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
 import { Link } from "gatsby";
+import { Container, Alert } from 'react-bootstrap';
+import { Box, Button } from '@chakra-ui/react'
 
 const resultTypes = [
   { value: true, label: "Accept" },
@@ -21,6 +23,8 @@ const Contact = () => {
   const [candidateId, setCandidateId] = useState(searchParams.candidateId);
   const [jobPostId, setJobPostId] = useState(searchParams.jobPostId);
   console.log(action, candidateId, jobPostId);
+  const [showError, setShowError] = useState(false)
+  const [showErrorM, setShowErrorM] = useState(false)
   let defaultResult = true;
   if (action == "reject") {
     defaultResult = false;
@@ -43,8 +47,12 @@ const Contact = () => {
       "result": result,
       "note": note,
     }).then((response) => {
-      if (response.data.status == 200) {
+      if (response.data.errCode == "200" || response.data.errCode == null) {
+        setShowError(false);
         if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + "/dashboard-applicants"); }
+      } else {
+        setShowError(true);
+        setShowErrorM(response.data.errMsg);
       }
     })
     // 
@@ -67,6 +75,22 @@ const Contact = () => {
                   </Link>
                 </div>
                 <h2 className="font-size-9 text-center mb-11">Contact to applicant</h2>
+                {showError ?
+                  <Alert
+                    variant={showError ? 'danger' : 'info'}>
+                    {showError ? showErrorM : 'info'}
+                    <div className="d-flex justify-content-end">
+                      <Button
+                        onClick={() => {
+                          setShowError(false);
+                        }}
+                        variant={showError ? 'outline-danger' : 'outline-info'}>
+                        Close!
+                      </Button>
+                    </div>
+                  </Alert>
+                  : null
+                }
                 <div className="bg-white px-9 pt-9 pb-7 shadow-8 rounded-4">
                   <form
                     onSubmit={handleSubmit}
