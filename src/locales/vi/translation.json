@@ -23,33 +23,68 @@
   "search": {
     "button": "Tìm kiếm",
     "searchByKeyword": "Tìm bằng từ khóa vd.",
-    "exampleKeyword": "Thiết kế đồ họa"
+    "exampleKeyword": "Thiết kế đồ họa",
+    "searchTitle": "Nhập từ khóa tìm kiếm",
+    "all": "Tất cả",
+    "searching": "Bạn đang tìm kiếm",
+    "titleIn": "tại tỉnh/thành phố",
+    "inCity": "",
+    "showing": "Hiển thị",
+    "matchResult": "việc làm phù hợp",
+    "loadMore": "Xem thêm"
   },
-  "company":{
+  "apply": {
+    "applyThisJob": "Ứng Tuyển Ngay",
+    "saveJob": "Lưu ngay",
+    "saveIt": "Lưu",
+    "applyNow": "Ứng tuyển ngay"
+  },
+  "company": {
     "top": "Được thuê trong các công ty hàng đầu"
   },
-  "explore":{
-    "exploreByCategory":"Khám phá theo danh mục",
+  "explore": {
+    "exploreByCategory": "Khám phá theo danh mục",
     "exploreAll": "Xem tất cả",
-    "help":"Giúp bạn có được công việc tốt nhất phù hợp với bạn",
-    "benifit":"Tận dụng các khuôn khổ linh hoạt để cung cấp một bản tóm tắt mạnh mẽ cho các tổng quan cấp cao. cách tiếp cận lặp đi lặp lại",
-    "benifit1":"Mang đến sự sống còn đôi bên cùng có lợi",
-    "benifit2":"Tận dụng lợi thế treo thấp để xác định",
-    "benifit3":"Nhưng tôi phải giải thích cho bạn tất cả những điều này như thế nào"
+    "help": "Giúp bạn có được công việc tốt nhất phù hợp với bạn",
+    "benifit": "Tận dụng các khuôn khổ linh hoạt để cung cấp một bản tóm tắt mạnh mẽ cho các tổng quan cấp cao. cách tiếp cận lặp đi lặp lại",
+    "benifit1": "Mang đến sự sống còn đôi bên cùng có lợi",
+    "benifit2": "Tận dụng lợi thế treo thấp để xác định",
+    "benifit3": "Nhưng tôi phải giải thích cho bạn tất cả những điều này như thế nào",
+    "company":"Tìm kiếm một chuyên gia cho công ty của bạn?",
+    "hiring":"Gặp gỡ các ứng viên tài năng trên toàn thế giới.",
+    "exploreEmployer":"Rút ngắn khoảng cách. Đưa tuyển dụng trở thành lợi thế cạnh tranh của doanh nghiệp: gia tăng cơ hội tuyển đúng người, giúp thúc đẩy hoạt động kinh doanh hiệu quả, hướng đến chuyển đổi số thành công."
   },
-  "header":{
-    "setting":"Cài đặt",
-    "edit":"Thông tin",
-    "logout":"Đăng xuất",
+  "header": {
+    "setting": "Cài đặt",
+    "edit": "Thông tin",
+    "logout": "Đăng xuất",
     "login": "Đăng nhập",
-    "updateAccount":"CẬP NHẬT TÀI KHOẢN",
-    "upgradeAccount":"NÂNG CẤP TÀI KHOẢN",
-    "myJob":"VIỆC LÀM",
-    "myAccount":"TÀI KHOẢN",
-    "home":"Trang Chủ",
-    "jobGrid":"Tìm Kiếm",
-    "support":"Hỗ trợ",
-    "featureJob":"Việc làm tốt",
-    "signup":"Đăng ký"
+    "updateAccount": "CẬP NHẬT TÀI KHOẢN",
+    "upgradeAccount": "NÂNG CẤP TÀI KHOẢN",
+    "myJob": "VIỆC LÀM",
+    "myAccount": "TÀI KHOẢN",
+    "home": "Trang Chủ",
+    "jobGrid": "Tìm Kiếm",
+    "support": "Hỗ trợ",
+    "featureJob": "Việc làm tốt",
+    "signup": "Đăng ký"
+  },
+  "experienceYear": {
+    "junior": "2 năm",
+    "mid": "3 năm",
+    "senior": "5 năm"
+  },
+  "postTime": {
+    "oneDayAgo": "1 ngày trước",
+    "threeDayAgo": "3 ngày trước",
+    "oneWeekAgo": "1 tuần trước"
+  },
+  "back":{
+    "backHome":"Quay lại trang chủ"
+  },
+  "footer":{
+    "comprehensive": "Cổng thông tin việc làm toàn diện nhất",
+    "explain": "Puzzle mang đến các giải pháp toàn diện giúp doanh nghiệp giải quyết đồng thời các bài toán xoay quanh vấn đề tuyển dụng",
+    "register": "Đăng ký"
   }
 }

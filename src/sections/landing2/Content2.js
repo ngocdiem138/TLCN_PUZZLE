@@ -26,8 +26,9 @@ import imgG22 from "../../assets/image/l2/jpg/gallery-img22.jpg";
 import imgG23 from "../../assets/image/l2/jpg/gallery-img23.jpg";
 import imgG24 from "../../assets/image/l2/jpg/gallery-img24.jpg";
 import imgG25 from "../../assets/image/l2/jpg/gallery-img25.jpg";
-
+import { useTranslation } from 'react-i18next';
 const Content = () => {
+  const { t, i18n } = useTranslation()
   return (
     <>
       {/* <!-- Content Area -->  */}
@@ -130,15 +131,13 @@ const Content = () => {
               <div className="content-2 pr-lg-5 pr-xl-18 pr-xxl-10 text-center text-lg-left">
                 {/* <!-- content-2 section title start --> */}
                 <p className="text-white font-size-4 font-weight-semibold mb-8">
-                  Looking for an expert for your company?
+                  {t('explore.company')}
                 </p>
                 <h2 className="font-size-9 text-white mb-8">
-                  Get applications from the world best talents.
+                  {t('explore.hiring')}
                 </h2>
                 <p className="text-white font-size-5 mb-12">
-                  Capitalize on low hanging fruit to identify a ballpark value
-                  added activity to beta test. Override the digital divide with
-                  additional clickthroughs from DevOps.
+                  {t('explore.exploreEmployer')}
                 </p>
                 {/* <!-- content-2 section title end --> */}
                 {/* <!-- content-2 btn start --> */}

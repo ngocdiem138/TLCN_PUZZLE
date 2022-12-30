@@ -103,15 +103,13 @@ const Content = () => {
               <div className="content-2 pl-lg-10 pl-0 d-flex flex-column justify-content-center h-100 pt-lg-0 pt-11 pr-md-13 pr-xl-15 pr-xxl-25 pr-0">
                 {/* <!-- content-2 section title start --> */}
                 <p className="text-dodger font-size-4 font-weight-semibold mb-8">
-                  Looking for an expert for your company?
+                  {t('explore.company')}
                 </p>
                 <h2 className="font-size-9 mb-8">
-                  Get applications from the world best talents.
+                  {t('explore.hiring')}
                 </h2>
                 <p className="text-default-color font-size-5 mb-12">
-                  Capitalize on low hanging fruit to identify a ballpark value
-                  added activity to beta test. Override the digital divide with
-                  additional clickthroughs from DevOps.
+                  {t('explore.exploreEmployer')}
                 </p>
                 {/* <!-- content-2 section title end --> */}
                 <Link

@@ -63,20 +63,19 @@ const Header = () => {
   const [isCandidate, setIsCandidate] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isUser, setIsUser] = useState(false);
-  const [lang, setLang] = useState("en");
   let langDefault = undefined;
-
+  
+  const [lang, setLang] = useState("en");
+  useEffect(() => {
+    langDefault = localStorage.getItem("lang");
+    if (langDefault) { i18n.changeLanguage(langDefault); setLang(langDefault) };
+  },[])
   const changeLang = (lang) => {
     i18n.changeLanguage(lang);
     setLang(lang)
     localStorage.setItem("lang", lang)
   }
 
-  useEffect(() => {
-    langDefault = localStorage.getItem("lang");
-    if (langDefault) { i18n.changeLanguage(langDefault) };
-    setLang(langDefault)
-  },[])
 
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem("isLoggedIn"));

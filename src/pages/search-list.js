@@ -142,7 +142,7 @@ const SearchGrid = () => {
                               <img src={imgF} alt="" />
                             </div>
                             <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                              <span className="text-black-2">80-90K</span> PLN
+                              <span className="text-black-2">80-90K</span> USD
                             </p>
                           </div>
                         </div>
@@ -256,7 +256,7 @@ const SearchGrid = () => {
                               <img src={imgF} alt="" />
                             </div>
                             <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                              <span className="text-black-2">120-150K</span> PLN
+                              <span className="text-black-2">120-150K</span> USD
                             </p>
                           </div>
                         </div>
@@ -370,7 +370,7 @@ const SearchGrid = () => {
                               <img src={imgF} alt="" />
                             </div>
                             <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                              <span className="text-black-2">100-120K</span> PLN
+                              <span className="text-black-2">100-120K</span> USD
                             </p>
                           </div>
                         </div>
@@ -484,7 +484,7 @@ const SearchGrid = () => {
                               <img src={imgF} alt="" />
                             </div>
                             <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                              <span className="text-black-2">80-90K</span> PLN
+                              <span className="text-black-2">80-90K</span> USD
                             </p>
                           </div>
                         </div>
@@ -598,7 +598,7 @@ const SearchGrid = () => {
                               <img src={imgF} alt="" />
                             </div>
                             <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                              <span className="text-black-2">80-90K</span> PLN
+                              <span className="text-black-2">80-90K</span> USD
                             </p>
                           </div>
                         </div>
@@ -712,7 +712,7 @@ const SearchGrid = () => {
                               <img src={imgF} alt="" />
                             </div>
                             <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                              <span className="text-black-2">80-90K</span> PLN
+                              <span className="text-black-2">80-90K</span> USD
                             </p>
                           </div>
                         </div>
@@ -798,7 +798,7 @@ const SearchGrid = () => {
                       to="/#"
                       className="text-green font-weight-bold text-uppercase font-size-3"
                     >
-                      Load More <i className="fas fa-sort-down ml-3"></i>
+                      {t('search.loadMore')} <i className="fas fa-sort-down ml-3"></i>
                     </Link>
                   </div>
                 </div>

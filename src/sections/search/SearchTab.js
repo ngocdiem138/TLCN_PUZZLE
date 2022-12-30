@@ -19,9 +19,13 @@ import iconC from "../../assets/image/svg/icon-clock.svg";
 import iconL2 from "../../assets/image/svg/icon-location.svg";
 import iconD from "../../assets/image/svg/icon-dolor.svg";
 import iconB from "../../assets/image/svg/icon-briefcase.svg";
+import { useTranslation } from 'react-i18next';
 
 const SearchTab = (props) => {
+  const { t, i18n } = useTranslation()
   console.log(props.listJob);
+  let activeIndexDefault = props.listJob[0] ? props.listJob[0].id : 0
+  const [indexActive, setIndexActive]=useState(activeIndexDefault);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
@@ -30,7 +34,7 @@ const SearchTab = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
-  let activeIndexDefault = props.listJob[0] ? props.listJob[0].id : 0
+  console.log(indexActive);
   const saveForJob = (id) => {
     if (localStorage.getItem("userRole") != "CANDIDATE") {
       setError("You must is a CANDIDATE to save for jobs.")
@@ -105,7 +109,7 @@ const SearchTab = (props) => {
     }
   };
   const listNav = currentPosts.map(job => {
-    return <Nav.Link className="mb-8 p-0 w-100" eventKey={job.id} onClick={() => { setError(''); setSucces('') }}>
+    return <Nav.Link className="mb-8 p-0 w-100" eventKey={job.id} onClick={() => { console.log(indexActive);setError(''); setSucces(''); setIndexActive(job.id) }}>
       {/* <!-- Single Featured Job --> */}
       <div className="pt-9 px-xl-9 px-lg-7 px-7 pb-7 light-mode-texts bg-white rounded hover-shadow-3 hover-border-green">
         {/* <!-- Single Featured Job --> */}
@@ -113,7 +117,7 @@ const SearchTab = (props) => {
           <div className="col-md-6">
             <div className="media align-items-center">
               <div className="square-72 d-block mr-8">
-                <img src={job.logo ? job.logo : imgF} alt="" />
+                <img src={job.logo ? job.logo : imgF1} alt="" />
               </div>
               <div>
                 <h3 className="mb-0">
@@ -139,7 +143,7 @@ const SearchTab = (props) => {
                 <img src={imgF} alt="" />
               </div>
               <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                <span className="text-black-2">{job.minBudget} - {job.maxBudget}K $</span> PLN
+                <span className="text-black-2">{job.minBudget} - {job.maxBudget} $</span> USD
               </p>
             </div>
           </div>
@@ -197,7 +201,7 @@ const SearchTab = (props) => {
     </Nav.Link>
   })
   const listContent = currentPosts.map(job => {
-    return <Tab.Pane eventKey={job.id} active={activeIndexDefault == job.id ? true : false}>
+    return <Tab.Pane eventKey={job.id} active={indexActive ? indexActive == job.id ? true : false : activeIndexDefault == job.id ? true : false}>
       <div className=" bg-white rounded-4 border border-mercury shadow-9 pos-abs-xl ml-xl-8 h-1413 overflow-y-scroll mt-9 mt-xl-0">
         {/* <!-- Single Featured Job --> */}
         <div className="pt-9 pl-sm-9 pl-5 pr-sm-9 pr-5 pb-8 border-bottom border-width-1 border-default-color light-mode-texts">
@@ -247,7 +251,7 @@ const SearchTab = (props) => {
                     className="btn btn-green text-uppercase btn-medium rounded-3 w-180 mr-4 mb-5"
                     onClick={() => applyForJob(job.id)}
                   >
-                    Apply to this job
+                    {t('apply.applyThisJob')}
                   </button>
                 )}
                 {(
@@ -257,7 +261,7 @@ const SearchTab = (props) => {
                     onClick={() => saveForJob(job.id)}
                   >
                     <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>{" "}
-                    Save job
+                    {t('apply.saveJob')}
                   </button>
                 )}
               </div>
@@ -274,7 +278,7 @@ const SearchTab = (props) => {
                   <img src={iconD} alt="" />
                 </div>
                 <p className="font-weight-semibold font-size-5 text-black-2 mb-0">
-                  {job.minBudget} - {job.maxBudget}K $
+                  {job.minBudget} - {job.maxBudget} $
                 </p>
               </div>
             </div>
@@ -404,7 +408,7 @@ const SearchTab = (props) => {
                   onClick={() => { setCurrentPage(currentPage + 1) }}
                   className="text-green font-weight-bold text-uppercase font-size-3 d-flex align-items-center justify-content-center"
                 >
-                  Load More{" "}
+                  {t('search.loadMore')}{" "}
                   <i className="fas fa-sort-down ml-3 mt-n2 font-size-4"></i>
                 </button>
               </div>

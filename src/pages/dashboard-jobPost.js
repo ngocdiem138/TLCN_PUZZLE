@@ -19,6 +19,7 @@ import { Box, Button } from '@chakra-ui/react'
 // import Editor from '../components/widgets/Editor';
 
 function DashboardJobPost() {
+    const { t, i18n } = useTranslation()
     // const Editor = useMemo(() => dynamic(() => import('../components/widgets/Editor'), { ssr: false }), []);
     const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
     const modules = {
@@ -73,7 +74,6 @@ function DashboardJobPost() {
         return skillNameList.join(',');
     }
 
-    const { t, i18n } = useTranslation()
     const defaultCountries = [
         { id: 0, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
         { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },

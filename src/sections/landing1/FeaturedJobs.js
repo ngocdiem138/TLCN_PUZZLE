@@ -173,7 +173,7 @@ const FeaturedJobs = () => {
               className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
             >
               <i className="fa fa-dollar-sign mr-2 font-weight-bold"></i>{" "}
-              {job.minBudget} - {job.maxBudget}K $
+              {job.minBudget} - {job.maxBudget} $
             </Link>
           </li>
           <li>
@@ -193,7 +193,7 @@ const FeaturedJobs = () => {
               className="btn btn-green text-uppercase btn-medium rounded-3"
               onClick={() => applyForJob(job.id)}
             >
-              Apply Now
+              {t('apply.applyNow')}
             </button>
           )}
           {(
@@ -203,7 +203,7 @@ const FeaturedJobs = () => {
               onClick={() => saveForJob(job.id)}
             >
               <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>{" "}
-              Save it
+              {t('apply.saveIt')}
             </button>
           )}
         </div>

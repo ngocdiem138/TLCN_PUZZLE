@@ -16,9 +16,10 @@ import { JobPostServiceIml } from "../actions/user-actions";
 
 import axios from "axios";
 import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
+import { useTranslation } from 'react-i18next';
 
 const JobDetails = () => {
-
+  const { t, i18n } = useTranslation()
   const location = useLocation();
   const [job, setJob] = useState({});
   const [employer, setEmployer] = useState({});
@@ -153,7 +154,7 @@ const JobDetails = () => {
                     {" "}
                     <i className="icon icon-small-left bg-white circle-40 mr-5 font-size-7 text-black font-weight-bold shadow-8"></i>
                     <span className="text-uppercase font-size-3 font-weight-bold text-gray">
-                      Back to home
+                      {t('back.backHome')}
                     </span>
                   </Link>
                 </div>
@@ -205,7 +206,7 @@ const JobDetails = () => {
                               className="btn btn-green text-uppercase btn-medium rounded-3 w-180 mr-4 mb-5"
                               onClick={applyForJob}
                             >
-                              Apply to this job
+                              {t('apply.applyThisJob')}
                             </button>
                           )}
                           {(
@@ -215,7 +216,7 @@ const JobDetails = () => {
                               onClick={saveForJob}
                             >
                               <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>{" "}
-                              Save job
+                              {t('apply.saveJob')}
                             </button>
                           )}
                         </div>
@@ -232,7 +233,7 @@ const JobDetails = () => {
                             <img src={iconD} alt="" />
                           </div>
                           <p className="font-weight-semibold font-size-5 text-black-2 mb-0">
-                            {job.minBudget} - {job.maxBudget}K $
+                            {job.minBudget} - {job.maxBudget} $
                           </p>
                         </div>
                       </div>
@@ -457,14 +458,14 @@ const JobDetails = () => {
                               className="btn btn-green text-uppercase btn-medium w-180 h-px-48 rounded-3 mr-4 mt-6"
                               onClick={applyForJob}
                             >
-                              Apply to this job
+                              {t('apply.applyThisJob')}
                             </button>
                           )}
                           {/* <Link
                             to="/#"
                             className="btn btn-green text-uppercase btn-medium w-180 h-px-48 rounded-3 mr-4 mt-6"
                           >
-                            Apply to this job
+                            {t('apply.applyThisJob')}
                           </Link> */}
                         </div>
                       </div>

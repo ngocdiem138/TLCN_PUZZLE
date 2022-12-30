@@ -10,8 +10,8 @@ import { parse } from "query-string";
 import { JobPostServiceIml } from "../actions/user-actions";
 import { navigate } from '@reach/router';
 import { useState, useEffect } from "react";
-import { employmentType, experienceYear } from "../components/Sidebar/MenuData";
-import { postTime } from "../components/Sidebar/MenuData";
+// import { experienceYear } from "../components/Sidebar/MenuData";
+// import { postTime } from "../components/Sidebar/MenuData";
 import { useTranslation } from 'react-i18next';
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
 
@@ -19,7 +19,12 @@ import { REDIRECT_BASE_URL } from "../utils/constants/url";
 const SearchGrid = () => {
   const { t, i18n } = useTranslation()
 
-
+  const postTime = [
+    { "id": "postTime", "name": "postTime", value: -1, "label": t('search.all') },
+    { "id": "postTime", "name": "postTime", value: 1, "label": t("postTime.oneDayAgo") },
+    { "id": "postTime", "name": "postTime", value: 3, "label": t("postTime.threeDayAgo") },
+    { "id": "postTime", "name": "postTime", value: 7, "label": t("postTime.oneWeekAgo") },
+  ]
   const defaultCountries = [
     { id: 0, value: "", label: t('defaultCountries.selectCity') },
     { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
@@ -27,14 +32,24 @@ const SearchGrid = () => {
     { id: 3, value: "Cần Thơ", label: t('defaultCountries.CanTho') },
     { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
   ];
+  const experienceYear = [
+    { "id": "experienceYear", "name": "experienceYear", value: -1, "label": t('search.all') },
+    { "id": "experienceYear", "name": "experienceYear", value: 2, "label": t('experienceYear.junior') },
+    { "id": "experienceYear", "name": "experienceYear", value: 3, "label": t('experienceYear.mid') },
+    { "id": "experienceYear", "name": "experienceYear", value: 5, "label": t('experienceYear.senior') },
+  ]
 
-  const defaultJobTypes = [
-    { value: "ft", label: "Full Time" },
-    { value: "pt", label: "Part Time" },
-    { value: "remote", label: "Remote" },
-    { value: "contract", label: "Contract" },
-  ];
+  const employmentTypeSelect = [
+    { "name": "", "label": t('search.all'), value: "" },
+    { "name": "FULL_TIME", "label": t('employmentTypeData.FullTime'), value: "Full Time" },
+    { "name": "PART_TIME", "label": t('employmentTypeData.PartTime'), value: "Part Time" },
+    { "name": "INTERNSHIP", "label": t('employmentTypeData.Internship'), value: "Internship" },
+    { "name": "FREELANCE", "label": t('employmentTypeData.Freelance'), value: "Freelance" },
+    { "name": "CONTRACT", "label": t('employmentTypeData.Contract'), value: "Contract" },
+    { "name": "TEMPORARY", "label": t('employmentTypeData.Temporary'), value: "Temporary" },
+  ]
   const defaultSalaryRange = [
+    { value: [null, null], label: t('search.all') },
     { value: [0, 500], label: "< 500$" },
     { value: [500, 1000], label: "500 - 1000$" },
     { value: [1000, 2000], label: "1000 - 2000$" },
@@ -83,7 +98,7 @@ const SearchGrid = () => {
 
   const handleFilters = (filters, category) => {
     const newFilters = filter
-    if (category === "experienceYear" || category === "titles" || category === "cities" || category === "employmentTypes" ) {
+    if (category === "experienceYear" || category === "titles" || category === "cities" || category === "employmentTypes") {
       newFilters[category] = [filters]
     } else if (category === "salary") {
       let minBudget = filters[0]
@@ -123,7 +138,7 @@ const SearchGrid = () => {
                           onChange={(e) => {
                             handleFilters(e.target.value, "titles"); setTitle(e.target.value)
                           }}
-                          placeholder="Type Job title, keywords"
+                          placeholder={t('search.searchTitle')}
                         />
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
                           <i className="icon icon-zoom-2 text-primary font-weight-bold"></i>
@@ -161,7 +176,7 @@ const SearchGrid = () => {
             <div className="row justify-content-center">
               <div className="col-12 col-lg-10 col-xl-12">
                 <h2 className="font-size-8 mb-6">
-                  {"You’re searching \""}{title != "" ? title : "All"}{"\" title in \""}{city != "" ? city : "All"}{"\" city"}
+                  {t('search.searching')}{' "'}{title != "" ? title : t('search.all')}{'" '}{t('search.titleIn')}{' "'}{city != "" ? city : "All"}{'" '}{t('search.inCity')}
                 </h2>
                 <form className="mb-8">
                   <div className="search-filter from-group d-flex align-items-center flex-wrap">
@@ -170,7 +185,7 @@ const SearchGrid = () => {
                         onChange={(e) => {
                           handleFilters(e.name, "employmentTypes")
                         }}
-                        options={employmentType}
+                        options={employmentTypeSelect}
                         className="font-size-4"
                         css={`
                           min-width: 175px;
@@ -222,8 +237,8 @@ const SearchGrid = () => {
                 </form>
                 <div className="d-flex align-items-center justify-content-between mb-6">
                   <h5 className="font-size-4 font-weight-normal text-gray">
-                    Showing{" "}
-                    <span className="text-black-2">{jobs.length}</span> matched jobs
+                    {t('search.showing')}{" "}
+                    <span className="text-black-2">{jobs.length}</span> {t('search.matchResult')}
                   </h5>
                 </div>
               </div>

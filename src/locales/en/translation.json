@@ -23,10 +23,24 @@
   "search": {
     "button": "Search",
     "searchByKeyword": "Search keywords e.g.",
-    "exampleKeyword": "Product Designer"
+    "exampleKeyword": "Product Designer",
+    "searchTitle":"Type Job title, keywords",
+    "all":"All",
+    "searching":"You’re searching",
+    "titleIn":"title in",
+    "inCity":"city",
+    "showing":"Showing",
+    "matchResult": "matched jobs",
+    "loadMore": "Load More"
   },
   "company": {
     "top": "Get hired in top companies"
+  },
+  "apply":{
+    "applyThisJob":"Apply to this job",
+    "saveJob":"Save job",
+    "saveIt":"Save it",
+    "applyNow":"Apply Now"
   },
   "explore": {
     "exploreByCategory": "Explore by category",
@@ -36,7 +50,9 @@
     "benifit1":"Bring to the table win-win survival",
     "benifit2":"Capitalize on low hanging fruit to identify",
     "benifit3":"But I must explain to you how all this",
-    "company": "Looking for an expert for your company?"
+    "company": "Looking for an expert for your company?",
+    "hiring":"Get applications from the world best talents.",
+    "exploreEmployer":"Shorten the distance. Application recruitment becomes a competitive advantage of businesses: increasing opportunities to recruit the right people, helping to promote effective business operations, towards successful digital transformation."
   },
   "header":{
     "setting":"Settings",
@@ -52,5 +68,23 @@
     "support":"Support",
     "featureJob":"Featured Jobs",
     "signup":"SIGN UP"
+  },
+  "experienceYear":{
+    "junior":"Junior (2 years)",
+    "mid": "Mid (3 years)",
+    "senior": "Senior (5 years)"
+  },
+  "postTime":{
+    "oneDayAgo":"Last day",
+    "threeDayAgo":"Last 3 days",
+    "oneWeekAgo":"Last week"
+  },
+  "back":{
+    "backHome":"Back to home"
+  },
+  "footer":{
+    "comprehensive":"Most comprehensive job portal",
+    "explain":"Puzzle brings comprehensive solutions to help businesses solve problems around recruitment at the same time",
+    "register":"Register"
   }
 }

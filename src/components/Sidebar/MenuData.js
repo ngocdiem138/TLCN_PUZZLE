@@ -1,4 +1,15 @@
+import React from "react";
 const employmentType = [
+    {"name": "FULL_TIME", "label":"Full Time", value:"Full Time"},
+    {"name": "PART_TIME", "label":"Part Time", value:"Part Time"},
+    {"name": "INTERNSHIP", "label":"Internship", value:"Internship"},
+    {"name": "FREELANCE", "label":"Freelance", value:"Freelance"},
+    {"name": "CONTRACT", "label":"Contract", value:"Contract"},
+    {"name": "TEMPORARY", "label":"Temporary", value:"Temporary"},
+]
+
+const employmentTypeSelect = [
+    {"name": "", "label":"All", value:""},
     {"name": "FULL_TIME", "label":"Full Time", value:"Full Time"},
     {"name": "PART_TIME", "label":"Part Time", value:"Part Time"},
     {"name": "INTERNSHIP", "label":"Internship", value:"Internship"},
@@ -21,4 +32,4 @@ const postTime = [
     {"id": "postTime", "name": "postTime", value:7, "label":"Last week"},
 ]
 
-export {employmentType, experienceYear, postTime};
+export {employmentType, experienceYear, postTime, employmentTypeSelect};

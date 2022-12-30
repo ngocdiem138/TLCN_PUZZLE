@@ -12,7 +12,6 @@ import iconL from "../assets/image/svg/icon-loaction-pin-black.svg";
 import iconS from "../assets/image/svg/icon-suitecase.svg";
 import iconC from "../assets/image/svg/icon-clock.svg";
 
-
 import styled from "styled-components";
 import { Range, getTrackBackground } from "react-range";
 import { employmentType, experienceYear, postTime } from "../components/Sidebar/MenuData";
@@ -262,7 +261,7 @@ const SearchGrid = () => {
               className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
             >
               <i className="fa fa-dollar-sign mr-2 font-weight-bold"></i>{" "}
-              {job.minBudget} - {job.maxBudget}K $
+              {job.minBudget} - {job.maxBudget} $
             </Link>
           </li>
           <li style={{ width: "50%" }}>
@@ -282,7 +281,7 @@ const SearchGrid = () => {
               className="btn btn-green text-uppercase btn-medium rounded-3"
               onClick={() => applyForJob(job.id)}
             >
-              Apply Now
+              {t('apply.applyNow')}
             </button>
           )}
           {(
@@ -292,7 +291,7 @@ const SearchGrid = () => {
               onClick={() => saveForJob(job.id)}
             >
               <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>{" "}
-              Save it
+              {t('apply.saveIt')}
             </button>
           )}
         </div>
@@ -334,7 +333,7 @@ const SearchGrid = () => {
                 <img src={imgF} alt="" />
               </div>
               <p className="font-weight-bold font-size-7 text-hit-gray mb-0">
-                <span className="text-black-2">{job.minBudget} - {job.maxBudget}K $</span> PLN
+                <span className="text-black-2">{job.minBudget} - {job.maxBudget} $</span> USD
               </p>
             </div>
           </div>
@@ -654,7 +653,7 @@ const SearchGrid = () => {
                       onClick={() => { setCurrentPage(currentPage + 1) }}
                       className="text-green font-weight-bold text-uppercase font-size-3 d-flex align-items-center justify-content-center"
                     >
-                      Load More{" "}
+                      {t('search.loadMore')}{" "}
                       <i className="fas fa-sort-down ml-3 mt-n2 font-size-4"></i>
                     </button>
                   </div>

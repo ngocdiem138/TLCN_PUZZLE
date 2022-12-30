@@ -3,9 +3,10 @@ import { Link } from "gatsby";
 import GlobalContext from "../../context/GlobalContext";
 import Logo from "../Logo";
 import imgM from "../../assets/image/l1/png/message.png";
-
+import { useTranslation } from 'react-i18next';
 const Footer = () => {
   const gContext = useContext(GlobalContext);
+  const { t, i18n } = useTranslation();
   return (
     <>
       <footer className="footer bg-ebony-clay dark-mode-texts">
@@ -21,11 +22,10 @@ const Footer = () => {
                 {/* <!-- cta-content start --> */}
                 <div className="pb-xl-0 pb-9 text-xl-left text-center">
                   <h2 className="text-white font-size-8 mb-4">
-                    Most comprehensive job portal
+                    {t('footer.comprehensive')}
                   </h2>
                   <p className="text-hit-gray font-size-5 mb-0">
-                    We must explain to you how all this mistaken idea of
-                    denouncing
+                    {t('footer.explain')}
                   </p>
                 </div>
                 {/* <!-- cta-content end --> */}
@@ -45,7 +45,7 @@ const Footer = () => {
                       gContext.toggleSignInModal();
                     }}
                   >
-                    Log in
+                    {t('header.login')}
                   </a>
                   <a
                     className="btn btn-green btn-h-60 btn-xl mx-4 mt-6 text-uppercase"
@@ -55,7 +55,7 @@ const Footer = () => {
                       gContext.toggleSignUpModal();
                     }}
                   >
-                    Register
+                    {t('footer.register')}
                   </a>
                 </div>
                 {/* <!-- cta-btns end --> */}

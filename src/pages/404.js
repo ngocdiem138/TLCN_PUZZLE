@@ -3,8 +3,10 @@ import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
 import imgLogo from "../assets/image/logo-main-black.png";
 import imgError from "../assets/image/svg/404.svg";
+import { useTranslation } from 'react-i18next';
 
 const Contact = () => {
+  const { t, i18n } = useTranslation()
   return (
     <>
       <PageWrapper>
@@ -48,7 +50,7 @@ const Contact = () => {
                       to="/"
                       className="btn btn-green btn-h-60 text-white rounded-5 w-180 m-auto text-uppercase"
                     >
-                      Back to home
+                      {t('back.backHome')}
                     </Link>
                   </div>
                 </div>

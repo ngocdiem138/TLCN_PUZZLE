@@ -17,7 +17,8 @@ import {
 } from "../utils/Helpers";
 import SignupHeader from "../components/Header/SignupHeader";
 import axios from "axios";
-import './main.css'
+import './main.css';
+import { useTranslation } from 'react-i18next';
 const Register = (props) => {
   const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
   const modules = {

@@ -9,7 +9,8 @@ import { EmployerServiceIml } from "../actions/employer-action";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
 import { Link } from "gatsby";
 import { Container, Alert } from 'react-bootstrap';
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
 
 const resultTypes = [
   { value: true, label: "Accept" },
@@ -17,6 +18,7 @@ const resultTypes = [
 ];
 
 const Contact = () => {
+  const { t, i18n } = useTranslation()
   const location = useLocation();
   const searchParams = parse(location.search);
   const [action, setAction] = useState(searchParams.action);
