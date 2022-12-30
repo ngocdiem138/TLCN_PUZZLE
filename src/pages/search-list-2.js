@@ -149,7 +149,7 @@ const SearchGrid = () => {
                         <Select
                           name="cities"
                           onChange={(e) => {
-                            handleFilters(e.value, "cities"); setSelectedOptions(e.id);
+                            handleFilters(e.value, "cities"); setSelectedOptions(e.id); setCity(e.value);
                           }}
                           placeholder={t('defaultCountries.selectCity')}
                           options={defaultCountries}
