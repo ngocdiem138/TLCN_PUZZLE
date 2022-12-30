@@ -12,6 +12,8 @@ import ReactJsAlert from "reactjs-alert";
 import { REDIRECT_BASE_URL } from "../utils/constants/url";
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
 import { SkillServiceIml } from '../actions/admin-actions';
+import { Container, Alert } from 'react-bootstrap';
+import { Box, Button } from '@chakra-ui/react'
 // import dynamic from 'next/dynamic';
 // import "react-quill/dist/quill.snow.css";
 // import Editor from '../components/widgets/Editor';
@@ -123,6 +125,8 @@ function DashboardJobPost() {
     const redirectNewCompany = () => {
         if (typeof window !== "undefined") { window.location.href = "/dashboard-company" }
     }
+    const [showError, setShowError] = useState(false)
+    const [showSuccess, setShowSuccess] = useState(false)
 
     const [number, setNumber] = useState('')
     const [title, setTitle] = useState('')
@@ -186,8 +190,11 @@ function DashboardJobPost() {
         if (id != 'new') {
             jobPost.id = id;
             JobPostServiceIml.updateJobPost(jobPost).then((response) => {
-                if (!response.data.errCode) {
+                if (response.data.errCode == "403") {
                     setShowAlert(true);
+                } else if (response.data.errCode != "200" && response.data.errCode != null) {
+                    setShowError(true);
+                    setShowSuccess(false);
                 }
                 // navigate.push('/employer/jobs')
             }).catch(error => {
@@ -199,11 +206,12 @@ function DashboardJobPost() {
             jobPost.number = parseInt(jobPost.number);
             const { id, ...data } = jobPost
             JobPostServiceIml.createJobPost(data).then((response) => {
-                if (!response.data.errCode) {
+                if (response.data.errCode == "403") {
                     setShowAlert(true);
+                } else if (response.data.errCode != "200" && response.data.errCode != null) {
+                    setShowError(true);
+                    setShowSuccess(false);
                 }
-
-                console.log(response.data)
 
                 // navigate.push('/employer/jobs');
 
@@ -348,12 +356,13 @@ function DashboardJobPost() {
                 >
                     <div className="container">
                         <ReactJsAlert
-                            type="success"   // success, warning, error, info
-                            title="Save successfully"   // title you want to display
-                            status={showAlert}  // true or false
+                            type="info"   // success, warning, error, info
+                            title="Session has expired"   // title you want to display
+                            status={showError}  // true or false
+                            button="OK"
                             color="#1d36ad"
                             quotes={true}
-                            quote="Save successfully! Redirect to Posted Jobs page."
+                            quote="Unfortunately your session has expired and you have been logged out. Please log in again"
                             Close={redirect}   // callback method for hide
                         />
                         <div className="mb-15 mb-lg-23">
@@ -713,7 +722,7 @@ function DashboardJobPost() {
                                                                 isMulti
                                                                 isClearable={true}
                                                                 isSearchable
-                                                                onChange={(e) => {setSkills(stringSkills(e)) }}
+                                                                onChange={(e) => { setSkills(stringSkills(e)) }}
                                                                 value={getSkill(skills)}
                                                                 options={skillList} />
                                                         </div>
@@ -728,6 +737,23 @@ function DashboardJobPost() {
                                                         <button type="button submit" class="btn btn-primary" >{action}</button>
                                                     </div>
                                                 </div>
+                                                {showError || showSuccess ?
+                                                    <Alert
+                                                        variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
+                                                        {showError ? 'Save fail' : showSuccess ? 'Save success' : 'info'}
+                                                        <div className="d-flex justify-content-end">
+                                                            <Button
+                                                                onClick={() => {
+                                                                    setShowError(false);
+                                                                    setShowSuccess(false)
+                                                                }}
+                                                                variant={showError ? 'outline-danger' : showSuccess ? 'outline-success' : 'outline-info'}>
+                                                                Close!
+                                                            </Button>
+                                                        </div>
+                                                    </Alert>
+                                                    : null
+                                                }
                                             </fieldset>
                                         </Form>
                                     </div>
