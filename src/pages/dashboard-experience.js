@@ -244,7 +244,7 @@ const Experience = () => {
                                                     <h2>
                                                         <AccordionButton className='main-color'>
                                                             <Box flex='1' textAlign='left'>
-                                                                <p fontSize={25} style={{"font-weight":"600"}} >{work.title ? work.title : "Title"}</p>
+                                                                <p fontSize={25} style={{ "font-weight": "600" }} >{work.title ? work.title : "Title"}</p>
                                                             </Box>
                                                             <AccordionIcon />
                                                         </AccordionButton>
@@ -264,7 +264,7 @@ const Experience = () => {
                                                                     isClearable={true}
                                                                     isSearchable
                                                                     onChange={(e) => { handleSelectChange("company", e.label, work.id); setSelectedCompany(e); }}
-                                                                    value={ { value: work.company, label: work.company }}
+                                                                    value={{ value: work.company, label: work.company }}
                                                                     options={companyList} />
                                                             </FormControl>
                                                             <Select width="30%" value={work.employmentType} onChange={(e) => handleChange(e, work.id)} name='employmentType' variant='filled' placeholder='Employment Type'>
@@ -317,6 +317,7 @@ const Experience = () => {
                                                             <FormControl width="95%">
                                                                 <FormLabel htmlFor='skill'>Skill</FormLabel>
                                                                 <CreatableSelect
+                                                                    maxMenuHeight={100}
                                                                     isMulti
                                                                     isClearable={true}
                                                                     isSearchable
