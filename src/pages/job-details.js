@@ -114,26 +114,19 @@ const JobDetails = () => {
         )
         .then((response) => {
           if (response.data.status == 200 && (response.data.errCode==null||response.data.errCode=="200")) {
-            setSucces("Successfuly applied for job")
+            //show success message
+            setSucces("Successfuly applied for job");
             setError("")
-          } else if (response.data.errCode != 200 && response.data.errCode==null) {
-            console.log(response.data.errCode)
-            switch (response.data.errCode) {
-              case 403:
-                setError(response.data.message)
-                // window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
-                break;
-              default:
-                setSucces("");
-                setError(response.data.message)
-            }
+          } else if (response.data.errMsg) {
+            setError(response.data.errMsg)
+            setSucces("")
           } else {
-            setSucces("Request Failed")
+            setSucces("");
+            setError("Request Failed")
           }
         })
         .catch((error) => {
           console.log(error);
-
         });
     }
   };
