@@ -78,7 +78,7 @@ const JobDetails = () => {
           }
         )
         .then((response) => {
-          if (response.data.status == 200) {
+          if (response.data.status == 200 && (response.data.errCode==null||response.data.errCode=="200")) {
             //show success message
             setSucces("Successfuly saved for job");
             setError("")
@@ -113,12 +113,12 @@ const JobDetails = () => {
           }
         )
         .then((response) => {
-          if (response.data.status == 200) {
+          if (response.data.status == 200 && (response.data.errCode==null||response.data.errCode=="200")) {
             setSucces("Successfuly applied for job")
             setError("")
-          } else if (response.data.status != 200) {
-            console.log(response.data.status)
-            switch (response.data.status) {
+          } else if (response.data.errCode != 200 && response.data.errCode==null) {
+            console.log(response.data.errCode)
+            switch (response.data.errCode) {
               case 403:
                 setError(response.data.message)
                 // window.location.assign(REDIRECT_BASE_URL + "/registerOfUser");
@@ -128,7 +128,6 @@ const JobDetails = () => {
                 setError(response.data.message)
             }
           } else {
-
             setSucces("Request Failed")
           }
         })
