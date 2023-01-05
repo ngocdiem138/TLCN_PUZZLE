@@ -358,7 +358,7 @@ function DashboardJobPost() {
                         <ReactJsAlert
                             type="info"   // success, warning, error, info
                             title="Session has expired"   // title you want to display
-                            status={showError}  // true or false
+                            status={showAlert}  // true or false
                             button="OK"
                             color="#1d36ad"
                             quotes={true}
