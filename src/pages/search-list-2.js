@@ -20,7 +20,7 @@ const SearchGrid = () => {
   const { t, i18n } = useTranslation()
 
   const postTime = [
-    { "id": "postTime", "name": "postTime", value: -1, "label": t('search.all') },
+    { "id": "postTime", "name": "postTime", value: -1, "label": t('postTime.all') },
     { "id": "postTime", "name": "postTime", value: 1, "label": t("postTime.oneDayAgo") },
     { "id": "postTime", "name": "postTime", value: 3, "label": t("postTime.threeDayAgo") },
     { "id": "postTime", "name": "postTime", value: 7, "label": t("postTime.oneWeekAgo") },
@@ -33,14 +33,14 @@ const SearchGrid = () => {
     { id: 4, value: "Đà Nẵng", label: t('defaultCountries.DaNang') },
   ];
   const experienceYear = [
-    { "id": "experienceYear", "name": "experienceYear", value: -1, "label": t('search.all') },
+    { "id": "experienceYear", "name": "experienceYear", value: -1, "label": t('experienceYear.all') },
     { "id": "experienceYear", "name": "experienceYear", value: 2, "label": t('experienceYear.junior') },
     { "id": "experienceYear", "name": "experienceYear", value: 3, "label": t('experienceYear.mid') },
     { "id": "experienceYear", "name": "experienceYear", value: 5, "label": t('experienceYear.senior') },
   ]
 
   const employmentTypeSelect = [
-    { "name": "", "label": t('search.all'), value: "" },
+    { "name": "", "label": t('employmentTypeData.All'), value: "" },
     { "name": "FULL_TIME", "label": t('employmentTypeData.FullTime'), value: "Full Time" },
     { "name": "PART_TIME", "label": t('employmentTypeData.PartTime'), value: "Part Time" },
     { "name": "INTERNSHIP", "label": t('employmentTypeData.Internship'), value: "Internship" },
@@ -49,7 +49,7 @@ const SearchGrid = () => {
     { "name": "TEMPORARY", "label": t('employmentTypeData.Temporary'), value: "Temporary" },
   ]
   const defaultSalaryRange = [
-    { value: [null, null], label: t('search.all') },
+    { value: [null, null], label: t('salary.all') },
     { value: [0, 500], label: "< 500$" },
     { value: [500, 1000], label: "500 - 1000$" },
     { value: [1000, 2000], label: "1000 - 2000$" },
@@ -62,6 +62,8 @@ const SearchGrid = () => {
   const [city, setCity] = useState([searchParams.city]);
   const [title, setTitle] = useState([searchParams.title]);
   const [selectedOptions, setSelectedOptions] = useState(0);
+  const [selectedPostTimeOptions, setSelectedPostTimeOptions] = useState(0);
+  
   useEffect(() => {
     console.log(filter);
     defaultCountries.forEach((city) => {
@@ -222,12 +224,14 @@ const SearchGrid = () => {
                     </div>
                     <div className="mr-5 mb-5">
                       <Select
+                        placeholder={t('postTime.all')}
                         onChange={(e) => {
-                          handleFilters(e.value, "numDayAgo")
+                          handleFilters(e.value, "numDayAgo"),
+                          setSelectedPostTimeOptions(e.id);
                         }}
                         options={postTime}
                         className="font-size-4"
-                        // border={false}
+                        value={postTime[selectedPostTimeOptions]}
                         css={`
                           min-width: 175px;
                         `}

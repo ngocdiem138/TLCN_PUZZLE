@@ -9,7 +9,11 @@
     "CanTho": "Cần Thơ",
     "DaNang": "Đà Nẵng"
   },
+  "salary": {
+    "all": "Mức lương dự kiến"
+  },
   "employmentTypeData": {
+    "All": "Loại việc làm",
     "FullTime": "Toàn thời gian",
     "PartTime": "Bán Thời Gian",
     "Internship": "Thực tập",
@@ -41,7 +45,7 @@
     "applyNow": "Ứng tuyển ngay"
   },
   "company": {
-    "top": "Được thuê trong các công ty hàng đầu"
+    "top": "Các công ty tuyển dụng hàng đầu trên Puzzle"
   },
   "explore": {
     "exploreByCategory": "Khám phá theo danh mục",
@@ -71,11 +75,13 @@
     "signup": "Đăng ký"
   },
   "experienceYear": {
+    "all": "Số năm kinh nghiệm",
     "junior": "2 năm",
     "mid": "3 năm",
     "senior": "5 năm"
   },
   "postTime": {
+    "all": "Ngày đăng",
     "oneDayAgo": "1 ngày trước",
     "threeDayAgo": "3 ngày trước",
     "oneWeekAgo": "1 tuần trước"

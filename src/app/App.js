@@ -23,8 +23,8 @@ const IndexPage = () => {
       >
         <Hero />
         <FeaturedJobs />
-        <Brands />
         <Categories />
+        <Brands />
         <Content1 />
         <Content2 />
       </PageWrapper>

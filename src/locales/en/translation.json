@@ -10,12 +10,16 @@
     "DaNang": "Da Nang"
   },
   "employmentTypeData": {
+    "All": "Job Type",
     "FullTime": "Full Time",
     "PartTime": "Part Time",
     "Internship": "Internship",
     "Freelance": "Freelance",
     "Contract": "Contract",
     "Temporary": "Temporary"
+  },
+  "salary": {
+    "all": "Salary Estimate"
   },
   "job": {
     "title": "Job title"
@@ -71,11 +75,13 @@
     "signup":"SIGN UP"
   },
   "experienceYear":{
+    "all": "Experience Year",
     "junior":"Junior (2 years)",
     "mid": "Mid (3 years)",
     "senior": "Senior (5 years)"
   },
   "postTime":{
+    "all": "Date Posted",
     "oneDayAgo":"Last day",
     "threeDayAgo":"Last 3 days",
     "oneWeekAgo":"Last week"
