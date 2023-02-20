@@ -83,7 +83,7 @@ const SearchTab = (props) => {
           }
         )
         .then((response) => {
-          if (response.data.status == 200) {
+          if (response.data.status == 200 && re) {
             setSucces("Successfuly applied for job")
             setError("")
           } else if (response.data.status != 200) {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import { useParams } from "react-router-dom";
+import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { useLocation } from '@reach/router';
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
@@ -78,7 +78,7 @@ const JobDetails = () => {
           }
         )
         .then((response) => {
-          if (response.data.status == 200 && (response.data.errCode==null||response.data.errCode=="200")) {
+          if (response.data.status == 200 && (response.data.errCode == null || response.data.errCode == "200")) {
             //show success message
             setSucces("Successfuly saved for job");
             setError("")
@@ -113,7 +113,7 @@ const JobDetails = () => {
           }
         )
         .then((response) => {
-          if (response.data.status == 200 && (response.data.errCode==null||response.data.errCode=="200")) {
+          if (response.data.status == 200 && (response.data.errCode == null || response.data.errCode == "200")) {
             //show success message
             setSucces("Successfuly applied for job");
             setError("")
@@ -204,13 +204,25 @@ const JobDetails = () => {
                           {(
                             <button
                               type="submit"
-                              className="btn btn-outline-mercury text-black-2 text-uppercase h-px-48 rounded-3 mb-5 px-5"
+                              className="btn btn-outline-mercury text-black-2 text-uppercase mr-4 h-px-48 rounded-3 mb-5 px-5"
                               onClick={saveForJob}
                             >
                               <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>{" "}
                               {t('apply.saveJob')}
                             </button>
                           )}
+                          <button
+                            type="submit"
+                            className="btn btn-outline-mercury text-black-2 text-uppercase mr-4 h-px-48 rounded-3 mb-5 px-5">
+                            <FacebookShareButton
+                              url={REDIRECT_BASE_URL + location.pathname}     //eg. https://www.example.com
+                              quotes={""}  //"Your Quotes"
+                              hashtag={"hashtag"} // #hashTag
+                            >
+                              <FacebookIcon className="mr-4" size={24} round /> 
+                            </FacebookShareButton>
+                            {t('apply.shareJob')}
+                          </button>
                         </div>
                         {/* <!-- card-btn-group end --> */}
                       </div>
@@ -296,21 +308,6 @@ const JobDetails = () => {
                           </p>
                           <ul className="d-flex list-unstyled flex-wrap pr-sm-25 pr-md-0">
                             {listSkill}
-                            {/* <li className="bg-regent-opacity-15 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
-                              Editing
-                            </li>
-                            <li className="bg-regent-opacity-15 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
-                              Wire-framing
-                            </li>
-                            <li className="bg-regent-opacity-15 mr-md-0 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
-                              XD
-                            </li>
-                            <li className="bg-regent-opacity-15 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
-                              User Persona
-                            </li>
-                            <li className="bg-regent-opacity-15 mr-3 h-px-33 text-center flex-all-center rounded-3 px-5 font-size-3 text-black-2 mt-2">
-                              Sketch
-                            </li> */}
                           </ul>
                         </div>
                       </div>
@@ -439,9 +436,6 @@ const JobDetails = () => {
                             Job Description.{" "}
                           </p>
                           <div dangerouslySetInnerHTML={{ __html: job.description }} />
-                          {/* <p className="font-size-4 text-black-2 mb-7">
-                            {job.description}{" "}
-                          </p> */}
                         </div>
                         <div className="">
                           {(
@@ -453,12 +447,7 @@ const JobDetails = () => {
                               {t('apply.applyThisJob')}
                             </button>
                           )}
-                          {/* <Link
-                            to="/#"
-                            className="btn btn-green text-uppercase btn-medium w-180 h-px-48 rounded-3 mr-4 mt-6"
-                          >
-                            {t('apply.applyThisJob')}
-                          </Link> */}
+
                         </div>
                       </div>
                     </div>

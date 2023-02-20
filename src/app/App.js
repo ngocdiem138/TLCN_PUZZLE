@@ -22,10 +22,10 @@ const IndexPage = () => {
         }}
       >
         <Hero />
+        <FeaturedJobs />
         <Brands />
         <Categories />
         <Content1 />
-        <FeaturedJobs />
         <Content2 />
       </PageWrapper>
     </>

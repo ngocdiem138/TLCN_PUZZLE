@@ -65,6 +65,7 @@
     "react-router-dom": "^6.4.4",
     "react-scroll": "^1.8.4",
     "react-select": "^5.2.1",
+    "react-share": "^4.4.1",
     "react-slick": "^0.28.1",
     "react-tilt": "^0.1.4",
     "reactjs-alert": "^2.2.0",
