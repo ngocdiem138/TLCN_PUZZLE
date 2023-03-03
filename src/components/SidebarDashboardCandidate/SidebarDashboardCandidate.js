@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link } from "gatsby";
 import { Collapse } from "react-bootstrap";
 import GlobalContext from "../../context/GlobalContext";
-import imgL from "../../assets/image/logo-main-black.png";
+import imgL from "../../assets/image/logo-main.png";
 
 const Sidebar = () => {
   const gContext = useContext(GlobalContext);

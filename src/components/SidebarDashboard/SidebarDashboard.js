@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Link } from "gatsby";
 import { Collapse } from "react-bootstrap";
 import GlobalContext from "../../context/GlobalContext";
-import imgL from "../../assets/image/logo-main-black.png";
+import imgL from "../../assets/image/logo-main.png";
 import { useEffect } from "react";
 
 const Sidebar = () => {
@@ -78,6 +78,15 @@ const Sidebar = () => {
                 className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
               >
                 <i className="fas fa-cog mr-7"></i>Settings
+              </Link>
+            </li>
+            <li className="">
+              <Link
+                to="/dashboard-notifications"
+                activeClassName="active"
+                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+              >
+                <i className="fas fa-bell mr-7"></i>Job Alerts
               </Link>
             </li>
             <li className="">

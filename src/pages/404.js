@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
-import imgLogo from "../assets/image/logo-main-black.png";
+import imgLogo from "../assets/image/logo-main.png";
 import imgError from "../assets/image/svg/404.svg";
 import { useTranslation } from 'react-i18next';
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
-import imgLogo from "../assets/image/logo-main-black.png";
+import imgLogo from "../assets/image/logo-main.png";
 import imgError from "../assets/image/svg/heart.svg";
 import { UserServiceIml } from "../actions/user-actions";
 import { Container, Alert } from 'react-bootstrap';

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import imgP1 from "../assets/image/logo-main-black.png";
-import imgP2 from "../assets/image/logo-main-black.png";
+import imgP1 from "../assets/image/logo-main.png";
+import imgP2 from "../assets/image/logo-main.png";
 
 const CartContext = React.createContext();
 
