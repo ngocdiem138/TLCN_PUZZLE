@@ -8,7 +8,7 @@ import imgB1 from "../../assets/image/l1/png/smal-logo1.png";
 
 
 const Brands = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
   const [companys, setCompanys] = useState([]);
   useEffect(() => {
     CompanyServiceIml.getAllCompanys().then((response) => { setCompanys(response.data.data) });

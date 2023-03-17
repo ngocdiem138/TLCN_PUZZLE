@@ -11,10 +11,13 @@ import './src/styles/global.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './src/helpers'
 
+
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get
   // including location, data, etc - you don't need to pass it
-  return <Layout {...props}>{element}</Layout>;
+  return <I18nextProvider i18n={i18n}>
+    <Layout {...props}>{element}</Layout>
+  </I18nextProvider>;
 };
 
 export const wrapRootElement = ({ element }) => (

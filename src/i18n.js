@@ -1,7 +1,8 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from "i18next-browser-languagedetector";
 i18n
+  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
   resources: { // Import translations you made from certain path.
@@ -13,7 +14,7 @@ i18n
     }
   },
   debug: process.env.NODE_ENV === "development",
-  fallbackLng: 'en', // Set default language
+  // fallbackLng: 'en', // Set default language
   interpolation: {
     escapeValue: false,
   },

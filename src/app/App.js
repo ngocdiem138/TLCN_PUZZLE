@@ -8,6 +8,8 @@ import FeaturedJobs from "../sections/landing1/FeaturedJobs";
 import Content2 from "../sections/landing1/Content2";
 import { Trans, useTranslation } from 'gatsby-plugin-react-i18next';
 import { graphql } from 'gatsby';
+import { I18nextProvider } from 'react-i18next'
+import i18n from '../../src/i18n';
 // import 'simplebar/dist/simplebar.min.css'
 // import '../styles/index.css'
 // import '../index.css'
@@ -15,7 +17,7 @@ import { graphql } from 'gatsby';
 const IndexPage = () => {
   const isSSR = typeof window === "undefined";
   return (
-    <>
+    <><I18nextProvider i18n={i18n}>
       <PageWrapper
         headerConfig={{
           bgClass: "dynamic-sticky-bg",
@@ -28,6 +30,7 @@ const IndexPage = () => {
         <Content1 />
         <Content2 />
       </PageWrapper>
+      </I18nextProvider>
     </>
   );
 };

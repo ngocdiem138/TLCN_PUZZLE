@@ -134,7 +134,7 @@ const DashboardJobAlerts = () => {
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6">
                 <Link
-                to="/dashboard-jobPost?id=new"
+                to="/dashboard-jobalerts"
                 className="btn text-uppercase"
               >
                 <span className="mr-5 px-10 py-1 my-5 d-inline-block font-size-60 font-weight-bold"><i className="fas fa-wrench mr-7">&nbsp;Setting Job Alerts</i></span>

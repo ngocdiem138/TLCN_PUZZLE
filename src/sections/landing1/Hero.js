@@ -10,11 +10,8 @@ import { useTranslation } from 'react-i18next';
 import { navigate } from '@reach/router';
 import { REDIRECT_BASE_URL } from "../../utils/constants/url";
 
-
-
-
 const Hero = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
 
   const [city, setCity] = useState([]);
   const [title, setTitle] = useState([]);
@@ -23,7 +20,6 @@ const Hero = () => {
   const handleChange = (event) => {
     setCity(event.value);
     setSelectedOptions(event.id);
-    console.log(event.id);
   };
 
   const [error, setError] = useState("");

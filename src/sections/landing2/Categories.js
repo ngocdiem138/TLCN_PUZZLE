@@ -1,41 +1,48 @@
 import React from "react";
 import { Link } from "gatsby";
+import { useTranslation } from 'react-i18next';
 
 const Categories = () => {
+  const { t, i18n } = useTranslation()
   return (
     <>
       {/* <!-- Categories Area -->  */}
-      <div className="pb-13 pb-lg-25 bg-gradient-2">
+      <div
+        className="pt-11 pt-lg-26 pb-lg-16"
+        data-aos="fade-left"
+        data-aos-duration="800"
+        data-aos-delay="500"
+      >
         <div className="container">
-          <hr className="pt-13 pt-lg-20" />
           {/* <!-- Section Top --> */}
-          <div className="row align-items-center justify-content-center">
+          <div className="row align-items-center pb-14">
             {/* <!-- Section Title --> */}
-            <div className="col-12 col-xl-6 col-lg-7 col-md-9">
-              <div className="text-center mb-12 mb-lg-17">
-                <h2 className="font-size-10 font-weight-bold mb-8">
-                  Explore by category
+            <div className="col-12 col-lg-6">
+              <div className="text-center text-lg-left mb-13 mb-lg-0">
+                <h2 className="font-size-9 font-weight-bold">
+                  {t('explore.exploreByCategory')}
                 </h2>
-                <p className="font-size-5 px-5 px-lg-7 px-xl-9 px-xxl-15 mb-6">
-                  Leverage agile frameworks to provide a robust synopsis for
-                  high level overviews to start.
-                </p>
               </div>
             </div>
+            {/* <!-- Section Button --> */}
+            <div className="col-12 col-lg-6">
+              <div className="text-center text-lg-right">
+                <Link to="/#" className="btn btn-outline-green text-uppercase">
+                  {t('explore.exploreAll')}
+                </Link>
+              </div>
+            </div>
+            {/* <!-- Section Button End --> */}
           </div>
           {/* <!-- End Section Top --> */}
-          <div
-            className="row justify-content-center"
-            data-aos="fade-right"
-            data-aos-duration="800"
-          >
+          <div className="row justify-content-center">
             {/* <!-- Single Category --> */}
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-blue square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-blue bg-blue-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-briefcase"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -54,9 +61,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-spray square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-spray bg-spray-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-headset"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -65,7 +72,7 @@ const Categories = () => {
                     Customer Service
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>235</span> Vacancy
                   </p>
                 </div>
               </Link>
@@ -75,9 +82,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-coral square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-coral bg-coral-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-layer-group"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -86,7 +93,7 @@ const Categories = () => {
                     Development
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>624</span> Vacancy
                   </p>
                 </div>
               </Link>
@@ -96,9 +103,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-red square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-red bg-red-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-pen-nib"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -107,7 +114,7 @@ const Categories = () => {
                     Design
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>174</span> Vacancy
                   </p>
                 </div>
               </Link>
@@ -117,9 +124,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-orange square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-orange bg-orange-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-rocket"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -128,7 +135,7 @@ const Categories = () => {
                     Marketing &amp; Management
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>268</span> Vacancy
                   </p>
                 </div>
               </Link>
@@ -138,9 +145,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-yellow square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-yellow bg-yellow-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-location-arrow"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -149,7 +156,7 @@ const Categories = () => {
                     Sales &amp; Communication
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>156</span> Vacancy
                   </p>
                 </div>
               </Link>
@@ -159,9 +166,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-turquoise square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-turquoise bg-turquoise-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="icon icon-sidebar-2"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -170,7 +177,7 @@ const Categories = () => {
                     Project Management
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>162</span> Vacancy
                   </p>
                 </div>
               </Link>
@@ -180,9 +187,9 @@ const Categories = () => {
             <div className="col-12 col-xl-3 col-lg-4 col-sm-6 col-xs-8">
               <Link
                 to="/#"
-                className="bg-white border border-color-2 rounded-4 pl-5 pt-10 pb-3 px-2 hover-shadow-2 mb-9 d-block w-100 text-center"
+                className="bg-white border border-color-2 rounded-4 pl-9 pt-10 pb-3 pr-7 hover-shadow-1 mb-9 d-block w-100"
               >
-                <div className="text-white bg-green square-70 rounded-4 mb-7 font-size-7 text-center mx-auto">
+                <div className="text-green bg-green-opacity-1 square-70 rounded-4 mb-7 font-size-7">
                   <i className="fa fa-user"></i>
                 </div>
                 {/* <!-- Category Content --> */}
@@ -191,24 +198,12 @@ const Categories = () => {
                     Human Resource{" "}
                   </h5>
                   <p className="font-size-4 font-weight-normal text-gray">
-                    <span>415</span> Vacancy
+                    <span>84</span> Vacancy
                   </p>
                 </div>
               </Link>
             </div>
             {/* <!-- End Single Category --> */}
-          </div>
-          <div className="row">
-            <div className="col-12">
-              <div className="text-center pt-5 pt-lg-13">
-                <Link
-                  to="/search-grid"
-                  className="btn btn-outline-black-2 btn-lg text-uppercase"
-                >
-                  Explore All
-                </Link>
-              </div>
-            </div>
           </div>
         </div>
       </div>

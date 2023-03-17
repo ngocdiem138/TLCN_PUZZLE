@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "gatsby";
 import { useTranslation } from 'react-i18next';
 
 const Categories = () => {
-  const { t, i18n } = useTranslation()
+  const { t, i18n } = useTranslation();
+  useEffect(()=>{});
   return (
     <>
       {/* <!-- Categories Area -->  */}
