@@ -7,7 +7,6 @@ import store from "./store";
 import { Provider } from "react-redux";
 import { I18nextProvider } from 'react-i18next'
 import i18n from './src/i18n';
-import './src/styles/global.css';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './src/helpers'
 

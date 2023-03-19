@@ -31,6 +31,10 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
             test: /@rehooks\/local-storage/,
             use: loaders.null(),
           },
+          {
+            test: /\.css$/,
+            use: [ 'style-loader', 'css-loader' ]
+          }
         ],
       },
     })

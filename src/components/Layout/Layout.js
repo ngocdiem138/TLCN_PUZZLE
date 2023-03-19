@@ -43,7 +43,7 @@ import "../../assets/fonts/fontawesome-5/css/all.css";
 
 import "../../scss/bootstrap.scss";
 import "../../scss/main.scss";
-
+import "../../pages/main.css";
 // import { IntlProvider, addLocaleData } from 'react-intl'
 
 // Locale data
