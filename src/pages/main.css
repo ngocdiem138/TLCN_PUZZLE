@@ -1718,7 +1718,7 @@ ol.comment-list li.comment {
     margin: 5px 25px 15px 0;
 }
 .sticky-top {
-    position: sticky;
+    /* position: sticky; */
     top: 100px;
     z-index: 99;
 }
