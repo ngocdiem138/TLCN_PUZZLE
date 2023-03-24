@@ -64,6 +64,7 @@ const BlogDetails = () => {
     console.log("sidebarTop",sidebarTop);
     console.log("scrollTop",scrollTop)
     const side_barEl = document.querySelector('.side-bar');
+    side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
     if (scrollTop >= sidebarHeight - windowHeight ) {
       // sidebarEl.style.top = -(sidebarHeight + sidebarTop - 100 - windowHeight).toString() + 'px';
       if(document.querySelector('.button-comment').getBoundingClientRect().bottom < windowHeight )
@@ -77,7 +78,7 @@ const BlogDetails = () => {
       console.log("side_barEl.style.bottom",side_barEl.style.bottom);
       console.log("a", document.querySelector('.button-comment').getBoundingClientRect().bottom);
       side_barEl.style.position = 'fixed';
-      side_barEl.style.width = sidebarEl.style.width;
+      
     }
     if (scrollTop < sidebarHeight - windowHeight)  {
       // sidebarEl.style.top = -(contentHeight + sidebarTop - 100 - windowHeight).toString() + 'px';

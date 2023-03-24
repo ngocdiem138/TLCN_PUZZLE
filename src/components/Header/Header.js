@@ -144,6 +144,11 @@ const Header = () => {
       label: t("header.support"),
       isExternal: true,
     },
+    {
+      name: "blog-grid",
+      label: t("header.blog"),
+      isExternal: true,
+    },
   ];
 
   return (

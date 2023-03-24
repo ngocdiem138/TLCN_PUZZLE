@@ -1826,6 +1826,51 @@ ol.comment-list li.comment {
     z-index: 999;
 }
 
+.blog-post {
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.blog-style-1 .dez-post-meta {
+    margin-bottom: 10px;
+    padding: 25px 5px 0;
+}
+
+.dez-post-meta ul {
+    margin: 0 -4px;
+    list-style: none;
+    text-transform: capitalize;
+    font-family: "Montserrat",sans-serif;
+}
+.dez-post-meta ul {
+    margin: 0 -4px;
+    list-style: none;
+    text-transform: capitalize;
+    font-family: "Montserrat",sans-serif;
+}
+.blog-style-1 .dez-post-title .post-title {
+    margin-top: 0;
+}
+.dez-post-title .post-title {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.font-20 {
+    font-size: 20px;
+}
+.dez-img-effect a {
+    width: 100%;
+    height: 100%;
+}
+.dez-post-text {
+    margin-bottom: 10px;
+}
+.dez-media img, .dez-post-media img {
+    width: 100%;
+    height: auto;
+}
+
+
 /* for devices smaller than 992px */
 @media screen and (max-width:992px) {
 
@@ -1895,4 +1940,12 @@ ol.comment-list li.comment {
         padding: 0!important;
     }
 
+}
+
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
 }
