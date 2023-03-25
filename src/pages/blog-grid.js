@@ -47,6 +47,13 @@ const BlogGrid = () => {
   }, [scrollTop]);
 
   useEffect(() => {
+    const sidebarEl = document.querySelector('.sidebar');
+    const side_barEl = document.querySelector('.side-bar');
+    side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
+  }, [sidebarWidth]);
+
+
+  useEffect(() => {
     if (!(sidebarTop + sidebarHeight)) return;
 
     window.addEventListener('scroll', isSticky);
