@@ -33,6 +33,7 @@ const BlogGrid = () => {
   const [contentTop, setContentTop] = useState(undefined);
   const [contentHeight, setContentHeight] = useState(undefined);
   const [scrollTop, setScrollTop] = useState(undefined);
+  const [screenSize, setScreenSize] = useState(undefined);
   useEffect(() => {
     setScrollTop(window.scrollY);
     const sidebarEl = document.querySelector('.side-bar').getBoundingClientRect();
@@ -46,16 +47,37 @@ const BlogGrid = () => {
 
   }, [scrollTop]);
 
+
   useEffect(() => {
-    const sidebarEl = document.querySelector('.sidebar');
-    const side_barEl = document.querySelector('.side-bar');
-    side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
-  }, [sidebarWidth]);
+    window.addEventListener("resize", () => {
+      setScreenSize(window.innerWidth);
+      const sidebarEl = document.querySelector('.sidebar');
+      const side_barEl = document.querySelector('.side-bar');
+      side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
+    });
+    if (getWidthByClassName('blog-content-container') - getWidthByClassName('masonry') <= 10) {
+      const side_barEl = document.querySelector('.side-bar');
+      side_barEl.style.position = 'relative';
+      side_barEl.style.bottom = '0px';
+      // side_barEl.style.paddingTop = '10rem';
+    } else {
+      isSticky();
+    }
+    return () => {
+      window.removeEventListener("resize", () => {
+        setScreenSize(window.innerWidth);
+      })
+    }
+
+  }, [screenSize]);
+
+  const getWidthByClassName = (id) => {
+    return document.querySelector('#' + id).getBoundingClientRect().width;
+  }
 
 
   useEffect(() => {
     if (!(sidebarTop + sidebarHeight)) return;
-
     window.addEventListener('scroll', isSticky);
     return () => {
       window.removeEventListener('scroll', isSticky);
@@ -63,6 +85,9 @@ const BlogGrid = () => {
   }, [scrollTop]);
 
   const isSticky = (e) => {
+    if (getWidthByClassName('blog-content-container') - getWidthByClassName('masonry') <= 10) {
+      return
+    };
     const sidebarEl = document.querySelector('.sidebar');
     setScrollTop(window.scrollY);
     const windowHeight = window.innerHeight;
@@ -71,6 +96,7 @@ const BlogGrid = () => {
     console.log("sidebarTop", sidebarTop);
     console.log("scrollTop", scrollTop)
     const side_barEl = document.querySelector('.side-bar');
+    // side_barEl.style.paddingTop = '0px';
     side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
     if (scrollTop >= sidebarHeight - windowHeight) {
       // sidebarEl.style.top = -(sidebarHeight + sidebarTop - 100 - windowHeight).toString() + 'px';
@@ -87,6 +113,7 @@ const BlogGrid = () => {
     if (scrollTop < sidebarHeight - windowHeight) {
       // sidebarEl.style.top = -(contentHeight + sidebarTop - 100 - windowHeight).toString() + 'px';
       side_barEl.style.position = 'relative';
+      side_barEl.style.bottom = '0px';
       // sidebarEl.classList.remove('is-sticky');
     }
   }
@@ -97,7 +124,7 @@ const BlogGrid = () => {
         <div className="jobDetails-section bg-default-1 pt-28 pt-lg-27 pb-xl-25 pb-12">
           <div className="container">
             <div className="row justify-content-center">
-              <div className="page-content bg-white" style={{"width":"100%"}}>
+              <div className="page-content bg-white" style={{ "width": "100%" }}>
                 <div className="dez-bnr-inr overlay-black-middle" style={{ backgroundImage: "url(../assets/image/banner/thum1.jpg)" }}>
                   <div className="container">
                     <div className="dez-bnr-inr-entry">
@@ -113,7 +140,7 @@ const BlogGrid = () => {
                 </div>
                 <div className="content-area">
                   <div className="container">
-                    <div className="row">
+                    <div className="row" id="blog-content-container">
                       <div className="col-lg-8 col-md-7 col-sm-12">
                         <div id="masonry" className="dez-blog-grid-3 row blog-content">
                           <div className="post card-container col-lg-6 col-md-6 col-sm-6">
@@ -381,7 +408,7 @@ const BlogGrid = () => {
                             </div>
                           </div>
                         </div>
-                        <div className="pagination-bx clearfix text-center">
+                        <div className="pagination-bx clearfix text-center" style={{padding: "5rem"}}>
                           <ul className="pagination">
                             <li className="previous"><a href="javascript:void(0);"><i className="ti-arrow-left"></i> Prev</a></li>
                             <li className="active"><a href="#">1</a></li>
