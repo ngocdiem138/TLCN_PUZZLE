@@ -10,7 +10,6 @@ import imgB1 from "../assets/image/l1/png/feature-brand-1.png";
 import imgF from "../assets/image/svg/icon-fire-rounded.svg";
 import iconL from "../assets/image/svg/icon-loaction-pin-black.svg";
 import iconS from "../assets/image/svg/icon-suitecase.svg";
-import iconC from "../assets/image/svg/icon-clock.svg";
 
 import styled from "styled-components";
 import { Range, getTrackBackground } from "react-range";

@@ -26,7 +26,6 @@ const defaultJobs = [
     { value: 4, label: "Backend Developer" },
     { value: 5, label: "Content Writer" },
 ];
-// const [listJob, setListJob] = useState([]);
 
 
 const DashboardInvoices = () => {

@@ -1,10 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FormControl, FormLabel, Grid, Input, Select } from '@chakra-ui/react';
-// import { UserServiceIml } from '../../actions/user-actions';
-// import Cover from '../Cover';
 import ReactJsAlert from "reactjs-alert";
 import { Container, Alert } from 'react-bootstrap';
-// import { logout } from '../../actions/auth-actions';
 import { logout } from '../actions/auth-actions';
 import { UserServiceIml } from '../actions/user-actions';
 import Cover from '../components/Cover';
@@ -105,19 +102,6 @@ const CompanySettings = () => {
         "link",
         "image",
     ];
-
-    // useEffect(() => {
-    //     EmployerServiceIml.getUserProfile().then((response) => {
-    //         if (response.data.errCode == "403") {
-    //             setShowError403(true);
-    //         } else {
-    //             setName(response.data.data.name);
-    //             setWebsite(response.data.data.website);
-    //             setImage(response.data.data.image);
-    //             setDescription(response.data.data.description);
-    //         }
-    //     });
-    // }, [])
 
 
     const handleSubmit = (event) => {

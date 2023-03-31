@@ -3,76 +3,61 @@ import { Tag, TagCloseButton, TagLabel, Accordion, AccordionButton, AccordionIco
 import { MdDelete } from 'react-icons/md';
 import { ExperienceServiceIml } from '../actions/user-actions';
 import PageWrapper from '../components/PageWrapper';
-import SidebarDashboard from '../components/SidebarDashboard';
 
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
-import { JobPostServiceIml } from '../actions/user-actions';
-import { SkillServiceIml } from '../actions/admin-actions';
 import { Alert } from 'react-bootstrap';
 
-// import './Experience.css'
-
 const Experience = () => {
-
+    const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
+    const [description, setDescription] = useState("");
     const [companyList, setCompanyList] = useState([])
     const [positionList, setPositionList] = useState([])
     const [skillList, setSkillList] = useState([])
     const [showError, setShowError] = useState(false)
     const [showError403, setShowError403] = useState(false)
     const [showSuccess, setShowSuccess] = useState(false)
-    useEffect(() => {
-        JobPostServiceIml.getAllCompany().then((response) => {
-            if (response.data.data) {
-                let companyList1 = []
-                response.data.data.forEach(element => {
-                    companyList1 = [...companyList1, { value: element.name, label: element.name }]
-                });
-                setCompanyList(companyList1);
-            }
-            else {
-
-            }
-        });
-        SkillServiceIml.getAllExtraInfoByType("position").then((response) => {
-            if (response.data.data) {
-                let positionList1 = []
-                response.data.data.forEach(element => {
-                    positionList1 = [...positionList1, { value: element.name, label: element.name }]
-                });
-                setPositionList(positionList1);
-            }
-            else {
-
-            }
-        });
-        SkillServiceIml.getAllExtraInfoByType("skill").then((response) => {
-            if (response.data.data) {
-                let skillList1 = []
-                response.data.data.forEach(element => {
-                    skillList1 = [...skillList1, { value: element.id, label: element.name }]
-                });
-                setSkillList(skillList1);
-            }
-            else {
-            }
-        });
-
-    }, []);
-
-
     const [paragraphList, setExperienceList] = useState([]);
-    useEffect(() => {
-        ExperienceServiceIml.getExperienceByCandidate().then((response) => {
-            // setExperienceList(response.data.data)
-            setMessage('')
-        });
-    }, []);
+
     const [message, setMessage] = useState("Update your paragraph experience on Puzzle! ADD NOW");
     const [selectedCompany, setSelectedCompany] = useState();
     const [selectedPosition, setSelectedPosition] = useState();
     const [selectedSkill, setSelectedSkill] = useState();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const modules = {
+        toolbar: [
+            [{ header: "1" }, { header: "2" }, { font: [] }],
+            [{ size: [] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+                { list: "ordered" },
+                { list: "bullet" },
+                { indent: "-1" },
+                { indent: "+1" },
+            ],
+            ["link", "image"],
+            ["clean"],
+        ],
+        clipboard: {
+            matchVisual: false,
+        },
+    };
+
+    const formats = [
+        "header",
+        "font",
+        "size",
+        "bold",
+        "italic",
+        "underline",
+        "strike",
+        "blockquote",
+        "list",
+        "bullet",
+        "indent",
+        "link",
+        "image",
+    ];
     const addMore = () => {
         setMessage("")
         setExperienceList([...paragraphList, {
@@ -265,12 +250,13 @@ const Experience = () => {
                                                         <AccordionPanel pb={4} minHeight={500}>
                                                             <HStack spacing={30} paddingTop={10}>
                                                                 <FormControl width="30%">
-                                                                    <CreatableSelect
-                                                                        isClearable={true}
-                                                                        isSearchable
-                                                                        onChange={(e) => { handleSelectChange("title", e.label, paragraph.id); setSelectedPosition(e); }}
-                                                                        value={{ value: paragraph.title, label: paragraph.title }}
-                                                                        options={positionList} />
+                                                                    <FormLabel>Paragraph title</FormLabel>
+                                                                    <Input
+                                                                        onChange={(e) => handleChange(e, paragraph.title)}
+                                                                        value={paragraph.title}
+                                                                        focusBorderColor="brand.blue"
+                                                                        type="text"
+                                                                        placeholder="Google" />
                                                                 </FormControl>
                                                                 <FormControl width="30%">
                                                                     <CreatableSelect
@@ -287,7 +273,58 @@ const Experience = () => {
                                                                     <option value='Freelance'>Freelance</option>
                                                                 </Select>
                                                             </HStack>
+                                                            <FormControl id="image">
+                                                                <FormLabel>Image</FormLabel>
+                                                                <Box h={60} w={60} margin='30px auto' padding={3} overflow="hidden">
+                                                                    <Image
+                                                                        w="full"
+                                                                        h="full"
+                                                                        objectFit="avatar"
+                                                                        src={avatarImage ? avatarImage : AvatarImg}
+                                                                        alt="Avatar"
+                                                                        style={{ "border-radius": "50%", "border": "6px solid white", "box-shadow": "0px 0px 0px 6px gray" }}
+                                                                    />
+                                                                    <Button
+                                                                        onClick={openChooseFile}
+                                                                        position="absolute"
+                                                                        top={60}
+                                                                        style={{ "marginRight": "50%" }}
+                                                                        variant="ghost"
+                                                                    >
+                                                                        <svg width="1.2em" fill="currentColor" viewBox="0 0 20 20">
+                                                                            <path
+                                                                                fillRule="evenodd"
+                                                                                clipRule="evenodd"
+                                                                                d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
+                                                                            />
+                                                                        </svg>
+                                                                        {/* <Text ml={2}>Change</Text> */}
+                                                                        <input ref={inputRef} type="file" onChange={handleChangeAvatar} hidden />
+                                                                    </Button>
+                                                                    <Modal isOpen={isOpen} onClose={onClose}>
+                                                                        <ModalOverlay />
+                                                                        <ModalContent>
+                                                                            <ModalHeader>Something went wrong</ModalHeader>
+                                                                            <ModalCloseButton />
+                                                                            <ModalBody>
+                                                                                <Text>File not supported!</Text>
+                                                                                <HStack mt={1}>
+                                                                                    <Text color="brand.cadet" fontSize="sm">
+                                                                                        Supported types:
+                                                                                    </Text>
+                                                                                    <Badge colorScheme="green">PNG</Badge>
+                                                                                    <Badge colorScheme="green">JPG</Badge>
+                                                                                    <Badge colorScheme="green">JPEG</Badge>
+                                                                                </HStack>
+                                                                            </ModalBody>
 
+                                                                            <ModalFooter>
+                                                                                <Button onClick={onClose}>Close</Button>
+                                                                            </ModalFooter>
+                                                                        </ModalContent>
+                                                                    </Modal>
+                                                                </Box>
+                                                            </FormControl>
                                                             <HStack spacing={30} mt={6}>
                                                                 <FormControl width="50%">
                                                                     <FormLabel htmlFor='startDate'>Start Date</FormLabel>
@@ -319,9 +356,17 @@ const Experience = () => {
 
                                                             </HStack>
                                                             <HStack spacing={30} mt={6}>
-                                                                <FormControl mt={3}>
-                                                                    <FormLabel htmlFor='description'>Description</FormLabel>
-                                                                    <Textarea className='input-field' width="95%" value={paragraph.description} onChange={(e) => handleChange(e, paragraph.id)} name='description' id='description' variant='filled' placeholder='Description...' />
+                                                                <FormControl id="description" style={{ "marginTop": "2vh" }}>
+                                                                    <FormLabel>Description</FormLabel>
+                                                                    <ReactQuill
+                                                                        style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
+                                                                        theme="snow"
+                                                                        onChange={(e) => handleChange(e, paragraph.description)}
+                                                                        value={paragraph.description}
+                                                                        modules={modules}
+                                                                        formats={formats}
+                                                                        placeholder="Write about company ....."
+                                                                    />
                                                                 </FormControl>
                                                             </HStack>
 

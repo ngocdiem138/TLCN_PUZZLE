@@ -8,13 +8,8 @@ import { useLocation } from "@reach/router";
 import { parse } from "query-string";
 
 import { JobPostServiceIml } from "../actions/user-actions";
-import { navigate } from '@reach/router';
 import { useState, useEffect } from "react";
-// import { experienceYear } from "../components/Sidebar/MenuData";
-// import { postTime } from "../components/Sidebar/MenuData";
 import { useTranslation } from 'react-i18next';
-import { REDIRECT_BASE_URL } from "../utils/constants/url";
-
 
 const SearchGrid = () => {
   const { t, i18n } = useTranslation()

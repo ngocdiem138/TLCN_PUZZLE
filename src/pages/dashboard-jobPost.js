@@ -14,13 +14,9 @@ import CreatableSelect, { useCreatable } from 'react-select/creatable';
 import { SkillServiceIml } from '../actions/admin-actions';
 import { Container, Alert } from 'react-bootstrap';
 import { Box, Button } from '@chakra-ui/react'
-// import dynamic from 'next/dynamic';
-// import "react-quill/dist/quill.snow.css";
-// import Editor from '../components/widgets/Editor';
 
 function DashboardJobPost() {
     const { t, i18n } = useTranslation()
-    // const Editor = useMemo(() => dynamic(() => import('../components/widgets/Editor'), { ssr: false }), []);
     const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
     const modules = {
         toolbar: [

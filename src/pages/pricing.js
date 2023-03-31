@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
 import { UserServiceIml } from "../actions/user-actions";
 import { useState } from "react";

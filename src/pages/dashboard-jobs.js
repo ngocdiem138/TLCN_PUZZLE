@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
-import { Select } from "../components/Core";
 import { JobPostServiceIml } from "../actions/user-actions";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -22,7 +21,6 @@ const DashboardJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [showError, setShowError] = useState(false);
   const [limitJob, setLimitJob] = useState(0);
-  // const [applicationAmount, setApplicationAmount] = useState(0);
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       if (response.data.errCode == "403") {

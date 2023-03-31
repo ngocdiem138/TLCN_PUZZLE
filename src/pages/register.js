@@ -2,8 +2,8 @@ import * as React from "react";
 import { Link } from "gatsby";
 import { API_BASE_URL } from "../utils/constants/url";
 import PageWrapper from "../components/PageWrapper";
-import { Container, Alert } from 'react-bootstrap';
-import { Box, Button } from '@chakra-ui/react'
+import { Alert } from 'react-bootstrap';
+import { Button } from '@chakra-ui/react'
 
 /** Presentation */
 import ErrorMessage from "../components/ErrorMessage"

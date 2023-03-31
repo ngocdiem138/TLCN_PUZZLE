@@ -3,14 +3,12 @@ import { Tag, TagCloseButton, TagLabel, Accordion, AccordionButton, AccordionIco
 import { MdDelete } from 'react-icons/md';
 import { ExperienceServiceIml } from '../actions/user-actions';
 import PageWrapper from '../components/PageWrapper';
-import SidebarDashboard from '../components/SidebarDashboard';
 
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
 import { JobPostServiceIml } from '../actions/user-actions';
 import { SkillServiceIml } from '../actions/admin-actions';
 import { Alert } from 'react-bootstrap';
 
-// import './Experience.css'
 
 const Experience = () => {
 

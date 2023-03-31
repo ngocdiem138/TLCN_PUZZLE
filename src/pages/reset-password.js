@@ -1,11 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
-import imgLogo from "../assets/image/logo-main.png";
-import imgError from "../assets/image/svg/heart.svg";
 import { UserServiceIml } from "../actions/user-actions";
-import { Container, Alert } from 'react-bootstrap';
-import { Box, Button } from '@chakra-ui/react';
+import { Alert } from 'react-bootstrap';
+import { Button } from '@chakra-ui/react';
 import { useLocation } from "@reach/router";
 import { parse } from "query-string";
 

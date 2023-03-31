@@ -25,6 +25,10 @@ const Hero = () => {
   const [error, setError] = useState("");
   const [success, setSucces] = useState("");
 
+  useEffect(()=>{
+      document.getElementById('titles').setAttribute('placeholder', t('job.title'));
+  }, [])
+
   const defaultCountries = [
     { id: 0, value: "", label: t('defaultCountries.selectCity') },
     { id: 1, value: "Tp Hồ Chí Minh", label: t('defaultCountries.HCM') },
@@ -100,7 +104,7 @@ const Hero = () => {
                         <input
                           className="form-control focus-reset pl-13"
                           type="text"
-                          id="keyword"
+                          id="titles"
                           value={title}
                           name="titles"
                           onChange={(e) => setTitle(e.target.value)}
@@ -122,7 +126,6 @@ const Hero = () => {
                           isSearchable={true}
                           value={defaultCountries[selectedOptions]}
                         />
-
 
                         <span className="h-100 w-px-50 pos-abs-tl d-flex align-items-center justify-content-center font-size-6">
                           <i className="icon icon-pin-3 text-primary font-weight-bold"></i>
