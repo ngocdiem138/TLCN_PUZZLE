@@ -12,21 +12,17 @@ import { API_BASE_URL } from '../utils/constants/url';
 const Paragraph = () => {
     const quillRef = useRef();
     const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
+    const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [categoryId, setCategoryId] = useState();
+    const [selectedCategory, setSelectedCategory] = useState();
     const [thumbnail, setThumbnail] = useState("");
-    const [paragraphImage, setParagraphImage] = useState("");
-    const [companyList, setCompanyList] = useState([])
-    const [positionList, setPositionList] = useState([])
-    const [skillList, setSkillList] = useState([])
-    const [showError, setShowError] = useState(false)
-    const [showError403, setShowError403] = useState(false)
-    const [showSuccess, setShowSuccess] = useState(false)
-    const [paragraphList, setParagraphList] = useState([]);
+    const [categoryList, setCategoryList] = useState([]);
+    const [tagList, setTagList] = useState([]);
+    const [showError, setShowError] = useState(false);
+    const [showError403, setShowError403] = useState(false);
+    const [showSuccess, setShowSuccess] = useState(false);
 
-    const [message, setMessage] = useState("Update your paragraph experience on Puzzle! ADD NOW");
-    const [selectedCompany, setSelectedCompany] = useState();
-    const [selectedPosition, setSelectedPosition] = useState();
-    const [selectedSkill, setSelectedSkill] = useState();
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
     const modules = useMemo(() => ({
@@ -92,67 +88,7 @@ const Paragraph = () => {
         "link",
         "image",
     ];
-    const addMore = () => {
-        setMessage("")
-        setParagraphList([...paragraphList, {
-            id: "-1",
-            title: "",
-            company: "",
-            positionImage: "",
-            startDate: "",
-            endDate: "",
-            description: "",
-            skills: "",
-        }]);
-        const skill = document.getElementById("skills")
-        if (skill) {
-            skill.value = ""
-        }
-
-    }
     const saveOrUpdate = () => {
-        paragraphList.map((paragraph) => {
-            paragraph.id == '-1' && paragraph.title != "" ? ParagraphServiceIml.createParagraph(paragraph).then((response) => {
-                if (response.data.errCode == "200" || response.data.errCode == null) {
-                    setShowError(false);
-                    setShowSuccess(true);
-                } else {
-                    setShowSuccess(false);
-                    setShowError(true);
-                }
-            }) : ParagraphServiceIml.updateParagraph(paragraph).then((response) => {
-                if (response.data.errCode == "200" || response.data.errCode == null) {
-                    setShowError(false);
-                    setShowSuccess(true);
-                } else {
-                    setShowSuccess(false);
-                    setShowError(true);
-                }
-            })
-        });
-    }
-
-    const handleChange = (e, id) => {
-        let { name, value } = e.target;
-        const updatedParagraphList2 = paragraphList.map((paragraph) => (
-            paragraph.id === id && startDate != -1 ? Object.assign(paragraph, { ["startDate"]: paragraph.endDate + " 00:00:00" }) : paragraph
-        ));
-        setParagraphList(updatedParagraphList2);
-        const updatedParagraphList1 = paragraphList.map((paragraph) => (
-            paragraph.id === id && endDate != -1 ? Object.assign(paragraph, { ["endDate"]: paragraph.endDate + " 00:00:00" }) : paragraph
-        ));
-        setParagraphList(updatedParagraphList1);
-        const updatedParagraphList = paragraphList.map((paragraph) => (
-            paragraph.id === id ? Object.assign(paragraph, { [name]: value }) : paragraph
-        ));
-        setParagraphList(updatedParagraphList);
-    }
-
-    const handleSelectChange = (name, value, id) => {
-        const updatedParagraphList = paragraphList.map((paragraph) => (
-            paragraph.id === id ? Object.assign(paragraph, { [name]: value }) : paragraph
-        ));
-        setParagraphList(updatedParagraphList);
     }
 
     const stringSkills = (skills) => {
@@ -163,19 +99,26 @@ const Paragraph = () => {
         return skillNameList.join(',');
     }
 
-    const deleteParagraph = (id) => {
-        setParagraphList(paragraphList.filter((elem) => elem.id !== id))
+    const getCategory = (category) => {
+        let arr = categoryList ? categoryList.split(',') : [];
+        let categoryOjectList = []
+        arr.forEach((element) => {
+            categoryOjectList = [...categoryOjectList, { value: element, label: element }]
+        })
+        return categoryOjectList;
     }
 
-    const [skill, setSkill] = useState("");
-
-    const deleteSkill = (skill, id) => {
-        const updatedParagraphList = paragraphList.map((paragraph) => (
-            paragraph.id === id ? Object.assign(paragraph, { ["skills"]: paragraph.skills.replace(skill + ',', '') }) : paragraph
-        ));
-
-        setParagraphList(updatedParagraphList);
+    const findCategory = (id) => {
+        categoryList.forEach((element) => {
+            if (element.value == id) {
+                setSelectedCategory(element)
+                return element;
+            }
+        })
     }
+
+
+    const [tag, setTag] = useState("");
 
     return (
         <>
@@ -199,7 +142,6 @@ const Paragraph = () => {
                                         Add new blog
                                     </h5>
                                     <div className="contact-form bg-white shadow-8 rounded-4 pl-sm-10 pl-4 pr-sm-11 pr-4 pt-15 pb-13">
-                                        {paragraphList == 0 ? null : <h3>{message}</h3>}
                                         {showError || showSuccess ?
                                             <Alert
                                                 variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
@@ -225,8 +167,8 @@ const Paragraph = () => {
                                                     </h4>
                                                 </FormLabel>
                                                 <Input
-                                                    // onChange={(e) => setName(e.target.value)}
-                                                    value={name}
+                                                    onChange={(e) => setTitle(e.target.value)}
+                                                    value={title}
                                                     focusBorderColor="brand.blue"
                                                     type="text"
                                                     placeholder="IT DEV" />
@@ -238,9 +180,9 @@ const Paragraph = () => {
                                                     isMulti
                                                     isClearable={true}
                                                     isSearchable
-                                                    // onChange={(e) => { handleSelectChange("skills", stringSkills(e), paragraph.id); setSelectedSkill(e); }}
-                                                    // value={getSkill(paragraph.skills)}
-                                                    options={skillList} />
+                                                    onChange={(e) => { setCategoryId(e.value); setSelectedCategory(e); e.__isNew__ == true ? redirectNewCompany() : console.log(categoryId, e) }}
+                                                    value={selectedCategory ? selectedCategory : findCategory(categoryId)}
+                                                    options={categoryList} />
                                             </FormControl>
                                         </HStack>
                                         <HStack spacing={30} paddingTop={10}>
@@ -280,7 +222,7 @@ const Paragraph = () => {
                                                         isSearchable
                                                         // onChange={(e) => { handleSelectChange("skills", stringSkills(e), paragraph.id); setSelectedSkill(e); }}
                                                         // value={getSkill(paragraph.skills)}
-                                                        options={skillList} />
+                                                        options={tagList} />
                                                 </FormControl>
                                             </HStack>
                                         </FormControl>
