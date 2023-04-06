@@ -4,17 +4,9 @@ import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
 import GlobalContext from "../context/GlobalContext";
 
-import imgP1 from "../assets/image/table-one-profile-image-1.png";
-import imgP2 from "../assets/image/table-one-profile-image-2.png";
-import imgP3 from "../assets/image/table-one-profile-image-3.png";
-import imgP4 from "../assets/image/table-one-profile-image-4.png";
-import imgP5 from "../assets/image/table-one-profile-image-5.png";
 import { useState } from "react";
 import { useEffect } from "react";
-import { EmployerServiceIml } from "../actions/admin-actions";
 import { JobPostServiceIml, UserServiceIml } from "../actions/user-actions";
-import CandidateProfile from "./candidate-profile-2";
-import ModalApplication from "../components/ModalApplication";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 import Paginate from "../helpers/Paginate";
