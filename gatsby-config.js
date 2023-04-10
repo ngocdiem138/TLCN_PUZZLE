@@ -21,6 +21,29 @@ module.exports = {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/app/*`] },
     },
+    {
+      resolve: 'gatsby-plugin-antd',
+      options: {
+        style: true,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-less',
+      options: {
+        strictMath: true,
+        lessOptions: {
+          javascriptEnabled: true,
+          modifyVars: {
+            'font-family': 'roboto-regular, Arial',
+            'primary-color': '#2f5785',
+          },
+        },
+      },
+    },
+    // this (optional) plugin enables Progressive Web App + Offline functionality
+    // To learn more, visit: https://gatsby.dev/offline
+    // `gatsby-plugin-offline`,
+    'gatsby-plugin-pnpm',
     
   ],
 };

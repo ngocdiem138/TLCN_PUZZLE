@@ -22,7 +22,19 @@ exports.onCreatePage = ({ page, actions }) => {
   }
 };
 
-exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
+exports.onCreateWebpackConfig = ({ stage, loaders, actions, getConfig }) => {
+  const config = getConfig();
+
+  if (config.resolve) {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, 'src'),
+    };
+  } else {
+    config.resolve = {
+      alias: { '@': path.resolve(__dirname, 'src') },
+    };
+  }
   if (stage === 'develop-html' || stage === 'build-html') {
     actions.setWebpackConfig({
       module: {

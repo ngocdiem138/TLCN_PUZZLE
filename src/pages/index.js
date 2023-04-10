@@ -24,7 +24,7 @@ const IndexPage = () => {
         <Content2 />
         <Brands />
       </PageWrapper>
-      </I18nextProvider>
+    </I18nextProvider>
     </>
   );
 };

@@ -1,4 +1,15 @@
 {
-    "presets": ["next/babel"],
-    "plugins": [["styled-components", { "ssr": true }]]
+    "presets": ["next/babel", "@babel/preset-env", "@babel/preset-typescript", "@babel/react"],
+    "plugins": [
+      ["styled-components", { "ssr": true }], 
+      "@babel/plugin-proposal-class-properties",
+      [
+        "import",
+        {
+          "libraryName": "antd",
+          "style": "less"
+        },
+        "antd"
+      ]
+  ]
   }
