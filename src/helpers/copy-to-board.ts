@@ -11,6 +11,6 @@ export function copyToClipboard(text: string) {
   const result = document.execCommand('copy');
   document.body.removeChild(dummy);
   if (result) {
-    message.success('复制成功');
+    message.success('Copy successfully');
   }
 }

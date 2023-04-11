@@ -15,7 +15,7 @@ import _ from 'lodash-es';
 import arrayMove from 'array-move';
 import { FormCreator } from '../FormCreator';
 import { getDefaultTitleNameMap } from '../../data/constant';
-import { FormattedMessage, useIntl } from 'react-intl';
+// import { FormattedMessage, useIntl } from 'gatsby-plugin-intl';
 import { MODULES, CONTENT_OF_MODULE } from '../../helpers/contant';
 import type { ResumeConfig, ThemeConfig } from '../types';
 import { ConfigTheme } from './ConfigTheme';
@@ -43,7 +43,6 @@ const DragableRow = ({ index, moveRow, ...restProps }) => {
   const [{ isOver, dropClassName }, drop] = useDrop({
     accept: type,
     collect: monitor => {
-      // @ts-ignore
       const { index: dragIndex } = monitor.getItem() || {};
       if (dragIndex === index) {
         return {};
@@ -55,7 +54,6 @@ const DragableRow = ({ index, moveRow, ...restProps }) => {
       };
     },
     drop: item => {
-      // @ts-ignore
       moveRow(item.index, index);
     },
   });
@@ -78,20 +76,13 @@ const DragableRow = ({ index, moveRow, ...restProps }) => {
   );
 };
 
-/**
- * @description 简历配置区
- */
+
 export const Drawer: React.FC<Props> = props => {
-  const intl = useIntl();
 
   const [visible, setVisible] = useState(false);
   const [childrenDrawer, setChildrenDrawer] = useState(null);
   const [currentContent, updateCurrentContent] = useState(null);
 
-  /**
-   * 1. 更新currentContent State
-   * 2. 调用 props.onValueChange 更新模板
-   */
   const updateContent = useThrottle(
     v => {
       const newConfig = _.merge({}, currentContent, v);
@@ -122,14 +113,14 @@ export const Drawer: React.FC<Props> = props => {
 
   const modules = useMemo(() => {
     const titleNameMap = props.value?.titleNameMap;
-    return MODULES({ intl, titleNameMap });
-  }, [intl, props.value?.titleNameMap]);
+    return MODULES({ titleNameMap });
+  }, [props.value?.titleNameMap]);
 
   const contentOfModule = useMemo(() => {
-    return CONTENT_OF_MODULE({ intl });
-  }, [intl]);
+    return CONTENT_OF_MODULE();
+  }, []);
 
-  const DEFAULT_TITLE_MAP = getDefaultTitleNameMap({ intl });
+  const DEFAULT_TITLE_MAP =" getDefaultTitleNameMap({ intl })";
   const isList = _.endsWith(childrenDrawer, 'List');
 
   // #region 1 render: moduleContent
@@ -182,7 +173,7 @@ export const Drawer: React.FC<Props> = props => {
         <DeleteFilled
           onClick={() => {
             Modal.confirm({
-              content: intl.formatMessage({ id: '确认删除' }),
+              content:"Confirm delete",
               onOk: () => deleteItem(key, idx),
             });
           }}
@@ -203,7 +194,7 @@ export const Drawer: React.FC<Props> = props => {
                   updateCurrentContent(null);
                 }}
               >
-                <FormattedMessage id="继续添加" />
+                {"Continue add"}
               </div>
             </div>
           </Panel>
@@ -301,10 +292,11 @@ export const Drawer: React.FC<Props> = props => {
         onClick={() => setVisible(true)}
         style={props.style}
       >
-        <FormattedMessage id="进行配置" />
+        {"Enter config"}
         <Popover
           content={
-            <FormattedMessage id="移动端模式下，只支持预览，不支持配置" />
+            <></>
+            
           }
         >
           <InfoCircleFilled style={{ marginLeft: '4px' }} />
@@ -314,10 +306,10 @@ export const Drawer: React.FC<Props> = props => {
         title={
           <Radio.Group value={type} onChange={e => setType(e.target.value)}>
             <Radio.Button value="template">
-              <FormattedMessage id="选择模板" />
+              {"Choose template"}
             </Radio.Button>
             <Radio.Button value="module">
-              <FormattedMessage id="配置简历" />
+              {"Config resume"}
             </Radio.Button>
           </Radio.Group>
         }

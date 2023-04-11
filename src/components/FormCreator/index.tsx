@@ -97,7 +97,7 @@ export const FormCreator: React.FC<Props> = props => {
         {props.isList && (
           <Form.Item wrapperCol={{ offset: 6 }}>
             <Button type="primary" htmlType="submit">
-              <FormattedMessage id="提交" />
+              {'Submit'}
             </Button>
           </Form.Item>
         )}

@@ -1,11 +1,11 @@
-import { useIntl } from 'react-intl';
+// import { useIntl } from 'gatsby-plugin-intl';
 import { message } from 'antd';
 import type { ResumeConfig } from '../components/types';
 import { customAssign } from '../helpers/customAssign';
 import _ from 'lodash-es';
 import { RESUME_INFO } from '../data/resume';
 import { fetchResume } from './fetch-resume';
-import { intl } from '../i18n';
+// import { intl } from '../i18n';
 
 export const LOCAL_KEY = user => `${user ?? ''}resume-config`;
 
@@ -27,7 +27,7 @@ export async function getConfig(
   }
 
   return fetchResume(lang, branch, user).catch(() => {
-    message.warn(intl.formatMessage({ id: '从模板中获取' }), 1);
+    // message.warn(intl.formatMessage({ id: '从模板中获取' }), 1);
     return _.omit(
       customAssign({}, RESUME_INFO, _.get(RESUME_INFO, ['locales', lang])),
       ['locales']
@@ -37,11 +37,11 @@ export async function getConfig(
 
 export const saveToLocalStorage = _.throttle(
   (user: string, config: ResumeConfig) => {
-    const intl = useIntl();
+    // const intl = useIntl();
 
     if (typeof localStorage !== 'undefined') {
       localStorage.setItem(LOCAL_KEY(user), JSON.stringify(config));
-      message.success(intl.formatMessage({ id: '已缓存在本地' }), 0.65);
+      // message.success(intl.formatMessage({ id: '已缓存在本地' }), 0.65);
     }
   },
   5000

@@ -7,6 +7,7 @@ import { Provider } from "react-redux";
 import store from "./store";
 // import { BrowserRouter } from 'react-router-dom';
 // import App from "./src/pages/App/App";
+import { IntlProvider } from 'react-intl';
 
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get
@@ -15,12 +16,14 @@ export const wrapPageElement = ({ element, props }) => {
 };
 
 export const wrapRootElement = ({ element }) => (
-  <GlobalProvider>
-    <Provider store={store}>
-      <CartProvider>{element}</CartProvider>
-      {/* <BrowserRouter>
+  <IntlProvider locale="en">
+    <GlobalProvider>
+      <Provider store={store}>
+        <CartProvider>{element}</CartProvider>
+        {/* <BrowserRouter>
         <App />
       </BrowserRouter> */}
-    </Provider>
-  </GlobalProvider>
+      </Provider>
+    </GlobalProvider>
+  </IntlProvider>
 );

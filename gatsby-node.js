@@ -1,7 +1,15 @@
 const path = require('path');
+const replacePath = (path) => (path === '/' ? path : path.replace(/\/$/, ''))
 // const locales = require('./src/utils/constants/locales')
-exports.onCreatePage = ({ page, actions }) => {
+exports.onCreatePage = async ({ page, actions })  => {
   const { createPage, deletePage } = actions;
+
+  const oldPage = Object.assign({}, page)
+  page.path = replacePath(page.path)
+  if (page.path !== oldPage.path) {
+    await deletePage(oldPage)
+    await createPage(page)
+  }
 
   if (page.path.match(/404/)) {
     page.context.layout = "bare";

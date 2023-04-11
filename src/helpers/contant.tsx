@@ -18,55 +18,55 @@ import type { ResumeConfig } from '../components/types';
  * ② 后续支持添加自定义模块
  */
 export const MODULES = ({
-  intl,
+  // intl,
   titleNameMap,
 }: {
-  intl: any;
+  // intl: any;
   titleNameMap?: ResumeConfig['titleNameMap'];
 }) => {
   return [
     {
-      name: intl.formatMessage({ id: '头像设置' }),
+      name: 'Avatar',
       icon: <ContactsTwoTone />,
       key: 'avatar',
     },
     {
-      name: intl.formatMessage({ id: '个人信息' }),
+      name: 'Personal information',
       icon: <ProfileTwoTone />,
       key: 'profile',
     },
     {
-      name: intl.formatMessage({ id: '教育背景' }),
+      name: 'Educational background',
       icon: <ScheduleTwoTone />,
       key: 'educationList',
     },
     {
-      name: intl.formatMessage({ id: '自我介绍' }),
+      name: 'Introduction',
       icon: <SmileTwoTone />,
       key: 'aboutme',
     },
     {
-      name: intl.formatMessage({ id: '更多信息' }),
+      name: 'More information',
       icon: <TrophyTwoTone />,
       key: 'awardList',
     },
     {
-      name: intl.formatMessage({ id: '个人作品' }),
+      name: 'Personal works',
       icon: <ToolTwoTone />,
       key: 'workList',
     },
     {
-      name: intl.formatMessage({ id: '专业技能' }),
+      name: 'Professional skills',
       icon: <RocketTwoTone />,
       key: 'skillList',
     },
     {
-      name: intl.formatMessage({ id: '工作经历' }),
+      name: 'Work experience',
       icon: <TagsTwoTone />,
       key: 'workExpList',
     },
     {
-      name: intl.formatMessage({ id: '项目经历' }),
+      name: 'Project experience',
       icon: <ProjectTwoTone />,
       key: 'projectList',
     },
@@ -81,13 +81,13 @@ export const MODULES = ({
 /**
  * 模块对应配置内容
  */
-export const CONTENT_OF_MODULE = ({ intl }) => {
+export const CONTENT_OF_MODULE = () => {
   return {
     avatar: [
       {
         type: 'checkbox',
         attributeId: 'hidden',
-        displayName: intl.formatMessage({ id: '隐藏头像' }),
+        displayName: "Hide avatar",
         formItemProps: {
           valuePropName: 'checked',
         },
@@ -98,12 +98,12 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
       {
         type: 'select',
         attributeId: 'shape',
-        displayName: intl.formatMessage({ id: '头像形状' }),
+        displayName: "Avatar shape",
         cfg: {
           defaultValue: 'circle',
           options: [
-            { value: 'circle', label: intl.formatMessage({ id: '圆形' }) },
-            { value: 'square', label: intl.formatMessage({ id: '方形' }) },
+            { value: 'circle', label: "circle" },
+            { value: 'square', label: "square" },
           ],
         },
       },
@@ -112,13 +112,13 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
       {
         type: 'input',
         attributeId: 'name',
-        displayName: intl.formatMessage({ id: '姓名' }),
+        displayName: 'Fullname',
         formItemProps: { rules: [{ required: true }] },
       },
       {
         type: 'input',
         attributeId: 'mobile',
-        displayName: intl.formatMessage({ id: '手机号码' }),
+        displayName: 'Mobile',
         formItemProps: {
           rules: [
             { required: true, message: 'Please input your phone number!' },
@@ -128,7 +128,7 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
       {
         type: 'input',
         attributeId: 'email',
-        displayName: intl.formatMessage({ id: '邮箱' }),
+        displayName: 'Email',
         formItemProps: {
           rules: [{ required: true, message: 'Please input your email!' }],
         },
@@ -136,84 +136,84 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
       {
         type: 'input',
         attributeId: 'github',
-        displayName: intl.formatMessage({ id: 'Github' }),
+        displayName: 'Github',
         cfg: {
           placeholder: 'Please input your github account, optional',
         },
       },
       {
         type: 'input',
-        attributeId: 'zhihu',
-        displayName: intl.formatMessage({ id: '知乎' }),
+        attributeId: 'linkedin',
+        displayName: 'Linkedin',
         cfg: {
           placeholder:
-            'Please input the link to visit your zhihu account, optional',
+            'Please input the link to visit your linkedin account, optional',
         },
       },
       {
         type: 'input',
         attributeId: 'workExpYear',
-        displayName: intl.formatMessage({ id: '工作经验' }),
+        displayName: 'Work experience',
       },
       {
         type: 'input',
         attributeId: 'workPlace',
-        displayName: intl.formatMessage({ id: '期望工作地' }),
+        displayName: 'Work space',
       },
       {
         type: 'input',
         attributeId: 'positionTitle',
-        displayName: intl.formatMessage({ id: '职位' }),
+        displayName: 'Position title',
       },
     ],
     educationList: [
       {
         type: 'input',
         attributeId: 'edu_time',
-        displayName: intl.formatMessage({ id: '起始时间' }),
+        displayName: 'Start time',
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
+        cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'school',
-        displayName: intl.formatMessage({ id: '学校' }),
+        // displayName: intl.formatMessage({ id: '学校' }),
         formItemProps: { rules: [{ required: true }] },
       },
       {
         type: 'input',
         attributeId: 'major',
-        displayName: intl.formatMessage({ id: '专业' }),
+        // displayName: intl.formatMessage({ id: '专业' }),
       },
     ],
     projectList: [
       {
         type: 'input',
         attributeId: 'project_time',
-        displayName: intl.formatMessage({ id: '起止时间' }),
+        // displayName: intl.formatMessage({ id: '起止时间' }),
         formItemProps: { rules: [{ required: true }] },
         // cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'project_name',
-        displayName: intl.formatMessage({ id: '项目名称' }),
+        // displayName: intl.formatMessage({ id: '项目名称' }),
       },
       {
         type: 'input',
         attributeId: 'project_role',
-        displayName: intl.formatMessage({ id: '担任角色' }),
+        // displayName: intl.formatMessage({ id: '担任角色' }),
       },
       {
         type: 'textArea',
         attributeId: 'project_desc',
-        displayName: intl.formatMessage({ id: '项目描述' }),
+        // displayName: intl.formatMessage({ id: '项目描述' }),
         cfg: { autoSize: { minRows: 8 }, showCount: true },
       },
       {
         type: 'textArea',
         attributeId: 'project_content',
-        displayName: intl.formatMessage({ id: '主要工作' }),
+        // displayName: intl.formatMessage({ id: '主要工作' }),
         cfg: {
           autoSize: { minRows: 8 },
           showCount: true,
@@ -227,54 +227,54 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
       {
         type: 'input',
         attributeId: 'work_time',
-        displayName: intl.formatMessage({ id: '起止时间' }),
+        // displayName: intl.formatMessage({ id: '起止时间' }),
         formItemProps: { rules: [{ required: true }] },
         // cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'company_name',
-        displayName: intl.formatMessage({ id: '公司名称' }),
+        // displayName: intl.formatMessage({ id: '公司名称' }),
         formItemProps: { rules: [{ required: true }] },
       },
       {
         type: 'input',
         attributeId: 'department_name',
-        displayName: intl.formatMessage({ id: '部门' }),
+        // displayName: intl.formatMessage({ id: '部门' }),
       },
       {
         type: 'textArea',
         attributeId: 'work_desc',
-        displayName: intl.formatMessage({ id: '职位或描述' }),
+        // displayName: intl.formatMessage({ id: '职位或描述' }),
       },
     ],
     workList: [
       {
         type: 'input',
         attributeId: 'work_name',
-        displayName: intl.formatMessage({ id: '作品名称' }),
+        // displayName: intl.formatMessage({ id: '作品名称' }),
       },
       {
         type: 'input',
         attributeId: 'work_desc',
-        displayName: intl.formatMessage({ id: '作品描述' }),
+        // displayName: intl.formatMessage({ id: '作品描述' }),
       },
       {
         type: 'input',
         attributeId: 'visit_link',
-        displayName: intl.formatMessage({ id: '作品链接' }),
+        // displayName: intl.formatMessage({ id: '作品链接' }),
       },
     ],
     skillList: [
       {
         type: 'input',
         attributeId: 'skill_name',
-        displayName: intl.formatMessage({ id: '技能项' }),
+        // displayName: intl.formatMessage({ id: '技能项' }),
       },
       {
         type: 'number',
         attributeId: 'skill_level',
-        displayName: intl.formatMessage({ id: '掌握程度' }),
+        // displayName: intl.formatMessage({ id: '掌握程度' }),
         cfg: {
           step: 20,
           min: 0,
@@ -286,21 +286,21 @@ export const CONTENT_OF_MODULE = ({ intl }) => {
       {
         type: 'textArea',
         attributeId: 'skill_desc',
-        displayName: intl.formatMessage({ id: '技能描述' }),
+        // displayName: intl.formatMessage({ id: '技能描述' }),
       },
     ],
     awardList: [
       {
         type: 'input',
         attributeId: 'award_time',
-        displayName: intl.formatMessage({ id: '获奖时间' }),
+        // displayName: intl.formatMessage({ id: '获奖时间' }),
         formItemProps: { rules: [{ required: true }] },
         // cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'award_info',
-        displayName: intl.formatMessage({ id: '奖项内容' }),
+        // displayName: intl.formatMessage({ id: '奖项内容' }),
         formItemProps: { rules: [{ required: true }] },
       },
     ],

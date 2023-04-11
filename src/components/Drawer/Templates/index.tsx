@@ -1,7 +1,7 @@
 import React from 'react';
 import { ReactSVG } from 'react-svg';
 import cx from 'classnames';
-import { useIntl } from 'react-intl';
+// import { useIntl } from 'gatsby-plugin-intl';
 import './index.less';
 
 type Props = {
@@ -13,23 +13,23 @@ const TEMPLATES = [
   {
     url: 'https://gw.alipayobjects.com/zos/antfincdn/GLDkiGBSPl/moban1.svg',
     id: 'template1',
-    description: '默认模板(适用于单页)',
+    description: 'Default template (for single page)',
   },
   {
     url: 'https://gw.alipayobjects.com/zos/antfincdn/RGxVcJ2O3q/moban2.svg',
     id: 'template2',
-    description: '简易模板',
+    description: 'Simple template',
   },
   {
     url: 'https://gw.alipayobjects.com/zos/antfincdn/Kn2jUKcBme/moban2.svg',
     id: 'template3',
-    description: '简易模板(适用于多页)',
+    description: 'Simple template (suitable for multiple pages)',
     disabled: false,
   },
 ];
 
 export const Templates: React.FC<Props> = props => {
-  const intl = useIntl();
+  // const intl = useIntl();
 
   return (
     <div className="templates">
@@ -51,7 +51,7 @@ export const Templates: React.FC<Props> = props => {
             />
             <span className="template-id">{item.id}</span>
             <span className="template-description">
-              {intl.formatMessage({ id: item.description })}
+              {item.description}
             </span>
           </div>
         );

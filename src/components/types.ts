@@ -14,7 +14,7 @@ export type ResumeConfig = {
     mobile?: string;
     email?: string;
     github?: string;
-    zhihu?: string;
+    linkedin?: string;
     /** 工作经验 xx 年 */
     workExpYear?: string;
     /** 期望工作地 */

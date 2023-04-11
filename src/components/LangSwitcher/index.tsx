@@ -5,12 +5,12 @@ import qs from 'query-string';
 // import { getLanguage } from '../i18n';
 import { getMode } from '../../hooks/useModeSwitcher';
 import './index.less';
-import { useIntl } from 'react-intl';
+// import { useIntl } from 'gatsby-plugin-intl';
 
 export const LangSwitcher = ({ className }: { className?: string }) => {
   // const lang = getLanguage();
   const mode = getMode();
-  const intl = useIntl();
+  // const intl = useIntl();
 
   const changeLanguage = value => {
     // if (value === lang) return;
@@ -52,9 +52,7 @@ export const LangSwitcher = ({ className }: { className?: string }) => {
     <div className={cx('language-switcher', className)}>
       {mode === 'edit' ? (
         <Popover
-          content={intl.formatMessage({
-            id: '编辑模式下, 切换国际化会导致正在配置的内容丢失，请及时保存',
-          })}
+          content="编辑模式下, 切换国际化会导致正在配置的内容丢失，请及时保存"
           placement="left"
         >
           {RadioContent}

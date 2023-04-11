@@ -4,7 +4,7 @@ import {
   PhoneFilled,
   MailFilled,
   GithubFilled,
-  ZhihuCircleFilled,
+  LinkedinFilled,
   CheckCircleFilled,
   ScheduleFilled,
   EnvironmentFilled,
@@ -13,7 +13,7 @@ import {
 } from '@ant-design/icons';
 import cx from 'classnames';
 import _ from 'lodash-es';
-import { FormattedMessage, useIntl } from 'react-intl';
+// import { FormattedMessage, useIntl } from 'gatsby-plugin-intl';
 import { getDefaultTitleNameMap } from '@/data/constant';
 import { Avatar } from '../../Avatar';
 import type { ResumeConfig, ThemeConfig } from '../../types';
@@ -40,7 +40,7 @@ const Wrapper = ({ className, title, color, children }) => {
  * @description 简历内容区
  */
 export const Template2: React.FC<Props> = props => {
-  const intl = useIntl();
+  // const intl = useIntl();
   const { value, theme } = props;
 
   /** 个人基础信息 */
@@ -49,7 +49,7 @@ export const Template2: React.FC<Props> = props => {
   const titleNameMap = _.get(
     value,
     'titleNameMap',
-    getDefaultTitleNameMap({ intl })
+    // getDefaultTitleNameMap({ intl })
   );
 
   /** 教育背景 */
@@ -105,18 +105,18 @@ export const Template2: React.FC<Props> = props => {
                   </span>
                 </div>
               )}
-              {profile?.zhihu && (
+              {profile?.linkedin && (
                 <div className="github">
-                  <ZhihuCircleFilled
+                  <LinkedinFilled
                     style={{ color: theme.color, opacity: 0.85 }}
                   />
                   <span
                     style={{ cursor: 'pointer' }}
                     onClick={() => {
-                      window.open(profile.zhihu);
+                      window.open(profile.linkedin);
                     }}
                   >
-                    {profile.zhihu}
+                    {profile.linkedin}
                   </span>
                 </div>
               )}
@@ -126,7 +126,7 @@ export const Template2: React.FC<Props> = props => {
                     style={{ color: theme.color, opacity: 0.85 }}
                   />
                   <span>
-                    <FormattedMessage id="工作经验" />: {profile.workExpYear}
+                  {"Work experience"}: {profile.workExpYear}
                   </span>
                 </div>
               )}
@@ -136,7 +136,7 @@ export const Template2: React.FC<Props> = props => {
                     style={{ color: theme.color, opacity: 0.85 }}
                   />
                   <span>
-                    <FormattedMessage id="期望工作地" />: {profile.workPlace}
+                  {"Work space"}: {profile.workPlace}
                   </span>
                 </div>
               )}
@@ -144,13 +144,12 @@ export const Template2: React.FC<Props> = props => {
                 <div className="expect-job">
                   <HeartFilled style={{ color: theme.color, opacity: 0.85 }} />
                   <span>
-                    <FormattedMessage id="职位" />: {profile.positionTitle}
+                  {"Position title"}: {profile.positionTitle}
                   </span>
                 </div>
               )}
             </div>
           </div>
-          {/* 头像 */}
           {!value?.avatar?.hidden && (
             <Avatar
               avatarSrc={value?.avatar?.src}
@@ -161,11 +160,10 @@ export const Template2: React.FC<Props> = props => {
           )}
         </div>
         {/* </Wrapper> */}
-        {/* 教育背景 */}
         {educationList?.length ? (
           <Wrapper
             // title=<FormattedMessage id="教育背景" />
-            title={titleNameMap.educationList}
+            title={"Educational background"}
             className="section section-education"
             color={theme.color}
           >
@@ -190,7 +188,7 @@ export const Template2: React.FC<Props> = props => {
                     </span>
                     <span className="sub-info" style={{ float: 'right' }}>
                       {start}
-                      {end ? ` ~ ${end}` : ' 至今'}
+                      {end ? ` ~ ${end}` : " to present"}
                     </span>
                   </div>
                 </div>
@@ -200,8 +198,7 @@ export const Template2: React.FC<Props> = props => {
         ) : null}
         {workList?.length ? (
           <Wrapper
-            // title=<FormattedMessage id="个人作品" />
-            title={titleNameMap.workList}
+            title={"Personal works"}
             className="section section-work"
             color={theme.color}
           >
@@ -214,7 +211,7 @@ export const Template2: React.FC<Props> = props => {
                     />
                     <b className="info-name">{work.work_name}</b>
                     <a className="sub-info" href={work.visit_link}>
-                      <FormattedMessage id="访问链接" />
+                      {"link"}
                     </a>
                   </div>
                   {work.work_desc && <div>{work.work_desc}</div>}
@@ -224,7 +221,7 @@ export const Template2: React.FC<Props> = props => {
           </Wrapper>
         ) : null}
         <Wrapper
-          title={<FormattedMessage id="自我介绍" />}
+          title={"Introduction"}
           className="section section-aboutme"
           color={theme.color}
         >
@@ -235,8 +232,7 @@ export const Template2: React.FC<Props> = props => {
         {/* 专业技能 */}
         {skillList?.length ? (
           <Wrapper
-            // title=<FormattedMessage id="专业技能" />
-            title={titleNameMap.skillList}
+            title={"Professional skills"}
             className="section section-skill"
             color={theme.color}
           >
@@ -292,8 +288,7 @@ export const Template2: React.FC<Props> = props => {
         {workExpList?.length ? (
           <Wrapper
             className="experience"
-            // title=<FormattedMessage id="工作经历" />
-            title={titleNameMap.workExpList}
+            title="Work experience"
             color={theme.color}
           >
             <div className="section section-work-exp">
@@ -309,7 +304,7 @@ export const Template2: React.FC<Props> = props => {
                       </b>
                       <span className="info-time">
                         {start}
-                        {end ? ` ~ ${end}` : <FormattedMessage id=" 至今" />}
+                        {end ? ` ~ ${end}` : " to present"}
                       </span>
                     </div>
                     <div className="work-description">{work.work_desc}</div>
@@ -322,8 +317,7 @@ export const Template2: React.FC<Props> = props => {
         {projectList?.length ? (
           <Wrapper
             className="skill"
-            // title=<FormattedMessage id="项目经历" />
-            title={titleNameMap.projectList}
+            title={"Project experience"}
             color={theme.color}
           >
             <div className="section section-project">
@@ -343,13 +337,13 @@ export const Template2: React.FC<Props> = props => {
                     </div>
                     <div className="section-detail">
                       <span>
-                        <FormattedMessage id="项目描述" />：
+                        {"Description: "}
                       </span>
                       <span>{project.project_desc}</span>
                     </div>
                     <div className="section-detail">
                       <span>
-                        <FormattedMessage id="主要工作" />：
+                          {"Main work: "}
                       </span>
                       <span className="project-content">
                         {project.project_content}

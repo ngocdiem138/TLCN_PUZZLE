@@ -4,7 +4,7 @@ import type { RcFile } from 'antd/lib/upload';
 import _ from 'lodash-es';
 import qs from 'query-string';
 import jsonUrl from 'json-url';
-import { FormattedMessage, useIntl } from 'react-intl';
+// import { FormattedMessage, useIntl } from 'gatsby-plugin-intl';
 // import { getLanguage } from '../i18n';
 import { useModeSwitcher } from '../hooks/useModeSwitcher';
 import { getDefaultTitleNameMap } from '../data/constant';
@@ -25,7 +25,7 @@ const codec = jsonUrl('lzma');
 
 export const Page: React.FC = () => {
   const lang = 'zh-CN';
-  const intl = useIntl();
+  // const intl = useIntl();
   const user = getSearchObj().user || 'visiky';
 
   const [, mode, changeMode] = useModeSwitcher({});
@@ -73,7 +73,7 @@ export const Page: React.FC = () => {
 
   const changeConfig = (v: Partial<ResumeConfig>) => {
     setConfig(
-      _.assign({}, { titleNameMap: getDefaultTitleNameMap({ intl }) }, v)
+      _.assign({}, { titleNameMap: {} }, v)
     );
   };
 
@@ -93,19 +93,17 @@ export const Page: React.FC = () => {
     }
 
     if (!mode) {
-      const link = `https://github.com/${user}/${user}/tree/${branch}`;
       fetchResume(lang, branch, user)
         .then(data => store(data))
         .catch(() => {
           Modal.info({
-            title: <FormattedMessage id="获取简历信息失败" />,
+            title: "",
             content: (
               <div>
-                请检查用户名 {user} 是否正确或者简历信息是否在
-                <a href={link} target="_blank">{`${link}/resume.json`}</a>下
+                You want to create a new resume
               </div>
             ),
-            okText: <FormattedMessage id="进入在线编辑" />, // intl.formatMessage({ id: '进入在线编辑' }),
+            okText: "Enter online editor", 
             onOk: () => {
               changeMode('edit');
             },
@@ -143,7 +141,7 @@ export const Page: React.FC = () => {
   useEffect(() => {
     if (getDevice() === 'mobile') {
       message.info(
-        intl.formatMessage({ id: '移动端只提供查看功能，在线制作请前往 PC 端' })
+        "intl.formatMessage({ id: '移动端只提供查看功能，在线制作请前往 PC 端' })"
       );
     }
   }, []);
@@ -185,17 +183,15 @@ export const Page: React.FC = () => {
             onThemeChange(newConfig.theme);
             onConfigChange(_.omit(newConfig, 'theme'));
           }
-          message.success(intl.formatMessage({ id: '上传配置已应用' }));
+          message.success("intl.formatMessage({ id: '上传配置已应用' })");
         } catch (err) {
-          message.error(intl.formatMessage({ id: '上传文件有误，请重新上传' }));
+          message.error("intl.formatMessage({ id: '上传文件有误，请重新上传' })");
         }
       };
       reader.readAsText(file);
     } else {
       message.error(
-        intl.formatMessage({
-          id: '您当前浏览器不支持 FileReader，建议使用谷歌浏览器',
-        })
+        "id: '您当前浏览器不支持 FileReader，建议使用谷歌浏览器'"
       );
     }
     return false;
@@ -233,42 +229,6 @@ export const Page: React.FC = () => {
   return (
     <React.Fragment>
       <Spin spinning={loading}>
-        {mode === 'edit' && (
-          <Alert
-            showIcon={false}
-            message={
-              <span>
-                {intl.formatMessage({
-                  id: `编辑之后，请及时存储个人信息到个人仓库中。`,
-                })}
-                <span>
-                  <span style={{ marginRight: '4px' }}>
-                    👉 {!query.user && intl.formatMessage({ id: '参考：' })}
-                  </span>
-                  <span
-                    style={{
-                      color: `var(--primary-color, #1890ff)`,
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => {
-                      const user = query.user || 'visiky';
-                      window.open(`https://github.com/${user}/${user}`);
-                    }}
-                  >
-                    {`${query.user || 'visiky'}'s resumeInfo`}
-                  </span>
-                  <span>
-                    {`（https://github.com/${query.user || 'visiky'}/${
-                      query.user || 'visiky'
-                    }/blob/${query.branch || 'master'}/resume.json）`}
-                  </span>
-                </span>
-              </span>
-            }
-            banner
-            closable
-          />
-        )}
         <div className="page">
           {config && (
             <Resume
@@ -291,10 +251,10 @@ export const Page: React.FC = () => {
                     onTemplateChange={updateTemplate}
                   />
                   <Button type="primary" onClick={copyConfig}>
-                    <FormattedMessage id="复制配置" />
+                    {'Copy config'}
                   </Button>
                   <Button type="primary" onClick={exportConfig}>
-                    <FormattedMessage id="保存简历" />
+                    {'Save Resume'}
                   </Button>
                   <Upload
                     accept=".json"
@@ -302,14 +262,14 @@ export const Page: React.FC = () => {
                     beforeUpload={importConfig}
                   >
                     <Button className="btn-upload">
-                      <FormattedMessage id="导入配置" />
+                      {'Import config'}
                     </Button>
                   </Upload>
                   <Button type="primary" onClick={() => window.print()}>
-                    <FormattedMessage id="下载 PDF" />
+                    {'Download pdf'}
                   </Button>
                   <Button type="primary" onClick={handleSharing}>
-                    <FormattedMessage id="分享" />
+                    {'Share'}
                   </Button>
                 </Button.Group>
               </Affix>

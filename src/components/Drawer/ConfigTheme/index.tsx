@@ -40,7 +40,7 @@ export const ConfigTheme: React.FC<Props> = props => {
     >
       <div style={FormItemStyle}>
         <span style={{ marginRight: '4px' }}>
-          <FormattedMessage id="主题色" />
+          {"Theme color"}
         </span>
         <ColorPicker
           value={props.color}
@@ -49,7 +49,7 @@ export const ConfigTheme: React.FC<Props> = props => {
       </div>
       <div style={FormItemStyle}>
         <span style={{ marginRight: '4px' }}>
-          <FormattedMessage id="Tag 标签色" />
+          {"Tag label color"}
         </span>
         <ColorPicker
           value={props.tagColor}
