@@ -82,15 +82,6 @@ const Sidebar = () => {
             </li>
             <li className="">
               <Link
-                to="/dashboard-notifications"
-                activeClassName="active"
-                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
-              >
-                <i className="fas fa-bell mr-7"></i>Job Alerts
-              </Link>
-            </li>
-            <li className="">
-              <Link
                 to="/dashboard-invoice"
                 activeClassName="active"
                 className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
@@ -98,15 +89,27 @@ const Sidebar = () => {
                 <i className="fas fa-money-bill mr-7"></i>Invoices
               </Link>
             </li>
-            {isCandidate ? <li className="">
-              <Link
-                activeClassName="active"
-                to="/dashboard-experience"
-                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
-              >
-                <i className="icon icon-layout-11 mr-7"></i>Experience
-              </Link>
-            </li> : null}
+            {isCandidate ? <>
+              <li className="">
+                <Link
+                  activeClassName="active"
+                  to="/dashboard-experience"
+                  className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+                >
+                  <i className="icon icon-layout-11 mr-7"></i>Experience
+                </Link>
+              </li>
+              <li className="">
+                <Link
+                  to="/dashboard-notifications"
+                  activeClassName="active"
+                  className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+                >
+                  <i className="fas fa-bell mr-7"></i>Job Alerts
+                </Link>
+              </li>
+            </>
+              : null}
           </ul>
         </div>
       </Collapse>

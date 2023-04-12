@@ -37,7 +37,7 @@ function setRole(roles) {
 
 export const login = (data, history) => async (dispatch) => {
     try {
-        const response = await axios.post(API_BASE_URL + "/login", data);
+        const response = await axios.post(API_BASE_URL + "/auth/login", data);
         if (!response.data.errorCode) {
             let inforUser = response.config.data.replaceAll("\"", "");
             localStorage.setItem("email", cutInformation("email:", ",", inforUser));

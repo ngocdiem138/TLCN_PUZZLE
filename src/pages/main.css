@@ -2035,6 +2035,216 @@ ol.comment-list li.comment {
     border-radius: 0%;
 }
 
+#manager-cv .box-block {
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: -1px 1px 6px rgba(0,0,0,.05);
+    margin-bottom: 16px;
+    margin-top: 16px;
+    padding: 24px 24px 8px;
+}
+
+#manager-cv .box-block .box-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+#manager-cv .box-block .box-header .title {
+    color: #000;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0;
+}
+
+#manager-cv #cv-list .btn-add-cv, #manager-cv #cv-upload-list .btn-add-cv {
+    background: #00b14f;
+    border-radius: 32px;
+    color: #fff;
+    line-height: 1;
+    padding: 11px 16px;
+    font-weight: 700;
+}
+.fa-add:before, .fa-plus:before {
+    content: "\+";
+}
+#manager-cv .box-no-cv {
+    text-align: center;
+}
+.box-white {
+    background-color: #fff;
+}
+
+.box {
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+#sidebar .account-type.vip span {
+    border-radius: 2px;
+    color: #fff;
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 7px;
+}
+
+.box-footer {
+    margin: 10px 0;
+}
+
+.btn-topcv-primary {
+    background-color: #00b14f;
+    color: #fff;
+}
+#sidebar .profile-avatar .vip-badge {
+    color: #fff;
+    display: inline-block;
+    font-size: 9px;
+    line-height: 12px;
+    padding: 1px 4px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    vertical-align: middle;
+}
+
+#sidebar .profile-avatar img {
+    border-radius: 50%;
+    height: 83px;
+    max-width: 150px;
+    width: 83px;
+}
+
+#sidebar .profile-avatar .vip-badge {
+    color: #fff;
+    display: inline-block;
+    font-size: 9px;
+    line-height: 12px;
+    padding: 1px 4px;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    vertical-align: middle;
+}
+
+#sidebar .cv-count-header {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#sidebar .cv-count {
+    background-color: #00b14f;
+    border-radius: 50%;
+    color: #fff;
+    height: 83px;
+    margin: 5px auto;
+    padding-top: 15px;
+    text-align: center;
+    vertical-align: middle;
+    width: 83px;
+}
+
+#sidebar .cv-count.gray {
+    background-color: #a1a1a1;
+}
+#sidebar .cv-count-number {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 35px;
+}
+
+.text-center {
+    text-align: center;
+}
+.text-highlight {
+    color: #00b14f;
+}
+
+/* for devices smaller than 992px */
+@media screen and (max-width:992px) {
+
+    .login-container .content-wrapper,
+    .register-container .content-wrapper {
+        border: none !important;
+        padding-left: 17px;
+        padding-right: 17px;
+        padding-top: 0;
+    }
+
+    .login-container .entity-select {
+        flex-direction: column;
+    }
+
+    .login-container .entity-select div:first {
+        margin-bottom: 20px;
+    }
+
+    .company-logo-wrap {
+        width: 100%;
+        text-align: center;
+        left: initial;
+    }
+
+    .company-logo-wrap img {
+        width: 200px;
+    }
+
+    .company-content-wrapper {
+        padding: 0px 10px;
+    }
+
+    .company-cover {
+        background-position: 87% 50%;
+    }
+
+    .jobseeker-name ul {
+        right: -3px;
+
+    }
+
+    .search-box .input-group {
+        flex-direction: column;
+    }
+
+    .search-box .input-group>.form-control {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+
+    .profile-pic {
+        margin: auto;
+    }
+
+    .jobseeker-nav-pill {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .job-applied-header {
+        margin-top: 50px;
+    }
+
+    .Navbar .row>div {
+        padding: 0 !important;
+    }
+
+}
+
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        flex: 0 0 auto;
+        width: 50%;
+    }
+}
+.text-center {
+    text-align: center;
+}
+.text-highlight {
+    color: #00b14f;
+}
 
 /* for devices smaller than 992px */
 @media screen and (max-width:992px) {

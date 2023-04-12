@@ -95,17 +95,6 @@ const BlogDetails = () => {
             <div className="row justify-content-center">
               <div className="page-content bg-white">
                 <div className="dez-bnr-inr overlay-black-middle" style={{backgroundImage:"url(../assets/image/banner/thum1.jpg)"}}>
-                  <div className="container">
-                    <div className="dez-bnr-inr-entry">
-                      <h1 className="text-white">Blog Details</h1>
-                      <div className="breadcrumb-row">
-                        <ul className="list-inline">
-                          <li><a href="index.html">Home</a></li>
-                          <li>Blog Details</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="content-area">
                   <div className="container">

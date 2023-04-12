@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkjustcamp_gatsby=self.webpackChunkjustcamp_gatsby||[]).push([[5519],{21425:function(e,t,a){a.r(t);var n=a(67294),u=a(88736);a(47333),n.createElement;t.default=function(){return n.createElement(n.Fragment,null,n.createElement(u.Z,{headerConfig:{button:"profile",isFluid:!0,bgClass:"bg-default",reveal:!1}}))}}}]);
-//# sourceMappingURL=component---src-pages-candidate-setting-profile-js-8e68bcef1d1161d5e2fb.js.map

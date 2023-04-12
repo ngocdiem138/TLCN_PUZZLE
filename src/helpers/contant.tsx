@@ -177,43 +177,43 @@ export const CONTENT_OF_MODULE = () => {
       {
         type: 'input',
         attributeId: 'school',
-        // displayName: intl.formatMessage({ id: '学校' }),
+        displayName: 'School',
         formItemProps: { rules: [{ required: true }] },
       },
       {
         type: 'input',
         attributeId: 'major',
-        // displayName: intl.formatMessage({ id: '专业' }),
+        displayName: 'Major in',
       },
     ],
     projectList: [
       {
         type: 'input',
         attributeId: 'project_time',
-        // displayName: intl.formatMessage({ id: '起止时间' }),
+        displayName: 'Start and end time',
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
+        cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'project_name',
-        // displayName: intl.formatMessage({ id: '项目名称' }),
+        displayName: 'Project name',
       },
       {
         type: 'input',
         attributeId: 'project_role',
-        // displayName: intl.formatMessage({ id: '担任角色' }),
+        displayName: 'Project role"',
       },
       {
         type: 'textArea',
         attributeId: 'project_desc',
-        // displayName: intl.formatMessage({ id: '项目描述' }),
+        displayName: 'Description',
         cfg: { autoSize: { minRows: 8 }, showCount: true },
       },
       {
         type: 'textArea',
         attributeId: 'project_content',
-        // displayName: intl.formatMessage({ id: '主要工作' }),
+        displayName: 'Main work',
         cfg: {
           autoSize: { minRows: 8 },
           showCount: true,
@@ -227,54 +227,54 @@ export const CONTENT_OF_MODULE = () => {
       {
         type: 'input',
         attributeId: 'work_time',
-        // displayName: intl.formatMessage({ id: '起止时间' }),
+        displayName: 'Start and end time',
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
+        cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'company_name',
-        // displayName: intl.formatMessage({ id: '公司名称' }),
+        displayName: 'Company name',
         formItemProps: { rules: [{ required: true }] },
       },
       {
         type: 'input',
         attributeId: 'department_name',
-        // displayName: intl.formatMessage({ id: '部门' }),
+        displayName: 'Department',
       },
       {
         type: 'textArea',
         attributeId: 'work_desc',
-        // displayName: intl.formatMessage({ id: '职位或描述' }),
+        displayName: 'Job title or description',
       },
     ],
     workList: [
       {
         type: 'input',
         attributeId: 'work_name',
-        // displayName: intl.formatMessage({ id: '作品名称' }),
+        displayName: 'Work name',
       },
       {
         type: 'input',
         attributeId: 'work_desc',
-        // displayName: intl.formatMessage({ id: '作品描述' }),
+        displayName: 'Work description',
       },
       {
         type: 'input',
         attributeId: 'visit_link',
-        // displayName: intl.formatMessage({ id: '作品链接' }),
+        displayName: 'Work link',
       },
     ],
     skillList: [
       {
         type: 'input',
         attributeId: 'skill_name',
-        // displayName: intl.formatMessage({ id: '技能项' }),
+        displayName: 'Skill',
       },
       {
         type: 'number',
         attributeId: 'skill_level',
-        // displayName: intl.formatMessage({ id: '掌握程度' }),
+        displayName: 'Degree of mastery',
         cfg: {
           step: 20,
           min: 0,
@@ -286,21 +286,21 @@ export const CONTENT_OF_MODULE = () => {
       {
         type: 'textArea',
         attributeId: 'skill_desc',
-        // displayName: intl.formatMessage({ id: '技能描述' }),
+        displayName: 'Skill description',
       },
     ],
     awardList: [
       {
         type: 'input',
         attributeId: 'award_time',
-        // displayName: intl.formatMessage({ id: '获奖时间' }),
+        displayName: 'Awards time',
         formItemProps: { rules: [{ required: true }] },
-        // cfg: { picker: 'month' },
+        cfg: { picker: 'month' },
       },
       {
         type: 'input',
         attributeId: 'award_info',
-        // displayName: intl.formatMessage({ id: '奖项内容' }),
+        displayName: 'Awards description',
         formItemProps: { rules: [{ required: true }] },
       },
     ],
