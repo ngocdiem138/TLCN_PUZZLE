@@ -5,12 +5,9 @@ import Header from '@/layout/header';
 import Footer from '@/layout/footer';
 import Content from '@/components';
 import PageWrapper from '../components/PageWrapper/PageWrapper';
-// import EN_US_LOCALE from '@/i18n/locales/en-US.json';
 import { getLanguage, registerLocale, getLocale } from '@/i18n';
 import './index.less';
-// import { injectIntl, Link, FormattedMessage } from "gatsby-plugin-intl"
 
-// registerLocale('en-US', EN_US_LOCALE);
 
 const Resume = ({ intl }) => {
   const [title, changeTitle] = useState('Resume Generator');
