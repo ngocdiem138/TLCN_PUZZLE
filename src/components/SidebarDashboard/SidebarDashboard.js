@@ -70,7 +70,15 @@ const Sidebar = () => {
                 </Link>
               </li></>
               : null}
-
+            <li className="">
+              <Link
+                to="/dashboard-blogs"
+                activeClassName="active"
+                className="px-10 py-1 my-5 font-size-4 font-weight-semibold flex-y-center"
+              >
+                <i className="fas fa-briefcase mr-7"></i>Blogs
+              </Link>
+            </li>
             <li className="">
               <Link
                 to="/dashboard-settings"

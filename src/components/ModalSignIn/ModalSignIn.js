@@ -9,9 +9,10 @@ import { formReset } from "../../actions/auth-actions";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
-import GoogleLogin from 'react-google-login';
+// import GoogleLogin from 'react-google-login';
 import axios from "axios";
 import { API_BASE_URL } from '../../utils/constants/url';
+import { GoogleLogin } from '@react-oauth/google';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -70,7 +71,12 @@ class Login extends Component {
       return 'USER';
   };
 
-  responseGoogle = (response) => {
+  errorMessage = (error) => {
+    console.log(error);
+  };
+  
+
+  responseMessage = (response) => {
     console.log(response);
     var res = response.profileObj;
     console.log(res);
@@ -78,15 +84,13 @@ class Login extends Component {
   }
   signup(res) {
     const googleresponse = {
-      Name: res.name,
-      email: res.email,
-      token: res.tokenId,
-      Image: res.imageUrl,
+      token: res.credential,
       ProviderId: 'Google',
     };
-    axios.post(API_BASE_URL + "/login-google", googleresponse)
+    axios.post(API_BASE_URL + "/auth/login-google", googleresponse)
       .then((response) => {
-        if (!response.data.errorCode) {
+        console.log(googleresponse);
+        if (!response.errorCode && !response.data.errorCode) {
           localStorage.setItem("token", response.data.data.jwt);
           localStorage.setItem("userRole", this.setRole(response.data.data.roles));
           localStorage.setItem("isLoggedIn", true);
@@ -166,7 +170,7 @@ class Login extends Component {
                         </span>
                       </a>
                     </div>
-                    <div className="col-4 col-xs-12">
+                    {/* <div className="col-4 col-xs-12">
                       <GoogleLogin
                         className="font-size-4 font-weight-semibold position-relative text-white bg-poppy h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4"
                         clientId="84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com"
@@ -175,6 +179,10 @@ class Login extends Component {
                         onFailure={this.responseGoogle}
                         cookiePolicy={'single_host_origin'}
                       />
+                    </div> */}
+                    <div className="col-4 col-xs-12 font-size-4 font-weight-semibold position-relative text-white h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4" style={{width: "100%"}}>
+                      <GoogleLogin width="319px" locale='en'
+                        onSuccess={this.responseMessage} onError={this.errorMessage} />
                     </div>
                     <div className="col-4 col-xs-12">
                       <a

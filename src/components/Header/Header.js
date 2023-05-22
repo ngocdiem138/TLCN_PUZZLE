@@ -16,6 +16,7 @@ import { logout } from "../../actions/auth-actions";
 import imgP from "../../assets/image/header-profile.png";
 
 import { useTranslation } from 'react-i18next';
+import { UserServiceIml } from "../../actions/user-actions";
 
 const SiteHeader = styled.header`
   .dropdown-toggle::after {
@@ -57,19 +58,35 @@ const Header = () => {
 
   const { t, i18n } = useTranslation()
 
-  
+
 
   const [isEmployer, setIsEmployer] = useState(false);
   const [isCandidate, setIsCandidate] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isUser, setIsUser] = useState(false);
+  const [avatar, setAvatar] = useState("");
   let langDefault = undefined;
-  
+
   const [lang, setLang] = useState("en");
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
+    setIsCandidate(localStorage.getItem("userRole") == "CANDIDATE");
+    setIsEmployer(localStorage.getItem("userRole") == "EMPLOYER");
+    setIsUser(localStorage.getItem("userRole") == "USER");
+  })
   useEffect(() => {
     langDefault = localStorage.getItem("lang");
     if (langDefault) { i18n.changeLanguage(langDefault); setLang(langDefault) };
-  },[])
+    // if (isLoggedIn) {
+    UserServiceIml.getUserProfile().then((response) => {
+      if (response.data.errCode == "403") {
+        // setShowError403(true);
+      } else {
+        setAvatar(response.data.data.avatar);
+      }
+    });
+    // }
+  }, [])
   const changeLang = (lang) => {
     i18n.changeLanguage(lang);
     setLang(lang)
@@ -77,12 +94,7 @@ const Header = () => {
   }
 
 
-  useEffect(() => {
-    setIsLoggedIn(localStorage.getItem("isLoggedIn"));
-    setIsCandidate(localStorage.getItem("userRole") == "CANDIDATE");
-    setIsEmployer(localStorage.getItem("userRole") == "EMPLOYER");
-    setIsUser(localStorage.getItem("userRole") == "USER");
-  })
+
 
   const gContext = useContext(GlobalContext);
   const [showScrolling, setShowScrolling] = useState(false);
@@ -149,6 +161,7 @@ const Header = () => {
       label: t("header.blog"),
       isExternal: true,
     },
+    { name: "managecv", label: t("header.cv") },
   ];
 
   return (
@@ -344,7 +357,7 @@ const Header = () => {
                       className="proile media ml-7 flex-y-center"
                     >
                       <div className="circle-40">
-                        <img src={imgP} alt="" />
+                        <img src={avatar !== "" ? avatar : imgP} alt="" referrerpolicy="no-referrer" style={{borderRadius: "50%"}}/>
                       </div>
                       <i className="fas fa-chevron-down heading-default-color ml-6"></i>
                     </Dropdown.Toggle>
@@ -364,7 +377,7 @@ const Header = () => {
                           className="dropdown-item py-2 font-size-3 font-weight-semibold line-height-1p2 text-uppercase"
                         >
                           {t('header.edit')}
-                          
+
                         </Link>
                         <a
                           className={`dropdown-item py-2 text-red font-size-3 font-weight-semibold line-height-1p2 text-uppercase`}
@@ -427,7 +440,7 @@ const Header = () => {
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
                   to={'/register'}
                 >
-                 {t('header.updateAccount')}
+                  {t('header.updateAccount')}
                 </Link> : null}
                 {isCandidate ? <Link
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
@@ -449,7 +462,7 @@ const Header = () => {
                     handleSignUp();
                   }}
                 >
-                  {isLoggedIn ? t('header.logout'): t('header.signup')}
+                  {isLoggedIn ? t('header.logout') : t('header.signup')}
                 </a>
                 <a
                   className="btn btn-transparent text-uppercase font-size-4 heading-default-color"

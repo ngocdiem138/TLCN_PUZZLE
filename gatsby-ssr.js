@@ -8,6 +8,8 @@ import store from "./store";
 // import { BrowserRouter } from 'react-router-dom';
 // import App from "./src/pages/App/App";
 import { IntlProvider } from 'react-intl';
+import './src/pages/main.css';
+
 
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get

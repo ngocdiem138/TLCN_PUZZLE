@@ -9,21 +9,22 @@ import { I18nextProvider } from 'react-i18next'
 import i18n from './src/i18n';
 import { ChakraProvider } from '@chakra-ui/react';
 import { theme } from './src/helpers';
-import { IntlProvider } from 'react-intl';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import './src/pages/main.css';
 
 
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get
   // including location, data, etc - you don't need to pass it
-  return <IntlProvider>
+  return <GoogleOAuthProvider clientId="84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com">
     <I18nextProvider i18n={i18n}>
       <Layout {...props}>{element}</Layout>
     </I18nextProvider>
-  </IntlProvider>;
+  </GoogleOAuthProvider>;
 };
 
 export const wrapRootElement = ({ element }) => (
-  <IntlProvider locale="en">
+  <GoogleOAuthProvider clientId="84382277177-tk0ct3n22t6pcshpjjadnbohq97rv2hv.apps.googleusercontent.com">
     <I18nextProvider i18n={i18n}>
       <ChakraProvider theme={theme}>
         <GlobalProvider>
@@ -35,5 +36,5 @@ export const wrapRootElement = ({ element }) => (
           </Provider>
         </GlobalProvider></ChakraProvider>
     </I18nextProvider>
-  </IntlProvider>
+  </GoogleOAuthProvider>
 );

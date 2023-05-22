@@ -22,23 +22,23 @@ const DashboardJobAlerts = () => {
   const [showError, setShowError] = useState(false);
   const [limitJob, setLimitJob] = useState(0);
   // const [applicationAmount, setApplicationAmount] = useState(0);
-  useEffect(() => {
-    JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
-      if (response.data.errCode == "403") {
-        setShowError(true);
-      } else {
-        setJobs(response.data.data);
-      }
-    });
-    JobPostServiceIml.getLimitJobPostCreateByEmployer().then((response) => {
-      if (response.data.errCode == "403") {
-        setShowError(true);
-      } else {
-        // console.log(response.data);
-        setLimitJob(response.data.data);
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
+  //     if (response.data.errCode == "403") {
+  //       setShowError(true);
+  //     } else {
+  //       setJobs(response.data.data);
+  //     }
+  //   });
+  //   JobPostServiceIml.getLimitJobPostCreateByEmployer().then((response) => {
+  //     if (response.data.errCode == "403") {
+  //       setShowError(true);
+  //     } else {
+  //       // console.log(response.data);
+  //       setLimitJob(response.data.data);
+  //     }
+  //   });
+  // }, []);
   const redirect = () => {
     logout();
   }

@@ -11,7 +11,7 @@ const ManageCV = () => {
                             <div className="col-sm-8" id="manager-cv">
                                 <div id="cv-list" className="box-block">
                                     <div className="box-header">
-                                        <h1 className="title">CV đã tạo trên TopCV</h1>
+                                        <h1 className="title">CV đã tạo trên PUZZLE</h1>
                                         <a href={"/resume"} className="btn btn-add-cv btn-primary-hover ">
                                             <i className="fa-solid fa-plus"></i> Tạo mới
                                         </a>

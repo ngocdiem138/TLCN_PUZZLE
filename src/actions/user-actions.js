@@ -223,10 +223,10 @@ class UserService {
             })
     }
     getForgotPass(email) {
-        return axios.get(API_BASE_URL + "/forgot-password?email=" + email)
+        return axios.get(API_BASE_URL + "/auth/forgot-password?email=" + email)
     }
     getResetPass(token, newPass) {
-        return axios.get(API_BASE_URL + "/reset-password?token=" + token + "&newPassword=" + newPass)
+        return axios.get(API_BASE_URL + "/auth/reset-password?token=" + token + "&newPassword=" + newPass)
     }
     payPricing(pricing) {
         return axios.get(
