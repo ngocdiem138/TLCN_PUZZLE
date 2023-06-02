@@ -7,6 +7,16 @@ import {
 } from "../utils/constants/actions-types";
 import { API_BASE_URL } from "../utils/constants/url";
 
+class BlogService {
+
+    getAllCategory() {
+        return axios.get(API_BASE_URL + '/common/category/');
+    }
+
+}
+
+export const BlogServiceIml = new BlogService();
+
 class JobPostService {
 
     getAllActiveJobPosts() {

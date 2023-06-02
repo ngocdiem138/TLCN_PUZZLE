@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import { Tag, TagCloseButton, TagLabel, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, FormControl, FormLabel, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, VStack, Textarea, Select, Text, Col } from '@chakra-ui/react';
 import { MdDelete } from 'react-icons/md';
-import { ParagraphServiceIml, UserServiceIml } from '../actions/user-actions';
+import { BlogServiceIml, ParagraphServiceIml, UserServiceIml } from '../actions/user-actions';
 import PageWrapper from '../components/PageWrapper';
 
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
@@ -17,11 +17,25 @@ const Paragraph = () => {
     const [categoryId, setCategoryId] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
     const [thumbnail, setThumbnail] = useState("");
-    const [categoryList, setCategoryList] = useState([]);
     const [tagList, setTagList] = useState([]);
     const [showError, setShowError] = useState(false);
     const [showError403, setShowError403] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
+    const [categoryList, setCategoryList] = useState([])
+    useEffect(() => {
+        BlogServiceIml.getAllCategory().then((response) => {
+            if (response.data.data) {
+                let categoryList1 = []
+                response.data.data.forEach(element => {
+                    categoryList1 = [...categoryList1, { value: element.id, label: element.name }]
+                });
+                setCategoryList(categoryList1);
+            }
+            else {
+
+            }
+        });
+    }, [id])
 
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
@@ -117,9 +131,6 @@ const Paragraph = () => {
         })
     }
 
-
-    const [tag, setTag] = useState("");
-
     return (
         <>
             <PageWrapper
@@ -180,7 +191,7 @@ const Paragraph = () => {
                                                     isMulti
                                                     isClearable={true}
                                                     isSearchable
-                                                    onChange={(e) => { setCategoryId(e.value); setSelectedCategory(e); e.__isNew__ == true ? redirectNewCompany() : console.log(categoryId, e) }}
+                                                    onChange={(e) => { setCategoryId(e.value); setSelectedCategory(e); e.__isNew__ == true ? redirectNewCategory() : console.log(categoryId, e) }}
                                                     value={selectedCategory ? selectedCategory : findCategory(categoryId)}
                                                     options={categoryList} />
                                             </FormControl>

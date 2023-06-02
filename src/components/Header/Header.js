@@ -150,12 +150,6 @@ const Header = () => {
     { name: "", label: t("header.home") },
 
     { name: "search-grid", label: t("header.jobGrid") },
-
-    {
-      name: "Support",
-      label: t("header.support"),
-      isExternal: true,
-    },
     {
       name: "blog-grid",
       label: t("header.blog"),
@@ -357,7 +351,7 @@ const Header = () => {
                       className="proile media ml-7 flex-y-center"
                     >
                       <div className="circle-40">
-                        <img src={avatar !== "" ? avatar : imgP} alt="" referrerpolicy="no-referrer" style={{borderRadius: "50%"}}/>
+                        <img src={avatar ? avatar : imgP} alt="" referrerpolicy="no-referrer" style={{borderRadius: "50%"}}/>
                       </div>
                       <i className="fas fa-chevron-down heading-default-color ml-6"></i>
                     </Dropdown.Toggle>

@@ -216,7 +216,7 @@ const Footer = () => {
                       </li>
                       <li className="mb-6">
                         <Link
-                          to="/#"
+                          to="/Support"
                           className="heading-default-color font-size-4 font-weight-normal"
                           href=""
                         >
