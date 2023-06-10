@@ -16,7 +16,7 @@ import pic3 from "../assets/image/banner/pic3.jpg";
 
 import { EmployerServiceIml } from "../actions/admin-actions";
 
-import { JobPostServiceIml } from "../actions/user-actions";
+import { BlogServiceIml, JobPostServiceIml } from "../actions/user-actions";
 
 import axios from "axios";
 import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
@@ -34,6 +34,29 @@ const BlogGrid = () => {
   const [contentHeight, setContentHeight] = useState(undefined);
   const [scrollTop, setScrollTop] = useState(undefined);
   const [screenSize, setScreenSize] = useState(undefined);
+  const [blogPost, setBlogPost] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = blogPost.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => {
+    console.log("pageNumber", pageNumber)
+    setCurrentPage(pageNumber);
+  };
+
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(blogPost.length / postsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   useEffect(() => {
     setScrollTop(window.scrollY);
     const sidebarEl = document.querySelector('.side-bar').getBoundingClientRect();
@@ -44,9 +67,41 @@ const BlogGrid = () => {
     const contentEl = document.querySelector('.blog-content').getBoundingClientRect();
     setContentHeight(contentEl.height);
     setContentTop(contentEl.top);
+    BlogServiceIml.getAllBlogPost().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError403(true);
+      } else {
+        setBlogPost(response.data.data);
+      }
+    });
 
   }, [scrollTop]);
 
+  const listBlogPost = currentPosts.map(blogPost => {
+    return <div className="post card-container col-lg-6 col-md-6 col-sm-6">
+      <div className="blog-post blog-grid blog-style-1">
+        <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={blogPost.thumbnail} alt="" /></a> </div>
+        <div className="dez-info">
+          <div className="dez-post-meta">
+            <ul className="d-flex align-items-center">
+              <li className="post-date"><i className="fa fa-calendar"></i>{blogPost.createdAt ? blogPost.createdAt.split(' ')[0] : blogPost.createdAt}</li>
+              <li className="post-comment"><i className="far fa-comments"></i><a href="#">{blogPost.comments ? blogPost.comments.length : blogPost.comments}</a> </li>
+            </ul>
+          </div>
+          <div className="dez-post-title ">
+            <h5 className="post-title font-20"><a href="blog-details.html">{blogPost.title}</a></h5>
+          </div>
+          <div className="dez-post-text">
+            <p>{blogPost.tags}</p>
+          </div>
+          <div className="dez-post-readmore blog-share">
+            <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  })
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -132,272 +187,9 @@ const BlogGrid = () => {
                     <div className="row" id="blog-content-container">
                       <div className="col-lg-8 col-md-7 col-sm-12">
                         <div id="masonry" className="dez-blog-grid-3 row blog-content">
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic3} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div className="post card-container col-lg-6 col-md-6 col-sm-6">
-                            <div className="blog-post blog-grid blog-style-1">
-                              <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={pic1} alt="" /></a> </div>
-                              <div className="dez-info">
-                                <div className="dez-post-meta">
-                                  <ul className="d-flex align-items-center">
-                                    <li className="post-date"><i className="fa fa-calendar"></i>September 18, 2021</li>
-                                    <li className="post-comment"><i className="far fa-comments"></i><a href="#">5k</a> </li>
-                                  </ul>
-                                </div>
-                                <div className="dez-post-title ">
-                                  <h5 className="post-title font-20"><a href="blog-details.html">Do you have a job that the average person doesnӴ even know exists?</a></h5>
-                                </div>
-                                <div className="dez-post-text">
-                                  <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy.</p>
-                                </div>
-                                <div className="dez-post-readmore blog-share">
-                                  <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          {listBlogPost}
                         </div>
-                        <div className="pagination-bx clearfix text-center" style={{padding: "5rem"}}>
+                        <div className="pagination-bx clearfix text-center" style={{ padding: "5rem" }}>
                           <ul className="pagination">
                             <li className="previous"><a href="javascript:void(0);"><i className="ti-arrow-left"></i> Prev</a></li>
                             <li className="active"><a href="#">1</a></li>

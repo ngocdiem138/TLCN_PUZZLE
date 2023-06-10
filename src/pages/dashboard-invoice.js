@@ -128,7 +128,7 @@ const DashboardInvoices = () => {
                     reveal: false,
                 }}
             >
-                <div className="dashboard-main-container mt-25 mt-lg-31">
+                <div className="dashboard-main-container mt-lg-31">
                     <div className="container">
                         <ReactJsAlert
                             type="info"   // success, warning, error, info

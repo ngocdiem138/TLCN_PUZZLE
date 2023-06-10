@@ -67,7 +67,7 @@ const DashboardApplicants = () => {
       if (response.data.errCode == "403") {
         setShowError(true);
       } else {
-        setJobs(response.data.data);
+        setJobs(response.data.data.content);
         setIsLoading(false);
       }
     });
@@ -110,8 +110,8 @@ const DashboardApplicants = () => {
     if (jobs) {
       jobs.forEach((item) => {
         let myfruit = {}
-        myfruit["value"] = item.job_post.id;
-        myfruit["label"] = item.job_post.title; // you modify it's properties
+        myfruit["value"] = item.jobPost.id;
+        myfruit["label"] = item.jobPost.title; // you modify it's properties
         updated = [...updated, myfruit];
       });
     }
@@ -215,7 +215,7 @@ const DashboardApplicants = () => {
           reveal: false,
         }}
       >
-        <div className="dashboard-main-container mt-25 mt-lg-31">
+        <div className="dashboard-main-container mt-lg-31">
           <div className="container">
             <ReactJsAlert
               type="info"   // success, warning, error, info

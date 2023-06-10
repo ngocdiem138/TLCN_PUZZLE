@@ -1225,6 +1225,14 @@ h5 {
     margin-bottom: 10px;
 }
 
+.dez-post-title .post-title a {
+    font-weight: 600;
+    max-width: 100%;
+    font-size: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 .post-title a {
     font-weight: 600;
 }
@@ -1487,6 +1495,13 @@ blockquote:before {
     text-align: justify;
     line-height: 24px;
     margin-bottom: 24px;
+}
+
+.dez-post-text p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .alignright {
@@ -2025,6 +2040,8 @@ ol.comment-list li.comment {
 .dez-post-media img {
     width: 100%;
     height: auto;
+    aspect-ratio: 1.2;
+    object-fit: cover;
 }
 
 .blog-content .ql-editor {
@@ -2334,6 +2351,7 @@ ol.comment-list li.comment {
 .card-blog-1 .card-image img {
     border-radius: 16px;
     width: 100%;
+    aspect-ratio: 1.8;
 }
 
 .timeread {
@@ -2506,6 +2524,7 @@ h4 {
 .color-white {
     color: #b9e0f2 !important;
 }
+
 .card-info a {
     max-width: 100%;
 }
@@ -2535,12 +2554,13 @@ h4 {
     font-size: 20;
     font-weight: 700;
 }
+
 .box-author img {
     display: inline-block;
     margin-right: 15px;
-    height: 48px!important;
-    width: 48px!important;
-    border-radius: 50%!important;
+    height: 48px !important;
+    width: 48px !important;
+    border-radius: 50% !important;
 }
 
 /* for devices smaller than 992px */

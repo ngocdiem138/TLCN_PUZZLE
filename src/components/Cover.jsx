@@ -1,4 +1,4 @@
-import React,{ useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
   Badge,
   Box,
@@ -15,15 +15,19 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import  AvatarImg  from '../assets/image/header-profile.png';
+import AvatarImg from '../assets/image/header-profile.png';
+import defaultBlogImage from '../assets/image/wood-blog-placeholder.jpg'
 import { UserServiceIml } from '../actions/user-actions';
 
 export default function Avatar(url) {
-  console.log("url", url)
-  const [avatarImage, setAvatarImage] = useState(null)
-  useEffect(()=>{
-    if(url.url && !avatarImage){
+  const [avatarImage, setAvatarImage] = useState(null);
+  const [borderRadiusValue, setBorderRadiusValue] = useState("50%");
+  useEffect(() => {
+    if (url.url && !avatarImage) {
       setAvatarImage(url.url)
+    };
+    if (url.borderRadius) {
+      setBorderRadiusValue(url.borderRadius);
     }
   })
   const inputRef = useRef(null)
@@ -33,6 +37,11 @@ export default function Avatar(url) {
     inputRef.current.click()
   }
 
+  const sendData = (file) => {
+    if (url.parentCallback) {
+      url.parentCallback(file);
+    }
+  }
   const handleChangeAvatar = event => {
     const ALLOWED_TYPES = ['image/png', 'image/jpeg', 'image/jpg']
     const selected = event.target.files[0]
@@ -42,11 +51,16 @@ export default function Avatar(url) {
       reader.onloadend = () => setAvatarImage(reader.result)
       const formData = new FormData();
       formData.append("file", selected);
-      UserServiceIml.uploadUserAvatar(formData);
-      return reader.readAsDataURL(selected)
+      if (!url.parentCallback) {
+        UserServiceIml.uploadUserAvatar(formData);
+      } else {
+        sendData(selected);
+      }
+
+      return reader.readAsDataURL(selected);
     }
 
-    onOpen()
+    onOpen();
   }
 
   return (
@@ -55,9 +69,9 @@ export default function Avatar(url) {
         w="full"
         h="full"
         objectFit="avatar"
-        src={avatarImage ? avatarImage : AvatarImg}
+        src={avatarImage ? avatarImage : borderRadiusValue === "0%" ? defaultBlogImage : AvatarImg}
         alt="Avatar"
-        style={{"border-radius":"50%", "border": "6px solid white", "box-shadow": "0px 0px 0px 6px gray"}}
+        style={{ "border-radius": borderRadiusValue, "border": "6px solid white", "box-shadow": "0px 0px 0px 6px gray" }}
       />
       <Button
         onClick={openChooseFile}

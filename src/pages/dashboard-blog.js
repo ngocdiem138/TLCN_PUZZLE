@@ -8,8 +8,12 @@ import CreatableSelect, { useCreatable } from 'react-select/creatable';
 import { Alert } from 'react-bootstrap';
 import Cover from '../components/Cover';
 import { API_BASE_URL } from '../utils/constants/url';
+import { useLocation } from "@reach/router";
+import { parse } from "query-string";
+import { useToasts } from 'react-toast-notifications';
 
 const Paragraph = () => {
+    const { addToast } = useToasts();
     const quillRef = useRef();
     const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
     const [title, setTitle] = useState("");
@@ -17,11 +21,14 @@ const Paragraph = () => {
     const [categoryId, setCategoryId] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
     const [thumbnail, setThumbnail] = useState("");
-    const [tagList, setTagList] = useState([]);
+    const [tags, setTags] = useState("");
     const [showError, setShowError] = useState(false);
     const [showError403, setShowError403] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
-    const [categoryList, setCategoryList] = useState([])
+    const [categoryList, setCategoryList] = useState([]);
+    const location = useLocation();
+    const searchParams = parse(location.search);
+    const id = searchParams.id;
     useEffect(() => {
         BlogServiceIml.getAllCategory().then((response) => {
             if (response.data.data) {
@@ -35,6 +42,15 @@ const Paragraph = () => {
 
             }
         });
+        BlogServiceIml.getBlogPostById(id).then(response => {
+            if (!response.data.errCode) {
+                setTitle(response.data.data.title);
+                setDescription(response.data.data.body);
+                setThumbnail(response.data.data.thumbnail);
+                setCategoryId(response.data.data.categoryId);
+                setTags(response.data.data.tags);
+            }
+        })
     }, [id])
 
     const [startDate, setStartDate] = useState('');
@@ -68,12 +84,12 @@ const Paragraph = () => {
                             const formData = new FormData();
                             formData.append('file', item);
                             formData.append('subjectId', '123');
-                            UserServiceIml.uploadUserAvatar(formData).then(({ data }) => {
-                                console.log('data', data);
+                            BlogServiceIml.uploadImageBlog(formData).then(response => {
+                                console.log('data', response.data.data);
                                 const quill = quillRef?.current?.getEditor();
                                 console.log('data', quill);
                                 const cursorPosition = quill.getSelection();
-                                const link = data.path;
+                                const link = response.data.data;
                                 quill.insertEmbed(cursorPosition, 'image', link);
                                 quill.setSelection(cursorPosition + 1);
                             });
@@ -84,6 +100,11 @@ const Paragraph = () => {
         },
         clipboard: {
             matchVisual: false,
+            // Disable pasting of images and videos
+            matchers: [
+                ['img', (node) => node.tagName.toLowerCase() !== 'img'],
+                ['video', (node) => node.tagName.toLowerCase() !== 'video'],
+            ],
         },
     }), []);
 
@@ -102,24 +123,90 @@ const Paragraph = () => {
         "link",
         "image",
     ];
-    const saveOrUpdate = () => {
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else {
+            saveOrUpdateBlogPost(event);
+        }
+        setValidated(true);
+
+    };
+    const saveOrUpdateBlogPost = (e) => {
+        e.preventDefault();
+        callbackFunction();
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("categoryId", categoryId);
+        formData.append("tags", tags);
+        formData.append("thumbnail", thumbnail);
+        formData.append("body", description);
+
+        if (id != 'new') {
+            BlogServiceIml.updateBlogPost(id, formData).then((response) => {
+                if (response.data.errCode == "403") {
+                    setShowAlert(true);
+                } else if (response.data.errCode != "200" && response.data.errCode != null) {
+                    addToast(<a href='/dashboard-blogs' style={{ 'fontSize': 16 }}>Update blog post successfull, click here to return list blog page</a>, {
+                        appearance: 'success',
+                        autoDismiss: false,
+                    })
+                }
+                // navigate.push('/employer/jobs')
+            }).catch(error => {
+                addToast("some error occurred. Please try again", {
+                    appearance: 'info',
+                    autoDismiss: true,
+                })
+            })
+
+        } else {
+
+            BlogServiceIml.createBlogPost(formData).then((response) => {
+                if (response.data.errCode == "403") {
+                    setShowAlert(true);
+                } else if (response.data.errCode != "200" && response.data.errCode != null) {
+                    addToast(<a href='/dashboard-blogs' style={{ 'fontSize': 16 }}>Create blog post successfull, click here to return list blog page</a>, {
+                        appearance: 'success',
+                        autoDismiss: false,
+                    })
+                }
+
+                // navigate.push('/employer/jobs');
+
+            }).catch(error => {
+                addToast("some error occurred. Please try again", {
+                    appearance: 'info',
+                    autoDismiss: true,
+                })
+            })
+        }
     }
 
-    const stringSkills = (skills) => {
-        let skillNameList = []
-        skills.forEach((element) => {
-            skillNameList = [...skillNameList, element.label]
-        })
-        return skillNameList.join(',');
-    }
-
-    const getCategory = (category) => {
-        let arr = categoryList ? categoryList.split(',') : [];
-        let categoryOjectList = []
+    const [tagList, setTagList] = useState([])
+    const getTag = (tags) => {
+        if (tags) {
+            tags = tags.slice(1);
+        }
+        let arr = tags ? tags.split('#') : [];
+        let tagOjectList = []
         arr.forEach((element) => {
-            categoryOjectList = [...categoryOjectList, { value: element, label: element }]
+            tagOjectList = [...tagOjectList, { value: element, label: element }]
         })
-        return categoryOjectList;
+        return tagOjectList;
+    }
+
+    const stringTags = (tags) => {
+        let tagNameList = []
+        tags.forEach((element) => {
+            tagNameList = [...tagNameList, element.label]
+        })
+        return "#" + tagNameList.join('#');
     }
 
     const findCategory = (id) => {
@@ -130,6 +217,13 @@ const Paragraph = () => {
             }
         })
     }
+
+    const callbackFunction = (childData) => {
+        setThumbnail(childData)
+    }
+
+    const titlePage = <h2>{id != 'new' ? 'Edit BlogPost information' : 'New BlogPost'}</h2>;
+    const action = <div>{id != 'new' ? 'Edit BlogPost' : 'Create BlogPost'}</div>;
 
     return (
         <>
@@ -150,7 +244,7 @@ const Paragraph = () => {
                             <div className="row">
                                 <div className="col-xxxl-9 px-lg-13 px-6">
                                     <h5 className="font-size-6 font-weight-semibold mb-11">
-                                        Add new blog
+                                        {titlePage}
                                     </h5>
                                     <div className="contact-form bg-white shadow-8 rounded-4 pl-sm-10 pl-4 pr-sm-11 pr-4 pt-15 pb-13">
                                         {showError || showSuccess ?
@@ -187,11 +281,11 @@ const Paragraph = () => {
                                             <FormControl width="50%">
                                                 <FormLabel htmlFor='tag'>Category</FormLabel>
                                                 <CreatableSelect
+                                                    isValidNewOption={() => false}
                                                     maxMenuHeight={100}
-                                                    isMulti
                                                     isClearable={true}
                                                     isSearchable
-                                                    onChange={(e) => { setCategoryId(e.value); setSelectedCategory(e); e.__isNew__ == true ? redirectNewCategory() : console.log(categoryId, e) }}
+                                                    onChange={(e) => { setCategoryId(e.value); setSelectedCategory(e) }}
                                                     value={selectedCategory ? selectedCategory : findCategory(categoryId)}
                                                     options={categoryList} />
                                             </FormControl>
@@ -199,7 +293,7 @@ const Paragraph = () => {
                                         <HStack spacing={30} paddingTop={10}>
                                             <FormControl id="avatar" className='blog-thumbnail'>
                                                 <FormLabel>Thumbnail</FormLabel>
-                                                <Cover url={thumbnail} />
+                                                <Cover url={thumbnail} borderRadius={"0%"} parentCallback={callbackFunction} />
                                             </FormControl>
                                         </HStack>
                                         <HStack spacing={30} paddingTop={10}>
@@ -227,17 +321,16 @@ const Paragraph = () => {
                                                 <FormControl width="100%">
                                                     <FormLabel htmlFor='tag'>Tag</FormLabel>
                                                     <CreatableSelect
-                                                        maxMenuHeight={100}
                                                         isMulti
                                                         isClearable={true}
                                                         isSearchable
-                                                        // onChange={(e) => { handleSelectChange("skills", stringSkills(e), paragraph.id); setSelectedSkill(e); }}
-                                                        // value={getSkill(paragraph.skills)}
+                                                        onChange={(e) => { setTags(stringTags(e)) }}
+                                                        value={getTag(tags)}
                                                         options={tagList} />
                                                 </FormControl>
                                             </HStack>
                                         </FormControl>
-                                        <Button className='action-button btn-green' marginRight={"10vw"} colorScheme={'purple'} my={5} onClick={saveOrUpdate}>Save</Button>
+                                        <Button className='action-button btn-green' marginRight={"10vw"} colorScheme={'purple'} my={5} onClick={saveOrUpdateBlogPost}>{action}</Button>
                                     </div>
                                 </div>
                             </div>

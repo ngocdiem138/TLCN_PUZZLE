@@ -1,10 +1,35 @@
 import React, { useContext, useEffect, useState } from "react";
-import pic1 from "../assets/image/banner/pic1.jpg";
+import noface from "../assets/image/noface.png";
 import PageWrapper from "../components/PageWrapper";
 import './main.css';
-import { UserServiceIml } from "../actions/user-actions";
+import { BlogServiceIml, UserServiceIml } from "../actions/user-actions";
 import { Link } from "gatsby";
+import { useToasts } from 'react-toast-notifications';
+import Paginate from "../helpers/PaginateBlog";
 const DashboardBlogs = () => {
+  const [blogPost, setBlogPost] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(6);
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = blogPost.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (pageNumber) => {
+    console.log("pageNumber", pageNumber)
+    setCurrentPage(pageNumber);
+  };
+
+  const previousPage = () => {
+    if (currentPage !== 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const nextPage = () => {
+    if (currentPage !== Math.ceil(blogPost.length / postsPerPage)) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   const [profile, setProfile] = useState({
     phone: "",
     fullName: "",
@@ -34,6 +59,78 @@ const DashboardBlogs = () => {
       }
     });
   }, [])
+  useEffect(() => {
+    BlogServiceIml.getUserBlogPost().then((response) => {
+      if (response.data.errCode == "403") {
+        setShowError403(true);
+      } else {
+        setBlogPost(response.data.data);
+      }
+    });
+  }, [])
+
+  const listBlogPost = currentPosts.map(blogPost => {
+    return <div className="col-lg-6">
+      <div className="card-blog-1 border-gray-800 bg-gray-850 hover-up">
+        <div className="card-image mb-20">
+          <a className="post-type" href="/page-author#" />
+          <a href={"/dashboard-blog?id="+blogPost.id}>
+            <img
+              src={blogPost.thumbnail}
+              alt="Genz"
+            />
+          </a>
+        </div>
+        <div className="card-info">
+          <div className="row">
+            <div className="col-7">
+              <a
+                className="color-gray-700 text-sm"
+                href={"/dashboard-blog?id="+blogPost.id}
+              >
+               {blogPost.tags}
+              </a>
+            </div>
+            <div className="col-5 text-end">
+              <span className="color-gray-700 text-sm timeread">
+                {blogPost.createdAt ? blogPost.createdAt.split(' ')[0] : "long time Ago"}
+              </span>
+            </div>
+          </div>
+          <a href={"/dashboard-blog?id="+blogPost.id}>
+            <h4 className="color-white mt-20">
+              {blogPost.title}
+            </h4>
+          </a>
+          <div className="row align-items-center mt-25">
+            <div className="col-7">
+              <div className="box-author">
+                <img
+                  src={avatar ? avatar : noface}
+                  alt="Genz"
+                />
+                <div className="author-info">
+                  <h6 className="color-gray-700">{username ? username : "username"}</h6>
+                  <span className="color-gray-700 text-sm">
+                    Last update {blogPost.updatedAt}
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="col-5 text-end">
+              <a
+                className="readmore color-gray-500 text-sm"
+                href={"/dashboard-blog?id="+blogPost.id}
+              >
+                <span>Read more</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  })
   return <>
     <PageWrapper headerConfig={{
       button: "profile",
@@ -54,7 +151,7 @@ const DashboardBlogs = () => {
                         <div className="box-banner-4">
                           <div className="banner-image">
                             <img
-                              src={pic1}
+                              src={avatar ? avatar : noface}
                               alt="Genz"
                             />
                           </div>
@@ -106,196 +203,17 @@ const DashboardBlogs = () => {
                           </Link>
                         </div>
                       </div>
-                      <div className="row mt-50 mb-10 mt-50">
-                        <div className="col-lg-10">
-                          <p className="text-lg color-gray-500">Exclusive author</p>
-                        </div>
-                      </div>
                       <div className="row mt-50 mb-10">
-                        <div className="col-lg-6">
-                          <div className="card-blog-1 border-gray-800 bg-gray-850 hover-up">
-                            <div className="card-image mb-20">
-                              <a className="post-type" href="/page-author#" />
-                              <a href="/single-sidebar">
-                                <img
-                                  src="https://genz-nextjs-v2.vercel.app/assets/imgs/page/travel-tip/news1.png"
-                                  alt="Genz"
-                                />
-                              </a>
-                            </div>
-                            <div className="card-info">
-                              <div className="row">
-                                <div className="col-7">
-                                  <a
-                                    className="color-gray-700 text-sm"
-                                    href="/blog-archive"
-                                  >
-                                    # Travel
-                                  </a>
-                                  <a
-                                    className="color-gray-700 text-sm"
-                                    href="/blog-archive"
-                                  >
-                                    # Lifestyle
-                                  </a>
-                                </div>
-                                <div className="col-5 text-end">
-                                  <span className="color-gray-700 text-sm timeread">
-                                    3 mins read
-                                  </span>
-                                </div>
-                              </div>
-                              <a href="/single-sidebar">
-                                <h4 className="color-white mt-20">
-                                  Self-observation is the first step of inner
-                                  unfolding
-                                </h4>
-                              </a>
-                              <div className="row align-items-center mt-25">
-                                <div className="col-7">
-                                  <div className="box-author">
-                                    <img
-                                      src={pic1}
-                                      alt="Genz"
-                                    />
-                                    <div className="author-info">
-                                      <h6 className="color-gray-700">Joseph</h6>
-                                      <span className="color-gray-700 text-sm">
-                                        25 April 2022
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-5 text-end">
-                                  <a
-                                    className="readmore color-gray-500 text-sm"
-                                    href="/single-sidebar"
-                                  >
-                                    <span>Read more</span>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="col-lg-6">
-                          <div className="card-blog-1 border-gray-800 bg-gray-850 hover-up">
-                            <div className="card-image mb-20">
-                              <a className="post-type" href="/page-author#" />
-                              <a href="/single-sidebar">
-                                <img
-                                  src="https://genz-nextjs-v2.vercel.app/assets/imgs/page/travel-tip/news1.png"
-                                  alt="Genz"
-                                />
-                              </a>
-                            </div>
-                            <div className="card-info">
-                              <div className="row">
-                                <div className="col-7">
-                                  <a
-                                    className="color-gray-700 text-sm"
-                                    href="/blog-archive"
-                                  >
-                                    # Travel
-                                  </a>
-                                  <a
-                                    className="color-gray-700 text-sm"
-                                    href="/blog-archive"
-                                  >
-                                    # Lifestyle
-                                  </a>
-                                </div>
-                                <div className="col-5 text-end">
-                                  <span className="color-gray-700 text-sm timeread">
-                                    3 mins read
-                                  </span>
-                                </div>
-                              </div>
-                              <a href="/single-sidebar">
-                                <h4 className="color-white mt-20">
-                                  Your Light Is About To Stop Being Relevant
-                                </h4>
-                              </a>
-                              <div className="row align-items-center mt-25">
-                                <div className="col-7">
-                                  <div className="box-author">
-                                    <img
-                                      src={pic1}
-                                      alt="Genz"
-                                    />
-                                    <div className="author-info">
-                                      <h6 className="color-gray-700">Joseph</h6>
-                                      <span className="color-gray-700 text-sm">
-                                        25 April 2022
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="col-5 text-end">
-                                  <a
-                                    className="readmore color-gray-500 text-sm"
-                                    href="/single-sidebar"
-                                  >
-                                    <span>Read more</span>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                        {listBlogPost}
                       </div>
-                      <nav className="mb-50">
-                        <ul className="pagination">
-                          <li
-                            className="page-item wow animate__animated animate__fadeIn"
-                            data-wow-delay=".0s"
-                          >
-                            <a className="page-link page-prev" href="/page-author#">
-                              <i className="fi-rr-arrow-small-left" />
-                            </a>
-                          </li>
-                          <li
-                            className="page-item wow animate__animated animate__fadeIn"
-                            data-wow-delay=".1s"
-                          >
-                            <a className="page-link" href="/page-author#">
-                              1
-                            </a>
-                          </li>
-                          <li
-                            className="page-item wow animate__animated animate__fadeIn"
-                            data-wow-delay=".2s"
-                          >
-                            <a className="page-link active" href="/page-author#">
-                              2
-                            </a>
-                          </li>
-                          <li
-                            className="page-item wow animate__animated animate__fadeIn"
-                            data-wow-delay=".3s"
-                          >
-                            <a className="page-link" href="/page-author#">
-                              3
-                            </a>
-                          </li>
-                          <li
-                            className="page-item wow animate__animated animate__fadeIn"
-                            data-wow-delay=".4s"
-                          >
-                            <a className="page-link" href="/page-author#">
-                              ...
-                            </a>
-                          </li>
-                          <li
-                            className="page-item wow animate__animated animate__fadeIn"
-                            data-wow-delay=".5s"
-                          >
-                            <a className="page-link page-next" href="/page-author#">
-                              <i className="fi-rr-arrow-small-right" />
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
+                      <Paginate
+                        postsPerPage={postsPerPage}
+                        totalPosts={blogPost.length}
+                        paginate={paginate}
+                        previousPage={previousPage}
+                        nextPage={nextPage}
+                        selectedPage={currentPage}
+                      />
                     </div>
                   </div>
                 </div>

@@ -84,6 +84,7 @@
     "react-sticky-scrollspy-nav": "^0.2.0",
     "react-svg": "^16.1.7",
     "react-tilt": "^0.1.4",
+    "react-toast-notifications": "^2.5.1",
     "reactjs-alert": "^2.2.0",
     "reduce-reducers": "^1.0.4",
     "redux": "^4.2.0",

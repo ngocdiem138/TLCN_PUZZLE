@@ -26,7 +26,7 @@ const DashboardJobs = () => {
       if (response.data.errCode == "403") {
         setShowError(true);
       } else {
-        setJobs(response.data.data);
+        setJobs(response.data.data.content);
       }
     });
     JobPostServiceIml.getLimitJobPostCreateByEmployer().then((response) => {
@@ -48,7 +48,7 @@ const DashboardJobs = () => {
   }
   const listJob = jobs.map((job) => {
     return <tr className="border border-color-2"
-      style={job.job_post.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
+      style={job.jobPost.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
       {/* {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null} */}
       <th
         scope="row"
@@ -56,26 +56,26 @@ const DashboardJobs = () => {
       >
         <div className="">
           <Link
-            to={"/groups/job-details/" + job.job_post.id}
+            to={"/groups/job-details/" + job.jobPost.id}
             className="font-size-4 mb-0 font-weight-semibold text-black-2"
           >
-            {job.job_post.title}
+            {job.jobPost.title}
           </Link>
         </div>
       </th>
       <td className="table-y-middle py-7 min-width-px-135">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {job.job_post.employmentType}
+          {job.jobPost.employmentType}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-125">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {job.job_post.city}
+          {job.jobPost.city}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-155">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {job.job_post.createTime}
+          {job.jobPost.createTime}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-205">
@@ -84,7 +84,7 @@ const DashboardJobs = () => {
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-80">
-        <Link to={"/dashboard-jobPost?id=" + job.job_post.id} className="font-size-3 font-weight-bold text-green text-uppercase"> Edit </Link>
+        <Link to={"/dashboard-jobPost?id=" + job.jobPost.id} className="font-size-3 font-weight-bold text-green text-uppercase"> Edit </Link>
       </td>
       <td className="table-y-middle py-7 min-width-px-100">
 
@@ -97,7 +97,7 @@ const DashboardJobs = () => {
                 "Do you really want to delete this Job Post?"
               )
               if (confirmBox === true) {
-                remove(job.job_post.id);
+                remove(job.jobPost.id);
               }
             }
           }}>
@@ -116,7 +116,7 @@ const DashboardJobs = () => {
           reveal: false,
         }}
       >
-        <div className="dashboard-main-container mt-25 mt-lg-31">
+        <div className="dashboard-main-container mt-lg-31">
           <div className="container">
             <ReactJsAlert
               type="info"   // success, warning, error, info

@@ -10,7 +10,44 @@ import { API_BASE_URL } from "../utils/constants/url";
 class BlogService {
 
     getAllCategory() {
-        return axios.get(API_BASE_URL + '/common/category/');
+        return axios.get(API_BASE_URL + '/common/get-all-category');
+    }
+    getAllBlogPost() {
+        return axios.get(API_BASE_URL + '/common/blog-post');
+    }
+    getBlogPostById(id) {
+        return axios.get(API_BASE_URL + '/common/view-blog-post/' + id);
+    }
+    createBlogPost(file) {
+        return axios.post(API_BASE_URL + "/user/create-blog-post", file, {
+            headers: {
+                "Content-Type": `multipart/form-data;`,
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
+    uploadImageBlog(file) {
+        return axios.post(API_BASE_URL + "/user/upload-blog-image", file, {
+            headers: {
+                "Content-Type": `multipart/form-data;`,
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
+    updateBlogPost(id, file) {
+        return axios.put(API_BASE_URL + "/user/update-blog-post/" + id, file, {
+            headers: {
+                "Content-Type": `multipart/form-data;`,
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+    }
+    getUserBlogPost() {
+        return axios.get(API_BASE_URL + '/user/my-blog-post', {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
     }
 
 }
