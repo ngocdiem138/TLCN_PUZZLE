@@ -9,23 +9,28 @@ import store from "./store";
 // import App from "./src/pages/App/App";
 import { IntlProvider } from 'react-intl';
 import './src/pages/main.css';
+import { ToastProvider } from 'react-toast-notifications';
 
 
 export const wrapPageElement = ({ element, props }) => {
   // props provide same data to Layout as Page element will get
   // including location, data, etc - you don't need to pass it
-  return <Layout {...props}>{element}</Layout>;
+  return <ToastProvider placement='bottom-center'>
+    <Layout {...props}>{element}</Layout>;
+  </ToastProvider>
 };
 
 export const wrapRootElement = ({ element }) => (
-  <IntlProvider locale="en">
-    <GlobalProvider>
-      <Provider store={store}>
-        <CartProvider>{element}</CartProvider>
-        {/* <BrowserRouter>
+  <ToastProvider placement='bottom-center'>
+    <IntlProvider locale="en">
+      <GlobalProvider>
+        <Provider store={store}>
+          <CartProvider>{element}</CartProvider>
+          {/* <BrowserRouter>
         <App />
       </BrowserRouter> */}
-      </Provider>
-    </GlobalProvider>
-  </IntlProvider>
+        </Provider>
+      </GlobalProvider>
+    </IntlProvider>
+  </ToastProvider>
 );
