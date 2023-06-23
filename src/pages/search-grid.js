@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
@@ -20,6 +20,7 @@ import axios from "axios";
 import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
 
 import { useTranslation } from 'react-i18next';
+import GlobalContext from "../context/GlobalContext";
 
 
 const STEP = 50;
@@ -73,6 +74,7 @@ const Check = ({ children }) => {
 
 const SearchGrid = () => {
 
+  const gContext = useContext(GlobalContext);
 
 
   const { t, i18n } = useTranslation()
@@ -278,7 +280,11 @@ const SearchGrid = () => {
             <button
               type="submit"
               className="btn btn-green text-uppercase btn-medium rounded-3"
-              onClick={() => applyForJob(job.id)}
+              // onClick={() => applyForJob(job.id)}
+              onClick={(e) => {
+                e.preventDefault();
+                gContext.toggleApplyModal();
+              }}
             >
               {t('apply.applyNow')}
             </button>

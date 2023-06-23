@@ -3,6 +3,7 @@ import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { useLocation } from '@reach/router';
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
+import Paginate from "../helpers/PaginateBlog";
 
 import imgF1 from "../assets/image/l2/png/featured-job-logo-1.png";
 import iconD from "../assets/image/svg/icon-dolor.svg";
@@ -35,11 +36,14 @@ const BlogGrid = () => {
   const [scrollTop, setScrollTop] = useState(undefined);
   const [screenSize, setScreenSize] = useState(undefined);
   const [blogPost, setBlogPost] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = blogPost.slice(indexOfFirstPost, indexOfLastPost);
+
+  
 
   const paginate = (pageNumber) => {
     console.log("pageNumber", pageNumber)
@@ -65,22 +69,51 @@ const BlogGrid = () => {
     console.log(sidebarEl.height);
     setSidebarTop(sidebarEl.top);
     const contentEl = document.querySelector('.blog-content').getBoundingClientRect();
+    if(contentEl.height < sidebarEl.height) {
+      document.querySelector('.blog-content').style.height = sidebarEl.height + "px";
+    }
     setContentHeight(contentEl.height);
     setContentTop(contentEl.top);
+  }, [scrollTop]);
+
+  useEffect(() => {
+    // Fetch initial blog posts or perform any other necessary initialization logic
     BlogServiceIml.getAllBlogPost().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode === "403") {
         setShowError403(true);
       } else {
-        setBlogPost(response.data.data);
+        setBlogPost(response.data.data.content);
       }
     });
+    BlogServiceIml.getAllCategoryAndPostAmount().then((response) => {
+      if (response.data.errCode === "403") {
+        setShowError403(true);
+      } else {
+        setCategoryList(response.data.data);
+      }
+    });
+  }, []);
 
-  }, [scrollTop]);
+  const viewByCategory = (categoryId) => {
+    if (categoryId) {
+      BlogServiceIml.getAllBlogPostByCategoryId(categoryId)
+        .then((response) => {
+          if (response.data.errCode === "403") {
+            setShowError403(true);
+          } else {
+            setBlogPost(response.data.data.content);
+          }
+        })
+        .catch((error) => {
+          // Handle error if necessary
+        });
+    }
+  };
 
   const listBlogPost = currentPosts.map(blogPost => {
     return <div className="post card-container col-lg-6 col-md-6 col-sm-6">
       <div className="blog-post blog-grid blog-style-1">
-        <div className="dez-post-media dez-img-effect radius-sm"> <a href="blog-details.html"><img src={blogPost.thumbnail} alt="" /></a> </div>
+        <div className="dez-post-media dez-img-effect radius-sm"> <a href={"/blog-details?id=" + blogPost.id}><img src={blogPost.thumbnail} alt="" /></a> </div>
         <div className="dez-info">
           <div className="dez-post-meta">
             <ul className="d-flex align-items-center">
@@ -89,18 +122,38 @@ const BlogGrid = () => {
             </ul>
           </div>
           <div className="dez-post-title ">
-            <h5 className="post-title font-20"><a href="blog-details.html">{blogPost.title}</a></h5>
+            <h5 className="post-title font-20"><a href={"/blog-details?id=" + blogPost.id}>{blogPost.title}</a></h5>
           </div>
           <div className="dez-post-text">
             <p>{blogPost.tags}</p>
           </div>
           <div className="dez-post-readmore blog-share">
-            <a href="blog-details.html" title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
+            <a href={"/blog-details?id=" + blogPost.id} title="READ MORE" rel="bookmark" className="site-button-link"><span className="fw6">READ MORE</span></a>
           </div>
         </div>
       </div>
     </div>
+  })
 
+  const listCategory = categoryList.map(category => {
+    return <li><a onClick={()=>viewByCategory(category.blogCategory.id)}>{category.blogCategory.name} ({category.blogPostAmount})</a></li>
+  })
+
+  const listRecentBlogPost = currentPosts.map(blogPost => {
+    return <div className="widget-post clearfix">
+    <div className="dez-post-media"> <img src={blogPost.thumbnail} alt="" /></div>
+    <div className="dez-post-info">
+      <div className="dez-post-header">
+        <h6 className="post-title"><a href={"/blog-details?id=" + blogPost.id}>{blogPost.title}</a></h6>
+      </div>
+      <div className="dez-post-meta">
+        <ul className="d-flex align-items-center">
+          <li className="post-date"><i className="fa fa-calendar"></i>{blogPost.createdAt ? blogPost.createdAt.split(' ')[0] : blogPost.createdAt}</li>
+          <li className="post-comment"><a href="#"><i className="far fa-comments"></i>{blogPost.comments ? blogPost.comments.length : blogPost.comments}</a> </li>
+        </ul>
+      </div>
+    </div>
+  </div>
   })
 
   useEffect(() => {
@@ -110,7 +163,7 @@ const BlogGrid = () => {
       const side_barEl = document.querySelector('.side-bar');
       side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
     });
-    if (getWidthByClassName('blog-content-container') - getWidthByClassName('masonry') <= 10) {
+    if (getWidthByClassName('blog-content-container') - getWidthByClassName('masonry') <= 0) {
       const side_barEl = document.querySelector('.side-bar');
       side_barEl.style.position = 'relative';
       side_barEl.style.bottom = '0px';
@@ -141,6 +194,9 @@ const BlogGrid = () => {
 
   const isSticky = (e) => {
     if (getWidthByClassName('blog-content-container') - getWidthByClassName('masonry') <= 10) {
+      const side_barEl = document.querySelector('.side-bar');
+      side_barEl.style.position = 'relative';
+      side_barEl.style.bottom = '0px';
       return
     };
     const sidebarEl = document.querySelector('.sidebar');
@@ -165,7 +221,7 @@ const BlogGrid = () => {
       console.log("a", document.querySelector('.pagination-bx').getBoundingClientRect().bottom);
       side_barEl.style.position = 'fixed';
     }
-    if (scrollTop < sidebarHeight - windowHeight) {
+    if (scrollTop < sidebarHeight - windowHeight || sidebarHeight < windowHeight) {
       // sidebarEl.style.top = -(contentHeight + sidebarTop - 100 - windowHeight).toString() + 'px';
       side_barEl.style.position = 'relative';
       side_barEl.style.bottom = '0px';
@@ -187,16 +243,17 @@ const BlogGrid = () => {
                     <div className="row" id="blog-content-container">
                       <div className="col-lg-8 col-md-7 col-sm-12">
                         <div id="masonry" className="dez-blog-grid-3 row blog-content">
-                          {listBlogPost}
+                          {listBlogPost.length ? listBlogPost : <h3 className="text-center">No blog post with your filter or category!!</h3>}
                         </div>
                         <div className="pagination-bx clearfix text-center" style={{ padding: "5rem" }}>
-                          <ul className="pagination">
-                            <li className="previous"><a href="javascript:void(0);"><i className="ti-arrow-left"></i> Prev</a></li>
-                            <li className="active"><a href="#">1</a></li>
-                            <li><a href="javascript:void(0);">2</a></li>
-                            <li><a href="javascript:void(0);">3</a></li>
-                            <li className="next"><a href="javascript:void(0);">Next <i className="ti-arrow-right"></i></a></li>
-                          </ul>
+                          <Paginate
+                            postsPerPage={postsPerPage}
+                            totalPosts={blogPost.length}
+                            paginate={paginate}
+                            previousPage={previousPage}
+                            nextPage={nextPage}
+                            selectedPage={currentPage}
+                          />
                         </div>
                       </div>
                       <div className="col-lg-4 col-md-5 sticky-top sidebar">
@@ -217,95 +274,14 @@ const BlogGrid = () => {
                           <div className="widget recent-posts-entry">
                             <h6 className="widget-title style-1">Recent Posts</h6>
                             <div className="widget-post-bx">
-                              <div className="widget-post clearfix">
-                                <div className="dez-post-media"> <img src={pic1} width="200" height="143" alt="" /> </div>
-                                <div className="dez-post-info">
-                                  <div className="dez-post-header">
-                                    <h6 className="post-title"><a href="blog-details.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h6>
-                                  </div>
-                                  <div className="dez-post-meta">
-                                    <ul className="d-flex align-items-center">
-                                      <li className="post-date"><i className="fa fa-calendar"></i>Sep 18, 2021</li>
-                                      <li className="post-comment"><a href="#"><i className="far fa-comments"></i>5k</a> </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="widget-post clearfix">
-                                <div className="dez-post-media"> <img src={pic2} width="200" height="160" alt="" /> </div>
-                                <div className="dez-post-info">
-                                  <div className="dez-post-header">
-                                    <h6 className="post-title"><a href="blog-details.html">Do you have a job that the average person doesn’t even know exists?</a></h6>
-                                  </div>
-                                  <div className="dez-post-meta">
-                                    <ul className="d-flex align-items-center">
-                                      <li className="post-date"><i className="fa fa-calendar"></i>Sep 18, 2021</li>
-                                      <li className="post-comment"><a href="#"><i className="far fa-comments"></i>5k</a> </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="widget-post clearfix">
-                                <div className="dez-post-media"> <img src={pic3} width="200" height="160" alt="" /> </div>
-                                <div className="dez-post-info">
-                                  <div className="dez-post-header">
-                                    <h6 className="post-title"><a href="blog-details.html">Using Banner Stands To Increase Trade Show Traffic</a></h6>
-                                  </div>
-                                  <div className="dez-post-meta">
-                                    <ul className="d-flex align-items-center">
-                                      <li className="post-date"><i className="fa fa-calendar"></i>Sep 18, 2021</li>
-                                      <li className="post-comment"><a href="#"><i className="far fa-comments"></i>5k</a> </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
+                              {listRecentBlogPost}
                             </div>
-                          </div>
-
-                          <div className="widget widget_gallery gallery-grid-3">
-                            <h6 className="widget-title style-1">Our services</h6>
-                            <ul className="lightgallery">
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                            </ul>
                           </div>
 
                           <div className="widget widget_archive">
                             <h6 className="widget-title style-1">Categories List</h6>
                             <ul>
-                              <li><a href="javascript:void(0);">aciform</a></li>
-                              <li><a href="javascript:void(0);">championship</a></li>
-                              <li><a href="javascript:void(0);">chastening</a></li>
-                              <li><a href="javascript:void(0);">clerkship</a></li>
-                              <li><a href="javascript:void(0);">disinclination</a></li>
+                              {listCategory}
                             </ul>
                           </div>
 

@@ -11,7 +11,7 @@ const Brands = () => {
   const { t, i18n } = useTranslation();
   const [companys, setCompanys] = useState([]);
   useEffect(() => {
-    CompanyServiceIml.getAllCompanys().then((response) => { setCompanys(response.data.data) });
+    CompanyServiceIml.getAllCompanys().then((response) => { setCompanys(response.data.data.content) });
   }, [])
 
   const companyList = companys.map(company => {

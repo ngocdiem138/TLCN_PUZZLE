@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Tab, Nav } from "react-bootstrap";
 import { Link } from "gatsby";
 
@@ -20,8 +20,10 @@ import iconL2 from "../../assets/image/svg/icon-location.svg";
 import iconD from "../../assets/image/svg/icon-dolor.svg";
 import iconB from "../../assets/image/svg/icon-briefcase.svg";
 import { useTranslation } from 'react-i18next';
+import GlobalContext from "../../context/GlobalContext";
 
 const SearchTab = (props) => {
+  const gContext = useContext(GlobalContext);
   const { t, i18n } = useTranslation()
   console.log(props.listJob);
   let activeIndexDefault = props.listJob[0] ? props.listJob[0].id : 0
@@ -249,7 +251,11 @@ const SearchTab = (props) => {
                   <button
                     type="submit"
                     className="btn btn-green text-uppercase btn-medium rounded-3 w-180 mr-4 mb-5"
-                    onClick={() => applyForJob(job.id)}
+                    // onClick={() => applyForJob(job.id)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      gContext.toggleApplyModal();
+                    }}
                   >
                     {t('apply.applyThisJob')}
                   </button>

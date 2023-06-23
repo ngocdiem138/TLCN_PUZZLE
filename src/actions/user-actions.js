@@ -15,6 +15,12 @@ class BlogService {
     getAllBlogPost() {
         return axios.get(API_BASE_URL + '/common/blog-post');
     }
+    getAllBlogPostByCategoryId(categoryId) {
+        return axios.get(API_BASE_URL + '/common/blog-post?blogCategoryId=' + categoryId);
+    }
+    getAllCategoryAndPostAmount() {
+        return axios.get(API_BASE_URL + '/common/blog-post/blog-category-with-post-amount');
+    }
     getBlogPostById(id) {
         return axios.get(API_BASE_URL + '/common/view-blog-post/' + id);
     }
@@ -131,8 +137,7 @@ class JobPostService {
     }
 
     getJobPostById(jobPostId) {
-        if(localStorage.getItem("token")) 
-        {
+        if (localStorage.getItem("token")) {
             return axios.get(API_BASE_URL + '/common/job-post/get-one/' + jobPostId, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
@@ -274,6 +279,15 @@ class UserService {
     }
     getResetPass(token, newPass) {
         return axios.get(API_BASE_URL + "/auth/reset-password?token=" + token + "&newPassword=" + newPass)
+    }
+    verifyEmail(token) {
+        return axios.put(API_BASE_URL + "/auth/verify-account", token,
+            {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            }
+        )
     }
     payPricing(pricing) {
         return axios.get(

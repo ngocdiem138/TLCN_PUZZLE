@@ -2044,6 +2044,10 @@ ol.comment-list li.comment {
     object-fit: cover;
 }
 
+.thumbnail img {
+    aspect-ratio: 0;
+}
+
 .blog-content .ql-editor {
     min-height: 200px !important;
 }

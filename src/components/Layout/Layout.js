@@ -17,6 +17,7 @@ import SidebarDashboard from "../SidebarDashboard";
 import ModalVideo from "../ModalVideo";
 import ModalApplication from "../ModalApplication";
 import ModalSignIn from "../ModalSignIn";
+import ModalApply from "../ModalApply";
 import ModalSignUp from "../ModalSignUp";
 import ModalSignCandidate from "../ModalSignCandidate";
 import ModalSignEmployer from "../ModalSignEmployer";
@@ -148,6 +149,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId}/>
           <ModalSignIn />
+          <ModalApply />
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />
@@ -188,6 +190,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
+          <ModalApply />
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />
@@ -222,6 +225,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
+          <ModalApply />
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />

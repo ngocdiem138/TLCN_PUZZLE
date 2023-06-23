@@ -7,6 +7,7 @@ const GlobalProvider = ({ children }) => {
   const [showSidebarDashboard, setShowSidebarDashboard] = useState(true);
   const [applicationModalVisible, setApplicationModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
+  const [applyModalVisible, setApplyModalVisible] = useState(false);
   const [signUpModalVisible, setSignUpModalVisible] = useState(false);
   const [videoModalVisible, setVideoModalVisible] = useState(false);
   const [visibleOffCanvas, setVisibleOffCanvas] = useState(false);
@@ -59,6 +60,14 @@ const GlobalProvider = ({ children }) => {
     setSignInModalVisible(false);
   };
 
+  const toggleApplyModal = () => {
+    setApplyModalVisible(!applyModalVisible);
+  };
+
+  const toggleApplyModalClose = () => {
+    setApplyModalVisible(false);
+  };
+
   const toggleSignUpModal = () => {
     setSignUpModalVisible(!signUpModalVisible);
   };
@@ -87,6 +96,9 @@ const GlobalProvider = ({ children }) => {
         signInModalVisible,
         toggleSignInModal,
         toggleSignInModalClose,
+        applyModalVisible,
+        toggleApplyModal,
+        toggleApplyModalClose,
         signUpModalVisible,
         toggleSignUpModal,
         visibleOffCanvas,
