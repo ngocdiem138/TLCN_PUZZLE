@@ -151,7 +151,7 @@ const BlogDetails = () => {
                         </div>
                         <div className="clear" id="comment-list">
                           <div className="comments-area" id="comments">
-                            <h2 className="comments-title">{blogDetail.comments.length} Comments</h2>
+                            <h2 className="comments-title">{blogDetail.comments ? blogDetail.comments.length : 0} Comments</h2>
                             <div className="clearfix m-b20">
                               <ol className="comment-list">
                                 <li className="comment">

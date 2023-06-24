@@ -281,7 +281,7 @@ class UserService {
         return axios.get(API_BASE_URL + "/auth/reset-password?token=" + token + "&newPassword=" + newPass)
     }
     verifyEmail(token) {
-        return axios.put(API_BASE_URL + "/auth/verify-account", token,
+        return axios.put(API_BASE_URL + "/auth/verify-account", {"token": token},
             {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
