@@ -22,7 +22,7 @@ const Experience = () => {
         JobPostServiceIml.getAllCompany().then((response) => {
             if (response.data.data) {
                 let companyList1 = []
-                response.data.data.forEach(element => {
+                response.data.data.content.forEach(element => {
                     companyList1 = [...companyList1, { value: element.name, label: element.name }]
                 });
                 setCompanyList(companyList1);

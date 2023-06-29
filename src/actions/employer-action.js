@@ -3,6 +3,13 @@ import axios from 'axios';
 
 class EmployerService {
 
+    viewApplication(jobPostId, candidateId) {
+        return axios.get(API_BASE_URL + "/employer/application?jobPostId=" + jobPostId + "&candidateId=" + candidateId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        })
+    }
 
     getAllAmountApplicationApplied() {
         return axios.get(API_BASE_URL + "/employer/get-amount-application-to-employer", {

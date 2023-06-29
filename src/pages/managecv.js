@@ -23,7 +23,96 @@ const ManageCV = () => {
                                         <p>Bạn chưa tạo CV nào</p>
                                     </div>
                                 </div>
+                                <div id="suggest-ai">
+                                    <div className="box-group">
+                                        <div className="box-group-header">
+                                            <div className="box-group-title mb-12px">
+                                                <h1 className="title">
+                                                    Việc làm phù hợp với bạn
+                                                </h1>
+                                            </div>
+                                            <p>Để nhận được gợi ý việc làm chính xác hơn, hãy <a target="_blank" href="https://www.topcv.vn/cai-dat-goi-y-viec-lam" className="text-highlight">tùy chỉnh cài đặt gợi ý việc làm</a>.</p>
+                                        </div>
+                                        <div className="box-group-body">
+                                            <div className="suggestion-jobs">
+                                                <link rel="stylesheet" href="https://static.topcv.vn/v4/css/components/desktop/jobs/job-list-default.de7103438670751b.css" />
+                                                <div className="job-list-default">
+                                                    <div className="job-item-default bg-diamond-employer bg-highlight job-ta" data-job-id="1036996" data-job-position="1" data-box="SuggestJobBox" data-jr-id="realtime-v2.4::1687673127370-c4e65f::fd99ee9368fd49958de0c705945e03e5::1" id="featured-suggest-1036996">
+                                                        <div className="avatar">
+                                                            <a target="_blank" href="https://www.topcv.vn/brand/educa/tuyen-dung/nhan-vien-tu-van-tuyen-sinh-telesales-tai-ha-noi-100-data-nong-thu-nhap-13-30-trieu-j1036996.html?ta_source=JobSuggestInManagerCV&amp;jr_i=realtime-v2.4%3A%3A1687673127370-c4e65f%3A%3Afd99ee9368fd49958de0c705945e03e5%3A%3A1">
+                                                                <img src="https://cdn-new.topcv.vn/unsafe/150x/filters:format(webp)/https://static.topcv.vn/company_logos/cong-ty-cp-giao-duc-educa-corporation-6d67556358b65494d801a26a77be21fb-5ea7b55a0ca31.jpg" className="w-100" alt="EDUPIA" title="Nhân Viên Tư Vấn Tuyển Sinh (Telesales) Tại Hà Nội - 100% Data Nóng - Thu Nhập 13 - 30 Triệu" />
+                                                            </a>
+                                                        </div>
+                                                        <div className="body">
+                                                            <div className="body-content">
+                                                                <div className="title-block">
+                                                                    <div>
+                                                                        <h3 className="title">
+                                                                            <div className="box-label-top">
+                                                                                <label data-toggle="tooltip" title="" data-placement="top" data-container="body" className="label label-primary tag-diamond-employer" for="" data-original-title="Nhà tuyển dụng kim cương"><i class="icon fa fa-gem">TOP</i> </label>
+                                                                            </div>
+                                                                            <a target="_blank" href="">
+                                                                                <span data-toggle="tooltip" title="" data-placement="top" data-container="body" data-original-title="Nhân Viên Tư Vấn Tuyển Sinh (Telesales) Tại Hà Nội - 100% Data Nóng - Thu Nhập 13 - 30 Triệu">Nhân Viên Tư Vấn Tuyển Sinh (Telesales) Tại Hà Nội - 100% Data Nóng - Thu Nhập 13 - 30 Triệu</span>
+                                                                            </a>
+                                                                        </h3>
+                                                                        <a className="company" href="https://www.topcv.vn/brand/educa" data-toggle="tooltip" title="" data-placement="top" data-container="body" target="_blank" data-original-title="EDUPIA">EDUPIA</a>
+                                                                    </div>
+                                                                    <label className="title-salary">
+                                                                        13 - 30 triệu
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div className="info">
+                                                                <div className="label-content">
+                                                                    <label className="address" data-toggle="tooltip" data-html="true" title="" data-placement="top" data-container="body" data-original-title="<p style='text-align: left'>Hà Nội: Thanh Xuân</p>">Hà Nội</label>
+                                                                    <label className="time">
+                                                                        Còn
+                                                                        <strong>34</strong>
+                                                                        ngày để ứng tuyển
+                                                                    </label>
+                                                                    <label className="address" data-container="body">
+                                                                        Cập nhật 1 ngày trước
+                                                                    </label>
+                                                                </div>
+                                                                <div className="icon">
+                                                                    <button data-redirect-to="https://www.topcv.vn/brand/educa/tuyen-dung/nhan-vien-tu-van-tuyen-sinh-telesales-tai-ha-noi-100-data-nong-thu-nhap-13-30-trieu-j1036996.html?ta_source=JobSuggestInManagerCV&amp;jr_i=realtime-v2.4%3A%3A1687673127370-c4e65f%3A%3Afd99ee9368fd49958de0c705945e03e5%3A%3A1" className="btn btn-apply-now">
+                                                                        <span>Ứng tuyển</span>
+                                                                    </button>
+                                                                    <div id="box-save-job-1036996" className="box-save-job  box-save-job-hover   job-notsave ">
+                                                                        <a href="javascript:void(0)" className="btn-save save" data-id="1036996" data-title="Lưu" data-toggle="tooltip" data-placement="top" data-container="body" data-original-title="" title="">
+                                                                            <span id="save-job-loading" style={{ "display": "none" }}>
+                                                                                <img src="https://www.topcv.vn/v3/images/ap-loading.gif" style={{ "width": "20px" }} />
+                                                                            </span>
+                                                                            <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>
+                                                                        </a>
+                                                                        <a href="javascript:void(0)" className="btn-unsave unsave text-highlight" data-toggle="tooltip" title="" data-id="1036996" data-title="Nhân Viên Tư Vấn Tuyển Sinh (Telesales) Tại Hà Nội - 100% Data Nóng - Thu Nhập 13 - 30 Triệu" data-placement="top" data-container="body" data-original-title="Bỏ lưu">
+                                                                            <span id="unsave-job-loading" style={{ "display": "none" }}>
+                                                                                <img src="https://www.topcv.vn/v3/images/ap-loading.gif" style={{ "width": "20px" }} />
+                                                                            </span>
+                                                                            <i className="icon icon-bookmark-2 font-weight-bold mr-4 font-size-4"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div className="btn-remove-job">
+                                                                        <a href="javascript:showConfirmIgnoreJob(1036996)" className="" title="Ẩn tin tuyển dụng này">
+                                                                            <i class="icon fa fa-window-close"></i>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="text-center">
+                                                <a href="https://www.topcv.vn/viec-lam-phu-hop" className="btn btn-suggestion-more btn-primary-hover" target="_blank">
+                                                    Xem tất cả việc làm phù hợp
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
                             <div className="col-sm-4" id="sidebar" style={{ marginTop: "16px" }}>
                                 <div className="box box-white text-center-sm">
                                     <div className="row">
@@ -98,24 +187,24 @@ const ManageCV = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="box box-white text-center-sm">
-                                    <div class="row">
-                                        <div class="text-center cv-count-header">
-                                            <div class="text-highlight">
-                                                <strong style={{fontSize: "20px"}}>CV của bạn đã đủ tốt?</strong>
-                                                <p class="text-gray" style={{fontSize: "13px"}}>Bao nhiêu NTD đang quan tâm tới Hồ sơ của bạn?</p>
+                                <div className="box box-white text-center-sm">
+                                    <div className="row">
+                                        <div className="text-center cv-count-header">
+                                            <div className="text-highlight">
+                                                <strong style={{ fontSize: "20px" }}>CV của bạn đã đủ tốt?</strong>
+                                                <p className="text-gray" style={{ fontSize: "13px" }}>Bao nhiêu NTD đang quan tâm tới Hồ sơ của bạn?</p>
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
-                                            <div class="cv-count text-center  gray ">
-                                                <div class="cv-count-number">0</div>
+                                        <div className="col-md-4">
+                                            <div className="cv-count text-center  gray ">
+                                                <div className="cv-count-number">0</div>
                                                 <div>lượt</div>
                                             </div>
                                         </div>
-                                        <div class="col-md-8" style={{paddingTop: "5px"}}>
-                                            <p style={{fontSize: "13px"}}>Mỗi lượt Nhà tuyển dụng xem CV mang đến một cơ hội để bạn gần hơn với công việc phù hợp.</p>
-                                            <div class="text-center">
-                                                <a href="https://www.topcv.vn/xem-ho-so" target="_blank" class="btn btn-sm btn-topcv-primary">Khám phá ngay</a>
+                                        <div className="col-md-8" style={{ paddingTop: "5px" }}>
+                                            <p style={{ fontSize: "13px" }}>Mỗi lượt Nhà tuyển dụng xem CV mang đến một cơ hội để bạn gần hơn với công việc phù hợp.</p>
+                                            <div className="text-center">
+                                                <a href="https://www.topcv.vn/xem-ho-so" target="_blank" className="btn btn-sm btn-topcv-primary">Khám phá ngay</a>
                                             </div>
                                         </div>
                                     </div>
@@ -124,7 +213,7 @@ const ManageCV = () => {
                         </div>
                     </div>
                 </div>
-            </PageWrapper>
+            </PageWrapper >
         </>
     );
 };

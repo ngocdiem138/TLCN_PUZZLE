@@ -153,7 +153,7 @@ class JobPostService {
     }
 
     getAllCompany() {
-        return axios.get(API_BASE_URL + '/common/company/');
+        return axios.get(API_BASE_URL + '/common/company');
     }
 
 
@@ -168,6 +168,15 @@ class JobPostService {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
         });
+    }
+
+    applyJob(jobPostId, data) {
+        return axios.post(API_BASE_URL + '/candidate/apply-job-post/' + jobPostId, data, {
+            headers: {
+                "Content-Type": `multipart/form-data;`,
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
     }
 
     cancelAppliedJob(jobPostId) {
@@ -281,7 +290,7 @@ class UserService {
         return axios.get(API_BASE_URL + "/auth/reset-password?token=" + token + "&newPassword=" + newPass)
     }
     verifyEmail(token) {
-        return axios.put(API_BASE_URL + "/auth/verify-account", {"token": token},
+        return axios.put(API_BASE_URL + "/auth/verify-account", { "token": token },
             {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")

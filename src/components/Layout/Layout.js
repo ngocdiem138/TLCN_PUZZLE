@@ -18,6 +18,7 @@ import ModalVideo from "../ModalVideo";
 import ModalApplication from "../ModalApplication";
 import ModalSignIn from "../ModalSignIn";
 import ModalApply from "../ModalApply";
+import ModalCoverLetter from "../ModalCoverLetter"
 import ModalSignUp from "../ModalSignUp";
 import ModalSignCandidate from "../ModalSignCandidate";
 import ModalSignEmployer from "../ModalSignEmployer";
@@ -149,7 +150,8 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId}/>
           <ModalSignIn />
-          <ModalApply />
+          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
+          <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />
@@ -190,7 +192,8 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
-          <ModalApply />
+          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
+          <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />
@@ -225,7 +228,8 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
-          <ModalApply />
+          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
+          <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />

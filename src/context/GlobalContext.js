@@ -8,11 +8,14 @@ const GlobalProvider = ({ children }) => {
   const [applicationModalVisible, setApplicationModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [applyModalVisible, setApplyModalVisible] = useState(false);
+  const [coverLetterModalVisible, setCoverLetterModalVisible] = useState(false);
   const [signUpModalVisible, setSignUpModalVisible] = useState(false);
   const [videoModalVisible, setVideoModalVisible] = useState(false);
   const [visibleOffCanvas, setVisibleOffCanvas] = useState(false);
   const [applicantId, setApplicantId] = useState(0);
   const [jobPostId, setJobPostId] = useState(0);
+  const [candidateId, setCandidateId] = useState(0);
+  const [jobPostName, setJobPostName] = useState("");
   const [header, setHeader] = useState({
     theme: "light",
     bgClass: "default",
@@ -52,6 +55,14 @@ const GlobalProvider = ({ children }) => {
     setJobPostId (id);
   };
 
+  const setToggleCandidateId = (id) => {
+    setCandidateId(id);
+  };
+
+  const setToggleJobPostName = (name) => {
+    setJobPostName (name);
+  };
+
   const toggleSignInModal = () => {
     setSignInModalVisible(!signInModalVisible);
   };
@@ -64,9 +75,18 @@ const GlobalProvider = ({ children }) => {
     setApplyModalVisible(!applyModalVisible);
   };
 
+  const toggleCoverLetterModal = () => {
+    setCoverLetterModalVisible(!coverLetterModalVisible);
+  };
+
   const toggleApplyModalClose = () => {
     setApplyModalVisible(false);
   };
+
+  const toggleCoverLetterModalClose = () => {
+    setCoverLetterModalVisible(false);
+  };
+
 
   const toggleSignUpModal = () => {
     setSignUpModalVisible(!signUpModalVisible);
@@ -93,12 +113,17 @@ const GlobalProvider = ({ children }) => {
         toggleApplicationModal,
         setToggleApplicantId,
         setToggleJobPostId,
+        setToggleJobPostName,
+        setToggleCandidateId,
         signInModalVisible,
         toggleSignInModal,
         toggleSignInModalClose,
         applyModalVisible,
         toggleApplyModal,
         toggleApplyModalClose,
+        coverLetterModalVisible,
+        toggleCoverLetterModal,
+        toggleCoverLetterModalClose,
         signUpModalVisible,
         toggleSignUpModal,
         visibleOffCanvas,
@@ -110,8 +135,12 @@ const GlobalProvider = ({ children }) => {
         setFooter,
         applicantId,
         setApplicantId,
+        candidateId,
+        setCandidateId,
         jobPostId,
-        setJobPostId
+        jobPostName,
+        setJobPostId,
+        setJobPostName
       }}
     >
       {children}

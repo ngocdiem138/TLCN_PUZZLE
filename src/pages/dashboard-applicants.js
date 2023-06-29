@@ -5,16 +5,9 @@ import { Select } from "../components/Core";
 import GlobalContext from "../context/GlobalContext";
 
 import imgP1 from "../assets/image/table-one-profile-image-1.png";
-import imgP2 from "../assets/image/table-one-profile-image-2.png";
-import imgP3 from "../assets/image/table-one-profile-image-3.png";
-import imgP4 from "../assets/image/table-one-profile-image-4.png";
-import imgP5 from "../assets/image/table-one-profile-image-5.png";
 import { useState } from "react";
 import { useEffect } from "react";
-import { EmployerServiceIml } from "../actions/admin-actions";
 import { JobPostServiceIml } from "../actions/user-actions";
-import CandidateProfile from "./candidate-profile-2";
-import ModalApplication from "../components/ModalApplication";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 import Paginate from "../helpers/Paginate";
@@ -93,7 +86,7 @@ const DashboardApplicants = () => {
           setShowError(true);
         } else {
           let applicant = []
-          response.data.data.forEach(element => {
+          response.data.content.forEach(element => {
             applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
           });
           setApplicants(applicant);
@@ -124,7 +117,7 @@ const DashboardApplicants = () => {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         gContext.setToggleJobPostId(event.value);
         let applicant = []
-        response.data.data.forEach(element => {
+        response.data.content.forEach(element => {
           applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
         });
         setApplicants(applicant);
@@ -158,7 +151,20 @@ const DashboardApplicants = () => {
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.candidate.workStatus}
+          <div className="">
+            <a
+              href="/#"
+              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+              onClick={(e) => {
+                e.preventDefault();
+                gContext.setToggleCandidateId(applicant.candidate.id)
+                gContext.setToggleJobPostId(applicant.jobPostId)
+                gContext.toggleCoverLetterModal();
+              }}
+            >
+              View CV
+            </a>
+          </div>
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
@@ -268,7 +274,6 @@ const DashboardApplicants = () => {
                           scope="col"
                           className="border-0 font-size-4 font-weight-normal"
                         >
-                          Word status
                         </th>
                         <th
                           scope="col"

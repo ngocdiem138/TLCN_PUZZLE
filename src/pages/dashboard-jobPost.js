@@ -338,16 +338,9 @@ function DashboardJobPost() {
 
     return (
         <>
-            <PageWrapper
-                headerConfig={{
-                    button: "profile",
-                    isFluid: true,
-                    bgClass: "bg-default",
-                    reveal: false,
-                }}
-            >
+            <PageWrapper>
                 <div
-                    className="dashboard-main-container mt-24 mt-lg-31"
+                    className="dashboard-main-container mt-25 mt-lg-31"
                     id="dashboard-body"
                 >
                     <div className="container">

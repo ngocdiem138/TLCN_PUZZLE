@@ -95,7 +95,7 @@ const DashboardMain = () => {
           setShowError(true);
         } else {
           let applicant = []
-          response.data.data.forEach(element => {
+          response.data.content.forEach(element => {
             applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
           });
           setApplicants(applicant);
@@ -127,7 +127,7 @@ const DashboardMain = () => {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         gContext.setToggleJobPostId(event.value);
         let applicant = []
-        response.data.data.forEach(element => {
+        response.data.content.forEach(element => {
           applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
         });
         setApplicants(applicant);

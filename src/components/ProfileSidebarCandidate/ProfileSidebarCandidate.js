@@ -7,8 +7,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 const Sidebar = (props) => {
   const [profile, setProfile] = useState([]);
-
-
   useEffect(() => {
     CandidateServiceIml.getCandidateProfile(props.candidateId).then((response) => { setProfile(response.data.data) });
   }, []);

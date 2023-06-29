@@ -283,6 +283,8 @@ const SearchGrid = () => {
               // onClick={() => applyForJob(job.id)}
               onClick={(e) => {
                 e.preventDefault();
+                gContext.setToggleJobPostId(job.id);
+                gContext.setToggleJobPostName(job.title);
                 gContext.toggleApplyModal();
               }}
             >

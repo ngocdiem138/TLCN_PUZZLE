@@ -136,7 +136,7 @@ const ModalApplication = (props) => {
             <div className="row no-gutters">
               {/* <!-- Left Sidebar Start --> */}
               <div className="col-12 col-xl-3 col-lg-4 col-md-5 mb-13 mb-lg-0 border-right border-mercury">
-                <ProfileSidebarCandidate id={props.applicantId} />
+                <ProfileSidebarCandidate candidateId={props.applicantId} />
               </div>
               {/* <!-- Left Sidebar End --> */}
               {/* <!-- Middle Content --> */}
