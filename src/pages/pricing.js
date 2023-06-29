@@ -114,9 +114,8 @@ const Pricing = () => {
                             </h6>
                           </div>
                           <h2 className="mt-11 text-dodger">
-                            $25
+                            $20
                             <span className="font-size-4 text-smoke font-weight-normal">
-                              /month
                             </span>{" "}
                           </h2>
                         </div>
@@ -126,7 +125,7 @@ const Pricing = () => {
                           <ul className="list-unstyled">
                             <li className="mb-6 text-black-2 d-flex font-size-4">
                               <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              10 Job Postings
+                              50 Coins
                             </li>
                           </ul>
                         </div>
@@ -137,9 +136,9 @@ const Pricing = () => {
                             className="btn btn-green btn-h-60 text-white rounded-5 btn-block text-uppercase"
                             style={{ outline: "none", border: "none" }}
                             onClick={() => {
-                              payment('lite');
+                              payment('bronze');
                             }}>
-                            Start with Lite{" "}
+                            Start with Bronze{" "}
                           </button >
                         </div>
                         {/* <!-- card-footer end --> */}
@@ -170,7 +169,6 @@ const Pricing = () => {
                           <h2 className="mt-11 text-dodger">
                             $50
                             <span className="font-size-4 text-smoke font-weight-normal">
-                              /month
                             </span>{" "}
                           </h2>
                         </div>
@@ -180,7 +178,7 @@ const Pricing = () => {
                           <ul className="list-unstyled">
                             <li className="mb-6 text-black-2 d-flex font-size-4">
                               <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              25 Job Postings
+                              150 Coins
                             </li>
                           </ul>
                         </div>
@@ -191,9 +189,9 @@ const Pricing = () => {
                             className="btn btn-green btn-h-60 text-white rounded-5 btn-block text-uppercase"
                             style={{ outline: "none", border: "none" }}
                             onClick={() => {
-                              payment('pro');
+                              payment('silver');
                             }}>
-                            Start with Pro{" "}
+                            Start with Silver{" "}
                           </button >
                         </div>
                         {/* <!-- card-footer end --> */}
@@ -219,9 +217,8 @@ const Pricing = () => {
                             </h6>
                           </div>
                           <h2 className="mt-11 text-dodger">
-                            $70{" "}
+                            $100{" "}
                             <span className="font-size-4 text-smoke font-weight-normal">
-                              /month
                             </span>{" "}
                           </h2>
                         </div>
@@ -231,7 +228,7 @@ const Pricing = () => {
                           <ul className="list-unstyled">
                             <li className="mb-6 text-black-2 d-flex font-size-4">
                               <i className="fas fa-check font-size-3 text-black-2 mr-3"></i>{" "}
-                              50 Job Postings
+                              400 Coins
                             </li>
                           </ul>
                         </div>
@@ -242,9 +239,9 @@ const Pricing = () => {
                             className="btn btn-green btn-h-60 text-white rounded-5 btn-block text-uppercase"
                             style={{ outline: "none", border: "none" }}
                             onClick={() => {
-                              payment('vip');
+                              payment('gold');
                             }}>
-                            Start with VIP{" "}
+                            Start with Gold{" "}
                           </button >
                         </div>
                         {/* <!-- card-footer end --> */}

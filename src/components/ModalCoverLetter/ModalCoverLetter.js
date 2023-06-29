@@ -98,7 +98,7 @@ const CoverLetter = (props) => {
                       <p class="text-small text-danger italic" id="fullnameErrorMessage" style={{ "margin-top": "5px", "display": "none" }}></p>
                     </div>
                     <div class="form-group">
-                      <label class="form-title">Link CV {" (hoặc click vào"} <a href={cvLink}>đây</a> {"để xem CV)"}<span class="danger"></span></label>
+                      <label class="form-title">Link CV {" (hoặc click vào"} <a href={cvLink} style={{"color":"green", fontWeight: "800"}}>đây</a> {"để xem CV)"}<span class="danger"></span></label>
                       <input type="text" value={cvLink} disabled={true} placeholder="Link CV" name="fullname" class="form-control input-sm" tyle={{ "font-size": "12px" }} />
                       <p class="text-small text-danger italic" id="fullnameErrorMessage" style={{ "margin-top": "5px", "display": "none" }}></p>
                     </div>

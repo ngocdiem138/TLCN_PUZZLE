@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { useLocation } from '@reach/router';
 import { Link } from "gatsby";
@@ -8,7 +8,8 @@ import imgF1 from "../assets/image/l2/png/featured-job-logo-1.png";
 import iconD from "../assets/image/svg/icon-dolor.svg";
 import iconB from "../assets/image/svg/icon-briefcase.svg";
 import iconL from "../assets/image/svg/icon-location.svg";
-import iconC from "../assets/image/svg/cityscape-town-svgrepo-com.svg"
+import iconC from "../assets/image/svg/cityscape-town-svgrepo-com.svg";
+import GlobalContext from "../context/GlobalContext";
 
 import { EmployerServiceIml } from "../actions/admin-actions";
 
@@ -19,6 +20,7 @@ import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
 import { useTranslation } from 'react-i18next';
 
 const JobDetails = () => {
+  const gContext = useContext(GlobalContext);
   const { t, i18n } = useTranslation()
   const location = useLocation();
   const [job, setJob] = useState({});
@@ -34,7 +36,7 @@ const JobDetails = () => {
       if (response.data.data.skills != null && response.data.data.skills != "") {
         setSkill(response.data.data.skills.split(','))
       }
-      employerId = response.data.data.createdEmployerId;
+      employerId = response.data.data.createdEmployer.id;
       EmployerServiceIml.getEmployerById(employerId).then((response) => {
         setEmployer(response.data.data);
       })
@@ -196,7 +198,12 @@ const JobDetails = () => {
                             <button
                               type="submit"
                               className="btn btn-green text-uppercase btn-medium rounded-3 w-180 mr-4 mb-5"
-                              onClick={applyForJob}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                gContext.setToggleJobPostId(job.id);
+                                gContext.setToggleJobPostName(job.title);
+                                gContext.toggleApplyModal();
+                              }}
                             >
                               {t('apply.applyThisJob')}
                             </button>
@@ -219,7 +226,7 @@ const JobDetails = () => {
                               quotes={""}  //"Your Quotes"
                               hashtag={"hashtag"} // #hashTag
                             >
-                              <FacebookIcon className="mr-4" size={24} round /> 
+                              <FacebookIcon className="mr-4" size={24} round />
                             </FacebookShareButton>
                             {t('apply.shareJob')}
                           </button>
@@ -442,7 +449,12 @@ const JobDetails = () => {
                             <button
                               type="submit"
                               className="btn btn-green text-uppercase btn-medium w-180 h-px-48 rounded-3 mr-4 mt-6"
-                              onClick={applyForJob}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                gContext.setToggleJobPostId(id);
+                                gContext.setToggleJobPostName(job.title);
+                                gContext.toggleApplyModal();
+                              }}
                             >
                               {t('apply.applyThisJob')}
                             </button>

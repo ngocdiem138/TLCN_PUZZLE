@@ -442,7 +442,7 @@ const Header = () => {
                 >
                   {t('header.myJob')}
                 </Link> : null}
-                {isEmployer ? <Link
+                {isLoggedIn ? <Link
                   className="btn btn-transparent text-uppercase font-size-3 heading-default-color focus-reset"
                   to={'/pricing'}
                 >

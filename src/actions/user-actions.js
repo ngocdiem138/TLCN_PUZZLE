@@ -157,6 +157,9 @@ class JobPostService {
     }
 
 
+    getAllCategory() {
+        return axios.get(API_BASE_URL + '/common/get-all-category');
+    }
 
     getJobPostByKeyWordAndStatus(keyword, status) {
         return axios.get(API_BASE_URL + '/search?' + 'keyword=' + keyword + '&status=' + status);
@@ -300,7 +303,7 @@ class UserService {
     }
     payPricing(pricing) {
         return axios.get(
-            API_BASE_URL + "/pay?packageCode=" + pricing,
+            API_BASE_URL + "/payment/pay?packageCode=" + pricing,
             {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")

@@ -87,14 +87,27 @@ function DashboardJobPost() {
     ]
 
     const [companyList, setCompanyList] = useState([])
+    const [categoryList, setCategoryList] = useState([])
     useEffect(() => {
         JobPostServiceIml.getAllCompany().then((response) => {
             if (response.data.data) {
                 let companyList1 = []
-                response.data.data.forEach(element => {
+                response.data.data.content.forEach(element => {
                     companyList1 = [...companyList1, { value: element.id, label: element.name }]
                 });
                 setCompanyList(companyList1);
+            }
+            else {
+
+            }
+        });
+        JobPostServiceIml.getAllCategory().then((response) => {
+            if (response.data.data) {
+                let categoryList1 = []
+                response.data.data.forEach(element => {
+                    categoryList1 = [...categoryList1, { value: element.id, label: element.name }]
+                });
+                setCategoryList(categoryList1);
             }
             else {
 
@@ -133,6 +146,7 @@ function DashboardJobPost() {
     const [city, setCity] = useState(defaultCountries[0].value)
     const [address, setAddress] = useState('')
     const [companyId, setCompanyId] = useState()
+    const [categoryId, setCategoryId] = useState()
     const [workplaceType, setWorkplaceType] = useState('')
     const [workStatus, setWorkStatus] = useState('')
     const [communicationDis, setCommunicationDis] = useState('')
@@ -150,6 +164,7 @@ function DashboardJobPost() {
     const [description, setDescription] = useState('')
     const [selectedOptions, setSelectedOptions] = useState(0);
     const [selectedCompany, setSelectedCompany] = useState();
+    const [selectedCategory, setSelectedCategory] = useState();
     const [selectedEmploymentTypeOptions, setSelectedOEmploymentTypeOptions] = useState(0);
     const [showAlert, setShowAlert] = useState(false)
     const updateDescription = (value) => {
@@ -177,7 +192,7 @@ function DashboardJobPost() {
         e.preventDefault();
 
         const jobPost = {
-            id, title, blind, deaf, handDis, description, labor, city, address, companyId, workplaceType, workStatus, communicationDis
+            id, title, blind, deaf, handDis, description, labor, city, address, companyId, categoryId, workplaceType, workStatus, communicationDis
             , communicationDis, skills, level, type, quantity, experienceYear, educationLevel, employmentType, minBudget, maxBudget, dueTime
         }
 
@@ -204,7 +219,10 @@ function DashboardJobPost() {
             JobPostServiceIml.createJobPost(data).then((response) => {
                 if (response.data.errCode == "403") {
                     setShowAlert(true);
-                } else if (response.data.errCode != "200" && response.data.errCode != null) {
+                } else if (response.data.errCode == "200" || response.data.errCode == null) {
+                    setShowError(false);
+                    setShowSuccess(true);
+                } else {
                     setShowError(true);
                     setShowSuccess(false);
                 }
@@ -226,15 +244,37 @@ function DashboardJobPost() {
             }
         })
     }
+    const findCategory = (id) => {
+        categoryList.forEach((element) => {
+            if (element.value == id) {
+                // console.log("el", element)
+                setSelectedCategory(element)
+                return element;
+
+            }
+        })
+    }
 
     useEffect(() => {
         JobPostServiceIml.getAllCompany().then((response) => {
             if (response.data.data) {
                 let companyList1 = []
-                response.data.data.forEach(element => {
+                response.data.data.content.forEach(element => {
                     companyList1 = [...companyList1, { value: element.id, label: element.name }]
                 });
                 setCompanyList(companyList1);
+            }
+            else {
+
+            }
+        })
+        JobPostServiceIml.getAllCategory().then((response) => {
+            if (response.data.data) {
+                let categoryList1 = []
+                response.data.data.forEach(element => {
+                    categoryList1 = [...categoryList1, { value: element.id, label: element.name }]
+                });
+                setCategoryList(categoryList1);
             }
             else {
 
@@ -251,6 +291,7 @@ function DashboardJobPost() {
                 setCity(response.data.data.city)
                 setAddress(response.data.data.address)
                 setCompanyId(response.data.data.companyId);
+                setCategoryId(response.data.data.categoryId);
                 setDescription(response.data.data.description)
                 setWorkplaceType(response.data.data.workplaceType)
                 setWorkStatus(response.data.data.workStatus)
@@ -268,6 +309,7 @@ function DashboardJobPost() {
                 setEmploymentType(response.data.data.employmentType)
                 handleDropdown(response.data.data.city, response.data.data.employmentType);
                 findCompany(response.data.data.companyId);
+                findCategory(response.data.data.categoryId);
             }
             else {
                 setNumber('-1')
@@ -279,6 +321,7 @@ function DashboardJobPost() {
                 setCity(defaultCountries[0].value)
                 setAddress('')
                 setCompanyId()
+                setCategoryId()
                 setWorkplaceType('')
                 setWorkStatus('')
                 setSkills('')
@@ -338,9 +381,16 @@ function DashboardJobPost() {
 
     return (
         <>
-            <PageWrapper>
+            <PageWrapper
+                headerConfig={{
+                    button: "profile",
+                    isFluid: true,
+                    bgClass: "bg-default",
+                    reveal: false,
+                }}
+            >
                 <div
-                    className="dashboard-main-container mt-25 mt-lg-31"
+                    className="dashboard-main-container mt-lg-31"
                     id="dashboard-body"
                 >
                     <div className="container">
@@ -694,9 +744,27 @@ function DashboardJobPost() {
                                                                 // isValidNewOption={redirectNewCompany()}
                                                                 isClearable
                                                                 isSearchable
-                                                                onChange={(e) => { setCompanyId(e.value); setSelectedCompany(e); e.__isNew__ == true ? redirectNewCompany() : console.log(companyId, e) }}
+                                                                onChange={(e) => { setCompanyId(e.value); setSelectedCompany(e); }}
                                                                 value={selectedCompany ? selectedCompany : findCompany(companyId)}
                                                                 options={companyList} />
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-12">
+                                                        <div className="form-group mb-11">
+                                                            <label
+                                                                htmlFor="formGroupExampleInput"
+                                                                className="d-block text-black-2 font-size-4 font-weight-semibold mb-4"
+                                                            >
+                                                                Category
+                                                            </label>
+                                                            <CreatableSelect
+                                                                // isValidNewOption={() => redirectNewCompany()}
+                                                                // isValidNewOption={redirectNewCompany()}
+                                                                isClearable
+                                                                isSearchable
+                                                                onChange={(e) => { setCategoryId(e.value); setSelectedCategory(e); e.__isNew__ == true ? redirectNewCompany() : console.log(companyId, e) }}
+                                                                value={selectedCategory ? selectedCategory : findCategory(categoryId)}
+                                                                options={categoryList} />
                                                         </div>
                                                     </div>
                                                     <div className="col-md-12">
