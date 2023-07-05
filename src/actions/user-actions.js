@@ -206,6 +206,15 @@ class JobPostService {
         });
     }
 
+    checkExistedScore(candidateId, jobPostId) {
+        return axios.get(API_BASE_URL + '/employer/application/ai-matcher/check-existed?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+
+
 }
 
 export const JobPostServiceIml = new JobPostService();

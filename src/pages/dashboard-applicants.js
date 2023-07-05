@@ -146,7 +146,19 @@ const DashboardApplicants = () => {
       </th>
       <td className="table-y-middle py-7 min-width-px-235 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.candidate.educationLevel}
+          <div className="">
+            <a
+              href="/#"
+              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+              onClick={(e) => {
+                JobPostServiceIml.checkExistedScore(applicant.candidate.id, applicant.jobPostId).then((response) => {
+
+                })
+              }}
+            >
+              Score and IQ suggest
+            </a>
+          </div>
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
@@ -202,7 +214,7 @@ const DashboardApplicants = () => {
           </Link>
         </div>
       </td>
-    </tr>
+    </tr >
   });
 
 
@@ -268,7 +280,6 @@ const DashboardApplicants = () => {
                           scope="col"
                           className="border-0 font-size-4 font-weight-normal"
                         >
-                          Education Level
                         </th>
                         <th
                           scope="col"

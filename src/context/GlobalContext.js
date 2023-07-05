@@ -8,6 +8,7 @@ const GlobalProvider = ({ children }) => {
   const [applicationModalVisible, setApplicationModalVisible] = useState(false);
   const [signInModalVisible, setSignInModalVisible] = useState(false);
   const [applyModalVisible, setApplyModalVisible] = useState(false);
+  const [advancedModalVisible, setAdvancedModalVisible] = useState(false);
   const [coverLetterModalVisible, setCoverLetterModalVisible] = useState(false);
   const [signUpModalVisible, setSignUpModalVisible] = useState(false);
   const [videoModalVisible, setVideoModalVisible] = useState(false);
@@ -75,12 +76,20 @@ const GlobalProvider = ({ children }) => {
     setApplyModalVisible(!applyModalVisible);
   };
 
+  const toggleAdvancedModal = () => {
+    setAdvancedModalVisible(!advancedModalVisible);
+  };
+
   const toggleCoverLetterModal = () => {
     setCoverLetterModalVisible(!coverLetterModalVisible);
   };
 
   const toggleApplyModalClose = () => {
     setApplyModalVisible(false);
+  };
+
+  const toggleAdvancedModalClose = () => {
+    setAdvancedModalVisible(false);
   };
 
   const toggleCoverLetterModalClose = () => {
@@ -121,6 +130,9 @@ const GlobalProvider = ({ children }) => {
         applyModalVisible,
         toggleApplyModal,
         toggleApplyModalClose,
+        advancedModalVisible,
+        toggleAdvancedModal,
+        toggleAdvancedModalClose,
         coverLetterModalVisible,
         toggleCoverLetterModal,
         toggleCoverLetterModalClose,

@@ -483,7 +483,6 @@ const DashboardMain = () => {
                           scope="col"
                           className="border-0 font-size-4 font-weight-normal"
                         >
-                          Work Status
                         </th>
                         <th
                           scope="col"
