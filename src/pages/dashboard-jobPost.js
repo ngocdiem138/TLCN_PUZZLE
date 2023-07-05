@@ -201,7 +201,7 @@ function DashboardJobPost() {
         if (id != 'new') {
             jobPost.id = id;
             JobPostServiceIml.updateJobPost(jobPost).then((response) => {
-                if (response.data.errCode == "403") {
+                if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
                 } else if (response.data.errCode != "200" && response.data.errCode != null) {
                     setShowError(true);
@@ -217,7 +217,7 @@ function DashboardJobPost() {
             jobPost.number = parseInt(jobPost.number);
             const { id, ...data } = jobPost
             JobPostServiceIml.createJobPost(data).then((response) => {
-                if (response.data.errCode == "403") {
+                if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
                 } else if (response.data.errCode == "200" || response.data.errCode == null) {
                     setShowError(false);

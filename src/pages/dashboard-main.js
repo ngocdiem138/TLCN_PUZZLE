@@ -78,7 +78,7 @@ const DashboardMain = () => {
   useEffect(() => {
     if (id == 0) {
       JobPostServiceIml.getAllCandidateApply().then((response) => {
-        if (response.data.errCode == "403") {
+        if (response.data.errCode == "UNAUTHORIZED_ERROR") {
           setShowError(true);
         } else {
           let applicant = []
@@ -91,7 +91,7 @@ const DashboardMain = () => {
     }
     else {
       JobPostServiceIml.getAllCandidateApplyJobPosts(id).then((response) => {
-        if (response.data.errCode == "403") {
+        if (response.data.errCode == "UNAUTHORIZED_ERROR") {
           setShowError(true);
         } else {
           let applicant = []
@@ -138,7 +138,7 @@ const DashboardMain = () => {
 
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setJobs(response.data.data.content);
@@ -149,7 +149,7 @@ const DashboardMain = () => {
 
   useEffect(() => {
     EmployerServiceIml.getRateApplicationApplied().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setAppliedRate(response.data.data);
@@ -160,7 +160,7 @@ const DashboardMain = () => {
 
   useEffect(() => {
     EmployerServiceIml.getAllAmountApplicationApplied().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setTotalApplicants(response.data.data);
@@ -170,7 +170,7 @@ const DashboardMain = () => {
 
   useEffect(() => {
     EmployerServiceIml.getAllJobPostInactive().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         if (response.data.data) {

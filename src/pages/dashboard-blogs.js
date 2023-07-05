@@ -48,7 +48,7 @@ const DashboardBlogs = () => {
   const [showSuccess, setShowSuccess] = useState(false)
   useEffect(() => {
     UserServiceIml.getUserProfile().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
         setFullName(response.data.data.fullName);
@@ -61,7 +61,7 @@ const DashboardBlogs = () => {
   }, [])
   useEffect(() => {
     BlogServiceIml.getUserBlogPost().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
         setBlogPost(response.data.data);

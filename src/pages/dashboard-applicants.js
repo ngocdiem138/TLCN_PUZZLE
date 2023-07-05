@@ -57,7 +57,7 @@ const DashboardApplicants = () => {
 
   useEffect(() => {
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setJobs(response.data.data.content);
@@ -69,7 +69,7 @@ const DashboardApplicants = () => {
   useEffect(() => {
     if (id == 0) {
       JobPostServiceIml.getAllCandidateApply().then((response) => {
-        if (response.data.errCode == "403") {
+        if (response.data.errCode == "UNAUTHORIZED_ERROR") {
           setShowError(true);
         } else {
           let applicant = []
@@ -82,7 +82,7 @@ const DashboardApplicants = () => {
     }
     else {
       JobPostServiceIml.getAllCandidateApplyJobPosts(id).then((response) => {
-        if (response.data.errCode == "403") {
+        if (response.data.errCode == "UNAUTHORIZED_ERROR") {
           setShowError(true);
         } else {
           let applicant = []

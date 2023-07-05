@@ -26,7 +26,7 @@ const AccountSettings = () => {
   const [showSuccess, setShowSuccess] = useState(false)
   useEffect(() => {
     UserServiceIml.getUserProfile().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
         setFullName(response.data.data.fullName);

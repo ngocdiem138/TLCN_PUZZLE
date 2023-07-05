@@ -113,7 +113,7 @@ const CompanySettings = () => {
         formData.append("image", image);
         EmployerServiceIml.createCompany(formData).then((response) => {
             if (response.data.errCode != "200" && response.data.errCode) {
-                if(response.data.errCode == "403"){
+                if(response.data.errCode == "UNAUTHORIZED_ERROR"){
                     setShowError403(true);
                 } else{
                     setShowError(true);

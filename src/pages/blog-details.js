@@ -27,7 +27,7 @@ const BlogDetails = () => {
   const id = searchParams.id;
   useEffect(() => {
     BlogServiceIml.getBlogPostById(id).then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
         setBlogDetail(response.data.data);

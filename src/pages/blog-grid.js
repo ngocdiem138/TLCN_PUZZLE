@@ -79,14 +79,14 @@ const BlogGrid = () => {
   useEffect(() => {
     // Fetch initial blog posts or perform any other necessary initialization logic
     BlogServiceIml.getAllBlogPost().then((response) => {
-      if (response.data.errCode === "403") {
+      if (response.data.errCode === "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
         setBlogPost(response.data.data.content);
       }
     });
     BlogServiceIml.getAllCategoryAndPostAmount().then((response) => {
-      if (response.data.errCode === "403") {
+      if (response.data.errCode === "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
         setCategoryList(response.data.data);
@@ -98,7 +98,7 @@ const BlogGrid = () => {
     if (categoryId) {
       BlogServiceIml.getAllBlogPostByCategoryId(categoryId)
         .then((response) => {
-          if (response.data.errCode === "403") {
+          if (response.data.errCode === "UNAUTHORIZED_ERROR") {
             setShowError403(true);
           } else {
             setBlogPost(response.data.data.content);

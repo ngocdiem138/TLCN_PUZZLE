@@ -24,14 +24,14 @@ const DashboardJobAlerts = () => {
   // const [applicationAmount, setApplicationAmount] = useState(0);
   // useEffect(() => {
   //   JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
-  //     if (response.data.errCode == "403") {
+  //     if (response.data.errCode == "UNAUTHORIZED_ERROR") {
   //       setShowError(true);
   //     } else {
   //       setJobs(response.data.data);
   //     }
   //   });
   //   JobPostServiceIml.getLimitJobPostCreateByEmployer().then((response) => {
-  //     if (response.data.errCode == "403") {
+  //     if (response.data.errCode == "UNAUTHORIZED_ERROR") {
   //       setShowError(true);
   //     } else {
   //       // console.log(response.data);

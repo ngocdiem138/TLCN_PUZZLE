@@ -23,7 +23,7 @@ const Pricing = () => {
 
   function payment(pricing) {
     UserServiceIml.payPricing(pricing).then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else if (response.data.errCode == "401") {
         setShowError(true);

@@ -23,7 +23,7 @@ const CandidateProfile = () => {
 
   useEffect(() => {
     JobPostServiceIml.getJobPostAppliedByCandidate().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setJobApplied(response.data.data)
@@ -33,7 +33,7 @@ const CandidateProfile = () => {
 
   useEffect(() => {
     JobPostServiceIml.getJobPostSavedByCandidate().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
       } else {
         setJobSaves(response.data.data)

@@ -79,7 +79,7 @@ const Header = () => {
     if (langDefault) { i18n.changeLanguage(langDefault); setLang(langDefault) };
     // if (isLoggedIn) {
     UserServiceIml.getUserProfile().then((response) => {
-      if (response.data.errCode == "403") {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         // setShowError403(true);
       } else {
         setAvatar(response.data.data.avatar);

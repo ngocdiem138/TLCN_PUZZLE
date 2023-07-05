@@ -49,7 +49,7 @@ const DashboardInvoices = () => {
 
     useEffect(() => {
         UserServiceIml.getInvoices().then((response) => {
-            if (response.data.errCode == "403") {
+            if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                 setShowError(true);
             } else {
                 setInvoces(response.data.data);
