@@ -14,8 +14,8 @@ const GlobalProvider = ({ children }) => {
   const [videoModalVisible, setVideoModalVisible] = useState(false);
   const [visibleOffCanvas, setVisibleOffCanvas] = useState(false);
   const [applicantId, setApplicantId] = useState(0);
-  const [jobPostId, setJobPostId] = useState(0);
-  const [candidateId, setCandidateId] = useState(0);
+  const [jobPostId, setJobPostId] = useState(-1);
+  const [candidateId, setCandidateId] = useState(-1);
   const [jobPostName, setJobPostName] = useState("");
   const [header, setHeader] = useState({
     theme: "light",

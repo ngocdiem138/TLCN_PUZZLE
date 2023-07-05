@@ -151,8 +151,24 @@ const DashboardApplicants = () => {
               href="/#"
               className="font-size-3 font-weight-bold text-black-2 text-uppercase"
               onClick={(e) => {
+                e.preventDefault();
                 JobPostServiceIml.checkExistedScore(applicant.candidate.id, applicant.jobPostId).then((response) => {
-
+                  if (response.data.data) {
+                    gContext.setToggleCandidateId(applicant.candidate.id)
+                    gContext.setToggleJobPostId(applicant.jobPostId)
+                    gContext.toggleAdvancedModal();
+                  } else {
+                    if (typeof window !== "undefined") {
+                      const confirmBox = window.confirm(
+                        "Do you really want to use the scoring feature and suggest questions? This feature will use your coins?"
+                      )
+                      if (confirmBox === true) {
+                        gContext.setToggleCandidateId(applicant.candidate.id)
+                        gContext.setToggleJobPostId(applicant.jobPostId)
+                        gContext.toggleAdvancedModal();
+                      }
+                    };
+                  }
                 })
               }}
             >

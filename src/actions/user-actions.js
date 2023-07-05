@@ -214,6 +214,38 @@ class JobPostService {
         });
     }
 
+    countScore(candidateId, jobPostId) {
+        return axios.get(API_BASE_URL + '/employer/application/score-cv?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+
+    clearScore(candidateId, jobPostId) {
+        return axios.get(API_BASE_URL + '/employer/application/ai-matcher/clear?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+
+    questionSuggest(candidateId, jobPostId) {
+        return axios.get(API_BASE_URL + '/employer/application/hirize-iq-suggest?candidateId='+ candidateId + '&jobPostId=' + jobPostId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+
+    clearQuestionSuggest(candidateId, jobPostId) {
+        return axios.get(API_BASE_URL + '/employer/application/hirize-iq/clear?candidateId='+ candidateId + '&jobPostId=' + jobPostId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+
 
 }
 
