@@ -47,7 +47,7 @@ const Paragraph = () => {
                 setTitle(response.data.data.title);
                 setDescription(response.data.data.body);
                 setThumbnail(response.data.data.thumbnail);
-                setCategoryId(response.data.data.categoryId);
+                setCategoryId(response.data.data.blogCategoryId);
                 setTags(response.data.data.tags);
             }
         })

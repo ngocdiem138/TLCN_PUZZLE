@@ -235,24 +235,28 @@ function DashboardJobPost() {
         }
     }
     const findCompany = (id) => {
-        companyList.forEach((element) => {
-            if (element.value == id) {
-                // console.log("el", element)
-                setSelectedCompany(element)
-                return element;
+        if (id) {
+            companyList.forEach((element) => {
+                if (element.value == id) {
+                    // console.log("el", element)
+                    setSelectedCompany(element)
+                    return element;
 
-            }
-        })
+                }
+            })
+        }
     }
     const findCategory = (id) => {
-        categoryList.forEach((element) => {
-            if (element.value == id) {
-                // console.log("el", element)
-                setSelectedCategory(element)
-                return element;
+        if (id) {
+            categoryList.forEach((element) => {
+                if (element.value == id) {
+                    // console.log("el", element)
+                    setSelectedCategory(element)
+                    return element;
 
-            }
-        })
+                }
+            })
+        }
     }
 
     useEffect(() => {
@@ -308,7 +312,8 @@ function DashboardJobPost() {
                 setDueTime(response.data.data.dueTime)
                 setEmploymentType(response.data.data.employmentType)
                 handleDropdown(response.data.data.city, response.data.data.employmentType);
-                findCompany(response.data.data.companyId);
+                setSelectedCompany(findCompany(response.data.data.company.id));
+                setCompanyId(response.data.data.company.id);
                 findCategory(response.data.data.categoryId);
             }
             else {

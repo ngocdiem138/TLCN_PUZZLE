@@ -1,5 +1,5 @@
-import IconPlus from "../Assets/images/icon-plus.svg";
-import IconMinus from "../Assets/images/icon-minus.svg";
+import IconPlus from "../assets/images/icon-plus.svg";
+import IconMinus from "../assets/images/icon-minus.svg";
 
 const CommentVotes = ({
   vote,

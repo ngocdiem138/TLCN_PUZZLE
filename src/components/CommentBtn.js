@@ -1,6 +1,6 @@
-import { IconReply } from "../Assets/images/icon-reply.js";
-import { IconDelete } from "../Assets/images/icon-delete.js";
-import { IconEdit } from "../Assets/images/icon-edit.js";
+import { IconReply } from "../assets/images/icon-reply.js";
+import { IconDelete } from "../assets/images/icon-delete.js";
+import { IconEdit } from "../assets/images/icon-edit.js";
 
 const CommentBtn = ({ commentData, setReplying, setDeleting, setDeleteModalState, setEditing }) => {
   // adding reply
