@@ -1,4 +1,5 @@
 const { languages, defaultLanguage } = require('./src/languages');
+const webpack = require('webpack');
 module.exports = {
   pathPrefix: "/TLCN_PUZZLE",
   flags: {
@@ -17,6 +18,14 @@ module.exports = {
     `gatsby-transformer-sharp`,
     // `transform-runtime`,
     `gatsby-transformer-remark`,
+    {
+      resolve: 'gatsby-plugin-react-svg',
+      options: {
+        rule: {
+          include: [`/assets/`],
+        },
+      },
+    },
     {
       resolve: `gatsby-plugin-create-client-paths`,
       options: { prefixes: [`/app/*`] },

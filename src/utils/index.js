@@ -3,3 +3,4 @@ import theme from "./theme";
 import { addDays } from "./addDays";
 
 export { device, breakpoints, theme, addDays };
+export {commentPostedTime} from './time';

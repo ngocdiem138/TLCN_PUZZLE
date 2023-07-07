@@ -52,7 +52,7 @@ const Advanced = (props) => {
   const handleUpdate = () => {
     if (typeof window !== "undefined") {
       const confirmBox = window.confirm(
-        "Do you really want to update the score and suggest questions? This feature will use your coins?"
+        "Do you really want to update the score and suggest questions? This feature will use your coins (5 coins)?"
       )
       if (confirmBox === true) {
         if (props.candidateId != -1 && props.jobPostId != -1) {

@@ -11,8 +11,260 @@ import { parse } from "query-string";
 import './main.css';
 import { useTranslation } from 'react-i18next';
 import { BlogServiceIml } from "../actions/user-actions";
+import { CommentSection } from "react-comments-section";
+import "react-comments-section/dist/index.css";
+import Comment from "../components/Comment";
+import AddComment from "../Components/AddComment";
+import "../components/Styles/App.scss";
 
 const BlogDetails = () => {
+  const [comments, updateComments] = useState([]);
+  const [deleteModalState, setDeleteModalState] = useState(false);
+
+  const getData = async () => {
+    const res = await fetch("./data/data.json");
+    const data = await res.json();
+    updateComments(data.comments);
+  };
+
+  useEffect(() => {
+    localStorage.getItem("comments") !== null
+      ? updateComments(JSON.parse(localStorage.getItem("comments")))
+      : getData();
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("comments", JSON.stringify(comments));
+    deleteModalState
+      ? document.body.classList.add("overflow--hidden")
+      : document.body.classList.remove("overflow--hidden");
+  }, [comments, deleteModalState]);
+
+  // update score
+  let updateScore = (score, id, type) => {
+    let updatedComments = [...comments];
+
+    if (type === "comment") {
+      updatedComments.forEach((data) => {
+        if (data.id === id) {
+          data.score = score;
+        }
+      });
+    } else if (type === "reply") {
+      updatedComments.forEach((comment) => {
+        comment.replies.forEach((data) => {
+          if (data.id === id) {
+            data.score = score;
+          }
+        });
+      });
+    }
+    updateComments(updatedComments);
+  };
+
+  // add comments
+  let addComments = (newComment) => {
+    let updatedComments = [...comments, newComment];
+    updateComments(updatedComments);
+  };
+
+  // add replies
+  let updateReplies = (replies, id) => {
+    let updatedComments = [...comments];
+    updatedComments.forEach((data) => {
+      if (data.id === id) {
+        data.replies = [...replies];
+      }
+    });
+    updateComments(updatedComments);
+  };
+
+  // edit comment
+  let editComment = (content, id, type) => {
+    let updatedComments = [...comments];
+
+    if (type === "comment") {
+      updatedComments.forEach((data) => {
+        if (data.id === id) {
+          data.content = content;
+        }
+      });
+    } else if (type === "reply") {
+      updatedComments.forEach((comment) => {
+        comment.replies.forEach((data) => {
+          if (data.id === id) {
+            data.content = content;
+          }
+        });
+      });
+    }
+
+    updateComments(updatedComments);
+  };
+
+  // delete comment
+  let commentDelete = (id, type, parentComment) => {
+    let updatedComments = [...comments];
+    let updatedReplies = [];
+
+    if (type === "comment") {
+      updatedComments = updatedComments.filter((data) => data.id !== id);
+    } else if (type === "reply") {
+      comments.forEach((comment) => {
+        if (comment.id === parentComment) {
+          updatedReplies = comment.replies.filter((data) => data.id !== id);
+          comment.replies = updatedReplies;
+        }
+      });
+    }
+
+    updateComments(updatedComments);
+  };
+
+  var data = [
+    {
+      "userId": "01a",
+      "comId": "012",
+      "fullName": "Riya Negi",
+      "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
+      "text": "Hey, Loved your blog! ",
+      "replies": [
+        {
+          "userId": "02a",
+          "comId": "013",
+          "fullName": "Adam Scott",
+          "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random",
+          "text": "Thanks! It took me 1 month to finish this project but I am glad it helped out someone!🥰"
+        },
+        {
+          "userId": "01a",
+          "comId": "014",
+
+          "fullName": "Riya Negi",
+          "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
+          "text": "thanks!😊"
+        }
+      ]
+    },
+    {
+      "userId": "02a",
+      "comId": "07",
+      "fullName": "Adam Scott",
+      "text": "Follow my page for more such interesting blogs!😇",
+      "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random"
+    },
+    {
+      "userId": "02a",
+      "comId": "015",
+      "fullName": "Robert Jae",
+      "avatarUrl": "https://ui-avatars.com/api/name=Robert&background=random",
+      "text": "Woah pretty helpful! how did you solve for x?",
+      "replies": [
+        {
+          "userId": "01b",
+          "comId": "016",
+
+          "fullName": "Adam Scott",
+          "text": "Thanks! refer to this link -> acs.com",
+          "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random"
+        }
+      ]
+    },
+    {
+      "userId": "02b",
+      "comId": "017",
+      "fullName": "Lily",
+      "text": "I have a doubt about the 4th point🤔",
+      "avatarUrl": "https://ui-avatars.com/api/name=Lily&background=random"
+    }
+  ]
+
+  const [comment, setComment] = useState([
+    {
+      "userId": "01a",
+      "comId": "012",
+      "fullName": "Riya Negi",
+      "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
+      "text": "Hey, Loved your blog! ",
+      "replies": [
+        {
+          "userId": "02a",
+          "comId": "013",
+          "fullName": "Adam Scott",
+          "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random",
+          "text": "Thanks! It took me 1 month to finish this project but I am glad it helped out someone!🥰"
+        },
+        {
+          "userId": "01a",
+          "comId": "014",
+
+          "fullName": "Riya Negi",
+          "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
+          "text": "thanks!😊"
+        }
+      ]
+    },
+    {
+      "userId": "02a",
+      "comId": "07",
+      "fullName": "Adam Scott",
+      "text": "Follow my page for more such interesting blogs!😇",
+      "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random"
+    },
+    {
+      "userId": "02a",
+      "comId": "015",
+      "fullName": "Robert Jae",
+      "avatarUrl": "https://ui-avatars.com/api/name=Robert&background=random",
+      "text": "Woah pretty helpful! how did you solve for x?",
+      "replies": [
+        {
+          "userId": "01b",
+          "comId": "016",
+
+          "fullName": "Adam Scott",
+          "text": "Thanks! refer to this link -> acs.com",
+          "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random"
+        }
+      ]
+    },
+    {
+      "userId": "02b",
+      "comId": "017",
+      "fullName": "Lily",
+      "text": "I have a doubt about the 4th point🤔",
+      "avatarUrl": "https://ui-avatars.com/api/name=Lily&background=random"
+    }
+  ]);
+  const userId = "01a";
+  const avatarUrl = "https://ui-avatars.com/api/name=Riya&background=random";
+  const name = "xyz";
+  const signinUrl = "/signin";
+  const signupUrl = "/signup";
+  let count = 0;
+  comment.map((i) => {
+    count += 1;
+    i.replies && i.replies.map((i) => (count += 1));
+  });
+
+  const [textEditable, setTextEditable] = useState("");
+
+  useEffect(() => {
+    console.log(comment);
+  }, [comment]);
+
+  const customInputFunc = (props) => {
+    return (
+      <CustomInputt
+        parentId={props.parentId}
+        cancellor={props.cancellor}
+        value={props.value}
+        edit={props.edit}
+        submit={props.submit}
+        handleCancel={props.handleCancel}
+      />
+    );
+  };
   const { t, i18n } = useTranslation()
 
   const [sidebarWidth, setSidebarWidth] = useState(undefined);
@@ -75,14 +327,14 @@ const BlogDetails = () => {
     side_barEl.style.width = sidebarEl.getBoundingClientRect().width - 30 + 'px';
     if (scrollTop >= sidebarHeight - windowHeight) {
       // sidebarEl.style.top = -(sidebarHeight + sidebarTop - 100 - windowHeight).toString() + 'px';
-      if (document.querySelector('.comment-respond').getBoundingClientRect().bottom < windowHeight) {
-        side_barEl.style.bottom = windowHeight - document.querySelector('.comment-respond').getBoundingClientRect().bottom + 'px';
+      if (document.querySelector('.comment-respond-bottom').getBoundingClientRect().bottom < windowHeight) {
+        side_barEl.style.bottom = windowHeight - document.querySelector('.comment-respond-bottom').getBoundingClientRect().bottom + 'px';
       }
       else {
         side_barEl.style.bottom = windowHeight / 7 + 'px';
       }
       console.log("side_barEl.style.bottom", side_barEl.style.bottom);
-      console.log("a", document.querySelector('.comment-respond').getBoundingClientRect().bottom);
+      console.log("a", document.querySelector('.comment-respond-bottom').getBoundingClientRect().bottom);
       side_barEl.style.position = 'fixed';
     }
     if (scrollTop < sidebarHeight - windowHeight) {
@@ -107,13 +359,13 @@ const BlogDetails = () => {
   return (
     <>
       <PageWrapper headerConfig={{ button: "profile" }}>
-        <div className="jobDetails-section bg-default-1 pt-28 pt-lg-27 pb-xl-25 pb-12">
+        <div className="jobDetails-section bg-default-1 pt-28 pt-lg-27 pb-xl-25 pb-12" >
           <div className="container">
             <div className="row justify-content-center">
               <div className="page-content bg-white">
                 <div className="dez-bnr-inr overlay-black-middle" style={{ backgroundImage: blogDetail.thumbnail }}>
                 </div>
-                <div className="content-area">
+                <div className="content-area" style={{ backgroundColor: "#f5f6fa" }}>
                   <div className="container">
                     <div className="row" id="blog-content-container">
                       <div className="col-lg-8 col-md-7 m-b10 blog-content">
@@ -149,76 +401,23 @@ const BlogDetails = () => {
                             </ul>
                           </div>
                         </div>
-                        <div className="clear" id="comment-list">
+                        <div className="clear" id="comment-list" >
                           <div className="comments-area" id="comments">
-                            <h2 className="comments-title">{blogDetail.comments ? blogDetail.comments.length : 0} Comments</h2>
+                            <h2 className="comments-title" style={{ paddingBottom: "10px" }}>{blogDetail.comments ? blogDetail.comments.length : 0} Comments</h2>
+                            {comments.map((comment) => (
+                              <Comment
+                                key={comment.id}
+                                commentData={comment}
+                                updateScore={updateScore}
+                                updateReplies={updateReplies}
+                                editComment={editComment}
+                                commentDelete={commentDelete}
+                                setDeleteModalState={setDeleteModalState}
+                              />
+                            ))}
+                            <AddComment buttonValue={"send"} addComments={addComments}/>
                             <div className="clearfix m-b20">
-                              <ol className="comment-list">
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <div className="comment-author vcard"> <img className="avatar photo" src={pic1} alt="" /> <cite className="fn">Stacy poe</cite> <span className="says">says:</span> </div>
-                                    <div className="comment-meta"> <a href="javascript:void(0);">October 6, 2021 at 7:15 am</a> </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neqnsectetur adipiscing elit. Nam viae neqnsectetur adipiscing elit.
-                                      Nam vitae neque vitae sapien malesuada aliquet. </p>
-                                    <div className="reply"> <a href="javascript:void(0);" className="comment-reply-link">Reply</a> </div>
-                                  </div>
-                                  <ol className="children">
-                                    <li className="comment odd parent">
-                                      <div className="comment-body">
-                                        <div className="comment-author vcard"> <img className="avatar photo" src={pic2} alt="" /> <cite className="fn">Stacy poe</cite> <span className="says">says:</span> </div>
-                                        <div className="comment-meta"> <a href="javascript:void(0);">October 6, 2021 at 7:15 am</a> </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet.
-                                          In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis,
-                                          ac elementum ligula blandit ac.</p>
-                                        <div className="reply"> <a href="javascript:void(0);" className="comment-reply-link">Reply</a> </div>
-                                      </div>
-                                      <ol className="children">
-                                        <li className="comment odd parent">
-                                          <div className="comment-body">
-                                            <div className="comment-author vcard"> <img className="avatar photo" src={pic3} alt="" /> <cite className="fn">Stacy poe</cite> <span className="says">says:</span> </div>
-                                            <div className="comment-meta"> <a href="javascript:void(0);">October 6, 2021 at 7:15 am</a> </div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet.
-                                              In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis,
-                                              ac elementum ligula blandit ac.</p>
-                                            <div className="reply"> <a href="javascript:void(0);" className="comment-reply-link">Reply</a> </div>
-                                          </div>
-                                        </li>
-                                      </ol>
-                                    </li>
-                                  </ol>
-                                </li>
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <div className="comment-author vcard"> <img className="avatar photo" src={pic1} alt="" /> <cite className="fn">Stacy poe</cite> <span className="says">says:</span> </div>
-                                    <div className="comment-meta"> <a href="javascript:void(0);">October 6, 2021 at 7:15 am</a> </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet.
-                                      In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis,
-                                      ac elementum ligula blandit ac.</p>
-                                    <div className="reply"> <a href="javascript:void(0);" className="comment-reply-link">Reply</a> </div>
-                                  </div>
-                                </li>
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <div className="comment-author vcard"> <img className="avatar photo" src={pic2} alt="" /> <cite className="fn">Stacy poe</cite> <span className="says">says:</span> </div>
-                                    <div className="comment-meta"> <a href="javascript:void(0);">October 6, 2021 at 7:15 am</a> </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet.
-                                      In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis,
-                                      ac elementum ligula blandit ac.</p>
-                                    <div className="reply"> <a href="javascript:void(0);" className="comment-reply-link">Reply</a> </div>
-                                  </div>
-                                </li>
-                                <li className="comment">
-                                  <div className="comment-body">
-                                    <div className="comment-author vcard"> <img className="avatar photo" src={pic2} alt="" /> <cite className="fn">Stacy poe</cite> <span className="says">says:</span> </div>
-                                    <div className="comment-meta"> <a href="javascript:void(0);">October 6, 2021 at 7:15 am</a> </div>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vitae neque vitae sapien malesuada aliquet.
-                                      In viverra dictum justo in vehicula. Fusce et massa eu ante ornare molestie. Sed vestibulum sem felis,
-                                      ac elementum ligula blandit ac.</p>
-                                    <div className="reply"> <a href="javascript:void(0);" className="comment-reply-link">Reply</a> </div>
-                                  </div>
-                                </li>
-                              </ol>
-                              <div className="comment-respond" id="respond">
+                              <div className="comment-respond-bottom" id="respond" style={{ display: "none" }}>
                                 <h4 className="comment-reply-title" id="reply-title">Leave a Reply <small> <a style={{ "display": "none" }} href="javascript:void(0);" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>
                                 <form className="comment-form" id="commentform" method="post" action="http://sedatelab.com/developer/donate/wp-comments-post.php">
                                   <p className="comment-form-author">

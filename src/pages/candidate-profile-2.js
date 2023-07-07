@@ -95,7 +95,16 @@ const CandidateProfile = () => {
           </ul>
           <button
             style={{ outline: "none", border: "none", background: "none" }}
-            onClick={() => unSave(job.id)}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                const confirmBox = window.confirm(
+                  "Do you really want to remove it from saved jobs list"
+                )
+                if (confirmBox === true) {
+                  unSave(job.id);
+                }
+              };
+            }}
             className="toggle-item font-size-6 ml-auto line-height-reset px-0 mt-6 text-default-color"> <i class="icon fa fa-window-close"></i>
           </button>
         </div>
@@ -154,7 +163,16 @@ const CandidateProfile = () => {
           </ul>
           <button
             style={{ outline: "none", border: "none", background: "none" }}
-            onClick={() => unApply(job.id)}
+            onClick={() => {
+              if (typeof window !== "undefined") {
+                const confirmBox = window.confirm(
+                  "Do you really want to remove it from apply jobs list"
+                )
+                if (confirmBox === true) {
+                  unApply(job.id);
+                }
+              };
+            }}
             className="toggle-item font-size-6 ml-auto line-height-reset px-0 mt-6 text-default-color"> <i class="icon fa fa-times"></i>
           </button>
         </div>

@@ -94,8 +94,18 @@ const SearchGrid = () => {
   const [rangeValues, setRangeValues] = useState([100, 10000]);
 
   const [jobs, setJobs] = useState([]);
+  const [listCategory, setListCategory] = useState([]);
   useEffect(() => {
     JobPostServiceIml.getAllActiveJobPosts().then((response) => { setJobs(response.data.data) });
+    JobPostServiceIml.getAllCategory().then((response)=>{
+      if (response.data.data) {
+        let categoryMapList = [];
+        response.data.data.forEach((category)=>{
+          categoryMapList  = [...categoryMapList, {"name": category.id,"label": category.name, value:category.id}]
+        })
+        setListCategory(categoryMapList);
+      }
+    })
   }, [])
 
   const [auth, setAuth] = useState(undefined);
@@ -447,6 +457,13 @@ const SearchGrid = () => {
                   <ul className="list-unstyled filter-check-list">
                     <CheckBox list={employmentType}
                       handleFilters={(filters) => handleFilters(filters, "employmentTypes")} />
+                  </ul>
+                </div>
+                <div className="widgets mb-11">
+                  <h4 className="font-size-6 font-weight-semibold mb-6">Category</h4>
+                  <ul className="list-unstyled filter-check-list">
+                    <CheckBox list={listCategory}
+                      handleFilters={(filters) => handleFilters(filters, "categoryIds")} />
                   </ul>
                 </div>
                 <div className="widgets mb-11 ">

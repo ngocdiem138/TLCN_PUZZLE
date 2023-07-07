@@ -160,7 +160,7 @@ const DashboardApplicants = () => {
                   } else {
                     if (typeof window !== "undefined") {
                       const confirmBox = window.confirm(
-                        "Do you really want to use the scoring feature and suggest questions? This feature will use your coins?"
+                        "Do you really want to use the scoring feature and suggest questions? This feature will use your coins (5 coins)?"
                       )
                       if (confirmBox === true) {
                         gContext.setToggleCandidateId(applicant.candidate.id)
