@@ -14,7 +14,7 @@ import { BlogServiceIml } from "../actions/user-actions";
 import { CommentSection } from "react-comments-section";
 import "react-comments-section/dist/index.css";
 import Comment from "../components/Comment";
-import AddComment from "../Components/AddComment";
+import AddComment from "../components/AddComment";
 import "../components/Styles/App.scss";
 
 const BlogDetails = () => {
