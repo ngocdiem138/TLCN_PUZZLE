@@ -1,5 +1,5 @@
-import {IconPlus}  from "../Assets/images/icon-plus.js";
-import {IconMinus} from "../Assets/images/icon-minus.js";
+import {IconPlus}  from "../assets/images/icon-plus.js";
+import {IconMinus} from "../assets/images/icon-minus.js";
 
 const CommentVotes = ({
   vote,
