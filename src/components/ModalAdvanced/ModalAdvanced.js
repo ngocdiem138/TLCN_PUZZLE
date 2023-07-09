@@ -47,6 +47,9 @@ const Advanced = (props) => {
 
   const handleClose = () => {
     gContext.toggleAdvancedModalClose();
+    setScore('');
+    setSummary('');
+    setQuestions([]);
   };
 
   const handleUpdate = () => {

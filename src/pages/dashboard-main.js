@@ -95,7 +95,7 @@ const DashboardMain = () => {
           setShowError(true);
         } else {
           let applicant = []
-          response.data.content.forEach(element => {
+          response.data.data.content.forEach(element => {
             applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
           });
           setApplicants(applicant);
@@ -127,7 +127,7 @@ const DashboardMain = () => {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         gContext.setToggleJobPostId(event.value);
         let applicant = []
-        response.data.content.forEach(element => {
+        response.data.data.content.forEach(element => {
           applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
         });
         setApplicants(applicant);
@@ -186,7 +186,7 @@ const DashboardMain = () => {
 
   const listJobPost = jobs.map((job) => {
     return <tr className="border border-color-2"
-    style={job.jobPost.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
+      style={job.jobPost.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
       <th
         scope="row"
         className="pl-6 border-0 py-7 min-width-px-235"
@@ -244,16 +244,17 @@ const DashboardMain = () => {
   })
 
   const listApplication = currentPosts.map(applicant => {
-    if (!applicant.candidate) return null;
-    return <tr className="border border-color-2"
-      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {}}>
+    return <tr
+      className="border border-color-2"
+      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {}}
+    >
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
           to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
           className="media min-width-px-235 align-items-center"
         >
           <div className="circle-36 mr-6">
-            <img src={imgP1} alt="" className="w-100" />
+            <img src={applicant.candidate.avatar ? applicant.candidate.avatar : imgP1} alt="" className="w-100" />
           </div>
           <h4 className="font-size-4 mb-0 font-weight-semibold text-black-2">
             {applicant.candidate.lastName} {applicant.candidate.firstName}
@@ -262,19 +263,60 @@ const DashboardMain = () => {
       </th>
       <td className="table-y-middle py-7 min-width-px-235 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.candidate.educationLevel}
+          <div className="">
+            <a
+              href="/#"
+              className="font-size-4 font-weight-normal text-black-2 mb-0"
+              onClick={(e) => {
+                e.preventDefault();
+                JobPostServiceIml.checkExistedScore(applicant.candidate.id, applicant.jobPostId).then((response) => {
+                  if (response.data.data) {
+                    gContext.setToggleCandidateId(applicant.candidate.id)
+                    gContext.setToggleJobPostId(applicant.jobPostId)
+                    gContext.toggleAdvancedModal();
+                  } else {
+                    if (typeof window !== "undefined") {
+                      const confirmBox = window.confirm(
+                        "Do you really want to use the scoring feature and suggest questions? This feature will use your coins (5 coins)?"
+                      )
+                      if (confirmBox === true) {
+                        gContext.setToggleCandidateId(applicant.candidate.id)
+                        gContext.setToggleJobPostId(applicant.jobPostId)
+                        gContext.toggleAdvancedModal();
+                      }
+                    };
+                  }
+                })
+              }}
+            >
+              Score and IQ suggest
+            </a>
+          </div>
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {applicant.candidate.workStatus}
+          <div className="">
+            <a
+              href="/#"
+              className="font-size-4 font-weight-normal text-black-2 mb-0"
+              onClick={(e) => {
+                e.preventDefault();
+                gContext.setToggleCandidateId(applicant.candidate.id)
+                gContext.setToggleJobPostId(applicant.jobPostId)
+                gContext.toggleCoverLetterModal();
+              }}
+            >
+              View CV
+            </a>
+          </div>
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <div className="">
           <a
             href="/#"
-            className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+            className="font-size-4 font-weight-normal text-black-2 mb-0"
             onClick={(e) => {
               e.preventDefault();
               gContext.setToggleApplicantId(applicant.candidate.id)
@@ -288,7 +330,7 @@ const DashboardMain = () => {
       <td className="table-y-middle py-7 min-width-px-110 pr-0">
         <div className="">
           <Link
-            to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
+            to={"/contact?action=accept&candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
             className="font-size-3 font-weight-bold text-green text-uppercase"
           >
             Contact
@@ -298,14 +340,14 @@ const DashboardMain = () => {
       <td className="table-y-middle py-7 min-width-px-100 pr-0">
         <div className="">
           <Link
-            to={"/candidate-profile?candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
+            to={"/contact?action=reject&candidateId=" + applicant.candidate.id + "&jobPostId=" + applicant.jobPostId}
             className="font-size-3 font-weight-bold text-red-2 text-uppercase"
           >
             Reject
           </Link>
         </div>
       </td>
-    </tr>
+    </tr >
   });
 
   return (
@@ -477,7 +519,6 @@ const DashboardMain = () => {
                           scope="col"
                           className="border-0 font-size-4 font-weight-normal"
                         >
-                          Education Level
                         </th>
                         <th
                           scope="col"

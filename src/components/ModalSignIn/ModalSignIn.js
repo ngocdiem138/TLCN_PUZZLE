@@ -1,6 +1,5 @@
 import React from 'react';
 import { Component } from 'react';
-// import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth-actions";
@@ -9,7 +8,6 @@ import { formReset } from "../../actions/auth-actions";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
-// import GoogleLogin from 'react-google-login';
 import axios from "axios";
 import { API_BASE_URL } from '../../utils/constants/url';
 import { GoogleLogin } from '@react-oauth/google';

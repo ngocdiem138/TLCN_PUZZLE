@@ -11,6 +11,8 @@ import { JobPostServiceIml } from "../actions/user-actions";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 import Paginate from "../helpers/Paginate";
+import Reject from "../assets/image/reject.png";
+import Approved from "../assets/image/approved.png";
 
 
 const defaultJobs = [
@@ -86,7 +88,7 @@ const DashboardApplicants = () => {
           setShowError(true);
         } else {
           let applicant = []
-          response.data.content.forEach(element => {
+          response.data.data.content.forEach(element => {
             applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
           });
           setApplicants(applicant);
@@ -117,7 +119,7 @@ const DashboardApplicants = () => {
       JobPostServiceIml.getAllCandidateApplyJobPosts(event.value).then((response) => {
         gContext.setToggleJobPostId(event.value);
         let applicant = []
-        response.data.content.forEach(element => {
+        response.data.data.content.forEach(element => {
           applicant = [...applicant, { candidate: element.candidate, result: element.application.result, jobPostId: element.application.jobPostId }]
         });
         setApplicants(applicant);
@@ -129,7 +131,7 @@ const DashboardApplicants = () => {
   const listApplication = currentPosts.map(applicant => {
     return <tr
       className="border border-color-2"
-      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {}}
+      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {'background-image': 'url(' + Reject + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' }}
     >
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
@@ -149,7 +151,7 @@ const DashboardApplicants = () => {
           <div className="">
             <a
               href="/#"
-              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+              className="font-size-4 font-weight-normal text-black-2 mb-0"
               onClick={(e) => {
                 e.preventDefault();
                 JobPostServiceIml.checkExistedScore(applicant.candidate.id, applicant.jobPostId).then((response) => {
@@ -182,7 +184,7 @@ const DashboardApplicants = () => {
           <div className="">
             <a
               href="/#"
-              className="font-size-3 font-weight-bold text-black-2 text-uppercase"
+              className="font-size-4 font-weight-normal text-black-2 mb-0"
               onClick={(e) => {
                 e.preventDefault();
                 gContext.setToggleCandidateId(applicant.candidate.id)
@@ -197,17 +199,7 @@ const DashboardApplicants = () => {
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <div className="">
-          <a
-            href="/#"
-            className="font-size-3 font-weight-bold text-black-2 text-uppercase"
-            onClick={(e) => {
-              e.preventDefault();
-              gContext.setToggleApplicantId(applicant.candidate.id)
-              gContext.toggleApplicationModal();
-            }}
-          >
-            View Application
-          </a>
+          
         </div>
       </td>
       <td className="table-y-middle py-7 min-width-px-110 pr-0">
