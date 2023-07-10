@@ -293,7 +293,7 @@ const Paragraph = () => {
                                         <HStack spacing={30} paddingTop={10}>
                                             <FormControl id="avatar" className='blog-thumbnail'>
                                                 <FormLabel>Thumbnail</FormLabel>
-                                                <Cover url={thumbnail} borderRadius={"0%"} parentCallback={callbackFunction} />
+                                                {/* <Cover url={thumbnail} borderRadius={"0%"} parentCallback={callbackFunction} /> */}
                                             </FormControl>
                                         </HStack>
                                         <HStack spacing={30} paddingTop={10}>

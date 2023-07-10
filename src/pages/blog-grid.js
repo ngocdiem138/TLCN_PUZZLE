@@ -36,6 +36,7 @@ const BlogGrid = () => {
   const [scrollTop, setScrollTop] = useState(undefined);
   const [screenSize, setScreenSize] = useState(undefined);
   const [blogPost, setBlogPost] = useState([]);
+  const [recentPost, setRecentPost] = useState([]);
   const [categoryList, setCategoryList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
@@ -85,6 +86,13 @@ const BlogGrid = () => {
         setShowError403(true);
       } else {
         setBlogPost(response.data.data.content);
+      }
+    });
+    BlogServiceIml.getRecentBlogPost().then((response) => {
+      if (response.data.errCode === "UNAUTHORIZED_ERROR") {
+        setShowError403(true);
+      } else {
+        setRecentPost(response.data.data.content);
       }
     });
     BlogServiceIml.getAllCategoryAndPostAmount().then((response) => {
@@ -141,7 +149,7 @@ const BlogGrid = () => {
     return <li><a onClick={()=>viewByCategory(category.blogCategory.id)}>{category.blogCategory.name} ({category.blogPostAmount})</a></li>
   })
 
-  const listRecentBlogPost = currentPosts.map(blogPost => {
+  const listRecentBlogPost = recentPost.map(blogPost => {
     return <div className="widget-post clearfix">
     <div className="dez-post-media"> <img src={blogPost.thumbnail} alt="" /></div>
     <div className="dez-post-info">

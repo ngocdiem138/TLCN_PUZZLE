@@ -20,6 +20,8 @@ import "../components/Styles/App.scss";
 const BlogDetails = () => {
   const [comments, updateComments] = useState([]);
   const [deleteModalState, setDeleteModalState] = useState(false);
+  const [recentPost, setRecentPost] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
 
   const getData = async () => {
     const res = await fetch("./data/data.json");
@@ -285,6 +287,20 @@ const BlogDetails = () => {
         setBlogDetail(response.data.data);
       }
     });
+    BlogServiceIml.getRecentBlogPost().then((response) => {
+      if (response.data.errCode === "UNAUTHORIZED_ERROR") {
+        setShowError403(true);
+      } else {
+        setRecentPost(response.data.data.content);
+      }
+    });
+    BlogServiceIml.getAllCategoryAndPostAmount().then((response) => {
+      if (response.data.errCode === "UNAUTHORIZED_ERROR") {
+        setShowError403(true);
+      } else {
+        setCategoryList(response.data.data);
+      }
+    });
   }, [id])
   useEffect(() => {
     setScrollTop(window.scrollY);
@@ -310,6 +326,23 @@ const BlogDetails = () => {
   const getWidthByClassName = (id) => {
     return document.querySelector('#' + id).getBoundingClientRect().width;
   }
+
+  const listRecentBlogPost = recentPost.map(blogPost => {
+    return <div className="widget-post clearfix">
+      <div className="dez-post-media"> <img src={blogPost.thumbnail} alt="" /></div>
+      <div className="dez-post-info">
+        <div className="dez-post-header">
+          <h6 className="post-title"><a href={"/blog-details?id=" + blogPost.id}>{blogPost.title}</a></h6>
+        </div>
+        <div className="dez-post-meta">
+          <ul className="d-flex align-items-center">
+            <li className="post-date"><i className="fa fa-calendar"></i>{blogPost.createdAt ? blogPost.createdAt.split(' ')[0] : blogPost.createdAt}</li>
+            <li className="post-comment"><a href="#"><i className="far fa-comments"></i>{blogPost.comments ? blogPost.comments.length : blogPost.comments}</a> </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  })
 
   const isSticky = (e) => {
     if (getWidthByClassName('blog-content-container') - getWidthByClassName('masonry') <= 10) {
@@ -354,6 +387,26 @@ const BlogDetails = () => {
       <a href="javascript:void(0);">{element}</a>
     ));
     return tagElements;
+  };
+
+  const listCategory = categoryList.map(category => {
+    return <li><a onClick={() => viewByCategory(category.blogCategory.id)}>{category.blogCategory.name} ({category.blogPostAmount})</a></li>
+  })
+
+  const viewByCategory = (categoryId) => {
+    if (categoryId) {
+      BlogServiceIml.getAllBlogPostByCategoryId(categoryId)
+        .then((response) => {
+          if (response.data.errCode === "UNAUTHORIZED_ERROR") {
+            setShowError403(true);
+          } else {
+            setBlogPost(response.data.data.content);
+          }
+        })
+        .catch((error) => {
+          // Handle error if necessary
+        });
+    }
   };
 
   return (
@@ -415,7 +468,7 @@ const BlogDetails = () => {
                                 setDeleteModalState={setDeleteModalState}
                               />
                             ))}
-                            <AddComment buttonValue={"send"} addComments={addComments}/>
+                            <AddComment buttonValue={"send"} addComments={addComments} />
                             <div className="clearfix m-b20">
                               <div className="comment-respond-bottom" id="respond" style={{ display: "none" }}>
                                 <h4 className="comment-reply-title" id="reply-title">Leave a Reply <small> <a style={{ "display": "none" }} href="javascript:void(0);" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>
@@ -463,95 +516,14 @@ const BlogDetails = () => {
                           <div className="widget recent-posts-entry">
                             <h6 className="widget-title style-1">Recent Posts</h6>
                             <div className="widget-post-bx">
-                              <div className="widget-post clearfix">
-                                <div className="dez-post-media"> <img src={pic1} width="200" height="143" alt="" /> </div>
-                                <div className="dez-post-info">
-                                  <div className="dez-post-header">
-                                    <h6 className="post-title"><a href="blog-details.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h6>
-                                  </div>
-                                  <div className="dez-post-meta">
-                                    <ul className="d-flex align-items-center">
-                                      <li className="post-date"><i className="fa fa-calendar"></i>Sep 18, 2021</li>
-                                      <li className="post-comment"><a href="#"><i className="far fa-comments"></i>5k</a> </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="widget-post clearfix">
-                                <div className="dez-post-media"> <img src={pic2} width="200" height="160" alt="" /> </div>
-                                <div className="dez-post-info">
-                                  <div className="dez-post-header">
-                                    <h6 className="post-title"><a href="blog-details.html">Do you have a job that the average person doesn’t even know exists?</a></h6>
-                                  </div>
-                                  <div className="dez-post-meta">
-                                    <ul className="d-flex align-items-center">
-                                      <li className="post-date"><i className="fa fa-calendar"></i>Sep 18, 2021</li>
-                                      <li className="post-comment"><a href="#"><i className="far fa-comments"></i>5k</a> </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="widget-post clearfix">
-                                <div className="dez-post-media"> <img src={pic3} width="200" height="160" alt="" /> </div>
-                                <div className="dez-post-info">
-                                  <div className="dez-post-header">
-                                    <h6 className="post-title"><a href="blog-details.html">Using Banner Stands To Increase Trade Show Traffic</a></h6>
-                                  </div>
-                                  <div className="dez-post-meta">
-                                    <ul className="d-flex align-items-center">
-                                      <li className="post-date"><i className="fa fa-calendar"></i>Sep 18, 2021</li>
-                                      <li className="post-comment"><a href="#"><i className="far fa-comments"></i>5k</a> </li>
-                                    </ul>
-                                  </div>
-                                </div>
-                              </div>
+                              {listRecentBlogPost}
                             </div>
-                          </div>
-
-                          <div className="widget widget_gallery gallery-grid-3">
-                            <h6 className="widget-title style-1">Our services</h6>
-                            <ul className="lightgallery">
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                              <li>
-                                <span data-exthumbimage={pic1} data-src={pic1} className="lightimg dez-img-overlay1 dez-img-effect zoom-slow" title="Maintenance">
-                                  <img src={pic1} alt="" />
-                                </span>
-                              </li>
-                            </ul>
                           </div>
 
                           <div className="widget widget_archive">
                             <h6 className="widget-title style-1">Categories List</h6>
                             <ul>
-                              <li><a href="javascript:void(0);">aciform</a></li>
-                              <li><a href="javascript:void(0);">championship</a></li>
-                              <li><a href="javascript:void(0);">chastening</a></li>
-                              <li><a href="javascript:void(0);">clerkship</a></li>
-                              <li><a href="javascript:void(0);">disinclination</a></li>
+                              {listCategory}
                             </ul>
                           </div>
 

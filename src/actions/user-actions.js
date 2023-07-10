@@ -15,6 +15,9 @@ class BlogService {
     getAllBlogPost() {
         return axios.get(API_BASE_URL + '/common/blog-post');
     }
+    getRecentBlogPost() {
+        return axios.get(API_BASE_URL + '/common/blog-post?size=5');
+    }
     getAllBlogPostByCategoryId(categoryId) {
         return axios.get(API_BASE_URL + '/common/blog-post?blogCategoryId=' + categoryId);
     }
