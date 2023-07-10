@@ -72,7 +72,31 @@ const Paragraph = () => {
                 ["clean"],
                 [{ 'color': [] }],
             ],
-            
+            handlers: {
+                image: () => {
+                    const input = document.createElement('input');
+                    input.setAttribute('type', 'file');
+                    input.setAttribute('accept', 'image/*');
+                    input.setAttribute('multiple', 'multiple');
+                    input.click();
+                    input.onchange = async () => {
+                        Array.from(input.files).forEach((item) => {
+                            const formData = new FormData();
+                            formData.append('file', item);
+                            formData.append('subjectId', '123');
+                            BlogServiceIml.uploadImageBlog(formData).then(response => {
+                                console.log('data', response.data.data);
+                                const quill = quillRef?.current?.getEditor();
+                                console.log('data', quill);
+                                const cursorPosition = quill.getSelection();
+                                const link = response.data.data;
+                                quill.insertEmbed(cursorPosition, 'image', link);
+                                quill.setSelection(cursorPosition + 1);
+                            });
+                        });
+                    };
+                },
+            },
         },
         clipboard: {
             matchVisual: false,
@@ -279,7 +303,7 @@ const Paragraph = () => {
                                                         Blog content
                                                     </h5>
                                                 </FormLabel>
-                                                <ReactQuill
+                                                {/* <ReactQuill
                                                     ref={quillRef}
                                                     style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
                                                     theme="snow"
@@ -288,7 +312,7 @@ const Paragraph = () => {
                                                     modules={modules}
                                                     formats={formats}
                                                     placeholder="Write about your content ....."
-                                                />
+                                                /> */}
                                             </FormControl>
                                         </HStack>
 
