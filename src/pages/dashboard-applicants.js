@@ -131,7 +131,7 @@ const DashboardApplicants = () => {
   const listApplication = currentPosts.map(applicant => {
     return <tr
       className="border border-color-2"
-      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {'background-image': 'url(' + Reject + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' }}
+      style={applicant.result == "ACCEPT" ? {'background-image': 'url(' + Approved + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : applicant.result == "REJECT" ? {'background-image': 'url(' + Reject + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : {}}
     >
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link

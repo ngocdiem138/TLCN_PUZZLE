@@ -11,6 +11,8 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { logout } from "../actions/auth-actions";
 import ReactJsAlert from "reactjs-alert";
+import Reject from "../assets/image/reject.png";
+import Approved from "../assets/image/approved.png";
 
 import imgP1 from "../assets/image/table-one-profile-image-1.png";
 
@@ -246,7 +248,7 @@ const DashboardMain = () => {
   const listApplication = currentPosts.map(applicant => {
     return <tr
       className="border border-color-2"
-      style={applicant.result == "ACCEPT" ? { background: "#00FA9A" } : applicant.result == "REJECT" ? { background: "#F4A460" } : {}}
+      style={applicant.result == "ACCEPT" ? { 'background-image': 'url(' + Approved + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : applicant.result == "REJECT" ? { 'background-image': 'url(' + Reject + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : {}}
     >
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
@@ -314,17 +316,7 @@ const DashboardMain = () => {
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <div className="">
-          <a
-            href="/#"
-            className="font-size-4 font-weight-normal text-black-2 mb-0"
-            onClick={(e) => {
-              e.preventDefault();
-              gContext.setToggleApplicantId(applicant.candidate.id)
-              gContext.toggleApplicationModal();
-            }}
-          >
-            View Application
-          </a>
+
         </div>
       </td>
       <td className="table-y-middle py-7 min-width-px-110 pr-0">

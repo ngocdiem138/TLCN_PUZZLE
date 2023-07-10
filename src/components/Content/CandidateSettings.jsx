@@ -184,7 +184,7 @@ function CandidateSettings() {
           <FormLabel>Blind</FormLabel>
           <select name="blind" id="blind" class="chakra-input css-1hsm0tt" value={blind}
             onChange={(e) => setBlind(e.target.value)} >
-            <option value="false">Not Allow</option>
+            <option value="false">No</option>
             <option value="true">Allow</option>
           </select>
         </FormControl>
@@ -192,7 +192,7 @@ function CandidateSettings() {
           <FormLabel>Deaf</FormLabel>
           <select name="deaf" id="deaf" class="chakra-input css-1hsm0tt" value={deaf}
             onChange={(e) => setDeaf(e.target.value)} >
-            <option value="false">Not Allow</option>
+            <option value="false">No</option>
             <option value="true">Allow</option>
           </select>
         </FormControl>
@@ -200,7 +200,7 @@ function CandidateSettings() {
           <FormLabel>Communication Dis</FormLabel>
           <select name="communicationDis" id="communicationDis" class="chakra-input css-1hsm0tt" value={communicationDis}
             onChange={(e) => setCommunicationDis(e.target.value)} >
-            <option value="false">Not Allow</option>
+            <option value="false">No</option>
             <option value="true">Allow</option>
           </select>
         </FormControl>
@@ -208,7 +208,7 @@ function CandidateSettings() {
           <FormLabel>Labor</FormLabel>
           <select name="labor" id="labor" class="chakra-input css-1hsm0tt" value={labor}
             onChange={(e) => setLabor(e.target.value)} >
-            <option value="false">Not Allow</option>
+            <option value="false">No</option>
             <option value="true">Allow</option>
           </select>
         </FormControl>
@@ -216,7 +216,7 @@ function CandidateSettings() {
           <FormLabel>Hand Dis</FormLabel>
           <select name="handDis" id="handDis" class="chakra-input css-1hsm0tt" value={handDis}
             onChange={(e) => setHandDis(e.target.value)} >
-            <option value="false">Not Allow</option>
+            <option value="false">No</option>
             <option value="true">Allow</option>
           </select>
         </FormControl>

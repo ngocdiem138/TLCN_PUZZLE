@@ -71,6 +71,8 @@ const BlogGrid = () => {
     const contentEl = document.querySelector('.blog-content').getBoundingClientRect();
     if(contentEl.height < sidebarEl.height) {
       document.querySelector('.blog-content').style.height = sidebarEl.height + "px";
+    } else {
+      document.querySelector('.blog-content').style.height = 'auto';
     }
     setContentHeight(contentEl.height);
     setContentTop(contentEl.top);

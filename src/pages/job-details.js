@@ -337,7 +337,7 @@ const JobDetails = () => {
                           Employer Info.{" "}
                         </p>
                         <div className="row">
-                          <div className="col-md-4 mb-lg-0 mb-10">
+                          <div className="col-md-4 pr-lg-0 pl-lg-10 mb-lg-0 mb-8">
                             <div className="">
                               <span className="font-size-4 d-block mb-4 text-gray">
                                 Employer Name
@@ -357,7 +357,7 @@ const JobDetails = () => {
                               </h6>
                             </div>
                           </div>
-                          <div className="col-md-4 pl-lg-0">
+                          <div className="col-md-4 pr-lg-0 pl-lg-10 mb-lg-0 mb-8">
                             <div className="">
                               <span className="font-size-4 d-block mb-4 text-gray">
                                 Recruitment Phone

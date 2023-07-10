@@ -53,24 +53,24 @@ const Pricing = () => {
                 quote="Unfortunately your session has expired and you have been logged out. Please log in again"
                 Close={redirect}   // callback method for hide
               />
-                {showError || showSuccess ?
-                  <Alert
-                    variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
-                    {showError ? 'you have already subscribed to this package' : showSuccess ? 'Click button Send to redirect Paypal link' : 'info'}
-                    <div className="d-flex justify-content-end">
-                      <Button
-                        onClick={() => {
-                          setShowError(false);
-                          setShowSuccess(false);
-                          redirect()
-                        }}
-                        variant={showError ? 'outline-danger' : showSuccess ? 'outline-success' : 'outline-info'}>
-                        {showError ? 'Close!' : showSuccess ? 'Send' : 'Close!'}
-                      </Button>
-                    </div>
-                  </Alert>
-                  : null
-                }
+              {showError || showSuccess ?
+                <Alert
+                  variant={showError ? 'danger' : showSuccess ? 'success' : 'info'}>
+                  {showError ? 'you have already subscribed to this package' : showSuccess ? 'Click button Send to redirect Paypal link' : 'info'}
+                  <div className="d-flex justify-content-end">
+                    <Button
+                      onClick={() => {
+                        setShowError(false);
+                        setShowSuccess(false);
+                        redirect()
+                      }}
+                      variant={showError ? 'outline-danger' : showSuccess ? 'outline-success' : 'outline-info'}>
+                      {showError ? 'Close!' : showSuccess ? 'Send' : 'Close!'}
+                    </Button>
+                  </div>
+                </Alert>
+                : null
+              }
 
               <div className="row justify-content-center">
                 <div
@@ -107,7 +107,7 @@ const Pricing = () => {
                         <div className="card-header bg-transparent border-hit-gray-opacity-5 text-center pt-11 pb-8">
                           <div className="pricing-title text-center">
                             <h5 className="font-weight-semibold font-size-6 text-black-2">
-                              Basic Plan
+                              Bronze
                             </h5>
                             <h6 className="font-size-4 text-gray font-weight-normal">
                               For single person only
@@ -160,7 +160,7 @@ const Pricing = () => {
                               RECOMMENDED
                             </span>
                             <h5 className="font-weight-semibold font-size-6 text-black-2">
-                              Business Plan
+                              Silver
                             </h5>
                             <h6 className="font-size-4 text-gray font-weight-normal">
                               For small companies
@@ -210,7 +210,7 @@ const Pricing = () => {
                         <div className="card-header bg-transparent border-hit-gray-opacity-5 text-center pt-11 pb-8">
                           <div className="pricing-title text-center">
                             <h5 className="font-weight-semibold font-size-6 text-black-2">
-                              Premium Plan
+                              Gold
                             </h5>
                             <h6 className="font-size-4 text-gray font-weight-normal">
                               For bigger companies

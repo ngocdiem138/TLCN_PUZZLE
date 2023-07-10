@@ -642,8 +642,8 @@ function DashboardJobPost() {
                                                             </label>
                                                             <select name="blind" id="blind" class="form-control" value={blind}
                                                                 onChange={(e) => setBlind(e.target.value)} >
-                                                                <option value="false">Not Allow</option>
-                                                                <option value="true">Allow</option>
+                                                                <option value="false">No</option>
+                                                                <option value="true">Yes</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -657,8 +657,8 @@ function DashboardJobPost() {
                                                             </label>
                                                             <select name="handDis" id="handDis" class="form-control" defaultValue={true} value={handDis}
                                                                 onChange={(e) => setHandDis(e.target.value)} >
-                                                                <option value="false">Not Allow</option>
-                                                                <option value="true">Allow</option>
+                                                                <option value="false">No</option>
+                                                                <option value="true">Yes</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -672,8 +672,8 @@ function DashboardJobPost() {
                                                             </label>
                                                             <select name="labor" id="labor" class="form-control" value={labor}
                                                                 onChange={(e) => setLabor(e.target.value)} >
-                                                                <option value="false">Not Allow</option>
-                                                                <option value="true">Allow</option>
+                                                                <option value="false">No</option>
+                                                                <option value="true">Yes</option>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -687,8 +687,8 @@ function DashboardJobPost() {
                                                             </label>
                                                             <select name="deaf" id="deaf" class="form-control" value={deaf}
                                                                 onChange={(e) => setDeaf(e.target.value)} >
-                                                                <option value="false">Not Allow</option>
-                                                                <option value="true">Allow</option>
+                                                                <option value="false">No</option>
+                                                                <option value="true">Yes</option>
                                                             </select>
                                                         </div>
                                                     </div>
