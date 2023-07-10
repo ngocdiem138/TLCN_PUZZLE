@@ -48,16 +48,18 @@ const ModalApplication = (props) => {
   const [experience, setExperience] = useState(["No data"]);
 
   useEffect(() => {
-    ExperienceServiceIml.getExperienceByCandidateId(props.applicantId).then((response) => {
-      setExperience(response.data.data);
-      if (response.data.data.experience != null) {
-        setExperience(response.data.data.experience.split('#'))
-      }
-    });
+    if (props.applicantId < 0) {
+      ExperienceServiceIml.getExperienceByCandidateId(props.applicantId).then((response) => {
+        setExperience(response.data.data);
+        if (response.data.data.experience != null) {
+          setExperience(response.data.data.experience.split('#'))
+        }
+      });
+    }
   }, [props.applicantId]);
 
   useEffect(() => {
-    if (props.applicantId != 0) {
+    if (props.applicantId < 0) {
       CandidateServiceIml.getCandidateProfile(props.applicantId).then((response) => {
         setProfile(response.data.data);
         if (response.data.data.skills != null) {
