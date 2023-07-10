@@ -21,7 +21,7 @@ import { CandidateServiceIml } from '../../actions/candidate-action';
 import "react-quill/dist/quill.snow.css";
 
 function CandidateSettings() {
-  const ReactQuill = useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
+  const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false;
   const modules = {
     toolbar: [
       [{ header: "1" }, { header: "2" }, { font: [] }],
