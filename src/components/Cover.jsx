@@ -1,4 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
+import AvatarImg from '../assets/image/header-profile.png';
+import defaultBlogImage from '../assets/image/wood-blog-placeholder.jpg'
+import { UserServiceIml } from '../actions/user-actions';
 import {
   Badge,
   Box,
@@ -15,9 +18,7 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import AvatarImg from '../assets/image/header-profile.png';
-import defaultBlogImage from '../assets/image/wood-blog-placeholder.jpg'
-import { UserServiceIml } from '../actions/user-actions';
+
 
 export default function Avatar(url) {
   const [avatarImage, setAvatarImage] = useState(null);
