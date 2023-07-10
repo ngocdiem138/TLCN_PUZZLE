@@ -303,7 +303,7 @@ const Paragraph = () => {
                                                         Blog content
                                                     </h5>
                                                 </FormLabel>
-                                                {/* <ReactQuill
+                                                <ReactQuill
                                                     ref={quillRef}
                                                     style={{ width: "100%", margin: "0px", maxWidth: "100%" }}
                                                     theme="snow"
@@ -312,7 +312,7 @@ const Paragraph = () => {
                                                     modules={modules}
                                                     formats={formats}
                                                     placeholder="Write about your content ....."
-                                                /> */}
+                                                />
                                             </FormControl>
                                         </HStack>
 
