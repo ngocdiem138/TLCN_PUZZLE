@@ -437,7 +437,7 @@ const BlogDetails = () => {
                         <div className="clear" id="comment-list" >
                           <div className="comments-area" id="comments">
                             <h2 className="comments-title" style={{ paddingBottom: "10px" }}>{blogDetail.comments ? blogDetail.comments.length : 0} Comments</h2>
-                            <AddComment buttonValue={"send"} addComments={addComments} />
+                            <AddComment buttonValue={"send"} addComments={addComments} closeCommnet={()=>{}} />
                             {comments.map((comment) => (
                               <Comment
                                 addComments={addComments}
