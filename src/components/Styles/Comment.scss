@@ -108,7 +108,7 @@
         }
       }
 
-      .content-edit-box{
+      .content-edit-box {
         height: 150px;
         color: $grayish-blue;
         line-height: 1.5;
@@ -117,18 +117,18 @@
         border-radius: 10px;
         resize: none;
         scrollbar-width: none;
-    
+
         &::-webkit-scrollbar {
           width: 0;
         }
-    
+
         &:focus {
           outline: 1.5px solid $grayish-blue;
         }
-    
+
       }
 
-      .update-btn{
+      .update-btn {
         align-self: flex-end;
         width: max-content;
         color: $white;
@@ -140,11 +140,11 @@
         border-radius: 10px;
         transition: 0.3s;
         cursor: pointer;
-    
+
         &:hover,
-        &:focus{
+        &:focus {
           opacity: 0.65;
-        }    
+        }
       }
     }
 
@@ -211,8 +211,8 @@
 
     .comment-container {
       width: 100%;
-      
-      .comment{
+
+      .comment {
         animation: come-in 1.5s ease-in-out;
       }
     }
@@ -246,7 +246,7 @@
         width: 97%;
       }
 
-      .content-edit-box{
+      .content-edit-box {
         height: 100px;
       }
 
@@ -261,6 +261,7 @@
     }
 
     .reply-container {
+      margin-top: 25px;
       padding-left: 35px;
       margin-left: 35px;
       gap: 20px;
@@ -295,17 +296,17 @@
 
 
 @keyframes come-in {
-  0%{
+  0% {
     opacity: 0;
     transform: translateY(-100%);
   }
 
-  75%{
+  75% {
     opacity: 0;
     transform: translateY(-50%);
   }
 
-  100%{
+  100% {
     opacity: 1;
     transform: translateY(0);
   }

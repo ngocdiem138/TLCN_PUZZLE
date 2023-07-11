@@ -97,7 +97,7 @@ const BlogDetails = () => {
       if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError403(true);
       } else {
-        BlogServiceIml.getBlogPostById(id).then((response) => {
+        BlogServiceIml.getBlogPostById(blogDetail.id).then((response) => {
           if (response.data.errCode == "UNAUTHORIZED_ERROR") {
             setShowError403(true);
           } else {
@@ -129,21 +129,19 @@ const BlogDetails = () => {
 
   // delete comment
   let commentDelete = (id, type, parentComment) => {
-    let updatedComments = [...comments];
-    let updatedsubComments = [];
-
-    if (type === "comment") {
-      updatedComments = updatedComments.filter((data) => data.id !== id);
-    } else if (type === "reply") {
-      comments.forEach((comment) => {
-        if (comment.id === parentComment) {
-          updatedsubComments = comment.subComments.filter((data) => data.id !== id);
-          comment.subComments = updatedsubComments;
-        }
-      });
-    }
-
-    updateComments(updatedComments);
+    BlogServiceIml.deleteComment(id, type).then((response) => {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+        setShowError403(true);
+      } else {
+        BlogServiceIml.getBlogPostById(blogDetail.id).then((response) => {
+          if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+            setShowError403(true);
+          } else {
+            updateComments(response.data.data.comments);
+          }
+        });
+      }
+    })
   };
 
   var data = [

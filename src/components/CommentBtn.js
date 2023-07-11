@@ -33,19 +33,22 @@ const CommentBtn = ({ commentData, setReplying, setDeleting, setDeleteModalState
       >
         <IconReply /> Reply
       </button>
-      <button
+
+      {commentData.canEdit ? <button
         className={`delete-btn ${commentData.currentUser ? "" : "display--none"
           }`}
         onClick={showDeleteModal}
       >
         <IconDelete /> Delete
       </button>
-      <button
+        : ""}
+      {commentData.canEdit ? <button
         className={`edit-btn ${commentData.currentUser ? "" : "display--none"}`}
         onClick={showEditComment}
       >
         <IconEdit /> Edit
       </button>
+        : ""}
     </div>
   );
 };

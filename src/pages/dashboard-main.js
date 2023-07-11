@@ -43,7 +43,7 @@ const DashboardMain = () => {
   const [applicants, setApplicants] = useState([]);
   const [results, setResults] = useState([]);
   const [id, setId] = useState(0);
-  const [showError, setShowError] = useState(false)
+  const [showError, setShowError] = useState(false);
   const redirect = () => {
     logout();
   };

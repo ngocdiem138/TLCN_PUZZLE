@@ -25,7 +25,12 @@ class BlogService {
         return axios.get(API_BASE_URL + '/common/blog-post/blog-category-with-post-amount');
     }
     getBlogPostById(id) {
-        return axios.get(API_BASE_URL + '/common/view-blog-post/' + id);
+        return axios.get(API_BASE_URL + '/common/view-blog-post/' + id, {
+            headers: {
+                "Content-Type": `multipart/form-data;`,
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
     }
     createBlogPost(file) {
         return axios.post(API_BASE_URL + "/user/create-blog-post", file, {
@@ -57,6 +62,51 @@ class BlogService {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
         });
+    }
+    addComment(blogPostId, newComment, buttonValue, replyingFor) {
+        if (buttonValue == "send") {
+            return axios.post(API_BASE_URL + '/user/comment/add?blogPostId=' + blogPostId, newComment, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        } else if (buttonValue == "reply") {
+            return axios.post(API_BASE_URL + '/user/sub-comment/add?commentId=' + replyingFor, newComment, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        }
+    }
+    updateComment(content, id, type) {
+        if (type === "comment") {
+            return axios.put(API_BASE_URL + '/user/comment/update?commentId=' + id, content, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        } else if (type === "reply") {
+            return axios.post(API_BASE_URL + '/user/sub-comment/update?subCommentId=' + id, content, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        }
+    }
+    deleteComment(id, type) {
+        if (type === "comment") {
+            return axios.delete(API_BASE_URL + '/user/comment/delete?commentId=' + id, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        } else if (type === "reply") {
+            return axios.delete(API_BASE_URL + '/user/sub-comment/delete?subCommentId=' + id, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("token")
+                }
+            });
+        }
     }
 
 }
@@ -234,7 +284,7 @@ class JobPostService {
     }
 
     questionSuggest(candidateId, jobPostId) {
-        return axios.get(API_BASE_URL + '/employer/application/hirize-iq-suggest?candidateId='+ candidateId + '&jobPostId=' + jobPostId, {
+        return axios.get(API_BASE_URL + '/employer/application/hirize-iq-suggest?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }
@@ -242,7 +292,7 @@ class JobPostService {
     }
 
     clearQuestionSuggest(candidateId, jobPostId) {
-        return axios.get(API_BASE_URL + '/employer/application/hirize-iq/clear?candidateId='+ candidateId + '&jobPostId=' + jobPostId, {
+        return axios.get(API_BASE_URL + '/employer/application/hirize-iq/clear?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

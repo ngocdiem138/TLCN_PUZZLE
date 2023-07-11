@@ -11,7 +11,7 @@ const ReplyContainer = ({
 }) => {
   return (
     <div className="reply-container">
-      {commentData.map((data) => (
+      {commentData !== {} ? commentData.map((data) => (
         <Reply
           key={data.id}
           commentData={data}
@@ -22,7 +22,7 @@ const ReplyContainer = ({
           deleteComment={deleteComment}
           setDeleteModalState={setDeleteModalState}
         />
-      ))}
+      )) : {}}
     </div>
   );
 };

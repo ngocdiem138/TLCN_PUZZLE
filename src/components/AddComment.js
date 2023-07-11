@@ -13,7 +13,7 @@ const AddComment = ({ buttonValue, addComments, replyingTo, replyingFor, closeCo
       content: replyingToUser + comment,
     };
 
-    addComments(newComment, buttonValue, replyingFor);
+    addComments(newComment, buttonValue, replyingFor, closeCommnet);
     closeCommnet();
     setComment("");
   };

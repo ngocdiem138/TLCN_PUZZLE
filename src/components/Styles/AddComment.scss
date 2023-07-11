@@ -2,6 +2,7 @@
 @use "./mixins" as *;
 
 .add-comment {
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   gap: 20px;
