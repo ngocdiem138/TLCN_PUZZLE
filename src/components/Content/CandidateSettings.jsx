@@ -180,46 +180,6 @@ function CandidateSettings() {
             type="text"
             placeholder="unemployment" />
         </FormControl>
-        <FormControl>
-          <FormLabel>Blind</FormLabel>
-          <select name="blind" id="blind" class="chakra-input css-1hsm0tt" value={blind}
-            onChange={(e) => setBlind(e.target.value)} >
-            <option value="false">No</option>
-            <option value="true">Allow</option>
-          </select>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Deaf</FormLabel>
-          <select name="deaf" id="deaf" class="chakra-input css-1hsm0tt" value={deaf}
-            onChange={(e) => setDeaf(e.target.value)} >
-            <option value="false">No</option>
-            <option value="true">Allow</option>
-          </select>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Communication Dis</FormLabel>
-          <select name="communicationDis" id="communicationDis" class="chakra-input css-1hsm0tt" value={communicationDis}
-            onChange={(e) => setCommunicationDis(e.target.value)} >
-            <option value="false">No</option>
-            <option value="true">Allow</option>
-          </select>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Labor</FormLabel>
-          <select name="labor" id="labor" class="chakra-input css-1hsm0tt" value={labor}
-            onChange={(e) => setLabor(e.target.value)} >
-            <option value="false">No</option>
-            <option value="true">Allow</option>
-          </select>
-        </FormControl>
-        <FormControl>
-          <FormLabel>Hand Dis</FormLabel>
-          <select name="handDis" id="handDis" class="chakra-input css-1hsm0tt" value={handDis}
-            onChange={(e) => setHandDis(e.target.value)} >
-            <option value="false">No</option>
-            <option value="true">Allow</option>
-          </select>
-        </FormControl>
         <FormControl id="detailDis">
           <FormLabel>Detail Dis</FormLabel>
           <Input
@@ -230,11 +190,52 @@ function CandidateSettings() {
             type="text"
             placeholder="small" />
         </FormControl>
+        <FormControl>
+          <FormLabel>Blind</FormLabel>
+          <Select name="blind" id="blind" value={blind}
+            onChange={(e) => setBlind(e.target.value)} >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Deaf</FormLabel>
+          <Select name="deaf" id="deaf" class="chakra-input css-1hsm0tt" value={deaf}
+            onChange={(e) => setDeaf(e.target.value)} >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Communication Dis</FormLabel>
+          <Select name="communicationDis" id="communicationDis" class="chakra-input css-1hsm0tt" value={communicationDis}
+            onChange={(e) => setCommunicationDis(e.target.value)} >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Labor</FormLabel>
+          <Select name="labor" id="labor" class="chakra-input css-1hsm0tt" value={labor}
+            onChange={(e) => setLabor(e.target.value)} >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Hand Dis</FormLabel>
+          <Select name="handDis" id="handDis" class="chakra-input css-1hsm0tt" value={handDis}
+            onChange={(e) => setHandDis(e.target.value)} >
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </Select>
+        </FormControl>
+
       </Grid>
       <FormControl id="emailContact" style={{ "marginTop": "2vh" }}>
         <FormLabel>Email Contact</FormLabel>
         <Input
-          required = {true}
+          required={true}
           name="emailContact"
           onChange={(e) => setEmailContact(e.target.value)}
           value={emailContact}

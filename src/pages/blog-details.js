@@ -2,10 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FacebookShareButton, FacebookIcon } from 'react-share';
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
-import icon from "../assets/image/banner/thum1.jpg";
-import pic1 from "../assets/image/banner/pic1.jpg";
-import pic2 from "../assets/image/banner/pic2.jpg";
-import pic3 from "../assets/image/banner/pic3.jpg";
+import ReactJsAlert from "reactjs-alert";
 import { useLocation } from "@reach/router";
 import { parse } from "query-string";
 import './main.css';
@@ -16,6 +13,7 @@ import "react-comments-section/dist/index.css";
 import Comment from "../components/Comment";
 import AddComment from "../components/AddComment";
 import "../components/Styles/App.scss";
+import { logout } from "../actions/auth-actions";
 
 const BlogDetails = () => {
   const [comments, updateComments] = useState([]);
@@ -30,13 +28,13 @@ const BlogDetails = () => {
   };
 
   useEffect(() => {
-    localStorage.getItem("comments") !== null
-      ? updateComments(JSON.parse(localStorage.getItem("comments")))
-      : getData();
+    // localStorage.getItem("comments") !== null
+    //   ? updateComments(JSON.parse(localStorage.getItem("comments")))
+    //   : getData();
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("comments", JSON.stringify(comments));
+    // localStorage.setItem("comments", JSON.stringify(comments));
     deleteModalState
       ? document.body.classList.add("overflow--hidden")
       : document.body.classList.remove("overflow--hidden");
@@ -54,7 +52,7 @@ const BlogDetails = () => {
       });
     } else if (type === "reply") {
       updatedComments.forEach((comment) => {
-        comment.replies.forEach((data) => {
+        comment.subComments.forEach((data) => {
           if (data.id === id) {
             data.score = score;
           }
@@ -65,17 +63,29 @@ const BlogDetails = () => {
   };
 
   // add comments
-  let addComments = (newComment) => {
-    let updatedComments = [...comments, newComment];
-    updateComments(updatedComments);
+  let addComments = (newComment, buttonValue, replyingFor) => {
+    BlogServiceIml.addComment(blogDetail.id, newComment, buttonValue, replyingFor).then((response) => {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+        setShowError403(true);
+      } else {
+        BlogServiceIml.getBlogPostById(id).then((response) => {
+          if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+            setShowError403(true);
+          } else {
+            updateComments(response.data.data.comments);
+          }
+        });
+      }
+    })
+
   };
 
-  // add replies
-  let updateReplies = (replies, id) => {
+  // add subComments
+  let updatesubComments = (subComments, id) => {
     let updatedComments = [...comments];
     updatedComments.forEach((data) => {
       if (data.id === id) {
-        data.replies = [...replies];
+        data.subComments = [...subComments];
       }
     });
     updateComments(updatedComments);
@@ -83,39 +93,52 @@ const BlogDetails = () => {
 
   // edit comment
   let editComment = (content, id, type) => {
-    let updatedComments = [...comments];
-
-    if (type === "comment") {
-      updatedComments.forEach((data) => {
-        if (data.id === id) {
-          data.content = content;
-        }
-      });
-    } else if (type === "reply") {
-      updatedComments.forEach((comment) => {
-        comment.replies.forEach((data) => {
-          if (data.id === id) {
-            data.content = content;
+    BlogServiceIml.updateComment({ "content": content }, id, type).then((response) => {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+        setShowError403(true);
+      } else {
+        BlogServiceIml.getBlogPostById(id).then((response) => {
+          if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+            setShowError403(true);
+          } else {
+            updateComments(response.data.data.comments);
           }
         });
-      });
-    }
+      }
+    })
+    // let updatedComments = [...comments];
 
-    updateComments(updatedComments);
+    // if (type === "comment") {
+    //   updatedComments.forEach((data) => {
+    //     if (data.id === id) {
+    //       data.content = content;
+    //     }
+    //   });
+    // } else if (type === "reply") {
+    //   updatedComments.forEach((comment) => {
+    //     comment.subComments.forEach((data) => {
+    //       if (data.id === id) {
+    //         data.content = content;
+    //       }
+    //     });
+    //   });
+    // }
+
+    // updateComments(updatedComments);
   };
 
   // delete comment
   let commentDelete = (id, type, parentComment) => {
     let updatedComments = [...comments];
-    let updatedReplies = [];
+    let updatedsubComments = [];
 
     if (type === "comment") {
       updatedComments = updatedComments.filter((data) => data.id !== id);
     } else if (type === "reply") {
       comments.forEach((comment) => {
         if (comment.id === parentComment) {
-          updatedReplies = comment.replies.filter((data) => data.id !== id);
-          comment.replies = updatedReplies;
+          updatedsubComments = comment.subComments.filter((data) => data.id !== id);
+          comment.subComments = updatedsubComments;
         }
       });
     }
@@ -130,7 +153,7 @@ const BlogDetails = () => {
       "fullName": "Riya Negi",
       "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
       "text": "Hey, Loved your blog! ",
-      "replies": [
+      "subComments": [
         {
           "userId": "02a",
           "comId": "013",
@@ -161,7 +184,7 @@ const BlogDetails = () => {
       "fullName": "Robert Jae",
       "avatarUrl": "https://ui-avatars.com/api/name=Robert&background=random",
       "text": "Woah pretty helpful! how did you solve for x?",
-      "replies": [
+      "subComments": [
         {
           "userId": "01b",
           "comId": "016",
@@ -181,73 +204,17 @@ const BlogDetails = () => {
     }
   ]
 
-  const [comment, setComment] = useState([
-    {
-      "userId": "01a",
-      "comId": "012",
-      "fullName": "Riya Negi",
-      "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
-      "text": "Hey, Loved your blog! ",
-      "replies": [
-        {
-          "userId": "02a",
-          "comId": "013",
-          "fullName": "Adam Scott",
-          "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random",
-          "text": "Thanks! It took me 1 month to finish this project but I am glad it helped out someone!🥰"
-        },
-        {
-          "userId": "01a",
-          "comId": "014",
-
-          "fullName": "Riya Negi",
-          "avatarUrl": "https://ui-avatars.com/api/name=Riya&background=random",
-          "text": "thanks!😊"
-        }
-      ]
-    },
-    {
-      "userId": "02a",
-      "comId": "07",
-      "fullName": "Adam Scott",
-      "text": "Follow my page for more such interesting blogs!😇",
-      "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random"
-    },
-    {
-      "userId": "02a",
-      "comId": "015",
-      "fullName": "Robert Jae",
-      "avatarUrl": "https://ui-avatars.com/api/name=Robert&background=random",
-      "text": "Woah pretty helpful! how did you solve for x?",
-      "replies": [
-        {
-          "userId": "01b",
-          "comId": "016",
-
-          "fullName": "Adam Scott",
-          "text": "Thanks! refer to this link -> acs.com",
-          "avatarUrl": "https://ui-avatars.com/api/name=Adam&background=random"
-        }
-      ]
-    },
-    {
-      "userId": "02b",
-      "comId": "017",
-      "fullName": "Lily",
-      "text": "I have a doubt about the 4th point🤔",
-      "avatarUrl": "https://ui-avatars.com/api/name=Lily&background=random"
-    }
-  ]);
+  const [comment, setComment] = useState([]);
   const userId = "01a";
   const avatarUrl = "https://ui-avatars.com/api/name=Riya&background=random";
   const name = "xyz";
   const signinUrl = "/signin";
   const signupUrl = "/signup";
   let count = 0;
-  comment.map((i) => {
-    count += 1;
-    i.replies && i.replies.map((i) => (count += 1));
-  });
+  // comment.map((i) => {
+  //   count += 1;
+  //   i.subComments && i.subComments.map((i) => (count += 1));
+  // });
 
   const [textEditable, setTextEditable] = useState("");
 
@@ -276,6 +243,7 @@ const BlogDetails = () => {
   const [contentHeight, setContentHeight] = useState(undefined);
   const [scrollTop, setScrollTop] = useState(undefined);
   const [blogDetail, setBlogDetail] = useState("");
+  const [showError403, setShowError403] = useState(false);
   const location = useLocation();
   const searchParams = parse(location.search);
   const id = searchParams.id;
@@ -285,6 +253,7 @@ const BlogDetails = () => {
         setShowError403(true);
       } else {
         setBlogDetail(response.data.data);
+        updateComments(response.data.data.comments);
       }
     });
     BlogServiceIml.getRecentBlogPost().then((response) => {
@@ -408,12 +377,25 @@ const BlogDetails = () => {
         });
     }
   };
+  const redirect = () => {
+    logout();
+  };
 
   return (
     <>
       <PageWrapper headerConfig={{ button: "profile" }}>
         <div className="jobDetails-section bg-default-1 pt-28 pt-lg-27 pb-xl-25 pb-12" >
           <div className="container">
+            <ReactJsAlert
+              type="info"   // success, warning, error, info
+              title="Session has expired"   // title you want to display
+              status={showError403}  // true or false
+              button="OK"
+              color="#1d36ad"
+              quotes={true}
+              quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+              Close={redirect}   // callback method for hide
+            />
             <div className="row justify-content-center">
               <div className="page-content bg-white">
                 <div className="dez-bnr-inr overlay-black-middle" style={{ backgroundImage: blogDetail.thumbnail }}>
@@ -457,18 +439,19 @@ const BlogDetails = () => {
                         <div className="clear" id="comment-list" >
                           <div className="comments-area" id="comments">
                             <h2 className="comments-title" style={{ paddingBottom: "10px" }}>{blogDetail.comments ? blogDetail.comments.length : 0} Comments</h2>
+                            <AddComment buttonValue={"send"} addComments={addComments} />
                             {comments.map((comment) => (
                               <Comment
+                                addComments={addComments}
                                 key={comment.id}
                                 commentData={comment}
                                 updateScore={updateScore}
-                                updateReplies={updateReplies}
+                                updatesubComments={updatesubComments}
                                 editComment={editComment}
                                 commentDelete={commentDelete}
                                 setDeleteModalState={setDeleteModalState}
                               />
                             ))}
-                            <AddComment buttonValue={"send"} addComments={addComments} />
                             <div className="clearfix m-b20">
                               <div className="comment-respond-bottom" id="respond" style={{ display: "none" }}>
                                 <h4 className="comment-reply-title" id="reply-title">Leave a Reply <small> <a style={{ "display": "none" }} href="javascript:void(0);" id="cancel-comment-reply-link" rel="nofollow">Cancel reply</a> </small> </h4>

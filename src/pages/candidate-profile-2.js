@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "gatsby";
 import PageWrapper from "../components/PageWrapper";
 import ProfileSidebar from "../components/ProfileSidebar";
@@ -14,9 +14,11 @@ import { useState } from "react";
 import { JobPostServiceIml } from "../actions/user-actions";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
-
+import GlobalContext from "../context/GlobalContext";
+import { CandidateServiceIml } from "../actions/candidate-action";
 
 const CandidateProfile = () => {
+  const gContext = useContext(GlobalContext);
   const [jobSaves, setJobSaves] = useState([]);
   const [joApplied, setJobApplied] = useState([]);
   const [showError, setShowError] = useState(false)
@@ -52,7 +54,7 @@ const CandidateProfile = () => {
         <div className="media align-items-center">
           <div className="square-52 bg-indigo mr-8 rounded">
             <Link to={"/groups/job-details/" + job.id}>
-              <img src={img1} alt="" />
+              <img src={job.company.image ? job.company.image : img1} alt="" />
             </Link>
           </div>
           <div>
@@ -120,7 +122,7 @@ const CandidateProfile = () => {
         <div className="media align-items-center">
           <div className="square-52 bg-indigo mr-8 rounded">
             <Link to={"/groups/job-details/" + job.id}>
-              <img src={img1} alt="" />
+              <img src={job.company.image ? job.company.image : img1} alt="" />
             </Link>
           </div>
           <div>
@@ -139,6 +141,15 @@ const CandidateProfile = () => {
               </Link>
             </h3>
           </div>
+          <button
+            style={{ outline: "none", border: "none", background: "none" }}
+            onClick={(e) => {
+              e.preventDefault();
+              gContext.setToggleJobPostId(job.id)
+              gContext.toggleCandidateCoverLetterModal();
+            }}
+            className="toggle-item font-size-6 ml-auto line-height-reset px-0 mt-6 text-default-color"> <i class="icon fa fa-address-card"></i>
+          </button>
         </div>
         <div className="d-flex pt-17">
           <ul className="list-unstyled mb-1 d-flex flex-wrap">

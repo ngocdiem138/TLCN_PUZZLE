@@ -10,10 +10,11 @@ const GlobalProvider = ({ children }) => {
   const [applyModalVisible, setApplyModalVisible] = useState(false);
   const [advancedModalVisible, setAdvancedModalVisible] = useState(false);
   const [coverLetterModalVisible, setCoverLetterModalVisible] = useState(false);
+  const [candidateCoverLetterModalVisible, setCandidateCoverLetterModalVisible] = useState(false);
   const [signUpModalVisible, setSignUpModalVisible] = useState(false);
   const [videoModalVisible, setVideoModalVisible] = useState(false);
   const [visibleOffCanvas, setVisibleOffCanvas] = useState(false);
-  const [applicantId, setApplicantId] = useState(0);
+  const [applicantId, setApplicantId] = useState(-1);
   const [jobPostId, setJobPostId] = useState(-1);
   const [candidateId, setCandidateId] = useState(-1);
   const [jobPostName, setJobPostName] = useState("");
@@ -84,6 +85,10 @@ const GlobalProvider = ({ children }) => {
     setCoverLetterModalVisible(!coverLetterModalVisible);
   };
 
+  const toggleCandidateCoverLetterModal = () => {
+    setCandidateCoverLetterModalVisible(!candidateCoverLetterModalVisible);
+  };
+
   const toggleApplyModalClose = () => {
     setApplyModalVisible(false);
   };
@@ -94,6 +99,10 @@ const GlobalProvider = ({ children }) => {
 
   const toggleCoverLetterModalClose = () => {
     setCoverLetterModalVisible(false);
+  };
+
+  const toggleCandidateCoverLetterModalClose = () => {
+    setCandidateCoverLetterModalVisible(false);
   };
 
 
@@ -134,8 +143,11 @@ const GlobalProvider = ({ children }) => {
         toggleAdvancedModal,
         toggleAdvancedModalClose,
         coverLetterModalVisible,
+        candidateCoverLetterModalVisible,
         toggleCoverLetterModal,
+        toggleCandidateCoverLetterModal,
         toggleCoverLetterModalClose,
+        toggleCandidateCoverLetterModalClose,
         signUpModalVisible,
         toggleSignUpModal,
         visibleOffCanvas,

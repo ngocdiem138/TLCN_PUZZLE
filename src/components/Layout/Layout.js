@@ -19,7 +19,8 @@ import ModalApplication from "../ModalApplication";
 import ModalSignIn from "../ModalSignIn";
 import ModalApply from "../ModalApply";
 import ModalAdvanced from "../ModalAdvanced";
-import ModalCoverLetter from "../ModalCoverLetter"
+import ModalCoverLetter from "../ModalCoverLetter";
+import ModalCandidateCoverLetter from "../ModalCandidateCoverLetter";
 import ModalSignUp from "../ModalSignUp";
 import ModalSignCandidate from "../ModalSignCandidate";
 import ModalSignEmployer from "../ModalSignEmployer";
@@ -154,6 +155,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
           <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
+          <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />
@@ -197,6 +199,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
           <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
+          <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />
@@ -234,6 +237,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
           <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
+          <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
           <ModalSignCandidate />
           <ModalSignEmployer />
           <ModalSignUp />

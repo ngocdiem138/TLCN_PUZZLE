@@ -18,6 +18,14 @@ import { API_BASE_URL } from "../utils/constants/url";
 //     }};
 class CandidateService {
 
+  viewApplication(jobPostId) {
+    return axios.get(API_BASE_URL + "/candidate/application?jobPostId=" + jobPostId, {
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    })
+  }
+
   getCandidateSettingProfile() {
     return axios.get(API_BASE_URL + "/candidate/profile", {
       headers: {
@@ -28,12 +36,12 @@ class CandidateService {
 
   updateCandidateSettingProfile(candidateProfile) {
     return axios.put(API_BASE_URL + "/candidate/update", candidateProfile, {
-        headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: "Bearer " + localStorage.getItem("token")
-        }
+      headers: {
+        "Content-Type": "application/json;charset=UTF-8",
+        Authorization: "Bearer " + localStorage.getItem("token")
+      }
     })
-}
+  }
 
   getCandidateProfile(candidateId) {
     return axios.get(API_BASE_URL + "/common/get-profile-candidate/" + candidateId, {

@@ -12,9 +12,10 @@ import CommentFooter from "./CommentFooter";
 import { commentPostedTime } from "../utils";
 
 const Comment = ({
+  addComments,
   commentData,
   updateScore,
-  updateReplies,
+  updatesubComments,
   editComment,
   commentDelete,
   setDeleteModalState,
@@ -38,8 +39,6 @@ const Comment = ({
   }, [differenceInTime, vote]);
 
   const addReply = (newReply) => {
-    const replies = [...commentData.replies, newReply];
-    updateReplies(replies, commentData.id);
     setReplying(false);
   };
 
@@ -57,9 +56,8 @@ const Comment = ({
 
   return (
     <div
-      className={`comment-container ${
-        commentData.replies[0] !== undefined ? "reply-container-gap" : ""
-      }`}
+      className={`comment-container ${commentData.subComments !== undefined ? commentData.subComments[0] !== undefined ? "gap" : "" : ""
+        }`}
     >
       <div className="comment">
         <CommentVotes
@@ -112,25 +110,27 @@ const Comment = ({
 
       {replying && (
         <AddComment
+          closeCommnet={addReply}
           buttonValue={"reply"}
-          addComments={addReply}
-          replyingTo={commentData.username}
+          addComments={addComments}
+          replyingTo={commentData.email}
+          replyingFor={commentData.commentId ? commentData.commentId : commentData.id}
         />
       )}
-      {commentData.replies !== [] && (
+      {commentData.subComments !== undefined && commentData.subComments !== [] && (
         <ReplyContainer
-          key={commentData.replies.id}
-          commentData={commentData.replies}
+          key={commentData.subComments.id}
+          commentData={commentData.subComments}
           updateScore={updateScore}
           commentPostedTime={commentPostedTime}
-          addReply={addReply}
+          addReply={addComments}
           editComment={editComment}
           deleteComment={deleteComment}
           setDeleteModalState={setDeleteModalState}
         />
       )}
 
-      {deleting && (
+      {commentData.canEdit && deleting && (
         <DeleteModal
           setDeleting={setDeleting}
           deleteComment={deleteComment}

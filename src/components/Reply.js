@@ -37,7 +37,6 @@ const Reply = ({
 
   // adding reply
   const addReply = (newReply) => {
-    addNewReply(newReply);
     setReplying(false);
   };
 
@@ -74,9 +73,8 @@ const Reply = ({
 
   return (
     <div
-      className={`comment-container ${
-        commentData.replies[0] !== undefined ? "gap" : ""
-      }`}
+      className={`comment-container ${commentData.subComments !== undefined ? commentData.subComments[0] !== undefined ? "gap" : "" : ""
+        }`}
     >
       <div className="comment">
         <CommentVotes
@@ -121,18 +119,20 @@ const Reply = ({
       {replying && (
         <AddComment
           buttonValue={"reply"}
-          addComments={addReply}
-          replyingTo={commentData.username}
+          addComments={addNewReply}
+          closeCommnet = {addReply}
+          replyingTo={commentData.email}
+          replyingFor={commentData.commentId ? commentData.commentId : commentData.id}
         />
       )}
-      {commentData.replies.map((reply) => (
+      {/* {commentData.subComments ? commentData.subComments.map((reply) => (
         <Reply
           key={reply.id}
           commentData={reply}
           commentPostedTime={commentPostedTime}
           addReply={addReply}
         />
-      ))}
+      )):{}} */}
 
       {deleting && (
         <DeleteModal

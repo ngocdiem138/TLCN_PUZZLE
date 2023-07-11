@@ -27,7 +27,7 @@ const SearchTab = (props) => {
   const { t, i18n } = useTranslation()
   console.log(props.listJob);
   let activeIndexDefault = props.listJob[0] ? props.listJob[0].id : 0
-  const [indexActive, setIndexActive]=useState(activeIndexDefault);
+  const [indexActive, setIndexActive] = useState(activeIndexDefault);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
@@ -111,7 +111,7 @@ const SearchTab = (props) => {
     }
   };
   const listNav = currentPosts.map(job => {
-    return <Nav.Link className="mb-8 p-0 w-100" eventKey={job.id} onClick={() => { console.log(indexActive);setError(''); setSucces(''); setIndexActive(job.id) }}>
+    return <Nav.Link className="mb-8 p-0 w-100" eventKey={job.id} onClick={() => { console.log(indexActive); setError(''); setSucces(''); setIndexActive(job.id) }}>
       {/* <!-- Single Featured Job --> */}
       <div className="pt-9 px-xl-9 px-lg-7 px-7 pb-7 light-mode-texts bg-white rounded hover-shadow-3 hover-border-green">
         {/* <!-- Single Featured Job --> */}
@@ -119,7 +119,7 @@ const SearchTab = (props) => {
           <div className="col-md-6">
             <div className="media align-items-center">
               <div className="square-72 d-block mr-8">
-                <img src={job.logo ? job.logo : imgF1} alt="" />
+                <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
               </div>
               <div>
                 <h3 className="mb-0">
@@ -215,7 +215,7 @@ const SearchTab = (props) => {
               <div className="media align-items-center">
                 {/* <!-- media logo start --> */}
                 <div className="square-72 d-block mr-8">
-                  <img src={job.logo ? job.logo : imgF1} alt="" />
+                  <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
                 </div>
                 {/* <!-- media logo end --> */}
                 {/* <!-- media texts start --> */}

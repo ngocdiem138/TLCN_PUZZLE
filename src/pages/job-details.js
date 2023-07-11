@@ -164,7 +164,7 @@ const JobDetails = () => {
                         <div className="media align-items-center">
                           {/* <!-- media logo start --> */}
                           <div className="square-72 d-block mr-8">
-                            <img src={job.logo ? job.logo : imgF1} alt="" />
+                            <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
                           </div>
                           {/* <!-- media logo end --> */}
                           {/* <!-- media texts start --> */}

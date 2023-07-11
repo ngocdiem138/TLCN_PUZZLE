@@ -97,11 +97,11 @@ const SearchGrid = () => {
   const [listCategory, setListCategory] = useState([]);
   useEffect(() => {
     JobPostServiceIml.getAllActiveJobPosts().then((response) => { setJobs(response.data.data) });
-    JobPostServiceIml.getAllCategory().then((response)=>{
+    JobPostServiceIml.getAllCategory().then((response) => {
       if (response.data.data) {
         let categoryMapList = [];
-        response.data.data.forEach((category)=>{
-          categoryMapList  = [...categoryMapList, {"name": category.id,"label": category.name, value:category.id}]
+        response.data.data.forEach((category) => {
+          categoryMapList = [...categoryMapList, { "name": category.id, "label": category.name, value: category.id }]
         })
         setListCategory(categoryMapList);
       }
@@ -219,7 +219,7 @@ const SearchGrid = () => {
   };
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(5);
+  const [postsPerPage] = useState(6);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = jobs.slice(0, indexOfLastPost);
@@ -228,9 +228,9 @@ const SearchGrid = () => {
   const jobGrid = currentPosts.map(job => {
     return <div className="col-12 col-lg-6">
       <div className="bg-white px-8 pt-9 pb-7 rounded-4 mb-9 feature-cardOne-adjustments">
-        <div className="d-block mb-7">
+        <div className="d-block mb-7 square-72">
           <Link to={"/groups/job-details/" + job.id}>
-            <img src={imgB1} alt="" />
+            <img src={job.company ? job.company.image ? job.company.image : imgB1 : imgB1} alt="" />
           </Link>
         </div>
         <Link
@@ -241,7 +241,7 @@ const SearchGrid = () => {
         </Link>
         <h2 className="mt-n4">
           <Link
-            to="/#"
+            to={"/groups/job-details/" + job.id}
             className="font-size-7 text-black-2 font-weight-bold mb-4"
           >
             {job.title}
@@ -250,7 +250,7 @@ const SearchGrid = () => {
         <ul className="list-unstyled mb-1 card-tag-list">
           <li style={{ width: "50%" }}>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-denim font-size-3 rounded-3"
             >
               <i className="icon icon-pin-3 mr-2 font-weight-bold"></i>{" "}
@@ -259,7 +259,7 @@ const SearchGrid = () => {
           </li>
           <li style={{ width: "50%" }}>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-orange font-size-3 rounded-3"
             >
               <i className="fa fa-briefcase mr-2 font-weight-bold"></i>{" "}
@@ -268,7 +268,7 @@ const SearchGrid = () => {
           </li>
           <li style={{ width: "50%" }}>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
             >
               <i className="fa fa-dollar-sign mr-2 font-weight-bold"></i>{" "}
@@ -277,7 +277,7 @@ const SearchGrid = () => {
           </li>
           <li style={{ width: "50%" }}>
             <Link
-              to="/#"
+              to={"/groups/job-details/" + job.id}
               className="bg-regent-opacity-15 text-eastern font-size-3 rounded-3"
             >
               <i className="fa fa-address-card mr-2 font-weight-bold"></i>{" "}
@@ -324,7 +324,7 @@ const SearchGrid = () => {
           <div className="col-md-6">
             <div className="media align-items-center">
               <div className="square-72 d-block mr-8">
-                <img src={job.logo ? job.logo : imgB1} alt="" />
+                <img src={job.company ? job.company.image ? job.company.image : imgB1 : imgB1} alt="" />
               </div>
               <div>
                 <h3 className="mb-0">

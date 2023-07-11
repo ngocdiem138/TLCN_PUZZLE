@@ -132,7 +132,7 @@ const FeaturedJobs = () => {
       <div className="bg-white px-8 pt-9 pb-7 rounded-4 mb-9 feature-cardOne-adjustments">
         <div className="d-block mb-7">
           <Link to={"/groups/job-details/" + job.id}>
-            <img src={imgF1} alt="" />
+            <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" style={{'height':'71px', width: '70px', objectFit: 'cover'}}/>
           </Link>
         </div>
         <Link

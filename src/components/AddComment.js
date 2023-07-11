@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import "./Styles/AddComment.scss";
 
-const AddComment = ({ buttonValue, addComments, replyingTo }) => {
+const AddComment = ({ buttonValue, addComments, replyingTo, replyingFor, closeCommnet }) => {
   const replyingToUser = replyingTo ? `@${replyingTo}, ` : "";
   const [comment, setComment] = useState("");
 
@@ -10,16 +10,11 @@ const AddComment = ({ buttonValue, addComments, replyingTo }) => {
     if (comment === "" || comment === " ") return;
 
     const newComment = {
-      id: Math.floor(Math.random() * 100) + 5,
       content: replyingToUser + comment,
-      createdAt: new Date(),
-      score: 0,
-      username: "juliusomo",
-      currentUser: true,
-      replies: [],
     };
 
-    addComments(newComment);
+    addComments(newComment, buttonValue, replyingFor);
+    closeCommnet();
     setComment("");
   };
 

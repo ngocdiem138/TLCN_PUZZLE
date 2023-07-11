@@ -74,7 +74,7 @@ const DashboardBlogs = () => {
       <div className="card-blog-1 border-gray-800 bg-gray-850 hover-up">
         <div className="card-image mb-20">
           <a className="post-type" href="/page-author#" />
-          <a href={"/dashboard-blog?id="+blogPost.id}>
+          <a href={"/dashboard-blog?id=" + blogPost.id}>
             <img
               src={blogPost.thumbnail}
               alt="Genz"
@@ -86,9 +86,9 @@ const DashboardBlogs = () => {
             <div className="col-7">
               <a
                 className="color-gray-700 text-sm"
-                href={"/dashboard-blog?id="+blogPost.id}
+                href={"/dashboard-blog?id=" + blogPost.id}
               >
-               {blogPost.tags}
+                {blogPost.tags}
               </a>
             </div>
             <div className="col-5 text-end">
@@ -97,7 +97,7 @@ const DashboardBlogs = () => {
               </span>
             </div>
           </div>
-          <a href={"/dashboard-blog?id="+blogPost.id}>
+          <a href={"/dashboard-blog?id=" + blogPost.id}>
             <h4 className="color-white mt-20">
               {blogPost.title}
             </h4>
@@ -120,7 +120,7 @@ const DashboardBlogs = () => {
             <div className="col-5 text-end">
               <a
                 className="readmore color-gray-500 text-sm"
-                href={"/dashboard-blog?id="+blogPost.id}
+                href={"/dashboard-blog?id=" + blogPost.id}
               >
                 <span>Read more</span>
               </a>
@@ -159,10 +159,11 @@ const DashboardBlogs = () => {
                             <span className="text-sm-bold color-gray-600">
                               Hello Everyone!
                             </span>
-                            <h3 className="color-linear d-inline-block mt-10 mb-15">
-                              I'm {profile.fullName ? profile.fullName : "Full name not update"}, a lover of technology, business and
-                              experiencing new things
-                            </h3>
+                            <p>
+                              <h3 className="color-linear d-inline-block mt-10 mb-15">
+                                Wellcome!!
+                              </h3>
+                            </p>
                             <div className="box-socials">
                               <a className="bg-gray-800 hover-up" href="/page-author#">
                                 <span className="fb" />
