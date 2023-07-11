@@ -101,10 +101,10 @@ const Paragraph = () => {
         clipboard: {
             matchVisual: false,
             // Disable pasting of images and videos
-            matchers: [
-                ['img', (node) => node.tagName.toLowerCase() !== 'img'],
-                ['video', (node) => node.tagName.toLowerCase() !== 'video'],
-            ],
+            // matchers: [
+            //     ['img', (node) => node.tagName.toLowerCase() !== 'img'],
+            //     ['video', (node) => node.tagName.toLowerCase() !== 'video'],
+            // ],
         },
     }), []);
 

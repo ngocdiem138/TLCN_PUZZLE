@@ -214,12 +214,12 @@ const DashboardMain = () => {
       </td>
       <td className="table-y-middle py-7 min-width-px-155">
         <h3 className="font-size-4 font-weight-normal text-black-2 mb-0">
-          {job.jobPost.createTime}
+          {job.jobPost.createdAt}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-205">
         <h3 className="font-size-4 font-weight-bold text-black-2 mb-0">
-          {job.application_amount}
+          {job.applicationAmount}
         </h3>
       </td>
       <td className="table-y-middle py-7 min-width-px-80">
