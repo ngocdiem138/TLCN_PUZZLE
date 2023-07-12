@@ -36,6 +36,7 @@ const DashboardApplicants = () => {
   const [applicants, setApplicants] = useState([]);
   const [showError, setShowError] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [existedIQ, setExitedIQ] = useState(false);
   const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -161,24 +162,46 @@ const DashboardApplicants = () => {
               href="/#"
               className="font-size-4 font-weight-normal text-black-2 mb-0"
               onClick={(e) => {
+                let existed = false;
                 e.preventDefault();
-                JobPostServiceIml.checkExistedScore(applicant.candidate.id, applicant.jobPostId).then((response) => {
+                JobPostServiceIml.checkExistedQuestionSuggest(applicant.candidate.id, applicant.jobPostId).then((response) => {
                   if (response.data.data) {
-                    gContext.setToggleCandidateId(applicant.candidate.id)
-                    gContext.setToggleJobPostId(applicant.jobPostId)
-                    gContext.toggleAdvancedModal();
-                  } else {
-                    if (typeof window !== "undefined") {
-                      const confirmBox = window.confirm(
-                        "Do you really want to use the scoring feature and suggest questions? This feature will use your coins (5 coins)?"
-                      )
-                      if (confirmBox === true) {
-                        gContext.setToggleCandidateId(applicant.candidate.id)
-                        gContext.setToggleJobPostId(applicant.jobPostId)
-                        gContext.toggleAdvancedModal();
-                      }
-                    };
+                    setExitedIQ(response.data.data);
+                    existed = response.data.data;
                   }
+
+                  JobPostServiceIml.checkExistedScore(applicant.candidate.id, applicant.jobPostId).then((response) => {
+                    if (response.data.data || existed) {
+                      gContext.setToggleCandidateId(applicant.candidate.id)
+                      gContext.setToggleJobPostId(applicant.jobPostId)
+                      gContext.toggleAdvancedModal();
+                      UserServiceIml.getUserProfile().then((response) => {
+                        if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+                          setShowError(true);
+                        } else {
+                          setCoins(response.data.data.balance);
+                        }
+                      })
+                    } else {
+                      if (typeof window !== "undefined") {
+                        const confirmBox = window.confirm(
+                          "Do you really want to use the scoring feature and suggest questions? This feature will use your coins (5 coins)?"
+                        )
+                        if (confirmBox === true) {
+                          gContext.setToggleCandidateId(applicant.candidate.id)
+                          gContext.setToggleJobPostId(applicant.jobPostId)
+                          gContext.toggleAdvancedModal();
+                        }
+                        UserServiceIml.getUserProfile().then((response) => {
+                          if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+                            setShowError(true);
+                          } else {
+                            setCoins(response.data.data.balance);
+                          }
+                        })
+                      };
+                    }
+                  })
                 })
               }}
             >

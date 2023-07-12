@@ -21,6 +21,7 @@ const Paragraph = () => {
     const [categoryId, setCategoryId] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
     const [thumbnail, setThumbnail] = useState("");
+    const [isFile, setIsFile] = useState(false);
     const [tags, setTags] = useState("");
     const [showError, setShowError] = useState(false);
     const [showError403, setShowError403] = useState(false);
@@ -144,7 +145,9 @@ const Paragraph = () => {
         formData.append("title", title);
         formData.append("categoryId", categoryId);
         formData.append("tags", tags);
-        formData.append("thumbnail", thumbnail);
+        if (thumbnail && isFile) {
+            formData.append("thumbnail", thumbnail);
+        }
         formData.append("body", description);
 
         if (id != 'new') {
@@ -219,7 +222,8 @@ const Paragraph = () => {
     }
 
     const callbackFunction = (childData) => {
-        setThumbnail(childData)
+        setThumbnail(childData);
+        setIsFile(true);
     }
 
     const titlePage = <h2>{id != 'new' ? 'Edit BlogPost information' : 'New BlogPost'}</h2>;

@@ -48,9 +48,9 @@ const Advanced = (props) => {
 
   const handleClose = () => {
     gContext.toggleAdvancedModalClose();
-    setScore('');
-    setSummary('');
-    setQuestions([]);
+    // setScore('');
+    // setSummary('');
+    // setQuestions([]);
   };
 
   const handleUpdate = () => {
@@ -60,6 +60,7 @@ const Advanced = (props) => {
       )
       if (confirmBox === true) {
         if (props.candidateId != -1 && props.jobPostId != -1) {
+          setLoading(true);
           JobPostServiceIml.clearScore(props.candidateId, props.jobPostId).then((response) => {
             if (response.data.data) {
             }
@@ -77,6 +78,9 @@ const Advanced = (props) => {
             if (response.data.data) {
               setSummary(response.data.data.data.result.summary);
               setQuestions(response.data.data.data.result.questions);
+              setLoading(false);
+            } else {
+              setLoading(false);
             }
           });
         }

@@ -267,6 +267,14 @@ class JobPostService {
         });
     }
 
+    checkExistedQuestionSuggest(candidateId, jobPostId) {
+        return axios.get(API_BASE_URL + '/employer/application/hirize-iq/check-existed?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+
     countScore(candidateId, jobPostId) {
         return axios.get(API_BASE_URL + '/employer/application/score-cv?candidateId=' + candidateId + '&jobPostId=' + jobPostId, {
             headers: {
