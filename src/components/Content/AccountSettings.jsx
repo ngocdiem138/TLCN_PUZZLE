@@ -51,12 +51,12 @@ const AccountSettings = () => {
       username: username,
       phone: phone,
     }).then((response) => {
-      if (response.data.errCode != "200") {
-        setShowError(true);
-        setShowSuccess(false);
-      } else {
+      if (response.data.errCode == "200" || response.data.errCode == null) {
         setShowSuccess(true);
         setShowError(false);
+      } else {
+        setShowError(true);
+        setShowSuccess(false);
       }
     })
     // 

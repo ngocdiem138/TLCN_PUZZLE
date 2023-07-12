@@ -15,13 +15,13 @@ import { Container, Alert } from 'react-bootstrap';
 
 const EmployerSettings = () => {
   const [profile, setProfile] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     recruitmentEmail: "",
     recruitmentPhone: "",
   });
-  const [firstname, setFirstname] = useState("")
-  const [lastname, setLastname] = useState("")
+  const [firstName, setFirstname] = useState("")
+  const [lastName, setLastname] = useState("")
   const [recruitmentEmail, setRecruitmentEmail] = useState("")
   const [recruitmentPhone, setRecruitmentPhone] = useState("")
   const [showError, setShowError] = useState(false)
@@ -29,8 +29,8 @@ const EmployerSettings = () => {
   useEffect(() => {
     EmployerServiceIml.getEmployerSettingProfile().then((response) => {
       // setProfile(response.data.data);
-      setFirstname(response.data.data.firstname)
-      setLastname(response.data.data.lastname)
+      setFirstname(response.data.data.firstName)
+      setLastname(response.data.data.lastName)
       setRecruitmentEmail(response.data.data.recruitmentEmail)
       setRecruitmentPhone(response.data.data.recruitmentPhone)
     });
@@ -45,17 +45,17 @@ const EmployerSettings = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     EmployerServiceIml.updateEmployerSettingProfile({
-      firstname: firstname,
-      lastname: lastname,
+      firstName: firstName,
+      lastName: lastName,
       recruitmentEmail: recruitmentEmail,
       recruitmentPhone: recruitmentPhone,
     }).then((response) => {
-      if (response.data.errCode != "200" && response.data.errCode) {
-        setShowError(true);
-        setShowSuccess(false);
-      } else {
+      if (response.data.errCode == "200" || response.data.errCode == null) {
         setShowSuccess(true);
         setShowError(false);
+      } else {
+        setShowError(true);
+        setShowSuccess(false);
       }
     })
     // 
@@ -98,24 +98,24 @@ const EmployerSettings = () => {
         templateColumns={{ base: 'repeat(1, 1fr)', md: 'repeat(2, 1fr)' }}
         gap={6}
       >
-        <FormControl id="firstname">
+        <FormControl id="firstName">
           <FormLabel>First Name</FormLabel>
           <Input
-            name="firstname"
+            name="firstName"
             // onChange={(e) => handleChange(e)}
             onChange={(e) => setFirstname(e.target.value)}
-            value={firstname}
+            value={firstName}
             focusBorderColor="brand.blue"
             type="text"
             placeholder="apple"
           />
         </FormControl>
-        <FormControl id="lastname">
+        <FormControl id="lastName">
           <FormLabel>Last Name</FormLabel>
           <Input
-            name="lastname"
+            name="lastName"
             onChange={(e) => setLastname(e.target.value)}
-            value={lastname}
+            value={lastName}
             focusBorderColor="brand.blue"
             type="text"
             placeholder="Apple" />
