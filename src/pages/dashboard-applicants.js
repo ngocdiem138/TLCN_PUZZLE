@@ -174,6 +174,7 @@ const DashboardApplicants = () => {
                     if (response.data.data || existed) {
                       gContext.setToggleCandidateId(applicant.candidate.id)
                       gContext.setToggleJobPostId(applicant.jobPostId)
+                      gContext.setToggleIsLoad()
                       gContext.toggleAdvancedModal();
                       UserServiceIml.getUserProfile().then((response) => {
                         if (response.data.errCode == "UNAUTHORIZED_ERROR") {
@@ -190,6 +191,7 @@ const DashboardApplicants = () => {
                         if (confirmBox === true) {
                           gContext.setToggleCandidateId(applicant.candidate.id)
                           gContext.setToggleJobPostId(applicant.jobPostId)
+                          gContext.setToggleIsLoad()
                           gContext.toggleAdvancedModal();
                         }
                         UserServiceIml.getUserProfile().then((response) => {

@@ -153,7 +153,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId}/>
           <ModalSignIn />
           <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
-          <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
+          <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId} isLoad={gContext.isLoad}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
           <ModalSignCandidate />
@@ -197,7 +197,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
           <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
-          <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
+          <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId} isLoad={gContext.isLoad}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
           <ModalSignCandidate />
@@ -235,7 +235,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
           <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
-          <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
+          <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId} isLoad={gContext.isLoad}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
           <ModalSignCandidate />

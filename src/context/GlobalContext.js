@@ -16,6 +16,7 @@ const GlobalProvider = ({ children }) => {
   const [visibleOffCanvas, setVisibleOffCanvas] = useState(false);
   const [applicantId, setApplicantId] = useState(-1);
   const [jobPostId, setJobPostId] = useState(-1);
+  const [isLoad, setIsLoad] = useState(true);
   const [candidateId, setCandidateId] = useState(-1);
   const [jobPostName, setJobPostName] = useState("");
   const [header, setHeader] = useState({
@@ -56,6 +57,11 @@ const GlobalProvider = ({ children }) => {
   const setToggleJobPostId = (id) => {
     setJobPostId (id);
   };
+
+  const setToggleIsLoad = () => {
+    setIsLoad (!isLoad);
+  };
+
 
   const setToggleCandidateId = (id) => {
     setCandidateId(id);
@@ -161,9 +167,12 @@ const GlobalProvider = ({ children }) => {
         setApplicantId,
         candidateId,
         setCandidateId,
+        isLoad,
         jobPostId,
         jobPostName,
         setJobPostId,
+        setIsLoad,
+        setToggleIsLoad,
         setJobPostName
       }}
     >

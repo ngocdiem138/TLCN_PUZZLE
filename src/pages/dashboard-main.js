@@ -283,6 +283,7 @@ const DashboardMain = () => {
                   if (response.data.data) {
                     gContext.setToggleCandidateId(applicant.candidate.id)
                     gContext.setToggleJobPostId(applicant.jobPostId)
+                    gContext.setToggleIsLoad()
                     gContext.toggleAdvancedModal();
                   } else {
                     if (typeof window !== "undefined") {
@@ -292,6 +293,7 @@ const DashboardMain = () => {
                       if (confirmBox === true) {
                         gContext.setToggleCandidateId(applicant.candidate.id)
                         gContext.setToggleJobPostId(applicant.jobPostId)
+                        gContext.setToggleIsLoad()
                         gContext.toggleAdvancedModal();
                       }
                     };

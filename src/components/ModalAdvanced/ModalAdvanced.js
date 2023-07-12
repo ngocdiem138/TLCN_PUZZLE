@@ -48,9 +48,9 @@ const Advanced = (props) => {
 
   const handleClose = () => {
     gContext.toggleAdvancedModalClose();
-    // setScore('');
-    // setSummary('');
-    // setQuestions([]);
+    setScore('');
+    setSummary('');
+    setQuestions([]);
   };
 
   const handleUpdate = () => {
@@ -110,7 +110,7 @@ const Advanced = (props) => {
         }
       });
     }
-  }, [props.candidateId, props.jobPostId]);
+  }, [props.candidateId, props.jobPostId, props.isLoad]);
 
   const listQuestion = questions.map((question) => {
     return <p class="note-content__list">
