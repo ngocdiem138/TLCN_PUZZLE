@@ -18,6 +18,7 @@ import { JobPostServiceIml } from "../actions/user-actions";
 import axios from "axios";
 import { API_BASE_URL, REDIRECT_BASE_URL } from "../utils/constants/url";
 import { useTranslation } from 'react-i18next';
+import { useToasts } from 'react-toast-notifications';
 
 const JobDetails = () => {
   const gContext = useContext(GlobalContext);
@@ -28,6 +29,7 @@ const JobDetails = () => {
   let arr = location.pathname.split('/');
   const id = arr[arr.length - 1];
   const [skill, setSkill] = useState(["No require"]);
+  const { addToast } = useToasts();
 
   useEffect(() => {
     let employerId;
@@ -67,7 +69,11 @@ const JobDetails = () => {
   })
   const saveForJob = () => {
     if (!isAuthenticated) {
-      setError("You must login to save for jobs");
+      addToast(<a href='/' style={{ 'fontSize': 16 }}>You must login to save for jobs</a>, {
+        appearance: 'success',
+        autoDismiss: false,
+      })
+      // setError("You must login to save for jobs");
     } else {
       axios
         .get(
@@ -82,49 +88,24 @@ const JobDetails = () => {
         .then((response) => {
           if (response.data.status == 200 && (response.data.errCode == null || response.data.errCode == "200")) {
             //show success message
-            setSucces("Successfuly saved for job");
-            setError("")
+            // setSucces("Successfuly saved for job");
+            // setError("")
+            addToast(<a href='/' style={{ 'fontSize': 16 }}>Successfuly saved for job</a>, {
+              appearance: 'success',
+              autoDismiss: false,
+            })
           } else if (response.data.errMsg) {
-            setError(response.data.errMsg)
-            setSucces("")
+            addToast(<a href='/' style={{ 'fontSize': 16 }}>{response.data.errMsg}</a>, {
+              appearance: 'error',
+              autoDismiss: false,
+            })
+            // setError(response.data.errMsg)
+            // setSucces("")
           } else {
-            setSucces("");
-            setError("Request Failed")
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
-
-  const applyForJob = () => {
-
-
-    if (!isAuthenticated || localStorage.getItem("userRole") != "CANDIDATE") {
-      setError("You must is a CANDIDATE to apply for jobs.")
-    } else {
-      axios
-        .get(
-          API_BASE_URL + "/candidate/apply-job-post/" + id,
-          {
-            headers: {
-              Authorization: "Bearer " + localStorage.getItem("token"),
-            },
-            job_id: id,
-          }
-        )
-        .then((response) => {
-          if (response.data.status == 200 && (response.data.errCode == null || response.data.errCode == "200")) {
-            //show success message
-            setSucces("Successfuly applied for job");
-            setError("")
-          } else if (response.data.errMsg) {
-            setError(response.data.errMsg)
-            setSucces("")
-          } else {
-            setSucces("");
-            setError("Request Failed")
+            addToast(<a href='/' style={{ 'fontSize': 16 }}>Request fail</a>, {
+              appearance: 'error',
+              autoDismiss: false,
+            })
           }
         })
         .catch((error) => {
@@ -139,8 +120,8 @@ const JobDetails = () => {
         <div className="jobDetails-section bg-default-1 pt-28 pt-lg-27 pb-xl-25 pb-12">
           <div className="container">
             <div className="row justify-content-center">
-              {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
-              {success ? <div className="success alert-success col-12" role="alert">{success}</div> : null}
+              {/* {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
+              {success ? <div className="success alert-success col-12" role="alert">{success}</div> : null} */}
               {/* <!-- back Button --> */}
               <div className="col-xl-10 col-lg-11 mt-4 ml-xxl-32 ml-xl-15 dark-mode-texts">
                 <div className="mb-9">

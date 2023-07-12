@@ -69,7 +69,7 @@ class EmployerService {
     }
 
     getCandidateProfile(candidateId) {
-        return axios.get(API_BASE_URL + "/common/get-profile-candidate/" + candidateId, {
+        return axios.get(API_BASE_URL + "/common/candidate-profile/" + candidateId, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

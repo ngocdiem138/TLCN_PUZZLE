@@ -38,7 +38,7 @@ function setRole(roles) {
 export const login = (data, history) => async (dispatch) => {
     try {
         const response = await axios.post(API_BASE_URL + "/auth/login", data);
-        if (!response.data.errorCode) {
+        if (response.data.errCode == null) {
             let inforUser = response.config.data.replaceAll("\"", "");
             localStorage.setItem("email", cutInformation("email:", ",", inforUser));
             localStorage.setItem("token", response.data.data.jwt);
@@ -47,6 +47,11 @@ export const login = (data, history) => async (dispatch) => {
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: "Login success. Welcome!"
+            });
+        } else if (response.data.errCode == "AUTHENTICATION_ERROR") {
+            dispatch({
+                type: LOGIN_FAILURE,
+                payload: response.data.data
             });
         } else {
             dispatch({
@@ -65,7 +70,7 @@ export const login = (data, history) => async (dispatch) => {
 export const registration = (data) => async (dispatch) => {
     try {
         const response = await axios.post(API_BASE_URL + "/common/register", data);
-        if (response.data.errCode==null) {
+        if (response.data.errCode == null) {
             dispatch({
                 type: REGISTER_SUCCESS,
                 payload: response.data.errMsg

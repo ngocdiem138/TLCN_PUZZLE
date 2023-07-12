@@ -15,6 +15,7 @@ import { SkillServiceIml } from '../actions/admin-actions';
 import { Container, Alert } from 'react-bootstrap';
 import { Box, Button } from '@chakra-ui/react';
 import { useToasts } from 'react-toast-notifications';
+import { logout } from '../actions/auth-actions';
 
 function DashboardJobPost() {
     const { addToast } = useToasts();
@@ -168,7 +169,7 @@ function DashboardJobPost() {
     const [selectedCompany, setSelectedCompany] = useState();
     const [selectedCategory, setSelectedCategory] = useState();
     const [selectedEmploymentTypeOptions, setSelectedOEmploymentTypeOptions] = useState(0);
-    const [showAlert, setShowAlert] = useState(false)
+    const [showAlert, setShowAlert] = useState(false);
     const updateDescription = (value) => {
         setDescription(value);
     };
@@ -393,7 +394,7 @@ function DashboardJobPost() {
     };
 
     const redirect = () => {
-        if (typeof window !== "undefined") { window.location.assign(REDIRECT_BASE_URL + "/dashboard-jobs") }
+        logout();
     }
 
 

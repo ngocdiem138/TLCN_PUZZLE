@@ -8,8 +8,9 @@ import { activateAccount } from "../../actions/auth-actions";
 import styled from "styled-components";
 import { Modal } from "react-bootstrap";
 import GlobalContext from '../../context/GlobalContext';
-import { BlogServiceIml, JobPostServiceIml } from '../../actions/user-actions';
+import { BlogServiceIml, JobPostServiceIml, UserServiceIml } from '../../actions/user-actions';
 import { useToasts } from 'react-toast-notifications';
+import { EmployerServiceIml } from '../../actions/employer-action';
 
 const ModalStyled = styled(Modal)`
   /* &.modal {
@@ -36,6 +37,8 @@ const Apply = (props) => {
     inputRef.current.click();
   };
 
+
+
   const handleFileChange = event => {
     const fileObj = event.target.files && event.target.files[0];
     if (!fileObj) {
@@ -57,6 +60,7 @@ const Apply = (props) => {
     console.log(fileObj);
     console.log(fileObj.name);
   };
+
   const gContext = useContext(GlobalContext);
 
   const [email, setEmail] = useState('');
@@ -68,7 +72,15 @@ const Apply = (props) => {
   const [showPass, setShowPass] = useState('');
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  useEffect(()=>{
+    UserServiceIml.getUserProfile().then((response)=>{
+      if(response.data.errCode==null){
+        setEmail(response.data.data.email);
+        setFullname(response.data.data.fullName);
+        setPhone(response.data.data.phone);
+      }
+    })
+  }, [])
   const handleClose = () => {
     gContext.toggleApplyModalClose();
   };

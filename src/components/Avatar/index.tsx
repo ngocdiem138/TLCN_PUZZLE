@@ -16,7 +16,8 @@ export const Avatar = ({ avatarSrc, className, shape = 'circle', size = 'default
     <div className={`avatar ${!fileList.length ? 'avatar-hidden' : ''}`}>
       {fileList.length > 0 && (
         // @ts-ignore
-        <AntdAvatar className={className} src={fileList[0]?.thumbUrl} shape={shape} size={size} />
+        // <AntdAvatar className={className} src={fileList[0]?.thumbUrl} shape={shape} size={size} />
+        <></>
       )}
       <Upload
         listType="picture-card"

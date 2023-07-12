@@ -1,16 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
-import { Tag, TagCloseButton, TagLabel, Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Button, FormControl, FormLabel, HStack, Input, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, VStack, Textarea, Select, Text, Col } from '@chakra-ui/react';
-import { MdDelete } from 'react-icons/md';
-import { BlogServiceIml, ParagraphServiceIml, UserServiceIml } from '../actions/user-actions';
+import { Button, FormControl, FormLabel, HStack, Input } from '@chakra-ui/react';
+import { BlogServiceIml } from '../actions/user-actions';
 import PageWrapper from '../components/PageWrapper';
-
+import ReactJsAlert from "reactjs-alert";
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
 import { Alert } from 'react-bootstrap';
 import Cover from '../components/Cover';
-import { API_BASE_URL } from '../utils/constants/url';
 import { useLocation } from "@reach/router";
 import { parse } from "query-string";
 import { useToasts } from 'react-toast-notifications';
+import { logout } from '../actions/auth-actions';
 
 const Paragraph = () => {
     const { addToast } = useToasts();
@@ -27,6 +26,7 @@ const Paragraph = () => {
     const [showError403, setShowError403] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const [categoryList, setCategoryList] = useState([]);
+    const [showAlert, setShowAlert] = useState(false);
     const location = useLocation();
     const searchParams = parse(location.search);
     const id = searchParams.id;
@@ -229,6 +229,10 @@ const Paragraph = () => {
     const titlePage = <h2>{id != 'new' ? 'Edit BlogPost information' : 'New BlogPost'}</h2>;
     const action = <div>{id != 'new' ? 'Edit BlogPost' : 'Create BlogPost'}</div>;
 
+    const redirect = () => {
+        logout();
+    }
+
     return (
         <>
             <PageWrapper
@@ -244,6 +248,16 @@ const Paragraph = () => {
                     id="dashboard-body"
                 >
                     <div className="container">
+                        <ReactJsAlert
+                            type="info"   // success, warning, error, info
+                            title="Session has expired"   // title you want to display
+                            status={showAlert}  // true or false
+                            button="OK"
+                            color="#1d36ad"
+                            quotes={true}
+                            quote="Unfortunately your session has expired and you have been logged out. Please log in again"
+                            Close={redirect}   // callback method for hide
+                        />
                         <div className="mb-15 mb-lg-23">
                             <div className="row">
                                 <div className="col-xxxl-9 px-lg-13 px-6">

@@ -152,7 +152,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId}/>
           <ModalSignIn />
-          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
+          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName} candidateId={gContext.candidateId}/>
           <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId} isLoad={gContext.isLoad}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
@@ -196,7 +196,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
-          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
+          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName} candidateId={gContext.candidateId}/>
           <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId} isLoad={gContext.isLoad}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
@@ -234,7 +234,7 @@ const Layout = ({ children, pageContext }) => {
           <ModalVideo />
           <ModalApplication applicantId={gContext.applicantId} jobPostId={gContext.jobPostId} />
           <ModalSignIn />
-          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName}/>
+          <ModalApply jobPostId={gContext.jobPostId} jobPostName={gContext.jobPostName} candidateId={gContext.candidateId}/>
           <ModalAdvanced jobPostId={gContext.jobPostId} candidateId={gContext.candidateId} isLoad={gContext.isLoad}/>
           <ModalCoverLetter jobPostId={gContext.jobPostId} candidateId={gContext.candidateId}/>
           <ModalCandidateCoverLetter jobPostId={gContext.jobPostId}/>
