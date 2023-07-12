@@ -77,14 +77,14 @@ const Reply = ({
         }`}
     >
       <div className="comment">
-        <CommentVotes
+        {/* <CommentVotes
           vote={vote}
           setVoted={setVoted}
           score={score}
           setScore={setScore}
           updateScore={updateScore}
           commentData={commentData}
-        />
+        /> */}
         <div className="comment--body">
           <CommentHeader
             commentData={commentData}

@@ -15,14 +15,14 @@ const CommentFooter = ({
 }) => {
   return (
     <div className="comment--footer">
-      <CommentVotes
+      {/* <CommentVotes
         vote={vote}
         setVoted={setVoted}
         score={score}
         setScore={setScore}
         updateScore={updateScore}
         commentData={commentData}
-      />
+      /> */}
 
       <CommentBtn
         commentData={commentData}
