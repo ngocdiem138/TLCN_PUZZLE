@@ -363,7 +363,7 @@ const SearchGrid = () => {
             </ul>
             <ul className="d-flex list-unstyled  text-gray-2 mr-n3 flex-wrap">
               <i className="fa fa-calendar-times mr-2 font-weight-bold"></i>
-              Deadline: {job.dueTime}
+              Deadline: {job.deadline}
             </ul>
           </div>
           <div className="col-md-5">

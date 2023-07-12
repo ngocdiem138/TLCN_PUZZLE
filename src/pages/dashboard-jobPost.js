@@ -13,9 +13,11 @@ import { REDIRECT_BASE_URL } from "../utils/constants/url";
 import CreatableSelect, { useCreatable } from 'react-select/creatable';
 import { SkillServiceIml } from '../actions/admin-actions';
 import { Container, Alert } from 'react-bootstrap';
-import { Box, Button } from '@chakra-ui/react'
+import { Box, Button } from '@chakra-ui/react';
+import { useToasts } from 'react-toast-notifications';
 
 function DashboardJobPost() {
+    const { addToast } = useToasts();
     const { t, i18n } = useTranslation()
     const ReactQuill = typeof window === 'object' ? require('react-quill') : () => false
     const modules = {
@@ -160,7 +162,7 @@ function DashboardJobPost() {
     const [employmentType, setEmploymentType] = useState(employmentTypeData[0].value)
     const [minBudget, setMinBudget] = useState('')
     const [maxBudget, setMaxBudget] = useState('')
-    const [dueTime, setDueTime] = useState('')
+    const [deadline, setDeadline] = useState('')
     const [description, setDescription] = useState('')
     const [selectedOptions, setSelectedOptions] = useState(0);
     const [selectedCompany, setSelectedCompany] = useState();
@@ -193,19 +195,26 @@ function DashboardJobPost() {
 
         const jobPost = {
             id, title, blind, deaf, handDis, description, labor, city, address, companyId, categoryId, workplaceType, workStatus, communicationDis
-            , communicationDis, skills, level, type, quantity, experienceYear, educationLevel, employmentType, minBudget, maxBudget, dueTime
+            , communicationDis, skills, level, type, quantity, experienceYear, educationLevel, employmentType, minBudget, maxBudget, deadline
         }
 
         console.log(jobPost);
 
         if (id != 'new') {
             jobPost.id = id;
-            JobPostServiceIml.updateJobPost(jobPost).then((response) => {
+            JobPostServiceIml.updateJobPost(jobPost.id,jobPost).then((response) => {
                 if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
-                } else if (response.data.errCode != "200" && response.data.errCode != null) {
-                    setShowError(true);
-                    setShowSuccess(false);
+                } else if (response.data.errCode == "200" || response.data.errCode == null) {
+                    addToast(<a href='/dashboard-jobs' style={{ 'fontSize': 16 }}>Update job post successfull, click here to return list blog page</a>, {
+                        appearance: 'success',
+                        autoDismiss: false,
+                    })
+                } else {
+                    addToast(<a href='/dashboard-jobs' style={{ 'fontSize': 16 }}>Update job post successfull, click here to return list blog page</a>, {
+                        appearance: 'success',
+                        autoDismiss: false,
+                    })
                 }
                 // navigate.push('/employer/jobs')
             }).catch(error => {
@@ -220,11 +229,15 @@ function DashboardJobPost() {
                 if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
                 } else if (response.data.errCode == "200" || response.data.errCode == null) {
-                    setShowError(false);
-                    setShowSuccess(true);
+                    addToast(<a href='/dashboard-jobs' style={{ 'fontSize': 16 }}>Create job post successfull, click here to return list blog page</a>, {
+                        appearance: 'success',
+                        autoDismiss: false,
+                    })
                 } else {
-                    setShowError(true);
-                    setShowSuccess(false);
+                    addToast(<a href='/dashboard-jobs' style={{ 'fontSize': 16 }}>Create job post successfull, click here to return list blog page</a>, {
+                        appearance: 'success',
+                        autoDismiss: false,
+                    })
                 }
 
                 // navigate.push('/employer/jobs');
@@ -309,7 +322,7 @@ function DashboardJobPost() {
                 setType(response.data.data.type)
                 setMinBudget(response.data.data.minBudget)
                 setMaxBudget(response.data.data.maxBudget)
-                setDueTime(response.data.data.dueTime)
+                setDeadline(response.data.data.deadline)
                 setEmploymentType(response.data.data.employmentType)
                 handleDropdown(response.data.data.city, response.data.data.employmentType);
                 setSelectedCompany(findCompany(response.data.data.company.id));
@@ -339,7 +352,7 @@ function DashboardJobPost() {
                 setType('')
                 setMinBudget('')
                 setMaxBudget('')
-                setDueTime('')
+                setDeadline('')
                 setEmploymentType(employmentTypeData[0].value)
                 // findCompany(18)
             }
@@ -621,9 +634,9 @@ function DashboardJobPost() {
                                                                 type="date"
                                                                 className="form-control h-px-48"
                                                                 style={{ "line-height": "inherit" }}
-                                                                id="dueTime"
-                                                                value={dueTime ? dueTime.split(' ')[0] : dueTime}
-                                                                onChange={(e) => setDueTime(e.target.value + " 00:00:00")} required
+                                                                id="deadline"
+                                                                value={deadline ? deadline.split(' ')[0] : deadline}
+                                                                onChange={(e) => setDeadline(e.target.value + " 00:00:00")} required
                                                             />
                                                             <div class="valid-feedback">Valid.</div>
                                                             <div class="invalid-feedback">Please fill out this field.</div>

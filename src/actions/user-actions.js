@@ -218,8 +218,8 @@ class JobPostService {
         return axios.get(API_BASE_URL + '/search?' + 'keyword=' + keyword + '&status=' + status);
     }
 
-    updateJobPost(jobPost) {
-        return axios.put(API_BASE_URL + '/employer/update-job-post', jobPost, {
+    updateJobPost(id, jobPost) {
+        return axios.put(API_BASE_URL + '/employer/update-job-post/' + id, jobPost, {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token")
             }

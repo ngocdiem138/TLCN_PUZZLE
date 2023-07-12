@@ -154,7 +154,7 @@ const Paragraph = () => {
             BlogServiceIml.updateBlogPost(id, formData).then((response) => {
                 if (response.data.errCode == "UNAUTHORIZED_ERROR") {
                     setShowAlert(true);
-                } else if (response.data.errCode != "200" && response.data.errCode != null) {
+                } else if (response.data.errCode == "200" || response.data.errCode == null) {
                     addToast(<a href='/dashboard-blogs' style={{ 'fontSize': 16 }}>Update blog post successfull, click here to return list blog page</a>, {
                         appearance: 'success',
                         autoDismiss: false,

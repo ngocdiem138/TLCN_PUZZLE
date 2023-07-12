@@ -184,7 +184,7 @@ const JobDetails = () => {
                         {/* <!-- media date start --> */}
                         <div className="media justify-content-md-end">
                           <p className="font-size-4 text-green mb-0">
-                            {job.dueTime}
+                            {job.deadline}
                           </p>
                         </div>
                         {/* <!-- media date end --> */}
