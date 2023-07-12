@@ -413,7 +413,7 @@ class UserService {
         })
     }
     uploadUserAvatar(file) {
-        return axios.post(API_BASE_URL + "/upload-avatar", file, {
+        return axios.post(API_BASE_URL + "/user/upload-avatar", file, {
             headers: {
                 "Content-Type": `multipart/form-data;`,
                 Authorization: "Bearer " + localStorage.getItem("token")

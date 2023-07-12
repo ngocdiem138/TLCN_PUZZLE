@@ -44,6 +44,7 @@ const Advanced = (props) => {
   const [score, setScore] = useState('');
   const [summary, setSummary] = useState('');
   const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleClose = () => {
     gContext.toggleAdvancedModalClose();
@@ -85,16 +86,23 @@ const Advanced = (props) => {
 
 
   useEffect(() => {
+    setLoading(true);
     if (props.candidateId != -1 && props.jobPostId != -1) {
       JobPostServiceIml.countScore(props.candidateId, props.jobPostId).then((response) => {
         if (response.data.data) {
           setScore(response.data.data.data.matcher_result.score);
+          setLoading(false);
+        } else {
+          setLoading(false);
         }
       });
       JobPostServiceIml.questionSuggest(props.candidateId, props.jobPostId).then((response) => {
         if (response.data.data) {
+          setLoading(false);
           setSummary(response.data.data.data.result.summary);
           setQuestions(response.data.data.data.result.questions);
+        } else {
+          setLoading(false);
         }
       });
     }
@@ -132,7 +140,12 @@ const Advanced = (props) => {
               <input type="hidden" name="ta_source" value="JobListInNormalCompany" />
               <input type="hidden" name="jr_i" value="" />
               <div class="modal-header">
+                <button className="primary submit" disabled={loading}>
+                  {loading ? <span className="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true" style={{backgroundColor: '#fff'}}></span> : ""}
+                </button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-xmark"></i></button>
+                <div className="form-submit text-center mt-20 mb-3">
+                </div>
                 <h2 class="modal-title bold">Score: <span class="text-highlight">{score}</span></h2>
               </div>
               <div class="modal-body">
