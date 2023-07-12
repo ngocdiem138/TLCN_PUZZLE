@@ -60,7 +60,7 @@ const Advanced = (props) => {
       )
       if (confirmBox === true) {
         if (props.candidateId != -1 && props.jobPostId != -1) {
-          JobPostServiceIml.countScore(props.candidateId, props.jobPostId).then((response) => {
+          JobPostServiceIml.clearScore(props.candidateId, props.jobPostId).then((response) => {
             if (response.data.data) {
             }
           });
