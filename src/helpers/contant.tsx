@@ -245,7 +245,7 @@ export const CONTENT_OF_MODULE = () => {
       {
         type: 'textArea',
         attributeId: 'work_desc',
-        displayName: 'Job title or description',
+        displayName: 'Description',
       },
     ],
     workList: [
@@ -300,7 +300,7 @@ export const CONTENT_OF_MODULE = () => {
       {
         type: 'input',
         attributeId: 'award_info',
-        displayName: 'Awards description',
+        displayName: 'Awards Info',
         formItemProps: { rules: [{ required: true }] },
       },
     ],

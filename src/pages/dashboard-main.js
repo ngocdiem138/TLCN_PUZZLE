@@ -5,7 +5,7 @@ import LazyLoad from "react-lazyload";
 import PageWrapper from "../components/PageWrapper";
 import { Select } from "../components/Core";
 import GlobalContext from "../context/GlobalContext";
-import { JobPostServiceIml } from "../actions/user-actions";
+import { JobPostServiceIml, UserServiceIml } from "../actions/user-actions";
 import { EmployerServiceIml } from "../actions/employer-action";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -29,6 +29,7 @@ const defaultJobs = [
 
 const DashboardMain = () => {
   const gContext = useContext(GlobalContext);
+  const [coins, setCoins] = useState(0);
   const [jobs, setJobs] = useState([]);
   const [postedJobs, setPostedJobs] = useState(0);
   const [totalApplicants, setTotalApplicants] = useState(0);
@@ -78,6 +79,13 @@ const DashboardMain = () => {
 
 
   useEffect(() => {
+    UserServiceIml.getUserProfile().then((response) => {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+        setShowError(true);
+      } else {
+        setCoins(response.data.data.balance);
+      }
+    })
     if (id == 0) {
       JobPostServiceIml.getAllCandidateApply().then((response) => {
         if (response.data.errCode == "UNAUTHORIZED_ERROR") {
@@ -188,7 +196,7 @@ const DashboardMain = () => {
 
   const listJobPost = jobs.map((job) => {
     return <tr className="border border-color-2"
-      style={job.jobPost.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
+      style={job.jobPost.isActive == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
       <th
         scope="row"
         className="pl-6 border-0 py-7 min-width-px-235"
@@ -478,7 +486,7 @@ const DashboardMain = () => {
             <div className="mb-14">
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6 mb-lg-0 mb-4">
-                  <h3 className="font-size-6 mb-0">Applicants List ({applicants ? applicants.length : 0})</h3>
+                  <h3 className="font-size-6 mb-0">Applicants List ({applicants ? applicants.length : 0}) ---- Coins ({coins})</h3>
                 </div>
                 <div className="col-lg-6">
                   <div className="d-flex flex-wrap align-items-center justify-content-lg-end">

@@ -86,7 +86,7 @@ class BlogService {
                 }
             });
         } else if (type === "reply") {
-            return axios.post(API_BASE_URL + '/user/sub-comment/update?subCommentId=' + id, content, {
+            return axios.put(API_BASE_URL + '/user/sub-comment/update?subCommentId=' + id, content, {
                 headers: {
                     Authorization: "Bearer " + localStorage.getItem("token")
                 }

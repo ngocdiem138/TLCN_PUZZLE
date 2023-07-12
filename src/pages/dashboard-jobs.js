@@ -48,7 +48,7 @@ const DashboardJobs = () => {
   }
   const listJob = jobs.map((job) => {
     return <tr className="border border-color-2"
-      style={job.jobPost.active == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
+      style={job.jobPost.isActive == true ? { background: "#1bd675" } : { background: "#e2954d" }}>
       {/* {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null} */}
       <th
         scope="row"
@@ -131,7 +131,7 @@ const DashboardJobs = () => {
             <div className="mb-18">
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6 mb-lg-0 mb-4">
-                  <h3 className="font-size-6 mb-0">Posted Jobs ({jobs.length}) --- Limit Job ({limitJob})</h3>
+                  <h3 className="font-size-6 mb-0">Posted Jobs ({jobs.length})</h3>
                 </div>
                 <div className="col-lg-6">
                   {/* <div className="d-flex flex-wrap align-items-center justify-content-lg-end">

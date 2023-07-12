@@ -7,7 +7,7 @@ import GlobalContext from "../context/GlobalContext";
 import imgP1 from "../assets/image/table-one-profile-image-1.png";
 import { useState } from "react";
 import { useEffect } from "react";
-import { JobPostServiceIml } from "../actions/user-actions";
+import { JobPostServiceIml, UserServiceIml } from "../actions/user-actions";
 import ReactJsAlert from "reactjs-alert";
 import { logout } from "../actions/auth-actions";
 import Paginate from "../helpers/Paginate";
@@ -30,6 +30,7 @@ const DashboardApplicants = () => {
   const [jobPostId, setJobPostId] = useState(0);
   var updated = []
   const [jobs, setJobs] = useState([]);
+  const [coins, setCoins] = useState(0);
   const [listJob, setListJob] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [applicants, setApplicants] = useState([]);
@@ -58,6 +59,13 @@ const DashboardApplicants = () => {
   };
 
   useEffect(() => {
+    UserServiceIml.getUserProfile().then((response) => {
+      if (response.data.errCode == "UNAUTHORIZED_ERROR") {
+        setShowError(true);
+      } else {
+        setCoins(response.data.data.balance);
+      }
+    })
     JobPostServiceIml.getJobPostCreateByEmployer().then((response) => {
       if (response.data.errCode == "UNAUTHORIZED_ERROR") {
         setShowError(true);
@@ -131,7 +139,7 @@ const DashboardApplicants = () => {
   const listApplication = currentPosts.map(applicant => {
     return <tr
       className="border border-color-2"
-      style={applicant.result == "ACCEPT" ? {'background-image': 'url(' + Approved + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : applicant.result == "REJECT" ? {'background-image': 'url(' + Reject + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : {}}
+      style={applicant.result == "ACCEPT" ? { 'background-image': 'url(' + Approved + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : applicant.result == "REJECT" ? { 'background-image': 'url(' + Reject + ')', 'background-repeat': 'no-repeat', 'background-position': '70% center', 'background-size': 'contain' } : {}}
     >
       <th scope="row" className="pl-6 border-0 py-7 pr-0">
         <Link
@@ -199,7 +207,7 @@ const DashboardApplicants = () => {
       </td>
       <td className="table-y-middle py-7 min-width-px-170 pr-0">
         <div className="">
-          
+
         </div>
       </td>
       <td className="table-y-middle py-7 min-width-px-110 pr-0">
@@ -256,7 +264,7 @@ const DashboardApplicants = () => {
             <div className="mb-14">
               <div className="row mb-11 align-items-center">
                 <div className="col-lg-6 mb-lg-0 mb-4">
-                  <h3 className="font-size-6 mb-0">Applicants List ({applicants ? applicants.length : 0})</h3>
+                  <h3 className="font-size-6 mb-0">Applicants List ({applicants ? applicants.length : 0}) ---- Coins ({coins})</h3>
                 </div>
                 <div className="col-lg-6">
                   <div className="d-flex flex-wrap align-items-center justify-content-lg-end">
