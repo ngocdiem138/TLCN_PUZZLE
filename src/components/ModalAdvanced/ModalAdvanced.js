@@ -141,7 +141,7 @@ const Advanced = (props) => {
               <input type="hidden" name="jr_i" value="" />
               <div class="modal-header">
                 <button className="primary submit" disabled={loading}>
-                  {loading ? <span className="spinner-border spinner-border-sm ml-1" role="status" aria-hidden="true" style={{backgroundColor: '#fff'}}></span> : ""}
+                  {loading ? "Loading..." : "Done!"}
                 </button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-xmark"></i></button>
                 <div className="form-submit text-center mt-20 mb-3">
