@@ -72,13 +72,16 @@ class Login extends Component {
   errorMessage = (error) => {
     console.log(error);
   };
-  
+
 
   responseMessage = (response) => {
     console.log(response);
     var res = response.profileObj;
     console.log(res);
     this.signup(response);
+  }
+  sendEmail = () => {
+    axios.get(API_BASE_URL + '/auth/resend-mail/verify-account?email=' + this.state.email);
   }
   signup(res) {
     const googleresponse = {
@@ -178,7 +181,7 @@ class Login extends Component {
                         cookiePolicy={'single_host_origin'}
                       />
                     </div> */}
-                    <div className="col-4 col-xs-12 font-size-4 font-weight-semibold position-relative text-white h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4" style={{width: "100%"}}>
+                    <div className="col-4 col-xs-12 font-size-4 font-weight-semibold position-relative text-white h-px-48 flex-all-center w-100 px-6 rounded-5 mb-4" style={{ width: "100%" }}>
                       <GoogleLogin width="319px" locale='en'
                         onSuccess={this.responseMessage} onError={this.errorMessage} />
                     </div>
@@ -268,7 +271,14 @@ class Login extends Component {
                     </div>
                     <div className="form-group mb-8">
                     </div>
-                    {error ? <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
+                    {error ? error == "Account inactive, check mail please" ? <div className="alert alert-danger col-12" role="alert">{error}  . If you don't received email or verify fail. Plese fill your email and click <a href="#" style={{ fontWeight: 800 }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.sendEmail();
+                      }}>
+                      here
+                    </a> we will send you another email!</div> :
+                      <div className="alert alert-danger col-12" role="alert">{error}</div> : null}
                     {success ? <div className="alert alert-success col-12" role="alert">{success}</div> : null}
                     <button className="btn btn-primary btn-medium w-100 rounded-5 text-uppercase">
                       Log in{" "}

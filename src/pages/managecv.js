@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PageWrapper from "../components/PageWrapper";
+import { UserServiceIml } from "../actions/user-actions";
 
 const ManageCV = () => {
+    const [email, setEmail] = useState('');
+    const [fullname, setFullname] = useState('');
+    const [avatar, setAvatar] = useState('');
+    const [emailVerified, setEmailVerified] = useState(false);
+    useEffect(() => {
+        UserServiceIml.getUserProfile().then((response) => {
+            if (response.data.errCode == null) {
+                setEmail(response.data.data.email);
+                setFullname(response.data.data.fullName);
+                setAvatar(response.data.data.avatar);
+                setEmailVerified(response.data.data.emailVerified);
+            }
+        })
+    }, [])
     return (
         <>
             <PageWrapper>
@@ -23,7 +38,7 @@ const ManageCV = () => {
                                         <p>Bạn chưa tạo CV nào</p>
                                     </div>
                                 </div>
-                                <div id="suggest-ai">
+                                {/* <div id="suggest-ai">
                                     <div className="box-group">
                                         <div className="box-group-header">
                                             <div className="box-group-title mb-12px">
@@ -110,7 +125,7 @@ const ManageCV = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
 
                             <div className="col-sm-4" id="sidebar" style={{ marginTop: "16px" }}>
@@ -118,16 +133,16 @@ const ManageCV = () => {
                                     <div className="row">
                                         <div className="col-md-4">
                                             <div className="profile-avatar">
-                                                <img src="https://www.topcv.vn/images/avatar-default.jpg" alt="" />
-                                                <span className="vip-badge" style={{ backgroundColor: "gray" }}>VERIFIED</span>
+                                                <img src={avatar ? avatar :"https://www.topcv.vn/images/avatar-default.jpg"} alt="" />
+                                                <span className="vip-badge" style={{ backgroundColor: "gray" }}>{emailVerified ? "VERIFIED" : "UNVERIFIED"}</span>
                                             </div>
                                             <div className="text-center">
                                                 <input type="file" name="avatar" style={{ display: "none" }} id="img-avatar" />
                                                 <a href="javascript:void(0)" style={{ fontSize: "11px", padding: "3px 5px", margin: "6px 0px", color: "#777", fontStyle: "italic" }} data-target="#upload-profile-avatar" data-toggle="modal" id="btn-upload-avatar">
-                                                    Cập nhật ảnh
+                                                    {/* Cập nhật ảnh */}
                                                 </a>
                                             </div>
-                                            <form action="https://www.topcv.vn/ajax-upload-avatar" method="post" enctype="multipart/form-data" id="upload-avatar-form" style={{ display: "none" }}>
+                                            <form action="#" method="post" enctype="multipart/form-data" id="upload-avatar-form" style={{ display: "none" }}>
                                                 <input type="hidden" name="_token" value="J7R1Ug4FXsF7RXGeYndP0hhXJ50PBMuUbUuH00PK" />
                                                 <input type="file" name="avatar" id="avatar-image" />
                                             </form>
@@ -174,20 +189,20 @@ const ManageCV = () => {
                                             </div>
                                         </div>
                                         <div className="col-md-8">
-                                            <div>Chào bạn trở lại,</div>
-                                            <h4 className="profile-fullname">Le Thi Ngoc Diem</h4>
+                                            <div>Welcome,</div>
+                                            <h4 className="profile-fullname">{fullname ? fullname : "Full Name"}</h4>
                                             <div className="account-type vip">
                                                 <span style={{ backgroundColor: "gray" }}>
-                                                    Tài khoản đã xác thực
+                                                    {emailVerified ? "Account verified" : "Account unverified"}
                                                 </span>
                                             </div>
                                             <div className="box-footer">
-                                                <a href="https://www.topcv.vn/tai-khoan/nang-cap" className="btn btn-sm btn-topcv-primary">Nâng cấp tài khoản</a>
+                                                <a href="/pricing" className="btn btn-sm btn-topcv-primary">Upgrade account</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div className="box box-white text-center-sm">
+                                {/* <div className="box box-white text-center-sm">
                                     <div className="row">
                                         <div className="text-center cv-count-header">
                                             <div className="text-highlight">
@@ -208,7 +223,7 @@ const ManageCV = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

@@ -432,20 +432,20 @@ const JobDetails = () => {
                   <hr></hr>
                   <div className="job-details-content pt-8 pl-sm-9 pl-6 pr-sm-9 pr-6 pb-10 light-mode-texts">
                     <div className="row">
-                      <div className="col-xl-11 col-md-12 pr-xxl-9 pr-xl-10 pr-lg-20">
+                      <div className="col-xl-12 col-md-12 pr-xxl-9 pr-xl-10 pr-lg-20">
                         <div className="">
                           <p className="mb-4 font-size-6 text-black-2 font-weight-semibold">
                             About Company.{" "}
                           </p>
                           <div className="row">
-                            <div className="col-md-2 pr-lg-0 pl-lg-10 mb-lg-0 mb-8">
-                              <div className="square-72 d-block mr-8">
+                            <div className="col-md-2 pr-lg-0 pl-lg-10 mb-lg-0 mb-8"  style={{ 'text-align': 'center', 'paddingLeft': '0px', 'cssText': 'padding-left: 0px !important;' }}>
+                              <div className="square-72 d-block mr-8" style={{"marginLeft": "1.5625rem"}}>
                                 <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
-                                <div>
-                                  <h3 className="font-size-6 mb-0">
-                                    {job.company ? job.company.name : ""}
-                                  </h3>
-                                </div>
+                              </div>
+                              <div>
+                                <h3 className="font-size-6 mb-0"  style={{'text-align': 'center'}}>
+                                  {job.company ? job.company.name : ""}
+                                </h3>
                               </div>
                             </div>
                             <div className="col-md-10 pr-lg-0 pl-lg-10 mb-lg-0 mb-8">
@@ -454,23 +454,27 @@ const JobDetails = () => {
                           </div>
                         </div>
 
-                        <div className="">
-                          {(
-                            <button
-                              type="submit"
-                              className="btn btn-green text-uppercase btn-medium w-180 h-px-48 rounded-3 mr-4 mt-6"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                gContext.setToggleJobPostId(id);
-                                gContext.setToggleJobPostName(job.title);
-                                gContext.toggleApplyModal();
-                              }}
-                            >
-                              {t('apply.applyThisJob')}
-                            </button>
-                          )}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="job-details-content pt-8 pl-sm-9 pl-6 pr-sm-9 pr-6 pb-10 light-mode-texts">
+                    <div class="row">
+                      <div className="">
+                        {(
+                          <button
+                            type="submit"
+                            className="btn btn-green text-uppercase btn-medium w-180 h-px-48 rounded-3 mr-4 mt-6"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              gContext.setToggleJobPostId(id);
+                              gContext.setToggleJobPostName(job.title);
+                              gContext.toggleApplyModal();
+                            }}
+                          >
+                            {t('apply.applyThisJob')}
+                          </button>
+                        )}
 
-                        </div>
                       </div>
                     </div>
                   </div>
