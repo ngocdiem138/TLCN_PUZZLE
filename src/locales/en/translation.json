@@ -95,5 +95,11 @@
     "comprehensive":"Most comprehensive job portal",
     "explain":"Puzzle brings comprehensive solutions to help businesses solve problems around recruitment at the same time",
     "register":"Register"
+  },
+  "cv": {
+    "errorDevice": "The mobile version only provides viewing functionality. Please visit the PC version for online editing.",
+    "importSucces": "The upload configuration has been applied.",
+    "incorrectFile": "The file upload is incorrect. Please upload again.",
+    "browser": "Your current browser does not support FileReader. We recommend using Google Chrome browser"
   }
 }

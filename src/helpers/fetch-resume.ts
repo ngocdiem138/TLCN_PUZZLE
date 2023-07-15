@@ -2,7 +2,7 @@ import fetch from 'cross-fetch';
 import _ from 'lodash-es';
 import type { ResumeConfig } from '@/components/types';
 import { customAssign } from './customAssign';
-
+import resume from '../../resume.json'
 export function fetchResume(
   lang: string,
   branch: string,
