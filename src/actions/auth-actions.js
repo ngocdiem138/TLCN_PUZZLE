@@ -51,7 +51,7 @@ export const login = (data, history) => async (dispatch) => {
         } else if (response.data.errCode == "AUTHENTICATION_ERROR") {
             dispatch({
                 type: LOGIN_FAILURE,
-                payload: response.data.data
+                payload: response.data.errMsg
             });
         } else {
             dispatch({

@@ -18,17 +18,19 @@ import { fetchResume } from '../helpers/fetch-resume';
 import { Drawer } from './Drawer';
 import { Resume } from './Resume';
 import type { ResumeConfig, ThemeConfig } from './types';
-
+import { useTranslation } from 'react-i18next';
 import './index.less';
+import { UserServiceIml } from '../actions/user-actions';
 
 const codec = jsonUrl('lzma');
 
 export const Page: React.FC = () => {
   const lang = 'zh-CN';
+  const { t, i18n } = useTranslation();
   // const intl = useIntl();
-  const user = getSearchObj().user || 'visiky';
 
   const [, mode, changeMode] = useModeSwitcher({});
+  const [user, setUser] = useState('');
 
   const originalConfig = useRef<ResumeConfig>();
   const query = getSearchObj();
@@ -78,7 +80,12 @@ export const Page: React.FC = () => {
   };
 
   useEffect(() => {
-    const user = (query.user || '') as string;
+    let user = '';
+    UserServiceIml.getUserProfile().then((response)=>{
+      if (response.data.data) {
+        user = response.data.data.email;
+      }
+    })
     const branch = (query.branch || 'master') as string;
     const mode = query.mode;
 
@@ -103,7 +110,7 @@ export const Page: React.FC = () => {
                 You want to create a new resume
               </div>
             ),
-            okText: "Enter online editor", 
+            okText: "Enter online editor",
             onOk: () => {
               changeMode('edit');
             },
@@ -141,7 +148,7 @@ export const Page: React.FC = () => {
   useEffect(() => {
     if (getDevice() === 'mobile') {
       message.info(
-        "intl.formatMessage({ id: '移动端只提供查看功能，在线制作请前往 PC 端' })"
+        "{ t('cv.errorDevice') }"
       );
     }
   }, []);
@@ -161,7 +168,6 @@ export const Page: React.FC = () => {
       attributes: true,
     });
 
-    // 再加一个定时器，监控下变化
     const interval = setInterval(() => {
       setBox(targetNode.getBoundingClientRect());
     }, 1000);
@@ -173,6 +179,7 @@ export const Page: React.FC = () => {
   }, []);
 
   const importConfig = (file: RcFile) => {
+    const { t, i18n } = useTranslation();
     if (window.FileReader) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -183,15 +190,15 @@ export const Page: React.FC = () => {
             onThemeChange(newConfig.theme);
             onConfigChange(_.omit(newConfig, 'theme'));
           }
-          message.success("intl.formatMessage({ id: '上传配置已应用' })");
+          message.success("The upload configuration has been applied");
         } catch (err) {
-          message.error("intl.formatMessage({ id: '上传文件有误，请重新上传' })");
+          message.error("The file upload is incorrect. Please upload again.");
         }
       };
       reader.readAsText(file);
     } else {
       message.error(
-        "id: '您当前浏览器不支持 FileReader，建议使用谷歌浏览器'"
+        "Your current browser does not support FileReader. We recommend using Google Chrome browser"
       );
     }
     return false;
@@ -212,7 +219,7 @@ export const Page: React.FC = () => {
   };
 
   const exportConfig = () => {
-    exportDataToLocal(getConfigJson(), `${user}'s resume info`);
+    exportDataToLocal(getConfigJson(), `resume info`);
   };
 
   const handleSharing = () => {
