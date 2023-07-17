@@ -439,7 +439,7 @@ const JobDetails = () => {
                           </p>
                           <div className="row">
                             <div className="col-md-2 pr-lg-0 pl-lg-10 mb-lg-0 mb-8" style={{ 'text-align': 'center', 'paddingLeft': '0px', 'cssText': 'padding-left: 0px !important;' }}>
-                              <a href={"/company-details?id=" + job.company.id}>
+                              <a href={"/company-details?id=" + job.company ? job.company.id : -1}>
                                 <div className="square-72 d-block mr-8" style={{ "marginLeft": "1.5625rem" }}>
                                   <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
                                 </div>
