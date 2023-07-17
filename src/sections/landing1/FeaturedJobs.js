@@ -125,7 +125,7 @@ const FeaturedJobs = () => {
   };
 
   useEffect(() => {
-    JobPostServiceIml.getJobByFilterParams(filter).then((response) => { setJobs(response.data.data) });
+    JobPostServiceIml.getJobByFilterParams().then((response) => { setJobs(response.data.data) });
   }, [])
   const jobList = jobs.map(job => {
     return <div className="col-12 col-lg-4">

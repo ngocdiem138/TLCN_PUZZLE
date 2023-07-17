@@ -16,7 +16,7 @@ class BlogService {
         return axios.get(API_BASE_URL + '/common/blog-post');
     }
     getRecentBlogPost() {
-        return axios.get(API_BASE_URL + '/common/blog-post?size=5');
+        return axios.get(API_BASE_URL + '/common/blog-post?page=0&size=5');
     }
     getAllBlogPostByCategoryId(categoryId) {
         return axios.get(API_BASE_URL + '/common/blog-post?blogCategoryId=' + categoryId);
@@ -113,6 +113,14 @@ class BlogService {
 
 export const BlogServiceIml = new BlogService();
 
+class CompanyService {
+    getCompanyById(companyId) {
+        return axios.get(API_BASE_URL + "/common/company/get-one-company/" + companyId);
+    }
+}
+
+export const CompanyServiceIml = new CompanyService();
+
 class JobPostService {
 
     getAllActiveJobPosts() {
@@ -177,7 +185,14 @@ class JobPostService {
         })
     }
 
-    getJobByFilterParams(filter) {
+    getJobByFilterParams() {
+        return axios.get(API_BASE_URL + "/common/job-post/personal-view?page=0&size=9", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        });
+    }
+    getJobByFilterParamsSearch(filter) {
         return axios.post(API_BASE_URL + "/common/job-post-filter", filter);
     }
 

@@ -215,7 +215,7 @@ const SearchGrid = () => {
   };
 
   const getProducts = (variables) => {
-    JobPostServiceIml.getJobByFilterParams(variables).then((response) => { setJobs(response.data.data); });
+    JobPostServiceIml.getJobByFilterParamsSearch(variables).then((response) => { setJobs(response.data.data); });
   };
 
   const [currentPage, setCurrentPage] = useState(1);

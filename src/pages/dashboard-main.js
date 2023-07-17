@@ -152,7 +152,7 @@ const DashboardMain = () => {
         setShowError(true);
       } else {
         setJobs(response.data.data.content);
-        setPostedJobs(response.data.data.length);
+        setPostedJobs(response.data.data.content.length);
       }
     });
   }, []);

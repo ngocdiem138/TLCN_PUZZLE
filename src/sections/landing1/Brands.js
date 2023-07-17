@@ -15,7 +15,7 @@ const Brands = () => {
   }, [])
 
   const companyList = companys.map(company => {
-    return <a href="https://www.topcv.vn/cong-ty/cong-ty-tnhh-khu-du-lich-vinh-thien-duong-alma/3387.html" class="company-item" style={{"border":"1px solid #f4f4f4", "margin":"20px","height": "100px", "width":"167px", "alignItems": "center", "justifyContent": "center", "display": "flex"}}>
+    return <a href={"/company-details?id=" + company.id} class="company-item" style={{"border":"1px solid #f4f4f4", "margin":"20px","height": "100px", "width":"167px", "alignItems": "center", "justifyContent": "center", "display": "flex"}}>
       <img src={company.image ? company.image : imgB1} alt="Công ty TNHH Khu Du Lịch Vịnh Thiên Đường (ALMA)" class="lazy img-responsive" style={{"display": "block",  "width":"auto", "max-height": "100%", "padding-top":"auto", "padding-bottom":"auto"}}/>
       </a>
   });

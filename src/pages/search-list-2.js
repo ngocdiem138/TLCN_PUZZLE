@@ -66,7 +66,7 @@ const SearchGrid = () => {
         setSelectedOptions(city.id)
       }
     })
-    JobPostServiceIml.getJobByFilterParams({
+    JobPostServiceIml.getJobByFilterParamsSearch({
       titles: [searchParams.title],
       cities: [searchParams.city],
     }).then((response) => { setJobs(response.data.data); });
@@ -109,7 +109,7 @@ const SearchGrid = () => {
     setSucces("");
   };
   const getProducts = (variables) => {
-    JobPostServiceIml.getJobByFilterParams(variables).then((response) => { setJobs(response.data.data); });
+    JobPostServiceIml.getJobByFilterParamsSearch(variables).then((response) => { setJobs(response.data.data); });
   };
 
 
