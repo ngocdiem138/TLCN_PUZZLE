@@ -19,9 +19,9 @@ const IndexPage = () => {
       >
         <Hero />
         <FeaturedJobs />
-        <Categories />
+        {/* <Categories />
         <Content1 />
-        <Content2 />
+        <Content2 /> */}
         <Brands />
       </PageWrapper>
     </I18nextProvider>

@@ -1571,6 +1571,9 @@ h6 {
     display: flex;
 }
 
+.dzSubscribe .input-group {
+    display: flex;
+}
 .input-group {
     width: 100%;
 }
