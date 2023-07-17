@@ -85,7 +85,7 @@ const CompanyDeatails = () => {
                     <img src={job.company ? job.company.image : defaultCompanyImage} className="w-100" alt={job.company ? job.company.name : ""} title="Chuyên Viên Quan Hệ Khách Hàng - Khu Vực Hồ Chí Minh" />
                 </a>
                 <div className="tag-job-flash" data-toggle="tooltip-flash-job" data-trigger="manual" data-html="true" data-job-id="894092" data-template="<div data-job-id=894092 className=&quot;flash-job-tag-tooltip tooltip&quot; role=&quot;tooltip&quot;><div className=&quot;tooltip-arrow&quot;></div><div className=&quot;tooltip-inner&quot;></div></div>" title="" data-placement="top" data-container="body" data-original-title="<div>Tin đăng được NTD tương tác thường xuyên trong 24 giờ qua | <a className='flash-job-tag-tooltip-view-all' href='https://www.topcv.vn/huy-hieu-tia-set'>Xem tất cả</a> <i className='fa fa-chevron-right'></i></div>">
-                    <img src="https://www.topcv.vn/v4/image/job-list/icon-flash.webp" alt="" />
+                    <img src="#" alt="" />
                 </div>
             </div>
             <div className="body">
@@ -95,7 +95,7 @@ const CompanyDeatails = () => {
                             <h3 className="title">
                                 <div className="box-label-top">
                                 </div>
-                                <a target="_blank" href="https://www.topcv.vn/viec-lam/chuyen-vien-quan-he-khach-hang-khu-vuc-ho-chi-minh/894092.html?ta_source=JobListInNormalCompany">
+                                <a target="_blank" href={"/groups/job-details/" + job.id}>
                                     <span data-toggle="tooltip" data-container="body" data-placement="top" title="" data-original-title="Chuyên Viên Quan Hệ Khách Hàng - Khu Vực Hồ Chí Minh">{job.title}</span>
                                     <span className="icon-verified-employer level-five">
                                         <i className="fa-solid fa-circle-check icon-verified-employer-tooltip" data-toggle="tooltip" data-container="body" data-html="true" title="" data-placement="top" data-original-title="
