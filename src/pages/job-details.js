@@ -438,15 +438,17 @@ const JobDetails = () => {
                             About Company.{" "}
                           </p>
                           <div className="row">
-                            <div className="col-md-2 pr-lg-0 pl-lg-10 mb-lg-0 mb-8"  style={{ 'text-align': 'center', 'paddingLeft': '0px', 'cssText': 'padding-left: 0px !important;' }}>
-                              <div className="square-72 d-block mr-8" style={{"marginLeft": "1.5625rem"}}>
-                                <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
-                              </div>
-                              <div>
-                                <h3 className="font-size-6 mb-0"  style={{'text-align': 'center'}}>
-                                  {job.company ? job.company.name : ""}
-                                </h3>
-                              </div>
+                            <div className="col-md-2 pr-lg-0 pl-lg-10 mb-lg-0 mb-8" style={{ 'text-align': 'center', 'paddingLeft': '0px', 'cssText': 'padding-left: 0px !important;' }}>
+                              <a href={"/company-details?id=" + job.company.id}>
+                                <div className="square-72 d-block mr-8" style={{ "marginLeft": "1.5625rem" }}>
+                                  <img src={job.company ? job.company.image ? job.company.image : imgF1 : imgF1} alt="" />
+                                </div>
+                                <div>
+                                  <h3 className="font-size-6 mb-0" style={{ 'text-align': 'center' }}>
+                                    {job.company ? job.company.name : ""}
+                                  </h3>
+                                </div>
+                              </a>
                             </div>
                             <div className="col-md-10 pr-lg-0 pl-lg-10 mb-lg-0 mb-8">
                               <div dangerouslySetInnerHTML={{ __html: job.company ? job.company.description : "No more info" }} />
