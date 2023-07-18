@@ -95,7 +95,7 @@ const CompanyDeatails = () => {
                             <h3 className="title">
                                 <div className="box-label-top">
                                 </div>
-                                <a target="_blank" href={"/groups/job-details/" + job.id}>
+                                <Link target="_blank" to={"/groups/job-details/" + job.id}>
                                     <span data-toggle="tooltip" data-container="body" data-placement="top" title="" data-original-title="Chuyên Viên Quan Hệ Khách Hàng - Khu Vực Hồ Chí Minh">{job.title}</span>
                                     <span className="icon-verified-employer level-five">
                                         <i className="fa-solid fa-circle-check icon-verified-employer-tooltip" data-toggle="tooltip" data-container="body" data-html="true" title="" data-placement="top" data-original-title="
@@ -105,7 +105,7 @@ const CompanyDeatails = () => {
 <span><i className='fa-solid fa-circle-check color-green'></i> Đã được duyệt Giấy phép kinh doanh</span><br>
 <span><i className='fa-solid fa-circle-check color-green'></i> Tài khoản NTD được tạo tối thiểu 6 tháng</span><br>
 <span><i className='fa-solid fa-circle-check color-green'></i> Chưa có lịch sử bị báo cáo tin đăng</span><br>"></i></span>
-                                </a>
+                                </Link>
                             </h3>
                             <a className="company" href="#" data-toggle="tooltip" title="" data-placement="top" target="_blank" data-original-title={job.company ? job.company.name : job.company}>{job.company ? job.company.name : job.company}</a>
                         </div>
